@@ -1,0 +1,7 @@
+en:
+  telegram_webhooks:
+    start:
+      content: Hi there! Please give a short description of what you want to create. In any language.
+  errors:
+    chat_gpt:
+      no_response: "Sorry, I couldn't process your request. Please try again later."
