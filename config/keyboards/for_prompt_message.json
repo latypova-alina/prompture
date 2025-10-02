@@ -1,0 +1,10 @@
+{
+  "inline_keyboard": [
+    [
+      {
+        "text": "Mystic",
+        "callback_data": "mystic"
+      }
+    ]
+  ]
+}

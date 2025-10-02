@@ -1,6 +1,6 @@
 class ChatGptClient
   include Memery
-  
+
   API_URL = "https://api.openai.com/v1/chat/completions".freeze
   MODEL = "gpt-4o-mini".freeze
 
@@ -9,12 +9,10 @@ class ChatGptClient
   end
 
   def response_body
-    if response.success?
-      body = JSON.parse(response.body)
-      body.dig("choices", 0, "message", "content")
-    else
-      raise ChatGpt::NoResponseError
-    end
+    raise ChatGpt::NoResponseError unless response.success?
+
+    body = JSON.parse(response.body)
+    body.dig("choices", 0, "message", "content")
   end
 
   private

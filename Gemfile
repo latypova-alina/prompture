@@ -2,12 +2,12 @@ source "https://rubygems.org"
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 gem "dotenv-rails"
+gem "faraday"
+gem "interactor"
+gem "memery"
 gem "puma", "~> 6.0"
 gem "rails", "~> 8.0.3"
 gem "telegram-bot"
-gem "faraday"
-gem "memery"
-gem "interactor"
 
 group :development, :test do
   gem "byebug"
