@@ -19,7 +19,7 @@ class ExtendDescription
 
   def response_body
     chat_gpt_client.response_body
-  rescue ChatGpt::NoResponseError => e
+  rescue ChatGpt::NoResponseError
     I18n.t("errors.chat_gpt.no_response")
   end
 
@@ -28,6 +28,6 @@ class ExtendDescription
   end
 
   memoize def chat_gpt_client
-    ChatGptClient.new(messages)
+    Clients::ChatGpt::PromptGenerator.new(messages)
   end
 end

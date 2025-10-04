@@ -1,0 +1,10 @@
+{
+  "inline_keyboard": [
+    [
+      {
+        "text": "Mystic (Realistic, 0.1€)",
+        "callback_data": "mystic"
+      }
+    ]
+  ]
+}
