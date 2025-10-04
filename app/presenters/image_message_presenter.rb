@@ -11,6 +11,7 @@ class ImageMessagePresenter
   end
 
   def inline_keyboard
+    #TODO update to have "regenerate"
     Buttons::ForPromptMessage.buttons
   end
 

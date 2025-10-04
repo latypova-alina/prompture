@@ -14,6 +14,11 @@ class MessagePresenter < BasePresenter
   delegate :formatted_text, :inline_keyboard, to: :corresponding_class
 
   memoize def corresponding_class
-    PromptMessagePresenter.new(message)
+    case message_type
+    when "initial_message"
+      InitialMessagePresenter.new(message)
+    when "prompt_message"
+      PromptMessagePresenter.new(message)
+    end
   end
 end
