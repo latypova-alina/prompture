@@ -4,6 +4,7 @@ module Clients
       include Memery
 
       def initialize(task_id)
+        super()
         @task_id = task_id
       end
 

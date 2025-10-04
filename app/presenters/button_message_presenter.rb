@@ -6,6 +6,7 @@ class ButtonMessagePresenter < BasePresenter
   }.freeze
 
   def initialize(message, message_type, button_request)
+    super()
     @message = message
     @message_type = message_type
     @button_request = button_request

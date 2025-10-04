@@ -4,6 +4,7 @@ module Clients
       include Memery
 
       def initialize(prompt)
+        super()
         @prompt = prompt
       end
 

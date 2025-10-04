@@ -6,6 +6,7 @@ class MessagePresenter < BasePresenter
   }.freeze
 
   def initialize(message, message_type)
+    super()
     @message = message
     @message_type = message_type
   end
