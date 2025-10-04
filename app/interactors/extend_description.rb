@@ -28,6 +28,6 @@ class ExtendDescription
   end
 
   memoize def chat_gpt_client
-    ChatGptClient.new(messages)
+    Clients::ChatGpt::PromptGenerator.new(messages)
   end
 end

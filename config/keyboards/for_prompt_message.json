@@ -2,7 +2,7 @@
   "inline_keyboard": [
     [
       {
-        "text": "Mystic",
+        "text": "Mystic (Realistic, 0.1€)",
         "callback_data": "mystic"
       }
     ]

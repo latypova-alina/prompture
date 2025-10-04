@@ -1,12 +1,13 @@
 class ImageMessagePresenter
   include MessageInterface
 
-  def initialize(message)
+  def initialize(message, button_request)
     @message = message
+    @button_request = button_request
   end
 
   def formatted_text
-    "#{message}\n\nHello, this is an image message!"
+    "<a href=\"#{message}\">Open image</a>"
   end
 
   def inline_keyboard
@@ -15,5 +16,5 @@ class ImageMessagePresenter
 
   private
 
-  attr_reader :message
+  attr_reader :message, :button_request
 end
