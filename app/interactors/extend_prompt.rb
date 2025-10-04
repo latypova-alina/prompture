@@ -1,11 +1,11 @@
-class ExtendDescription
+class ExtendPrompt
   include Interactor
   include Memery
 
-  delegate :message, to: :context
+  delegate :prompt, to: :context
 
   def call
-    context.description = response_body
+    context.extended_prompt = response_body
   end
 
   private
@@ -13,7 +13,7 @@ class ExtendDescription
   def messages
     [
       { "role" => "system", "content" => system_prompt },
-      { "role" => "user", "content" => message["text"] }
+      { "role" => "user", "content" => prompt }
     ]
   end
 

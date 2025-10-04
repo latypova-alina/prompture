@@ -6,18 +6,17 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
   end
 
   def message(message)
-    extended_description = ExtendedDescription.new(message).description
-    session[:extended_description] = extended_description
+    session[:prompt] = message
 
     respond_with :message, MessagePresenter.new(
-      extended_description,
+      message["text"],
       "prompt_message"
     ).reply_data
   end
 
   def callback_query(button_request)
-    extended_description = session[:extended_description] || raise(::PromptForgottenError)
-
+    update_prompt(button_request)
+    
     image_url = ImageProcessor.new(extended_description, button_request).image_url
 
     respond_with :message, ButtonMessagePresenter.new(
@@ -25,7 +24,15 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
       "image_message",
       button_request
     ).reply_data
-  rescue PromptForgottenError
+  rescue PromptForgottenError, ChatGpt::NoResponseError
     respond_with :message, text: I18n.t("errors.prompt_forgotten")
+  end
+
+  private
+
+  def update_prompt(button_request)
+    return unless button_request == "extend_description"
+
+    session[:prompt] = ExtendedPrompt.new(session[:prompt]).extended_prompt
   end
 end

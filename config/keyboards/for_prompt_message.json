@@ -2,6 +2,12 @@
   "inline_keyboard": [
     [
       {
+        "text": "Extend prompt",
+        "callback_data": "extend_prompt"
+      }
+    ],
+    [
+      {
         "text": "Mystic (Realistic, 0.1€)",
         "callback_data": "mystic"
       }
