@@ -13,7 +13,7 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
 
   def callback_query(button_request)
     strategy = Strategies::Selector.new(button_request, safe_session).strategy
-        
+
     respond_with :message, strategy.reply_data
   rescue PromptForgottenError, ChatGpt::NoResponseError
     respond_with :message, text: I18n.t("errors.prompt_forgotten")

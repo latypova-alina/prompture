@@ -3,7 +3,7 @@ module Strategies
     def initialize(session)
       @raw_prompt = session["prompt"]
       @session = session
-      
+
       update_session
     end
 

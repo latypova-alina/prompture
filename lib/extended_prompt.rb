@@ -8,7 +8,7 @@ class ExtendedPrompt
 
   def extended_prompt
     return prompt unless button_request == VALID_REQUEST
-    
+
     ExtendPrompt.call(prompt:).extended_prompt
   end
 
