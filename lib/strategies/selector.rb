@@ -12,7 +12,7 @@ module Strategies
       when "extend_prompt"
         ExtendPrompt.new(session)
       when *IMAGE_ACTIONS
-        GenerateImage.new(session["prompt"], button_request)
+        GenerateImage.new(session, button_request)
       end
     end
   
