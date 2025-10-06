@@ -1,9 +1,20 @@
 module Buttons
   class ForInitialMessage < Base
-    JSON_FILE_PATH = "config/keyboards/for_initial_message.json".freeze
-
     def self.buttons
-      JSON.parse(File.read(JSON_FILE_PATH))["inline_keyboard"]
+      [
+        [
+          {
+            "text": "Extend prompt",
+            "callback_data": "extend_prompt"
+          }
+        ],
+        [
+          {
+            "text": "Mystic (Realistic, 0.1€)",
+            "callback_data": "mystic_image"
+          }
+        ]
+      ]
     end
   end
 end

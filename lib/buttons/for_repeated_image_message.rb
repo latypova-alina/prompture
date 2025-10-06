@@ -1,9 +1,14 @@
 module Buttons
   class ForRepeatedImageMessage < Base
-    JSON_FILE_PATH = "config/keyboards/for_repeated_image_message.json".freeze
-
     def self.buttons
-      JSON.parse(File.read(JSON_FILE_PATH))["inline_keyboard"]
+      [
+        [
+          {
+            "text": "Regenerate Mystic (Realistic, 0.1€)",
+            "callback_data": "mystic_image"
+          }
+        ]
+      ]
     end
   end
 end
