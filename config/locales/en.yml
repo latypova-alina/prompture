@@ -4,7 +4,7 @@ en:
       content: Hi there! Please give a short description of what you want to create. In any language.
     message:
       prompt_prefix: "Here is your prompt:"
-      prompt_suffix: What you want to do next?
+      prompt_suffix: What do you want to do next?
   errors:
     prompt_forgotten: "Please provide the description again"
     chat_gpt:
