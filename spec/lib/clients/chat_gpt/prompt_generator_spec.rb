@@ -2,7 +2,9 @@ require "rails_helper"
 
 describe Clients::ChatGpt::PromptGenerator do
   let(:system_prompt) do
-    "You are a prompt enhancer. Take the user’s short idea and rewrite it into a detailed, vivid English prompt suitable for an image generator. Focus on subject, setting, mood, and visual details, in one or two sentences."
+    "You are a prompt enhancer. Take the user’s short idea and rewrite it into a detailed, "\
+    "vivid English prompt suitable for an image generator. Focus on subject, setting, mood, "\
+    "and visual details, in one or two sentences."
   end
   let(:user_prompt) { "Little kitten goes to school" }
   let(:messages) do
