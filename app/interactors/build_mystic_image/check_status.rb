@@ -7,18 +7,23 @@ module BuildMysticImage
 
     FINISHED_STATUS = "COMPLETED".freeze
     FAILED_STATUS = "FAILED".freeze
+    SLEEP_INTERVAL  = 3
+    MAX_ATTEMPTS    = (5 * 60 / SLEEP_INTERVAL).freeze
 
     def call
-      loop do
-        sleep 3
+      MAX_ATTEMPTS.times do
+        sleep SLEEP_INTERVAL
 
-        if status == FINISHED_STATUS
+        case status
+        when FINISHED_STATUS
           context.image_url = mystic_client.image_url
-          break
+          return
+        when FAILED_STATUS
+          raise Mystic::ImageGenerationFailed
         end
-
-        raise Mystic::ImageGenerationFailed if status == FAILED_STATUS
       end
+
+      raise Mystic::ImageGenerationTimeout
     end
 
     private
