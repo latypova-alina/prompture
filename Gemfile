@@ -16,8 +16,8 @@ group :development, :test do
 end
 
 group :test do
-  gem "vcr"
   gem "rspec-rails", "~> 6.1.0"
+  gem "vcr"
 end
 
 group :development do

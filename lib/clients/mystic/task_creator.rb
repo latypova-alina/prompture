@@ -16,7 +16,7 @@ module Clients
 
       attr_reader :prompt
 
-      def response
+      memoize def response
         connection.post { |req| req.body = payload.to_json }
       end
 
