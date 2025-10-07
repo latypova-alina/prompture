@@ -23,7 +23,7 @@ module Clients
 
       delegate :connection, to: :chat_gpt_connection
 
-      def response
+      memoize def response
         connection.post do |req|
           req.body = {
             model: MODEL,
