@@ -10,6 +10,14 @@ describe Clients::Mystic::TaskRetriever, :vcr do
         expect(task_retriever.status).to eq("COMPLETED")
       end
     end
+
+    context "when response is not success" do
+      it "raises a Mystic::ResponseError" do
+        VCR.use_cassette("mystic_task_retriever_error") do
+          expect { task_retriever.status }.to raise_error(::Mystic::ResponseError)
+        end
+      end
+    end
   end
 
   describe "#image_url" do
@@ -20,6 +28,14 @@ describe Clients::Mystic::TaskRetriever, :vcr do
     it "returns the image URL from the response" do
       VCR.use_cassette("mystic_task_retriever_success") do
         expect(task_retriever.image_url).to eq(image_url)
+      end
+    end
+
+    context "when response is not success" do
+      it "raises a Mystic::ResponseError" do
+        VCR.use_cassette("mystic_task_retriever_error") do
+          expect { task_retriever.image_url }.to raise_error(::Mystic::ResponseError)
+        end
       end
     end
   end

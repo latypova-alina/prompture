@@ -28,14 +28,14 @@ describe ExtendPrompt, type: :interactor do
       expect(interactor.extended_prompt).to eq("Extended prompt text")
     end
 
-    context "when ChatGPT client raises NoResponseError" do
+    context "when ChatGPT client raises ResponseError" do
       before do
         allow(Clients::ChatGpt::PromptGenerator).to receive(:new)
-          .and_raise(ChatGpt::NoResponseError)
+          .and_raise(ChatGpt::ResponseError)
       end
 
-      it "sets context.extended_prompt to the fallback error message" do
-        expect(interactor.extended_prompt).to eq("Sorry, I couldn't process your request. Please try again later.")
+      it "raises ChatGpt::ResponseError" do
+        expect { interactor.extended_prompt }.to raise_error(ChatGpt::ResponseError)
       end
     end
   end

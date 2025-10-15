@@ -1,5 +1,6 @@
 class TelegramWebhooksController < Telegram::Bot::UpdatesController
   include Telegram::Bot::UpdatesController::MessageContext
+  include ErrorHandler
 
   def start!(*)
     respond_with :message, text: t("telegram_webhooks.start.content")
@@ -15,8 +16,6 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
     strategy = Strategies::Selector.new(button_request, safe_session).strategy
 
     respond_with :message, strategy.reply_data
-  rescue PromptForgottenError, ChatGpt::NoResponseError
-    respond_with :message, text: I18n.t("errors.prompt_forgotten")
   end
 
   private

@@ -11,7 +11,7 @@ module Clients
       end
 
       def response_body
-        raise ::ChatGpt::NoResponseError unless response.success?
+        raise ::ChatGpt::ResponseError unless response.success?
 
         body = JSON.parse(response.body)
         body.dig("choices", 0, "message", "content")

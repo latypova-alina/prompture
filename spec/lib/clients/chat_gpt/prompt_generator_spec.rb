@@ -34,9 +34,10 @@ describe Clients::ChatGpt::PromptGenerator do
     end
 
     context "when the response is not successful" do
-      it "raises a NoResponseError" do
-        allow_any_instance_of(Faraday::Response).to receive(:success?).and_return(false)
-        expect { prompt_generator.response_body }.to raise_error(::ChatGpt::NoResponseError)
+      it "raises a ResponseError" do
+        VCR.use_cassette("chat_gpt_response_error") do
+          expect { prompt_generator.response_body }.to raise_error(::ChatGpt::ResponseError)
+        end
       end
     end
   end

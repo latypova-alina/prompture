@@ -14,7 +14,7 @@ module Clients
       end
 
       def response_body
-        raise ::Mystic::NoResponseError unless response.success?
+        raise ::Mystic::ResponseError unless response.success?
 
         JSON.parse(response.body)
       end
