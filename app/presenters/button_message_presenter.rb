@@ -5,21 +5,20 @@ class ButtonMessagePresenter < BasePresenter
     "image_message" => ::ImageMessagePresenter
   }.freeze
 
-  def initialize(message, message_type, button_request, regenerate = false)
+  def initialize(message, message_type, button_request)
     super()
     @message = message
     @message_type = message_type
     @button_request = button_request
-    @regenerate = regenerate
   end
 
   private
 
-  attr_reader :message, :message_type, :button_request, :regenerate
+  attr_reader :message, :message_type, :button_request
 
   delegate :formatted_text, :inline_keyboard, to: :corresponding_class
 
   memoize def corresponding_class
-    PRESENTER_CLASSES[message_type].new(message, button_request, regenerate)
+    PRESENTER_CLASSES[message_type].new(message, button_request)
   end
 end

@@ -1,12 +1,12 @@
 require "rails_helper"
 
-describe Buttons::ForRepeatedImageMessage do
+describe Buttons::ForImageMessage do
   describe ".buttons" do
     let(:expected_buttons) do
       [
         [
           {
-            "text": "Regenerate Mystic (0.1€)",
+            "text": "Mystic (0.1€)",
             "callback_data": "mystic_image"
           }
         ]

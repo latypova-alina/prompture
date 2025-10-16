@@ -106,7 +106,7 @@ describe TelegramWebhooksController, telegram_bot: :rails do
       let(:expected_markup) do
         {
           inline_keyboard: [
-            [{ text: "Regenerate Mystic (0.1€)", callback_data: "mystic_image" }]
+            [{ text: "Mystic (0.1€)", callback_data: "mystic_image" }]
           ]
         }
       end

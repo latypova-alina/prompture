@@ -3,6 +3,8 @@ module Clients
     class TaskCreator < BaseApiRequest
       include Memery
 
+      VERTICAL_IMAGE_URL = "https://prompture.s3.eu-central-1.amazonaws.com/vertical.jpg".freeze
+
       def initialize(prompt)
         super()
         @prompt = prompt
@@ -21,7 +23,10 @@ module Clients
       end
 
       def payload
-        { prompt: }
+        {
+          prompt: prompt + "\nThe same ratio as reference image.",
+          reference_images: [VERTICAL_IMAGE_URL]
+        }
       end
     end
   end
