@@ -20,7 +20,7 @@ module Clients
 
       attr_reader :task_id
 
-      memoize def response
+      def response
         connection.get(task_id)
       end
     end
