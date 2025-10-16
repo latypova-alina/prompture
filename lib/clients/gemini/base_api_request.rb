@@ -1,20 +1,20 @@
 module Clients
-  module Mystic
+  module Gemini
     class BaseApiRequest
       include Memery
 
-      API_URL = "https://api.freepik.com/v1/ai/mystic".freeze
+      API_URL = "https://api.freepik.com/v1/ai/gemini-2-5-flash-image-preview".freeze
 
       private
 
-      delegate :connection, to: :mystic_connection
+      delegate :connection, to: :gemini_connection
 
       def response
         raise NotImplementedError
       end
 
       def response_body
-        raise ::Freepik::ResponseError unless response.success?
+        raise ::Gemini::ResponseError unless response.success?
 
         JSON.parse(response.body)
       end
@@ -23,7 +23,7 @@ module Clients
         self.class::API_URL
       end
 
-      memoize def mystic_connection
+      memoize def gemini_connection
         Connection.new(api_url)
       end
     end

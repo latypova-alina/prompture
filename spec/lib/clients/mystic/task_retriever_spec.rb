@@ -12,9 +12,9 @@ describe Clients::Mystic::TaskRetriever, :vcr do
     end
 
     context "when response is not success" do
-      it "raises a Mystic::ResponseError" do
+      it "raises a Freepik::ResponseError" do
         VCR.use_cassette("mystic_task_retriever_error") do
-          expect { task_retriever.status }.to raise_error(::Mystic::ResponseError)
+          expect { task_retriever.status }.to raise_error(::Freepik::ResponseError)
         end
       end
     end
@@ -32,9 +32,9 @@ describe Clients::Mystic::TaskRetriever, :vcr do
     end
 
     context "when response is not success" do
-      it "raises a Mystic::ResponseError" do
+      it "raises a Freepik::ResponseError" do
         VCR.use_cassette("mystic_task_retriever_error") do
-          expect { task_retriever.image_url }.to raise_error(::Mystic::ResponseError)
+          expect { task_retriever.image_url }.to raise_error(::Freepik::ResponseError)
         end
       end
     end

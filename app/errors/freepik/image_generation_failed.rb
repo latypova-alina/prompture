@@ -1,3 +1,3 @@
-module Mystic
+module Freepik
   class ImageGenerationFailed < StandardError; end
 end

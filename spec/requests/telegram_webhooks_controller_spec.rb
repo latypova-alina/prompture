@@ -27,7 +27,7 @@ describe TelegramWebhooksController, telegram_bot: :rails do
       {
         inline_keyboard: [
           [{ text: "Extend prompt", callback_data: "extend_prompt" }],
-          [{ text: "Mystic (Realistic, 0.1€)", callback_data: "mystic_image" }]
+          [{ text: "Mystic (0.1€)", callback_data: "mystic_image" }]
         ]
       }
     end
@@ -68,7 +68,7 @@ describe TelegramWebhooksController, telegram_bot: :rails do
       let(:expected_markup) do
         {
           inline_keyboard: [
-            [{ text: "Mystic (Realistic, 0.1€)", callback_data: "mystic_image" }]
+            [{ text: "Mystic (0.1€)", callback_data: "mystic_image" }]
           ]
         }
       end
@@ -106,7 +106,7 @@ describe TelegramWebhooksController, telegram_bot: :rails do
       let(:expected_markup) do
         {
           inline_keyboard: [
-            [{ text: "Regenerate Mystic (Realistic, 0.1€)", callback_data: "mystic_image" }]
+            [{ text: "Regenerate Mystic (0.1€)", callback_data: "mystic_image" }]
           ]
         }
       end

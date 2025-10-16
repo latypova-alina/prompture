@@ -6,7 +6,7 @@ describe Buttons::ForPromptMessage do
       [
         [
           {
-            "text": "Mystic (Realistic, 0.1€)",
+            "text": "Mystic (0.1€)",
             "callback_data": "mystic_image"
           }
         ]

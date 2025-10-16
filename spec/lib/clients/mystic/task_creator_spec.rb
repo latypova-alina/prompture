@@ -12,9 +12,9 @@ describe Clients::Mystic::TaskCreator do
     end
 
     context "when response is not success" do
-      it "raises a Mystic::ResponseError" do
+      it "raises a Freepik::ResponseError" do
         VCR.use_cassette("mystic_task_creator_error") do
-          expect { task_creator.task_id }.to raise_error(::Mystic::ResponseError)
+          expect { task_creator.task_id }.to raise_error(::Freepik::ResponseError)
         end
       end
     end

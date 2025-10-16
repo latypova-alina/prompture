@@ -2,7 +2,8 @@ class ImageProcessor
   include Memery
 
   IMAGE_PROCESSORS = {
-    "mystic_image" => ::MysticImageProcessor
+    "mystic_image" => ::MysticImageProcessor,
+    "gemini_image" => ::GeminiImageProcessor
   }.freeze
 
   def initialize(prompt, processor_type)

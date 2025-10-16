@@ -4,9 +4,9 @@ module ErrorHandler
   included do
     rescue_from PromptForgottenError, with: :handle_prompt_forgotten
     rescue_from ChatGpt::ResponseError, with: :handle_external_service_error
-    rescue_from Mystic::ResponseError, with: :handle_external_service_error
-    rescue_from Mystic::ImageGenerationFailed, with: :handle_image_generating_error
-    rescue_from Mystic::ImageGenerationTimeout, with: :handle_image_generating_timeout_error
+    rescue_from Freepik::ResponseError, with: :handle_external_service_error
+    rescue_from Freepik::ImageGenerationFailed, with: :handle_image_generating_error
+    rescue_from Freepik::ImageGenerationTimeout, with: :handle_image_generating_timeout_error
   end
 
   private

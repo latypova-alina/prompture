@@ -4,8 +4,14 @@ module Buttons
       [
         [
           {
-            "text": "Mystic (Realistic, 0.1€)",
+            "text": "Mystic (0.1€)",
             "callback_data": "mystic_image"
+          }
+        ],
+        [
+          {
+            "text": "Gemini (0.04€)",
+            "callback_data": "gemini_image"
           }
         ]
       ]

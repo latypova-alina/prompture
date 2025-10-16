@@ -20,7 +20,7 @@ describe MessagePresenter do
           [
             {
               callback_data: "mystic_image",
-              text: "Mystic (Realistic, 0.1€)"
+              text: "Mystic (0.1€)"
             }
           ]
         ]
@@ -44,7 +44,7 @@ describe MessagePresenter do
               [
                 {
                   callback_data: "mystic_image",
-                  text: "Mystic (Realistic, 0.1€)"
+                  text: "Mystic (0.1€)"
                 }
               ]
             ]

@@ -6,7 +6,7 @@ describe Buttons::ForRepeatedImageMessage do
       [
         [
           {
-            "text": "Regenerate Mystic (Realistic, 0.1€)",
+            "text": "Regenerate Mystic (0.1€)",
             "callback_data": "mystic_image"
           }
         ]
