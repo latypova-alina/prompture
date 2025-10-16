@@ -1,0 +1,20 @@
+module Buttons
+  class ForInitialMessage < Base
+    def self.buttons
+      [
+        [
+          {
+            "text": "Extend prompt",
+            "callback_data": "extend_prompt"
+          }
+        ],
+        [
+          {
+            "text": "Mystic (Realistic, 0.1€)",
+            "callback_data": "mystic_image"
+          }
+        ]
+      ]
+    end
+  end
+end

@@ -30,6 +30,9 @@ Style/Documentation:
 Style/ClassAndModuleChildren:
   Enabled: false
 
+Style/OptionalBooleanParameter:
+  Enabled: false
+
 Naming/MemoizedInstanceVariableName:
   EnforcedStyleForLeadingUnderscores: optional
 
