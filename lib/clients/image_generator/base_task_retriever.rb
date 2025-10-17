@@ -1,6 +1,6 @@
 module Clients
-  module Gemini
-    class TaskRetriever < BaseApiRequest
+  module ImageGenerator
+    class BaseTaskRetriever < BaseApiRequest
       include Memery
 
       def initialize(task_id)

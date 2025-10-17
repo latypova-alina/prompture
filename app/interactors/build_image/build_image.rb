@@ -1,5 +1,5 @@
-module BuildGeminiImage
-  class BuildGeminiImage
+module BuildImage
+  class BuildImage
     include Interactor::Organizer
 
     organize CreateTask, CheckStatus

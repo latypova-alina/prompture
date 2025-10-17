@@ -1,6 +1,6 @@
 module Clients
-  module Mystic
-    class TaskCreator < BaseApiRequest
+  module ImageGenerator
+    class BaseTaskCreator < BaseApiRequest
       include Memery
 
       def initialize(prompt)
@@ -14,16 +14,12 @@ module Clients
 
       private
 
-      attr_reader :prompt
-
       memoize def response
         connection.post { |req| req.body = payload.to_json }
       end
 
       def payload
-        JSON.parse(
-          File.read(Rails.root.join("config/payloads/mystic/zen_payload.json"))
-        ).merge(prompt:)
+        raise NotImplementedError
       end
     end
   end

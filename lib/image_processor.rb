@@ -1,23 +1,18 @@
 class ImageProcessor
-  include Memery
-
-  IMAGE_PROCESSORS = {
-    "mystic_image" => ::MysticImageProcessor,
-    "gemini_image" => ::GeminiImageProcessor
-  }.freeze
-
   def initialize(prompt, processor_type)
     @prompt = prompt
     @processor_type = processor_type
   end
 
-  delegate :image_url, to: :corresponding_processor
+  def image_url
+    result = BuildImage::BuildImage.call(prompt:, processor_type:)
+
+    return nil if result.failure?
+
+    result.image_url.last
+  end
 
   private
 
   attr_reader :prompt, :processor_type
-
-  memoize def corresponding_processor
-    IMAGE_PROCESSORS[processor_type].new(prompt)
-  end
 end
