@@ -1,6 +1,6 @@
 require "rails_helper"
 
-describe Clients::Mystic::TaskRetriever, :vcr do
+describe Clients::ImageGenerator::MysticTaskRetriever, :vcr do
   let(:task_id) { "0a5f0976-011d-411e-abdf-8da8bd07ef9e" }
   let(:task_retriever) { described_class.new(task_id) }
 

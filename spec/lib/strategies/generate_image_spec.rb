@@ -16,7 +16,7 @@ describe Strategies::GenerateImage do
         .with("generate image prompt", processor_type).and_return(processor_object)
 
       allow(ButtonMessagePresenter).to receive(:new)
-        .with("https://example.com/image.png", "image_message", processor_type, true).and_return(presenter_object)
+        .with("https://example.com/image.png", "image_message", processor_type).and_return(presenter_object)
     end
 
     it { is_expected.to eq("reply data") }

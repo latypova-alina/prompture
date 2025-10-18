@@ -14,6 +14,12 @@ describe ButtonMessagePresenter do
         inline_keyboard: [
           [
             {
+              callback_data: "gemini_image",
+              text: "Gemini (0.04€)"
+            }
+          ],
+          [
+            {
               callback_data: "mystic_image",
               text: "Mystic (0.1€)"
             }

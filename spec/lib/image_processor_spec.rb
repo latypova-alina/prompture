@@ -11,7 +11,7 @@ describe ImageProcessor do
     subject { super().image_url }
 
     before do
-      allow_any_instance_of(MysticImageProcessor).to receive(:image_url).and_return(image_url)
+      allow_any_instance_of(ImageProcessor).to receive(:image_url).and_return(image_url)
     end
 
     it { is_expected.to eq("http://example.com/image.png") }

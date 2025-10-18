@@ -12,7 +12,7 @@ module Clients
       end
 
       def response_body
-        raise ::ImageGenerator::ResponseError unless response.success?
+        raise ::Freepik::ResponseError unless response.success?
 
         JSON.parse(response.body)
       end

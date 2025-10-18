@@ -1,6 +1,6 @@
 require "rails_helper"
 
-describe Clients::Mystic::TaskCreator do
+describe Clients::ImageGenerator::MysticTaskCreator do
   let(:prompt) { "little kitten goes to school" }
   let(:task_creator) { described_class.new(prompt) }
 

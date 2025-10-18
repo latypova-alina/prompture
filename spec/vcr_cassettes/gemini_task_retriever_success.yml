@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: get
-    uri: https://api.freepik.com/v1/ai/mystic/0a5f0976-011d-411e-abdf-8da8bd07ef9e
+    uri: https://api.freepik.com/v1/ai/gemini-2-5-flash-image-preview/14fc0c3d-4923-47bc-ae2c-b071542db9a2
     body:
       encoding: US-ASCII
       string: ''
@@ -23,25 +23,25 @@ http_interactions:
       content-type:
       - application/json
       x-ratelimit-limit:
-      - '5'
+      - '300'
       x-ratelimit-remaining:
-      - '4'
+      - '299'
       x-ratelimit-reset:
-      - '1'
+      - '60'
       x-request-id:
-      - ak-XXXXX
+      - ak-8744bf696b3287728bfcb7674dd5d256
       vary:
       - Accept-Encoding
       expires:
-      - Tue, 07 Oct 2025 16:13:33 GMT
+      - Sat, 18 Oct 2025 00:06:16 GMT
       cache-control:
       - max-age=0, no-cache, no-store
       pragma:
       - no-cache
       date:
-      - Tue, 07 Oct 2025 16:13:33 GMT
+      - Sat, 18 Oct 2025 00:06:16 GMT
       content-length:
-      - '330'
+      - '294'
       connection:
       - keep-alive
       alt-svc:
@@ -50,11 +50,11 @@ http_interactions:
       - max-age=31536000 ; includeSubDomains ; preload
     body:
       encoding: UTF-8
-      string: '{"data":{"task_id":"0a5f0976-011d-411e-abdf-8da8bd07ef9e","status":"COMPLETED","generated":["https://ai-statics.freepik.com/content/mg-upscaler/uayccbiybndebh7v2izx6fy6oe/8c3bb0e2-a6c8-4eaf-9fd2-456b1fe5fe91_192d7016-d79f-4716-8870-40431cf00a98.png?token=exp=1759938722~hmac=8e074ea85722b1fec3e8f3c15c1a97b1"],"has_nsfw":[false]}}'
-  recorded_at: Tue, 07 Oct 2025 16:13:33 GMT
+      string: '{"data":{"task_id":"14fc0c3d-4923-47bc-ae2c-b071542db9a2","status":"COMPLETED","generated":["https://cdn-magnific.freepik.com/result_NANO_BANANA_14fc0c3d-4923-47bc-ae2c-b071542db9a2_0.png?token=exp=1760749154~hmac=69edca884ff7316584f76f40d729c4985f37921e92adc03b9497879913126a00&size=stable"]}}'
+  recorded_at: Sat, 18 Oct 2025 00:06:16 GMT
 - request:
     method: get
-    uri: https://api.freepik.com/v1/ai/mystic/0a5f0976-011d-411e-abdf-8da8bd07ef9e
+    uri: https://api.freepik.com/v1/ai/gemini-2-5-flash-image-preview/14fc0c3d-4923-47bc-ae2c-b071542db9a2
     body:
       encoding: US-ASCII
       string: ''
@@ -75,25 +75,25 @@ http_interactions:
       content-type:
       - application/json
       x-ratelimit-limit:
-      - '5'
+      - '300'
       x-ratelimit-remaining:
-      - '4'
+      - '298'
       x-ratelimit-reset:
-      - '1'
+      - '60'
       x-request-id:
-      - ak-XXXXX
+      - ak-5593e359bc5d0a95016de68cb823a824
       vary:
       - Accept-Encoding
       expires:
-      - Tue, 07 Oct 2025 16:13:33 GMT
+      - Sat, 18 Oct 2025 00:06:16 GMT
       cache-control:
       - max-age=0, no-cache, no-store
       pragma:
       - no-cache
       date:
-      - Tue, 07 Oct 2025 16:13:33 GMT
+      - Sat, 18 Oct 2025 00:06:16 GMT
       content-length:
-      - '330'
+      - '294'
       connection:
       - keep-alive
       alt-svc:
@@ -102,5 +102,6 @@ http_interactions:
       - max-age=31536000 ; includeSubDomains ; preload
     body:
       encoding: UTF-8
-      string: '{"data":{"task_id":"0a5f0976-011d-411e-abdf-8da8bd07ef9e","status":"COMPLETED","generated":["https://ai-statics.freepik.com/content/mg-upscaler/uayccbiybndebh7v2izx6fy6oe/8c3bb0e2-a6c8-4eaf-9fd2-456b1fe5fe91_192d7016-d79f-4716-8870-40431cf00a98.png?token=exp=1759938722~hmac=8e074ea85722b1fec3e8f3c15c1a97b1"],"has_nsfw":[false]}}'
-  recorded_at: Tue, 07 Oct 2025 16:13:33 GMT
+      string: '{"data":{"task_id":"14fc0c3d-4923-47bc-ae2c-b071542db9a2","status":"COMPLETED","generated":["https://cdn-magnific.freepik.com/result_NANO_BANANA_14fc0c3d-4923-47bc-ae2c-b071542db9a2_0.png?token=exp=1760749154~hmac=69edca884ff7316584f76f40d729c4985f37921e92adc03b9497879913126a00&size=stable"]}}'
+  recorded_at: Sat, 18 Oct 2025 00:06:16 GMT
+recorded_with: VCR 6.3.1

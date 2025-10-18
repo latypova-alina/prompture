@@ -1,0 +1,56 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://api.freepik.com/v1/ai/gemini-2-5-flash-image-preview
+    body:
+      encoding: UTF-8
+      string: '{"prompt":"little kitten goes to school\nThe same ratio as reference
+        image.","reference_images":["https://prompture.s3.eu-central-1.amazonaws.com/vertical.jpg"]}'
+    headers:
+      Content-Type:
+      - application/json
+      Accept:
+      - application/json
+      x-freepik-api-key:
+      - FREEPIK_API_KEY
+      User-Agent:
+      - Faraday v2.14.0
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      content-type:
+      - application/json
+      x-ratelimit-limit:
+      - '300'
+      x-ratelimit-remaining:
+      - '299'
+      x-ratelimit-reset:
+      - '60'
+      x-request-id:
+      - ak-b7b2c4074fa414d556861975ba906844
+      vary:
+      - Accept-Encoding
+      expires:
+      - Fri, 17 Oct 2025 23:59:02 GMT
+      cache-control:
+      - max-age=0, no-cache, no-store
+      pragma:
+      - no-cache
+      date:
+      - Fri, 17 Oct 2025 23:59:02 GMT
+      content-length:
+      - '93'
+      connection:
+      - keep-alive
+      alt-svc:
+      - h3=":443"; ma=93600
+      strict-transport-security:
+      - max-age=31536000 ; includeSubDomains ; preload
+    body:
+      encoding: UTF-8
+      string: '{"data":{"task_id":"14fc0c3d-4923-47bc-ae2c-b071542db9a2","status":"CREATED","generated":[]}}'
+  recorded_at: Fri, 17 Oct 2025 23:59:02 GMT
+recorded_with: VCR 6.3.1

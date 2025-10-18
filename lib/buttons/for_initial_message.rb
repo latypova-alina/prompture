@@ -1,5 +1,6 @@
 module Buttons
   class ForInitialMessage < Base
+    # rubocop:disable Metrics/MethodLength
     def self.buttons
       [
         [
@@ -22,5 +23,6 @@ module Buttons
         ]
       ]
     end
+    # rubocop:enable Metrics/MethodLength
   end
 end
