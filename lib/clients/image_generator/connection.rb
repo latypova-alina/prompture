@@ -1,5 +1,5 @@
 module Clients
-  module Mystic
+  module ImageGenerator
     class Connection
       include Memery
 

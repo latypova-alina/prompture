@@ -6,8 +6,6 @@ module Strategies
       @prompt = session["prompt"]
       @session = session
       @processor_type = processor_type
-
-      update_session
     end
 
     delegate :reply_data, to: :presenter
@@ -19,15 +17,13 @@ module Strategies
     delegate :image_url, to: :image_processor
 
     def presenter
-      ButtonMessagePresenter.new(image_url, "image_message", processor_type, session["regenerate"])
+      raise PromptForgottenError if prompt.blank?
+
+      ButtonMessagePresenter.new(image_url, "image_message", processor_type)
     end
 
     def image_processor
       ImageProcessor.new(prompt, processor_type)
-    end
-
-    def update_session
-      session["regenerate"] = true
     end
   end
 end

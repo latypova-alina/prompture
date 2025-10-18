@@ -12,7 +12,13 @@ describe Buttons::ForInitialMessage do
         ],
         [
           {
-            "text": "Mystic (Realistic, 0.1€)",
+            "text": "Gemini (0.04€)",
+            "callback_data": "gemini_image"
+          }
+        ],
+        [
+          {
+            "text": "Mystic (0.1€)",
             "callback_data": "mystic_image"
           }
         ]

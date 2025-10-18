@@ -27,7 +27,8 @@ describe TelegramWebhooksController, telegram_bot: :rails do
       {
         inline_keyboard: [
           [{ text: "Extend prompt", callback_data: "extend_prompt" }],
-          [{ text: "Mystic (Realistic, 0.1€)", callback_data: "mystic_image" }]
+          [{ text: "Gemini (0.04€)", callback_data: "gemini_image" }],
+          [{ text: "Mystic (0.1€)", callback_data: "mystic_image" }]
         ]
       }
     end
@@ -68,7 +69,8 @@ describe TelegramWebhooksController, telegram_bot: :rails do
       let(:expected_markup) do
         {
           inline_keyboard: [
-            [{ text: "Mystic (Realistic, 0.1€)", callback_data: "mystic_image" }]
+            [{ text: "Gemini (0.04€)", callback_data: "gemini_image" }],
+            [{ text: "Mystic (0.1€)", callback_data: "mystic_image" }]
           ]
         }
       end
@@ -106,7 +108,8 @@ describe TelegramWebhooksController, telegram_bot: :rails do
       let(:expected_markup) do
         {
           inline_keyboard: [
-            [{ text: "Regenerate Mystic (Realistic, 0.1€)", callback_data: "mystic_image" }]
+            [{ text: "Gemini (0.04€)", callback_data: "gemini_image" }],
+            [{ text: "Mystic (0.1€)", callback_data: "mystic_image" }]
           ]
         }
       end
@@ -173,7 +176,7 @@ describe TelegramWebhooksController, telegram_bot: :rails do
         include_context "stub retrieve mystic task with IN_PROGRESS status"
 
         before do
-          allow_any_instance_of(BuildMysticImage::CheckStatus).to receive(:sleep)
+          allow_any_instance_of(BuildImage::CheckStatus).to receive(:sleep)
         end
 
         it "returns error message" do

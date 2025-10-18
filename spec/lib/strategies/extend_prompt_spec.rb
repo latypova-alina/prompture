@@ -1,7 +1,7 @@
 require "rails_helper"
 
 describe Strategies::ExtendPrompt do
-  let(:session) { { "prompt" => "generate image prompt", "regenerate" => true } }
+  let(:session) { { "prompt" => "generate image prompt" } }
   let(:extended_prompt_object) { double(extended_prompt: "extended image prompt") }
   let(:presenter_object) { double(reply_data: "reply data") }
 

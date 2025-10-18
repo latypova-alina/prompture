@@ -1,5 +1,5 @@
-module BuildMysticImage
-  class BuildMysticImage
+module BuildImage
+  class BuildImage
     include Interactor::Organizer
 
     organize CreateTask, CheckStatus

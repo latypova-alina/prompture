@@ -4,9 +4,8 @@ describe ButtonMessagePresenter do
   let(:message) { "Sample message" }
   let(:message_type) { "image_message" }
   let(:button_request) { "mystic_image" }
-  let(:regenerate) { false }
 
-  subject { described_class.new(message, message_type, button_request, regenerate) }
+  subject { described_class.new(message, message_type, button_request) }
 
   let(:expected_reply_data) do
     {
@@ -15,8 +14,14 @@ describe ButtonMessagePresenter do
         inline_keyboard: [
           [
             {
+              callback_data: "gemini_image",
+              text: "Gemini (0.04€)"
+            }
+          ],
+          [
+            {
               callback_data: "mystic_image",
-              text: "Regenerate Mystic (Realistic, 0.1€)"
+              text: "Mystic (0.1€)"
             }
           ]
         ]

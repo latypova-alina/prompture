@@ -1,5 +1,6 @@
 module Buttons
   class ForInitialMessage < Base
+    # rubocop:disable Metrics/MethodLength
     def self.buttons
       [
         [
@@ -10,11 +11,18 @@ module Buttons
         ],
         [
           {
-            "text": "Mystic (Realistic, 0.1€)",
+            "text": "Gemini (0.04€)",
+            "callback_data": "gemini_image"
+          }
+        ],
+        [
+          {
+            "text": "Mystic (0.1€)",
             "callback_data": "mystic_image"
           }
         ]
       ]
     end
+    # rubocop:enable Metrics/MethodLength
   end
 end

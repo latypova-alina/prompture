@@ -1,30 +1,30 @@
 module Clients
-  module Mystic
+  module ImageGenerator
     class BaseApiRequest
       include Memery
 
-      API_URL = "https://api.freepik.com/v1/ai/mystic".freeze
-
       private
 
-      delegate :connection, to: :mystic_connection
+      attr_reader :prompt
 
       def response
         raise NotImplementedError
       end
 
       def response_body
-        raise ::Mystic::ResponseError unless response.success?
+        raise ::Freepik::ResponseError unless response.success?
 
         JSON.parse(response.body)
       end
 
       def api_url
+        raise NotImplementedError unless self.class.const_defined?(:API_URL)
+
         self.class::API_URL
       end
 
-      memoize def mystic_connection
-        Connection.new(api_url)
+      memoize def connection
+        Connection.new(api_url).connection
       end
     end
   end

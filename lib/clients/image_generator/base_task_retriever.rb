@@ -1,6 +1,6 @@
 module Clients
-  module Mystic
-    class TaskRetriever < BaseApiRequest
+  module ImageGenerator
+    class BaseTaskRetriever < BaseApiRequest
       include Memery
 
       def initialize(task_id)
