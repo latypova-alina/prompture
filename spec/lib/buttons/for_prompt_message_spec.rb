@@ -6,8 +6,14 @@ describe Buttons::ForPromptMessage do
       [
         [
           {
-            "text": "Gemini (0.04€)",
+            "text": "Gemini (0.035€)",
             "callback_data": "gemini_image"
+          }
+        ],
+        [
+          {
+            "text": "Imagen3 (0.04€)",
+            "callback_data": "imagen_image"
           }
         ],
         [

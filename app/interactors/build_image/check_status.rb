@@ -7,7 +7,8 @@ module BuildImage
 
     TASK_RETRIEVER = {
       "mystic_image" => Clients::ImageGenerator::MysticTaskRetriever,
-      "gemini_image" => Clients::ImageGenerator::GeminiTaskRetriever
+      "gemini_image" => Clients::ImageGenerator::GeminiTaskRetriever,
+      "imagen_image" => Clients::ImageGenerator::ImagenTaskRetriever
     }.freeze
 
     FINISHED_STATUS = "COMPLETED".freeze

@@ -16,4 +16,11 @@ describe BuildImage::CheckStatus do
 
     it_behaves_like "check task interactor"
   end
+
+  context "when processor_type is imagen_image" do
+    let(:processor_type) { "imagen_image" }
+    let(:retriever_class) { Clients::ImageGenerator::ImagenTaskRetriever }
+
+    it_behaves_like "check task interactor"
+  end
 end
