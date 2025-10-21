@@ -20,7 +20,13 @@ describe MessagePresenter do
           [
             {
               callback_data: "gemini_image",
-              text: "Gemini (0.04€)"
+              text: "Gemini (0.035€)"
+            }
+          ],
+          [
+            {
+              callback_data: "imagen_image",
+              text: "Imagen3 (0.04€)"
             }
           ],
           [
@@ -50,7 +56,13 @@ describe MessagePresenter do
               [
                 {
                   callback_data: "gemini_image",
-                  text: "Gemini (0.04€)"
+                  text: "Gemini (0.035€)"
+                }
+              ],
+              [
+                {
+                  callback_data: "imagen_image",
+                  text: "Imagen3 (0.04€)"
                 }
               ],
               [

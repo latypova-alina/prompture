@@ -20,4 +20,11 @@ describe BuildImage::CreateTask, type: :interactor do
 
     it_behaves_like "create task interactor"
   end
+
+  context "when processor_type is imagen_image" do
+    let(:processor_type) { "imagen_image" }
+    let(:task_creator_class) { Clients::ImageGenerator::ImagenTaskCreator }
+
+    it_behaves_like "create task interactor"
+  end
 end

@@ -1,6 +1,6 @@
 module Strategies
   class Selector
-    IMAGE_ACTIONS = %w[mystic_image gemini_image].freeze
+    IMAGE_ACTIONS = %w[mystic_image gemini_image imagen_image].freeze
 
     def initialize(button_request, session)
       @button_request = button_request
