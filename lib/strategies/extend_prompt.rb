@@ -1,7 +1,7 @@
 module Strategies
   class ExtendPrompt
     def initialize(session)
-      @raw_prompt = session["prompt"]
+      @raw_prompt = session["image_prompt"]
       @session = session
 
       update_session
@@ -16,7 +16,7 @@ module Strategies
     delegate :extended_prompt, to: :extended_prompt_object
 
     def update_session
-      session["prompt"] = extended_prompt
+      session["image_prompt"] = extended_prompt
     end
 
     def extended_prompt_object

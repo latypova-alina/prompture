@@ -1,6 +1,6 @@
 require "rails_helper"
 
-describe Clients::ImageGenerator::Connection do
+describe Clients::Generator::Connection do
   let(:url) { "https://api.freepik.com/v1/ai/mystic" }
 
   subject { described_class.new(url) }

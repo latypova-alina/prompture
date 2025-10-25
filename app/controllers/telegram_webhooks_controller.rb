@@ -7,7 +7,7 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
   end
 
   def message(message)
-    session[:prompt] = message["text"]
+    session[:image_prompt] = message["text"]
 
     respond_with :message, MessagePresenter.new(message["text"], "initial_message").reply_data
   end

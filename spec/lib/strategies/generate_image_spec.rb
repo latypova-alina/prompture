@@ -1,7 +1,7 @@
 require "rails_helper"
 
 describe Strategies::GenerateImage do
-  let(:session) { { "prompt" => "generate image prompt" } }
+  let(:session) { { "image_prompt" => "generate image prompt" } }
   let(:processor_type) { "mystic" }
   let(:processor_object) { double(image_url: "https://example.com/image.png") }
   let(:presenter_object) { double(reply_data: "reply data") }

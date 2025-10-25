@@ -1,4 +1,4 @@
-module BuildImage
+module BuildVideo
   class CheckStatus
     include Memery
     include Interactor
@@ -6,9 +6,7 @@ module BuildImage
     delegate :task_id, :processor_type, to: :context
 
     TASK_RETRIEVER = {
-      "mystic_image" => Clients::Generator::Image::Mystic::TaskRetriever,
-      "gemini_image" => Clients::Generator::Image::Gemini::TaskRetriever,
-      "imagen_image" => Clients::Generator::Image::Imagen::TaskRetriever
+      "kling_2_1_pro_image_to_video" => Clients::Generator::Video::Kling::TaskRetriever
     }.freeze
 
     FINISHED_STATUS = "COMPLETED".freeze
@@ -22,14 +20,14 @@ module BuildImage
 
         case status
         when FINISHED_STATUS
-          context.image_url = client.image_url
+          context.video_url = client.video_url
           return
         when FAILED_STATUS
-          raise Freepik::ImageGenerationFailed
+          raise Freepik::VideoGenerationFailed
         end
       end
 
-      raise Freepik::ImageGenerationTimeout
+      raise Freepik::VideoGenerationTimeout
     end
 
     private
