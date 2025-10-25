@@ -19,6 +19,8 @@ describe Strategies::Selector do
     end
 
     context "when chatgpt raises error" do
+      include_context "stub chat_gpt error request"
+
       before do
         allow(Strategies::ExtendPrompt).to receive(:new)
           .and_raise(ChatGpt::ResponseError)
@@ -31,6 +33,9 @@ describe Strategies::Selector do
     end
 
     context "when button_request is an image action" do
+      include_context "stub mystic success request"
+
+      let(:task_id) { "task_12345" }
       let(:button_request) { "mystic_image" }
 
       it { is_expected.to be_an_instance_of(Strategies::GenerateImage) }
