@@ -63,7 +63,7 @@ describe TelegramWebhooksController, telegram_bot: :rails do
         .to receive(:session)
         .and_return(session)
 
-      session["prompt"] = prompt
+      session["image_prompt"] = prompt
     end
 
     context "when callback_data is extend_prompt" do

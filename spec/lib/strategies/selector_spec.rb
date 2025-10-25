@@ -2,7 +2,7 @@ require "rails_helper"
 
 describe Strategies::Selector do
   let(:prompt) { "some prompt" }
-  let(:session) { { "prompt" => prompt } }
+  let(:session) { { "image_prompt" => prompt } }
   let(:button_request) { "extend_prompt" }
 
   subject { described_class.new(button_request, session) }
