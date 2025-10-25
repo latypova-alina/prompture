@@ -1,5 +1,5 @@
 module Clients
-  module ImageGenerator
+  module Generator
     class Connection
       include Memery
 

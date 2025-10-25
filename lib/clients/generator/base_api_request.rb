@@ -1,11 +1,9 @@
 module Clients
-  module ImageGenerator
+  module Generator
     class BaseApiRequest
       include Memery
 
       private
-
-      attr_reader :prompt
 
       def response
         raise NotImplementedError

@@ -2,7 +2,8 @@ class ButtonMessagePresenter < BasePresenter
   include Memery
 
   PRESENTER_CLASSES = {
-    "image_message" => ::ImageMessagePresenter
+    "image_message" => ::ImageMessagePresenter,
+    "video_message" => ::VideoMessagePresenter
   }.freeze
 
   def initialize(message, message_type, button_request)

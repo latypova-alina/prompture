@@ -4,9 +4,9 @@ module BuildImage
     include Interactor
 
     TASK_CREATOR = {
-      "mystic_image" => Clients::ImageGenerator::MysticTaskCreator,
-      "gemini_image" => Clients::ImageGenerator::GeminiTaskCreator,
-      "imagen_image" => Clients::ImageGenerator::ImagenTaskCreator
+      "mystic_image" => Clients::Generator::Image::Mystic::TaskCreator,
+      "gemini_image" => Clients::Generator::Image::Gemini::TaskCreator,
+      "imagen_image" => Clients::Generator::Image::Imagen::TaskCreator
     }.freeze
 
     delegate :prompt, :processor_type, to: :context
