@@ -11,20 +11,20 @@ describe BuildImage::CreateTask, type: :interactor do
     let(:processor_type) { "mystic_image" }
     let(:task_creator_class) { Clients::Generator::Image::Mystic::TaskCreator }
 
-    it_behaves_like "create task interactor"
+    it_behaves_like "image create task interactor"
   end
 
   context "when processor_type is gemini_image" do
     let(:processor_type) { "gemini_image" }
     let(:task_creator_class) { Clients::Generator::Image::Gemini::TaskCreator }
 
-    it_behaves_like "create task interactor"
+    it_behaves_like "image create task interactor"
   end
 
   context "when processor_type is imagen_image" do
     let(:processor_type) { "imagen_image" }
     let(:task_creator_class) { Clients::Generator::Image::Imagen::TaskCreator }
 
-    it_behaves_like "create task interactor"
+    it_behaves_like "image create task interactor"
   end
 end

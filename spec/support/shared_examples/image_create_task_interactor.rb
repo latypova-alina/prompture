@@ -1,6 +1,6 @@
 require "rails_helper"
 
-shared_context "create task interactor" do
+shared_context "image create task interactor" do
   let(:task_id)  { "task_12345" }
   let(:client) { instance_double(task_creator_class, task_id:) }
 

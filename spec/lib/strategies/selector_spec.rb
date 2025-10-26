@@ -41,6 +41,16 @@ describe Strategies::Selector do
       it { is_expected.to be_an_instance_of(Strategies::GenerateImage) }
     end
 
+    context "when button_request is a video action" do
+      include_context "stub kling success request"
+
+      let(:task_id) { "task_12345" }
+      let(:image_url) { "https://example.com/image.png" }
+      let(:button_request) { "kling_2_1_pro_image_to_video" }
+
+      it { is_expected.to be_an_instance_of(Strategies::GenerateVideo) }
+    end
+
     context "when button_request is not recognized" do
       let(:button_request) { "unknown_action" }
 

@@ -46,5 +46,29 @@ describe ButtonMessagePresenter do
     subject { super().reply_data }
 
     it { is_expected.to eq(expected_reply_data) }
+
+    context "when message_type is video_message" do
+      let(:message_type) { "video_message" }
+      let(:button_request) { "kling_2_1_pro_image_to_video" }
+
+      let(:expected_reply_data) do
+        {
+          parse_mode: "HTML",
+          reply_markup: {
+            inline_keyboard: [
+              [
+                {
+                  callback_data: "kling_2_1_pro_image_to_video",
+                  text: "Kling Pro 2.1 (0.42€)"
+                }
+              ]
+            ]
+          },
+          text: "<a href=\"Sample message\">Open video</a>"
+        }
+      end
+
+      it { is_expected.to eq(expected_reply_data) }
+    end
   end
 end

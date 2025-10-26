@@ -1,1 +1,1 @@
-# tested in prompt_message_presenter.rb
+# tested in message_presenter.rb

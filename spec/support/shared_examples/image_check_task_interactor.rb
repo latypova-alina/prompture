@@ -1,6 +1,6 @@
 require "rails_helper"
 
-shared_context "check task interactor" do
+shared_context "image check task interactor" do
   let(:task_id) { "abc123" }
   let(:client) { instance_double(retriever_class) }
   let(:image_url) { "https://example.com/image.png" }
