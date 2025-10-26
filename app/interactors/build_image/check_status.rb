@@ -6,9 +6,9 @@ module BuildImage
     delegate :task_id, :processor_type, to: :context
 
     TASK_RETRIEVER = {
-      "mystic_image" => Clients::ImageGenerator::MysticTaskRetriever,
-      "gemini_image" => Clients::ImageGenerator::GeminiTaskRetriever,
-      "imagen_image" => Clients::ImageGenerator::ImagenTaskRetriever
+      "mystic_image" => Clients::Generator::Image::Mystic::TaskRetriever,
+      "gemini_image" => Clients::Generator::Image::Gemini::TaskRetriever,
+      "imagen_image" => Clients::Generator::Image::Imagen::TaskRetriever
     }.freeze
 
     FINISHED_STATUS = "COMPLETED".freeze

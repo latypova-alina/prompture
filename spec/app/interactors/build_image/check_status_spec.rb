@@ -5,22 +5,22 @@ describe BuildImage::CheckStatus do
 
   context "when processor_type is mystic_image" do
     let(:processor_type) { "mystic_image" }
-    let(:retriever_class) { Clients::ImageGenerator::MysticTaskRetriever }
+    let(:retriever_class) { Clients::Generator::Image::Mystic::TaskRetriever }
 
-    it_behaves_like "check task interactor"
+    it_behaves_like "image check task interactor"
   end
 
   context "when processor_type is gemini_image" do
     let(:processor_type) { "gemini_image" }
-    let(:retriever_class) { Clients::ImageGenerator::GeminiTaskRetriever }
+    let(:retriever_class) { Clients::Generator::Image::Gemini::TaskRetriever }
 
-    it_behaves_like "check task interactor"
+    it_behaves_like "image check task interactor"
   end
 
   context "when processor_type is imagen_image" do
     let(:processor_type) { "imagen_image" }
-    let(:retriever_class) { Clients::ImageGenerator::ImagenTaskRetriever }
+    let(:retriever_class) { Clients::Generator::Image::Imagen::TaskRetriever }
 
-    it_behaves_like "check task interactor"
+    it_behaves_like "image check task interactor"
   end
 end

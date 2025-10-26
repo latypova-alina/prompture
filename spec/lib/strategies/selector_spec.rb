@@ -2,7 +2,7 @@ require "rails_helper"
 
 describe Strategies::Selector do
   let(:prompt) { "some prompt" }
-  let(:session) { { "prompt" => prompt } }
+  let(:session) { { "image_prompt" => prompt } }
   let(:button_request) { "extend_prompt" }
 
   subject { described_class.new(button_request, session) }
@@ -19,6 +19,8 @@ describe Strategies::Selector do
     end
 
     context "when chatgpt raises error" do
+      include_context "stub chat_gpt error request"
+
       before do
         allow(Strategies::ExtendPrompt).to receive(:new)
           .and_raise(ChatGpt::ResponseError)
@@ -31,9 +33,22 @@ describe Strategies::Selector do
     end
 
     context "when button_request is an image action" do
+      include_context "stub mystic success request"
+
+      let(:task_id) { "task_12345" }
       let(:button_request) { "mystic_image" }
 
       it { is_expected.to be_an_instance_of(Strategies::GenerateImage) }
+    end
+
+    context "when button_request is a video action" do
+      include_context "stub kling success request"
+
+      let(:task_id) { "task_12345" }
+      let(:image_url) { "https://example.com/image.png" }
+      let(:button_request) { "kling_2_1_pro_image_to_video" }
+
+      it { is_expected.to be_an_instance_of(Strategies::GenerateVideo) }
     end
 
     context "when button_request is not recognized" do

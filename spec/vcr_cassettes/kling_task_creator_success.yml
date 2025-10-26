@@ -1,0 +1,49 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://api.freepik.com/v1/ai/image-to-video/kling-v2-1-pro
+    body:
+      encoding: UTF-8
+      string: '{"prompt":null,"duration":"5","image":"https://cdn-magnific.freepik.com/imagen3_a35022aa-611a-40a1-a792-4562a4058aab_0.png?token=exp=1761444103~hmac=70070e0512fdd937b5195b51a108b8c95363d5979f2dfe18015e888fa18f2d6d\u0026size=stable"}'
+    headers:
+      Content-Type:
+      - application/json
+      Accept:
+      - application/json
+      x-freepik-api-key:
+      - FREEPIK_API_KEY
+      User-Agent:
+      - Faraday v2.14.0
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      content-type:
+      - application/json
+      x-request-id:
+      - ak-7d495XXXXXXXXXXX
+      vary:
+      - Accept-Encoding
+      expires:
+      - Sun, 26 Oct 2025 01:22:11 GMT
+      cache-control:
+      - max-age=0, no-cache, no-store
+      pragma:
+      - no-cache
+      date:
+      - Sun, 26 Oct 2025 01:22:11 GMT
+      content-length:
+      - '93'
+      connection:
+      - keep-alive
+      alt-svc:
+      - h3=":443"; ma=93600
+      strict-transport-security:
+      - max-age=31536000 ; includeSubDomains ; preload
+    body:
+      encoding: UTF-8
+      string: '{"data":{"task_id":"192e8a86-eabf-40ce-b92a-33c6b7c2173d","status":"CREATED","generated":[]}}'
+  recorded_at: Sun, 26 Oct 2025 01:22:10 GMT
+recorded_with: VCR 6.3.1

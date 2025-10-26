@@ -34,7 +34,7 @@ describe TelegramWebhooksController, telegram_bot: :rails do
       }
     end
 
-    it "replies with MessagePresenter data and updates session" do
+    it "replies with MessagePresenter data" do
       expect { dispatch_message(prompt) }
         .to send_telegram_message(bot)
         .with(
@@ -63,7 +63,7 @@ describe TelegramWebhooksController, telegram_bot: :rails do
         .to receive(:session)
         .and_return(session)
 
-      session["prompt"] = prompt
+      session["image_prompt"] = prompt
     end
 
     context "when callback_data is extend_prompt" do
@@ -112,7 +112,8 @@ describe TelegramWebhooksController, telegram_bot: :rails do
           inline_keyboard: [
             [{ text: "Gemini (0.035€)", callback_data: "gemini_image" }],
             [{ text: "Imagen3 (0.04€)", callback_data: "imagen_image" }],
-            [{ text: "Mystic (0.1€)", callback_data: "mystic_image" }]
+            [{ text: "Mystic (0.1€)", callback_data: "mystic_image" }],
+            [{ text: "Kling Pro 2.1 (0.42€)", callback_data: "kling_2_1_pro_image_to_video" }]
           ]
         }
       end
