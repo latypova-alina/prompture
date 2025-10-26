@@ -4,50 +4,9 @@ require "telegram/bot/rspec/integration/rails"
 describe TelegramWebhooksController, telegram_bot: :rails do
   include_context "telegram/bot/callback_query"
   let(:prompt) { "cute white kitten" }
-
-  describe "#start!" do
-    subject { -> { dispatch_command :start } }
-
-    let(:expected_text) { "Hi there! Please give a short description of what you want to create. In any language." }
-
-    it { is_expected.to respond_with_message(expected_text) }
-  end
-
-  describe "#message" do
-    let(:expected_message) do
-      <<~TEXT.strip
-        Here is your prompt:
-
-        cute white kitten
-
-        What do you want to do next?
-      TEXT
-    end
-    let(:expected_markup) do
-      {
-        inline_keyboard: [
-          [{ text: "Extend prompt", callback_data: "extend_prompt" }],
-          [{ text: "Gemini (0.035€)", callback_data: "gemini_image" }],
-          [{ text: "Imagen3 (0.04€)", callback_data: "imagen_image" }],
-          [{ text: "Mystic (0.1€)", callback_data: "mystic_image" }]
-        ]
-      }
-    end
-
-    it "replies with MessagePresenter data" do
-      expect { dispatch_message(prompt) }
-        .to send_telegram_message(bot)
-        .with(
-          text: "#{expected_message}\n",
-          parse_mode: "HTML",
-          reply_markup: expected_markup,
-          chat_id: 456
-        )
-    end
-  end
+  let(:data) { "gemini_image" }
 
   describe "#callback_query", :callback_query do
-    let(:data) { "extend_prompt" }
     let(:session) { FakeSession.new }
     let(:callback_query) do
       {
@@ -66,46 +25,7 @@ describe TelegramWebhooksController, telegram_bot: :rails do
       session["image_prompt"] = prompt
     end
 
-    context "when callback_data is extend_prompt" do
-      let(:expected_markup) do
-        {
-          inline_keyboard: [
-            [{ text: "Gemini (0.035€)", callback_data: "gemini_image" }],
-            [{ text: "Imagen3 (0.04€)", callback_data: "imagen_image" }],
-            [{ text: "Mystic (0.1€)", callback_data: "mystic_image" }]
-          ]
-        }
-      end
-
-      include_context "stub chat_gpt success request"
-
-      it "returns correct response" do
-        expect { dispatch(callback_query:) }
-          .to send_telegram_message(bot)
-          .with(
-            text: "simulated GPT text",
-            parse_mode: "HTML",
-            reply_markup: expected_markup,
-            chat_id: 456
-          )
-      end
-
-      context "and chatgpt response is error" do
-        include_context "stub chat_gpt error request"
-
-        it "returns error message" do
-          expect { dispatch(callback_query:) }
-            .to send_telegram_message(bot)
-            .with(
-              text: "Sorry, I couldn't process your request. Please try again later.",
-              chat_id: 456
-            )
-        end
-      end
-    end
-
-    context "when callback data is mystic_image" do
-      let(:data) { "mystic_image" }
+    context "when callback data is gemini_image" do
       let(:task_id) { "0a5f0976-011d-411e-abdf-8da8bd07ef9e" }
       let(:expected_markup) do
         {
@@ -121,7 +41,7 @@ describe TelegramWebhooksController, telegram_bot: :rails do
         "<a href=\"https://ai-statics.freepik.com/completed_task_image.jpg\">Open image</a>"
       end
 
-      include_context "stub mystic success request"
+      include_context "stub gemini success request"
 
       it "returns correct response" do
         expect { dispatch(callback_query:) }
@@ -135,7 +55,7 @@ describe TelegramWebhooksController, telegram_bot: :rails do
       end
 
       context "but task creation failed" do
-        include_context "stub create mystic task fail request"
+        include_context "stub create gemini task fail request"
 
         it "returns error message" do
           expect { dispatch(callback_query:) }
@@ -148,8 +68,8 @@ describe TelegramWebhooksController, telegram_bot: :rails do
       end
 
       context "but task retrieval failed" do
-        include_context "stub create mystic task success request"
-        include_context "stub retrieve mystic task fail request"
+        include_context "stub create gemini task success request"
+        include_context "stub retrieve gemini task fail request"
 
         it "returns error message" do
           expect { dispatch(callback_query:) }
@@ -162,8 +82,8 @@ describe TelegramWebhooksController, telegram_bot: :rails do
       end
 
       context "but task retrieved task has FAILED status" do
-        include_context "stub create mystic task success request"
-        include_context "stub retrieve mystic task with FAILED status"
+        include_context "stub create gemini task success request"
+        include_context "stub retrieve gemini task with FAILED status"
 
         it "returns error message" do
           expect { dispatch(callback_query:) }
@@ -176,8 +96,8 @@ describe TelegramWebhooksController, telegram_bot: :rails do
       end
 
       context "when task never completes within max attempts" do
-        include_context "stub create mystic task success request"
-        include_context "stub retrieve mystic task with IN_PROGRESS status"
+        include_context "stub create gemini task success request"
+        include_context "stub retrieve gemini task with IN_PROGRESS status"
 
         before do
           allow_any_instance_of(BuildImage::CheckStatus).to receive(:sleep)

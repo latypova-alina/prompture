@@ -10,3 +10,5 @@ en:
     external_service_error: "Sorry, I couldn't process your request. Please try again later."
     image_generating_error: "Sorry, I couldn't generate the image. Please try again later."
     image_generating_timeout_error: "Sorry, the image generation is taking too long. Please try again later."
+    video_generating_error: "Sorry, I couldn't generate the video. Please try again later."
+    video_generating_timeout_error: "Sorry, the video generation is taking too long. Please try again later."
