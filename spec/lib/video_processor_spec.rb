@@ -5,7 +5,7 @@ describe VideoProcessor do
   let(:image_url) { "http://example.com/image.png" }
   let(:video_url) { "http://example.com/video.mp4" }
 
-  subject { described_class.new(image_url, processor_type) }
+  subject { described_class.new(image_url, nil, processor_type) }
 
   describe "#video_url" do
     subject { super().video_url }

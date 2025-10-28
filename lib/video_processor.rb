@@ -1,11 +1,12 @@
 class VideoProcessor
-  def initialize(image_url, processor_type)
+  def initialize(image_url, image_prompt, processor_type)
     @image_url = image_url
+    @image_prompt = image_prompt
     @processor_type = processor_type
   end
 
   def video_url
-    result = BuildVideo::BuildVideo.call(image_url:, processor_type:)
+    result = BuildVideo::BuildVideo.call(image_url:, image_prompt:, processor_type:)
 
     return nil if result.failure?
 
@@ -14,5 +15,5 @@ class VideoProcessor
 
   private
 
-  attr_reader :image_url, :processor_type
+  attr_reader :image_url, :image_prompt, :processor_type
 end

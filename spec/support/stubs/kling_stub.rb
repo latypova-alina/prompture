@@ -11,6 +11,7 @@ shared_context "stub create kling task success request" do
         body: {
           prompt: nil,
           duration: "5",
+          cfg_scale: "0.9",
           image: image_url
         }.to_json
       )
@@ -64,6 +65,7 @@ shared_context "stub create kling task fail request" do
         body: {
           prompt: nil,
           duration: "5",
+          cfg_scale: "0.9",
           image: image_url
         }.to_json
       )

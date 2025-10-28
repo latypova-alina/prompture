@@ -5,7 +5,7 @@ http_interactions:
     uri: https://api.freepik.com/v1/ai/image-to-video/kling-v2-1-pro
     body:
       encoding: UTF-8
-      string: '{"prompt":null,"duration":"5","image":"https://cdn-magnific.freepik.com/imagen3_a35022aa-611a-40a1-a792-4562a4058aab_0.png?token=exp=1761444103~hmac=70070e0512fdd937b5195b51a108b8c95363d5979f2dfe18015e888fa18f2d6d\u0026size=stable"}'
+      string: '{"prompt":null,"duration":"5","cfg_scale":"0.9","image":"https://cdn-magnific.freepik.com/imagen3_a35022aa-611a-40a1-a792-4562a4058aab_0.png?token=exp=1761444103~hmac=70070e0512fdd937b5195b51a108b8c95363d5979f2dfe18015e888fa18f2d6d\u0026size=stable"}'
     headers:
       Content-Type:
       - application/json

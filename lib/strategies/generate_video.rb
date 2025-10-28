@@ -4,6 +4,7 @@ module Strategies
 
     def initialize(session, processor_type)
       @image_url = session["image_url"]
+      @image_prompt = session["image_prompt"]
       @session = session
       @processor_type = processor_type
     end
@@ -12,7 +13,7 @@ module Strategies
 
     private
 
-    attr_reader :image_url, :processor_type, :session
+    attr_reader :image_url, :image_prompt, :processor_type, :session
 
     delegate :video_url, to: :video_processor
 
@@ -23,7 +24,7 @@ module Strategies
     end
 
     def video_processor
-      VideoProcessor.new(image_url, processor_type)
+      VideoProcessor.new(image_url, image_prompt, processor_type)
     end
   end
 end
