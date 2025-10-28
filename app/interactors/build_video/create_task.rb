@@ -7,7 +7,7 @@ module BuildVideo
       "kling_2_1_pro_image_to_video" => Clients::Generator::Video::Kling::TaskCreator
     }.freeze
 
-    delegate :image_url, :processor_type, to: :context
+    delegate :image_url, :image_prompt, :processor_type, to: :context
 
     def call
       context.task_id = task_id
@@ -18,7 +18,7 @@ module BuildVideo
     delegate :task_id, to: :client
 
     memoize def client
-      TASK_CREATOR[processor_type].new(image_url)
+      TASK_CREATOR[processor_type].new(image_url, image_prompt)
     end
   end
 end

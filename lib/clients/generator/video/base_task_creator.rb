@@ -4,7 +4,7 @@ module Clients
       class BaseTaskCreator < ::Clients::Generator::BaseApiRequest
         include Memery
 
-        def initialize(image_url, prompt = nil)
+        def initialize(image_url, prompt)
           super()
           @image_url = image_url
           @prompt = prompt

@@ -13,7 +13,7 @@ describe Strategies::GenerateVideo do
 
     before do
       allow(VideoProcessor).to receive(:new)
-        .with("some_image_url", processor_type).and_return(processor_object)
+        .with("some_image_url", "generate image prompt", processor_type).and_return(processor_object)
 
       allow(ButtonMessagePresenter).to receive(:new)
         .with("https://example.com/video.mp4", "video_message", processor_type).and_return(presenter_object)

@@ -7,7 +7,7 @@ shared_context "video create task interactor" do
   describe "#call" do
     it "creates client with the image_url" do
       interactor
-      expect(task_creator_class).to have_received(:new).with(image_url)
+      expect(task_creator_class).to have_received(:new).with(image_url, image_prompt)
     end
 
     it "sets context.task_id to client's task_id" do

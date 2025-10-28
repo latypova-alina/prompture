@@ -12,6 +12,7 @@ module Clients
             {
               prompt:,
               duration: "5",
+              cfg_scale: "0.9",
               image: image_url
             }
           end
