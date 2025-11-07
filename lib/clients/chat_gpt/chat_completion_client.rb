@@ -1,6 +1,6 @@
 module Clients
   module ChatGpt
-    class PromptGenerator
+    class ChatCompletionClient
       include Memery
 
       API_URL = "https://api.openai.com/v1/chat/completions".freeze

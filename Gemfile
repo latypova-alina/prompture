@@ -7,6 +7,7 @@ gem "interactor"
 gem "memery"
 gem "puma", "~> 6.0"
 gem "rails", "~> 8.0.3"
+gem "sidekiq", "~> 8.0"
 gem "telegram-bot"
 
 group :development, :test do
