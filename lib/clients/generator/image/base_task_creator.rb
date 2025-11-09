@@ -9,10 +9,6 @@ module Clients
           @prompt = prompt
         end
 
-        def task_id
-          response_body.dig("data", "task_id")
-        end
-
         private
 
         attr_reader :prompt

@@ -1,4 +1,4 @@
-SessionParser = Struct.new(:image_prompt, :image_url, :chat_id) do
+SessionParser = Struct.new(:image_prompt, :image_url, :chat_id, :button_request) do
   def image_prompt
     self[:image_prompt].to_s
   end
@@ -9,5 +9,9 @@ SessionParser = Struct.new(:image_prompt, :image_url, :chat_id) do
 
   def chat_id
     self[:chat_id].to_i
+  end
+
+  def button_request
+    self[:button_request].to_s
   end
 end

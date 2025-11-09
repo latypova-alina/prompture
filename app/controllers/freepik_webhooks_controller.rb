@@ -2,10 +2,16 @@ class FreepikWebhooksController < ApplicationController
   skip_before_action :verify_authenticity_token
 
   def receive
-    response_body = JSON.parse(request.body.read)
-    chat_id = ChatToken.decode(params[:token])
-    image_url = response_body.dig("data", "generated")[0]
+    body = params.require(:freepik_webhook).permit!
 
-    Telegram.bot.send_photo(chat_id: chat_id, photo: image_url)
+    return if body[:status] == "IN_PROGRESS"
+
+    if body[:status] == "COMPLETED"
+      chat_id = ChatToken.decode(params[:token])
+
+      Generator::TaskRetrieverSelectorJob.perform_async(body[:task_id], params[:button_request], chat_id)
+    elsif body[:status] == "FAILED"
+      Generator::Image::ErrorNotifierJob.perform_async(chat_id)
+    end
   end
 end

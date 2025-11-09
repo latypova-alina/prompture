@@ -1,5 +1,5 @@
 module Generator
-  class SelectorJob
+  class TaskCreatorSelectorJob
     include Sidekiq::Job
 
     PROMPT_EXTENSION_JOBS = {
@@ -21,9 +21,9 @@ module Generator
       when *PROMPT_EXTENSION_JOBS.keys
         PROMPT_EXTENSION_JOBS[button_request].perform_async(image_prompt, chat_id)
       when *IMAGE_GENERATOR_JOBS.keys
-        IMAGE_GENERATOR_JOBS[button_request].perform_async(image_prompt, chat_id)
+        IMAGE_GENERATOR_JOBS[button_request].perform_async(image_prompt, button_request, chat_id)
       when *VIDEO_GENERATOR_JOBS.keys
-        VIDEO_GENERATOR_JOBS[button_request].perform_async(image_url, image_prompt, chat_id)
+        VIDEO_GENERATOR_JOBS[button_request].perform_async(image_url, image_prompt, button_request, chat_id)
       end
     end
   end

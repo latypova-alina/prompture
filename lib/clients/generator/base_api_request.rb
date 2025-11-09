@@ -9,12 +9,6 @@ module Clients
         raise NotImplementedError
       end
 
-      def response_body
-        raise ::Freepik::ResponseError unless response.success?
-
-        JSON.parse(response.body)
-      end
-
       def api_url
         raise NotImplementedError unless self.class.const_defined?(:API_URL)
 

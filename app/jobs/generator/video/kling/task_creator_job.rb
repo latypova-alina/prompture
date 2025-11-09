@@ -1,7 +1,7 @@
 module Generator
   module Video
     module Kling
-      class TaskCreatorJob < ::Generator::Image::BaseTaskCreatorJob
+      class TaskCreatorJob < ::Generator::Image::TaskCreatorJob
         API_URL = "https://api.freepik.com/v1/ai/image-to-video/kling-v2-1-pro".freeze
         DURATION = 5
 

@@ -1,7 +1,7 @@
 module Generator
   module Image
     module Imagen
-      class TaskCreatorJob < ::Generator::Image::BaseTaskCreatorJob
+      class TaskCreatorJob < ::Generator::Image::TaskCreatorJob
         API_URL = "https://api.freepik.com/v1/ai/text-to-image/imagen3".freeze
 
         private
