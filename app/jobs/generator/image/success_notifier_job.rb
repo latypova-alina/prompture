@@ -6,6 +6,8 @@ module Generator
       def perform(image_url, chat_id)
         @image_url = image_url
 
+        ChatState.set(chat_id, :last_image_url, image_url)
+
         Telegram.bot.send_message(chat_id:, **reply_data)
       end
 

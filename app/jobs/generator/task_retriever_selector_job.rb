@@ -5,8 +5,8 @@ module Generator
     RETRIEVER_JOBS = {
       "mystic_image" => Image::Mystic::TaskRetrieverJob,
       "gemini_image" => Image::Gemini::TaskRetrieverJob,
-      "imagen_image" => Image::Imagen::TaskRetrieverJob
-      # "kling_2_1_pro_image_to_video" => Generator::Video::Kling::TaskRetrieverJob
+      "imagen_image" => Image::Imagen::TaskRetrieverJob,
+      "kling_2_1_pro_image_to_video" => Generator::Video::Kling::TaskRetrieverJob
 
     }.freeze
 

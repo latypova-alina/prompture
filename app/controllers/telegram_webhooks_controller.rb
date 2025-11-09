@@ -17,7 +17,7 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
   end
 
   def callback_query(button_request)
-    session[:button_request] = button_request
+    image_url = ChatState.get(chat_id, :last_image_url)
 
     Generator::TaskCreatorSelectorJob.perform_async(image_prompt, image_url, button_request, chat_id)
   end

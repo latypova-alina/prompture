@@ -23,7 +23,7 @@ module Generator
       when *IMAGE_GENERATOR_JOBS.keys
         IMAGE_GENERATOR_JOBS[button_request].perform_async(image_prompt, button_request, chat_id)
       when *VIDEO_GENERATOR_JOBS.keys
-        VIDEO_GENERATOR_JOBS[button_request].perform_async(image_url, image_prompt, button_request, chat_id)
+        VIDEO_GENERATOR_JOBS[button_request].perform_async(image_prompt, image_url, button_request, chat_id)
       end
     end
   end

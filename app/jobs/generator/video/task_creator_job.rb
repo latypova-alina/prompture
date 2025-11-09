@@ -4,10 +4,11 @@ module Generator
       include Sidekiq::Job
       include Memery
 
-      def perform(prompt, button_request, chat_id)
+      def perform(prompt, image_url, button_request, chat_id)
         @prompt = prompt
         @chat_id = chat_id
         @button_request = button_request
+        @image_url = image_url
 
         raise ::Freepik::ResponseError unless response.success?
       rescue Freepik::ResponseError
@@ -16,7 +17,7 @@ module Generator
 
       private
 
-      attr_reader :prompt, :chat_id, :button_request
+      attr_reader :prompt, :chat_id, :button_request, :image_url
 
       memoize def response
         connection.post { |req| req.body = final_payload.to_json }
@@ -27,7 +28,7 @@ module Generator
       end
 
       def final_payload
-        payload.reverse_merge(webhook_url:, prompt:)
+        payload.reverse_merge(webhook_url:, prompt:, image: image_url)
       end
 
       def webhook_url
