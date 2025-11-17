@@ -1,7 +1,6 @@
 class TelegramWebhooksController < Telegram::Bot::UpdatesController
   include Telegram::Bot::UpdatesController::MessageContext
   include SessionAccessor
-  include ErrorHandler
   include MessageAccessor
 
   def start!(*)
