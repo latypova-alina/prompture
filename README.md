@@ -1,24 +1,36 @@
-# README
+# 🖼️🤖 Prompture – Image Generator Bot
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+**Prompture** is a Telegram bot that helps you create images and videos from prompt you provide
 
-Things you may want to cover:
+---
 
-* Ruby version
+## 📌 Features
 
-* System dependencies
+- 💬 Extending prompt
+- 🖼️ Generate images from prompt using the following processors:
+  - **Mystic**
+  - **Gemini**
+  - **Imagen**
+- 🎥 Generate videos from images using the following processors:
+  - **Kling**
 
-* Configuration
+---
 
-* Database creation
+## 🛠️ Running Locally
 
-* Database initialization
+If you want to run this bot on your own machine:
 
-* How to run the test suite
+Run poller first:
 
-* Services (job queues, cache servers, search engines, etc.)
+```bash
+bundle exec rake telegram:bot:poller
 
-* Deployment instructions
+Then open sidekiq:
 
-* ...
+```bash
+bundle exec sidekiq
+
+Then open ngrok (for local webhooks)
+
+```bash
+ngrok http 3000
