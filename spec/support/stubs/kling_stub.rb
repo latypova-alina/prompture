@@ -9,10 +9,11 @@ shared_context "stub create kling task success request" do
           "Accept" => "application/json"
         },
         body: {
-          prompt: nil,
+          webhook_url: "https://example.com/freepik/webhook?token=#{token}&button_request=kling_2_1_pro_image_to_video",
+          prompt:,
+          image: image_url,
           duration: "5",
-          cfg_scale: "0.9",
-          image: image_url
+          cfg_scale: "0.9"
         }.to_json
       )
       .to_return(
@@ -63,10 +64,11 @@ shared_context "stub create kling task fail request" do
           "Accept" => "application/json"
         },
         body: {
-          prompt: nil,
+          webhook_url: "https://example.com/freepik/webhook?token=#{token}&button_request=kling_2_1_pro_image_to_video",
+          prompt:,
+          image: image_url,
           duration: "5",
-          cfg_scale: "0.9",
-          image: image_url
+          cfg_scale: "0.9"
         }.to_json
       )
       .to_return(

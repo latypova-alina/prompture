@@ -1,9 +1,8 @@
 class ImageMessagePresenter
   include MessageInterface
 
-  def initialize(message, button_request)
+  def initialize(message)
     @message = message
-    @button_request = button_request
   end
 
   def formatted_text
@@ -16,5 +15,5 @@ class ImageMessagePresenter
 
   private
 
-  attr_reader :message, :button_request
+  attr_reader :message
 end

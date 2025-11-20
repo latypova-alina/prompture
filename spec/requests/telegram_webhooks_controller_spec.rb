@@ -49,148 +49,61 @@ describe TelegramWebhooksController, telegram_bot: :rails do
   describe "#callback_query", :callback_query do
     let(:data) { "extend_prompt" }
     let(:session) { FakeSession.new }
-    let(:callback_query) do
-      {
-        id: "123",
-        from:,
-        message: { chat: chat, message_id: 5, text: prompt },
-        data: data
-      }
-    end
+    let(:chat_id) { 456 }
+    let(:image_url) { "http://example.com/image.png" }
 
     before do
+      allow(Generator::TaskCreatorSelectorJob).to receive(:perform_async)
+
       allow_any_instance_of(described_class)
         .to receive(:session)
         .and_return(session)
 
       session["image_prompt"] = prompt
+      session["chat_id"] = chat_id
     end
 
+    after { ChatState.del(chat_id, :last_image_url) }
+
     context "when callback_data is extend_prompt" do
-      let(:expected_markup) do
-        {
-          inline_keyboard: [
-            [{ text: "Gemini (0.035€)", callback_data: "gemini_image" }],
-            [{ text: "Imagen3 (0.04€)", callback_data: "imagen_image" }],
-            [{ text: "Mystic (0.1€)", callback_data: "mystic_image" }]
-          ]
-        }
-      end
+      it "runs TaskCreatorSelectorJob" do
+        expect(Generator::TaskCreatorSelectorJob).to receive(:perform_async)
+          .with("cute white kitten", nil, "extend_prompt", 456)
 
-      include_context "stub chat_gpt success request"
-
-      it "returns correct response" do
-        expect { dispatch(callback_query:) }
-          .to send_telegram_message(bot)
-          .with(
-            text: "simulated GPT text",
-            parse_mode: "HTML",
-            reply_markup: expected_markup,
-            chat_id: 456
-          )
-      end
-
-      context "and chatgpt response is error" do
-        include_context "stub chat_gpt error request"
-
-        it "returns error message" do
-          expect { dispatch(callback_query:) }
-            .to send_telegram_message(bot)
-            .with(
-              text: "Sorry, I couldn't process your request. Please try again later.",
-              chat_id: 456
-            )
-        end
+        described_class.new.callback_query("extend_prompt")
       end
     end
 
     context "when callback data is mystic_image" do
-      let(:data) { "mystic_image" }
-      let(:task_id) { "0a5f0976-011d-411e-abdf-8da8bd07ef9e" }
-      let(:expected_markup) do
-        {
-          inline_keyboard: [
-            [{ text: "Gemini (0.035€)", callback_data: "gemini_image" }],
-            [{ text: "Imagen3 (0.04€)", callback_data: "imagen_image" }],
-            [{ text: "Mystic (0.1€)", callback_data: "mystic_image" }],
-            [{ text: "Kling Pro 2.1 (0.42€)", callback_data: "kling_2_1_pro_image_to_video" }]
-          ]
-        }
+      before { ChatState.set(chat_id, :last_image_url, image_url) }
+
+      it "runs TaskCreatorSelectorJob" do
+        expect(Generator::TaskCreatorSelectorJob).to receive(:perform_async)
+          .with("cute white kitten", "http://example.com/image.png", "mystic_image", 456)
+
+        described_class.new.callback_query("mystic_image")
       end
-      let(:expected_text) do
-        "<a href=\"https://ai-statics.freepik.com/completed_task_image.jpg\">Open image</a>"
+    end
+
+    context "when callback data is imagen_image" do
+      before { ChatState.set(chat_id, :last_image_url, image_url) }
+
+      it "runs TaskCreatorSelectorJob" do
+        expect(Generator::TaskCreatorSelectorJob).to receive(:perform_async)
+          .with("cute white kitten", "http://example.com/image.png", "imagen_image", 456)
+
+        described_class.new.callback_query("imagen_image")
       end
+    end
 
-      include_context "stub mystic success request"
+    context "when callback data is kling_2_1_pro_image_to_video" do
+      before { ChatState.set(chat_id, :last_image_url, image_url) }
 
-      it "returns correct response" do
-        expect { dispatch(callback_query:) }
-          .to send_telegram_message(bot)
-          .with(
-            text: expected_text,
-            parse_mode: "HTML",
-            reply_markup: expected_markup,
-            chat_id: 456
-          )
-      end
+      it "runs TaskCreatorSelectorJob" do
+        expect(Generator::TaskCreatorSelectorJob).to receive(:perform_async)
+          .with("cute white kitten", "http://example.com/image.png", "kling_2_1_pro_image_to_video", 456)
 
-      context "but task creation failed" do
-        include_context "stub create mystic task fail request"
-
-        it "returns error message" do
-          expect { dispatch(callback_query:) }
-            .to send_telegram_message(bot)
-            .with(
-              text: "Sorry, I couldn't process your request. Please try again later.",
-              chat_id: 456
-            )
-        end
-      end
-
-      context "but task retrieval failed" do
-        include_context "stub create mystic task success request"
-        include_context "stub retrieve mystic task fail request"
-
-        it "returns error message" do
-          expect { dispatch(callback_query:) }
-            .to send_telegram_message(bot)
-            .with(
-              text: "Sorry, I couldn't process your request. Please try again later.",
-              chat_id: 456
-            )
-        end
-      end
-
-      context "but task retrieved task has FAILED status" do
-        include_context "stub create mystic task success request"
-        include_context "stub retrieve mystic task with FAILED status"
-
-        it "returns error message" do
-          expect { dispatch(callback_query:) }
-            .to send_telegram_message(bot)
-            .with(
-              text: "Sorry, I couldn't generate the image. Please try again later.",
-              chat_id: 456
-            )
-        end
-      end
-
-      context "when task never completes within max attempts" do
-        include_context "stub create mystic task success request"
-        include_context "stub retrieve mystic task with IN_PROGRESS status"
-
-        before do
-          allow_any_instance_of(BuildImage::CheckStatus).to receive(:sleep)
-        end
-
-        it "returns error message" do
-          expect { dispatch(callback_query:) }
-            .to send_telegram_message(bot)
-            .with(
-              text: "Sorry, the image generation is taking too long. Please try again later.",
-              chat_id: 456
-            )
-        end
+        described_class.new.callback_query("kling_2_1_pro_image_to_video")
       end
     end
   end

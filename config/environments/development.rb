@@ -30,4 +30,5 @@ Rails.application.configure do
   config.active_support.disallowed_deprecation_warnings = []
 
   config.telegram_updates_controller.session_store = :memory_store
+  config.host_authorization = { exclude: ->(_request) { true } }
 end

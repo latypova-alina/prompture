@@ -1,27 +1,30 @@
 class TelegramWebhooksController < Telegram::Bot::UpdatesController
   include Telegram::Bot::UpdatesController::MessageContext
-  include ErrorHandler
+  include SessionAccessor
+  include MessageAccessor
 
   def start!(*)
     respond_with :message, text: t("telegram_webhooks.start.content")
   end
 
-  def message(message)
-    session[:image_prompt] = message["text"]
+  def message(user_message)
+    @user_message = user_message
+    session[:image_prompt] = message_text
+    session[:chat_id] = message_parser.chat_id
 
-    respond_with :message, MessagePresenter.new(message["text"], "initial_message").reply_data
+    respond_with :message, MessagePresenter.new(message_text, "initial_message").reply_data
   end
 
   def callback_query(button_request)
-    strategy = Strategies::Selector.new(button_request, safe_session).strategy
+    image_url = ChatState.get(chat_id, :last_image_url)
 
-    respond_with :message, strategy.reply_data
+    Generator::TaskCreatorSelectorJob.perform_async(image_prompt, image_url, button_request, chat_id)
   end
 
   private
 
-  def safe_session
-    session.to_h unless session.loaded?
-    session
-  end
+  attr_reader :user_message
+
+  delegate :message_text, to: :message_parser
+  delegate :image_prompt, :image_url, :chat_id, to: :session_parser
 end

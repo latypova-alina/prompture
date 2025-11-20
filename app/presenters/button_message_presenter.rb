@@ -6,20 +6,19 @@ class ButtonMessagePresenter < BasePresenter
     "video_message" => ::VideoMessagePresenter
   }.freeze
 
-  def initialize(message, message_type, button_request)
+  def initialize(message, message_type)
     super()
     @message = message
     @message_type = message_type
-    @button_request = button_request
   end
 
   private
 
-  attr_reader :message, :message_type, :button_request
+  attr_reader :message, :message_type
 
   delegate :formatted_text, :inline_keyboard, to: :corresponding_class
 
   memoize def corresponding_class
-    PRESENTER_CLASSES[message_type].new(message, button_request)
+    PRESENTER_CLASSES[message_type].new(message)
   end
 end

@@ -9,11 +9,12 @@ shared_context "stub create mystic task success request" do
           "Accept" => "application/json"
         },
         body: {
+          webhook_url: "https://example.com/freepik/webhook?token=#{token}&button_request=mystic_image",
+          prompt:,
           aspect_ratio: "social_story_9_16",
           model: "zen",
           filter_nsfw: false,
-          resolution: "2k",
-          prompt:
+          resolution: "2k"
         }.to_json
       )
       .to_return(
@@ -64,11 +65,12 @@ shared_context "stub create mystic task fail request" do
           "Accept" => "application/json"
         },
         body: {
+          webhook_url: "https://example.com/freepik/webhook?token=#{token}&button_request=mystic_image",
+          prompt:,
           aspect_ratio: "social_story_9_16",
           model: "zen",
           filter_nsfw: false,
-          resolution: "2k",
-          prompt: prompt
+          resolution: "2k"
         }.to_json
       )
       .to_return(
