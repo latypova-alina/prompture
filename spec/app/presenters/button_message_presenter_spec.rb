@@ -3,9 +3,8 @@ require "rails_helper"
 describe ButtonMessagePresenter do
   let(:message) { "Sample message" }
   let(:message_type) { "image_message" }
-  let(:button_request) { "mystic_image" }
 
-  subject { described_class.new(message, message_type, button_request) }
+  subject { described_class.new(message, message_type) }
 
   let(:expected_reply_data) do
     {
@@ -49,7 +48,6 @@ describe ButtonMessagePresenter do
 
     context "when message_type is video_message" do
       let(:message_type) { "video_message" }
-      let(:button_request) { "kling_2_1_pro_image_to_video" }
 
       let(:expected_reply_data) do
         {

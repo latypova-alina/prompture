@@ -11,6 +11,8 @@ module Generator
     }.freeze
 
     def perform(task_id, button_request, chat_id)
+      return unless RETRIEVER_JOBS.key?(button_request)
+
       RETRIEVER_JOBS[button_request].perform_async(task_id, chat_id)
     end
   end

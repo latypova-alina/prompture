@@ -283,8 +283,6 @@ GEM
     unicode-emoji (4.1.0)
     uri (1.0.3)
     useragent (0.16.11)
-    vcr (6.3.1)
-      base64
     web-console (4.2.1)
       actionview (>= 6.0.0)
       activemodel (>= 6.0.0)
@@ -324,7 +322,6 @@ DEPENDENCIES
   rubocop
   sidekiq (~> 8.0)
   telegram-bot
-  vcr
   web-console
   webmock
 
