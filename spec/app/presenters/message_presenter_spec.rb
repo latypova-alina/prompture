@@ -37,7 +37,7 @@ describe MessagePresenter do
           ]
         ]
       },
-      text: "Here is your prompt:\n\nSample message\n\nWhat do you want to do next?\n"
+      text: "Here is your prompt:\n\n<blockquote>Sample message</blockquote>\n\nWhat do you want to do next?\n"
     }
   end
 

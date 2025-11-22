@@ -6,13 +6,13 @@ class InitialMessagePresenter
   end
 
   def formatted_text
-    <<~TEXT
+    <<~HTML
       #{I18n.t('telegram_webhooks.message.prompt_prefix')}
 
-      #{message}
+      <blockquote>#{message}</blockquote>
 
       #{I18n.t('telegram_webhooks.message.prompt_suffix')}
-    TEXT
+    HTML
   end
 
   def inline_keyboard
