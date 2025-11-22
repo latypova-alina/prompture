@@ -13,15 +13,35 @@ describe TelegramWebhooksController, telegram_bot: :rails do
     it { is_expected.to respond_with_message(expected_text) }
   end
 
+  describe "#prompt_to_video!" do
+    subject { -> { dispatch_command :prompt_to_video } }
+
+    let(:expected_text) do
+      "Great! Now please provide a prompt for the video. The prompt can be in any language and any length, and it can later be adapted with the help of the bot."
+    end
+
+    it { is_expected.to respond_with_message(expected_text) }
+  end
+
+  describe "#prompt_to_image!" do
+    subject { -> { dispatch_command :prompt_to_image } }
+
+    let(:expected_text) do
+      "Great! Now please provide a prompt for the image. The prompt can be in any language and any length, and it can later be adapted with the help of the bot."
+    end
+
+    it { is_expected.to respond_with_message(expected_text) }
+  end
+
   describe "#message" do
     let(:expected_message) do
-      <<~TEXT.strip
+      <<~HTML.strip
         Here is your prompt:
 
-        cute white kitten
+        <blockquote>cute white kitten</blockquote>
 
         What do you want to do next?
-      TEXT
+      HTML
     end
     let(:expected_markup) do
       {

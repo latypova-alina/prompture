@@ -15,6 +15,14 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
     respond_with :message, MessagePresenter.new(message_text, "initial_message").reply_data
   end
 
+  def prompt_to_video!(*)
+    respond_with :message, text: t("telegram_webhooks.start.prompt_to_video")
+  end
+
+  def prompt_to_image!(*)
+    respond_with :message, text: t("telegram_webhooks.start.prompt_to_image")
+  end
+
   def callback_query(button_request)
     image_url = ChatState.get(chat_id, :last_image_url)
 

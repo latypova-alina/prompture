@@ -2,6 +2,8 @@ en:
   telegram_webhooks:
     start:
       content: Hi there! Please give a short description of what you want to create. In any language.
+      prompt_to_video: "Great! Now please provide a prompt for the video. The prompt can be in any language and any length, and it can later be adapted with the help of the bot."
+      prompt_to_image: "Great! Now please provide a prompt for the image. The prompt can be in any language and any length, and it can later be adapted with the help of the bot."
     message:
       prompt_prefix: "Here is your prompt:"
       prompt_suffix: What do you want to do next?
