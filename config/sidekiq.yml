@@ -1,0 +1,12 @@
+:verbose: false
+
+development:
+  :concurrency: 1
+
+production:
+  :concurrency: 3
+
+:max_retries: 1
+
+:queues:
+  - default
