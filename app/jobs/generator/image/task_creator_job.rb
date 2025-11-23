@@ -37,7 +37,7 @@ module Generator
       def webhook_host
         return ENV["GENERATOR_WEBHOOK_BASE_URL"] if Rails.env.development?
 
-        PRODUCTION_BASE_URL
+        ENV["PRODUCTION_BASE_URL"]
       end
 
       def token
