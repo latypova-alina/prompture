@@ -5,13 +5,9 @@ agent:
     type: f1-standard-2
     os_image: ubuntu2204
 blocks:
-  - name: Tests
+  - name: Setup
     task:
       jobs:
-        - name: 'Job #1'
+        - name: bundle
           commands:
-            - rubocop
-        - name: 'Job #2'
-          commands:
-            - apt install ruby-rspec-core
-            - rspec
+            - bundle install
