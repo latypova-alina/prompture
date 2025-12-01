@@ -10,4 +10,5 @@ blocks:
       jobs:
         - name: bundle
           commands:
+            - checkout
             - bundle install
