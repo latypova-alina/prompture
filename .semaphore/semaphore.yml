@@ -20,4 +20,5 @@ blocks:
           commands:
             - checkout
             - bundle install
+            - bundle exec sidekiq -C config/sidekiq.yml
             - bundle exec rspec
