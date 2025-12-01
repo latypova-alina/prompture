@@ -17,4 +17,5 @@ blocks:
       jobs:
         - name: check style
           commands:
+            - checkout
             - bundle exec rubocop
