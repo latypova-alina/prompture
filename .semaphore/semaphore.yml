@@ -12,3 +12,9 @@ blocks:
           commands:
             - checkout
             - bundle install
+  - name: Code scanning
+    task:
+      jobs:
+        - name: check style
+          commands:
+            - rubocop
