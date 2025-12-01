@@ -5,13 +5,6 @@ agent:
     type: f1-standard-2
     os_image: ubuntu2204
 blocks:
-  - name: Setup
-    task:
-      jobs:
-        - name: bundle
-          commands:
-            - checkout
-            - bundle install
   - name: Code scanning
     task:
       jobs:
@@ -19,4 +12,4 @@ blocks:
           commands:
             - checkout
             - bundle install
-            - bundle exec rubocop
+            - bundle exec rspec
