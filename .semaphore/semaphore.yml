@@ -21,4 +21,5 @@ blocks:
             - checkout
             - bundle install
             - bundle exec sidekiq -C config/sidekiq.yml
+            - 'echo "REDIS_URL is: ${REDIS_URL:-NOT_SET}"'
             - bundle exec rspec
