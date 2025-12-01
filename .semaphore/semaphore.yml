@@ -23,3 +23,5 @@ blocks:
             - 'echo "REDIS_URL is: ${REDIS_URL:-NOT_SET}"'
             - bundle exec sidekiq -C config/sidekiq.yml
             - bundle exec rspec
+      secrets:
+        - name: Redis
