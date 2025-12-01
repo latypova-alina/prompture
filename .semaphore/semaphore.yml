@@ -5,9 +5,12 @@ agent:
     type: f1-standard-2
     os_image: ubuntu2204
 blocks:
-  - name: 'Block #1'
+  - name: Tests
     task:
       jobs:
         - name: 'Job #1'
           commands:
-            - checkout
+            - rubocop
+        - name: 'Job #2'
+          commands:
+            - rspec
