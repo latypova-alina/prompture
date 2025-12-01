@@ -20,7 +20,6 @@ blocks:
           commands:
             - checkout
             - bundle install
-            - 'echo "REDIS_URL is: ${REDIS_URL:-NOT_SET}"'
             - bundle exec sidekiq -C config/sidekiq.yml
             - bundle exec rspec
       secrets:
