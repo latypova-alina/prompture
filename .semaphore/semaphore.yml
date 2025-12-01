@@ -18,4 +18,5 @@ blocks:
         - name: check style
           commands:
             - checkout
+            - bundle install
             - bundle exec rubocop
