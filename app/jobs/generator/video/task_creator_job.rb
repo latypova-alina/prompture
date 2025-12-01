@@ -32,7 +32,13 @@ module Generator
       end
 
       def webhook_url
-        "#{ENV['GENERATOR_WEBHOOK_BASE_URL']}/freepik/webhook?token=#{token}&button_request=#{button_request}"
+        "#{webhook_host}/freepik/webhook?token=#{token}&button_request=#{button_request}"
+      end
+
+      def webhook_host
+        return ENV["GENERATOR_WEBHOOK_BASE_URL"] if Rails.env.development?
+
+        ENV["PRODUCTION_BASE_URL"]
       end
 
       def token
