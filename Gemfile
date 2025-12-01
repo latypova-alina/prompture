@@ -17,9 +17,9 @@ group :development, :test do
 end
 
 group :test do
+  gem "fakeredis"
   gem "rspec-rails", "~> 6.1.0"
   gem "webmock"
-  gem "fakeredis"
 end
 
 group :development do
