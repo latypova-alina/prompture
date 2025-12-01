@@ -13,3 +13,11 @@ blocks:
             - checkout
             - bundle install
             - bundle exec rubocop
+  - name: Run unit tests
+    task:
+      jobs:
+        - name: 'Job #1'
+          commands:
+            - checkout
+            - bundle intall
+            - bundle exec rspec
