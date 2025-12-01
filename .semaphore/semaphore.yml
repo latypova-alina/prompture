@@ -8,8 +8,16 @@ blocks:
   - name: Code scanning
     task:
       jobs:
-        - name: check style
+        - name: Rubocop
           commands:
             - checkout
             - bundle install
+            - bundle exec rubocop
+  - name: Tests
+    task:
+      jobs:
+        - name: 'Rspec '
+          commands:
+            - checkout
+            - bundle intall
             - bundle exec rspec
