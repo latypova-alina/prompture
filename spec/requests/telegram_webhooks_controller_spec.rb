@@ -17,7 +17,8 @@ describe TelegramWebhooksController, telegram_bot: :rails do
     subject { -> { dispatch_command :prompt_to_video } }
 
     let(:expected_text) do
-      "Great! Now please provide a prompt for the video. The prompt can be in any language and any length, and it can later be adapted with the help of the bot."
+      "Great! Now please provide a prompt for the video. The prompt can be in any language and any length, " \
+      "and it can later be adapted with the help of the bot."
     end
 
     it { is_expected.to respond_with_message(expected_text) }
@@ -27,7 +28,8 @@ describe TelegramWebhooksController, telegram_bot: :rails do
     subject { -> { dispatch_command :prompt_to_image } }
 
     let(:expected_text) do
-      "Great! Now please provide a prompt for the image. The prompt can be in any language and any length, and it can later be adapted with the help of the bot."
+      "Great! Now please provide a prompt for the image. The prompt can be in any language and any length, " \
+      "and it can later be adapted with the help of the bot."
     end
 
     it { is_expected.to respond_with_message(expected_text) }
