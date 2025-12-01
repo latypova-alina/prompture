@@ -20,5 +20,8 @@ blocks:
           commands:
             - checkout
             - bundle install
+            - pwd
+            - ls
+            - ls config || echo "no config dir here"
             - bundle exec sidekiq -C config/sidekiq.yml
             - bundle exec rspec
