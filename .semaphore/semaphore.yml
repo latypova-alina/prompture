@@ -13,4 +13,5 @@ blocks:
             - rubocop
         - name: 'Job #2'
           commands:
+            - apt install ruby-rspec-core
             - rspec
