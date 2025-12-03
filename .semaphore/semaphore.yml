@@ -22,3 +22,5 @@ blocks:
             - bundle install
             - bundle exec sidekiq -C config/sidekiq.yml
             - bundle exec rspec
+      secrets:
+        - name: Redis
