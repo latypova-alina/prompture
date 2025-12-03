@@ -8,6 +8,8 @@ abort("The Rails environment is running in production mode!") if Rails.env.produ
 require "rspec/rails"
 require "telegram/bot/rspec/integration/rails"
 require "webmock/rspec"
+require "sidekiq/testing"
+require "fakeredis/rspec"
 
 WebMock.disable_net_connect!(allow_localhost: true)
 Dir[Rails.root.join("spec", "support", "**", "*.rb")].each { |f| require f }
@@ -17,4 +19,5 @@ RSpec.configure do |config|
   config.infer_spec_type_from_file_location!
   config.filter_rails_from_backtrace!
   config.after { Telegram.bot.reset }
+  Sidekiq::Testing.fake!
 end
