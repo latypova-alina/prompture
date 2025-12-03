@@ -36,7 +36,7 @@ module Generator
       end
 
       def webhook_host
-        return ENV["GENERATOR_WEBHOOK_BASE_URL"] if Rails.env.development?
+        return ENV["GENERATOR_WEBHOOK_BASE_URL"] unless Rails.env.production?
 
         ENV["PRODUCTION_BASE_URL"]
       end
