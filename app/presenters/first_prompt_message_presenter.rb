@@ -1,4 +1,4 @@
-class InitialMessagePresenter
+class FirstPromptMessagePresenter
   include MessageInterface
 
   def initialize(message)
@@ -16,7 +16,7 @@ class InitialMessagePresenter
   end
 
   def inline_keyboard
-    Buttons::ForInitialMessage.buttons
+    Buttons::ForInitialPromptMessage.buttons
   end
 
   private

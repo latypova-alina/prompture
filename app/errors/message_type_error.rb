@@ -1,0 +1,1 @@
+class MessageTypeError < StandardError; end

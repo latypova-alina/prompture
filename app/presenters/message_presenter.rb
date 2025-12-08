@@ -1,24 +1,32 @@
-class MessagePresenter < BasePresenter
+class MessagePresenter
   include Memery
 
-  def initialize(message, message_type)
-    super()
-    @message = message
-    @message_type = message_type
+  PRESENTERS = {
+    ImageToVideoRequest: ImageToVideoMessagePresenter,
+    ImageFromReferenceRequest: ImageFromReferenceMessagePresenter
+  }.freeze
+
+  def initialize(request)
+    @request = request
   end
 
   private
 
-  attr_reader :message, :message_type
-
-  delegate :formatted_text, :inline_keyboard, to: :corresponding_class
+  attr_reader :request
 
   memoize def corresponding_class
-    case message_type
-    when "initial_message"
-      InitialMessagePresenter.new(message)
-    when "prompt_message"
-      PromptMessagePresenter.new(message)
-    end
+    return prompt_presenter if prompt_request?
+
+    PRESENTERS[request.class].new(request)
+  end
+
+  def prompt_request?
+    request.is_a?(PromptToImageRequest) || request.is_a?(PromptToVideoRequest)
+  end
+
+  def prompt_presenter
+    return FirstPromptMessagePresenter.new(request.prompt) unless request.extended_prompt
+
+    ExtendedPromptMessagePresenter.new(request.extended_prompt)
   end
 end

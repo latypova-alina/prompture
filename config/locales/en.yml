@@ -4,9 +4,12 @@ en:
       content: Hi there! Please give a short description of what you want to create. In any language.
       prompt_to_video: "Great! Now please provide a prompt for the video. The prompt can be in any language and any length, and it can later be adapted with the help of the bot."
       prompt_to_image: "Great! Now please provide a prompt for the image. The prompt can be in any language and any length, and it can later be adapted with the help of the bot."
+      image_to_video: "Great! Now please send me the image you want to turn into a video."
+      image_from_reference: "Great! Now please send me the reference image you want to use to generate a new image."
     message:
       prompt_prefix: "Here is your prompt:"
       prompt_suffix: What do you want to do next?
+      provide_prompt: "Please provide the description (optional)"
   errors:
     prompt_forgotten: "Please provide the prompt again"
     extend_prompt_error: "Sorry, I couldn't process your request. Please try again later."
@@ -14,3 +17,7 @@ en:
     image_generating_timeout_error: "Sorry, the image generation is taking too long. Please try again later."
     video_generating_error: "Sorry, I couldn't generate the video. Please try again later."
     video_generating_timeout_error: "Sorry, the video generation is taking too long. Please try again later."
+    command_unknown: "Oops! It looks like you haven’t selected a command yet. Please choose one and follow the instructions."
+    unknown: "Oops! Something went wrong. Please try again later."
+    wrong_message_type: "The type of message you sent is not suitable for this command. Please send the correct type of message and try again."
+    image_forgotten: "It seems like the image link is missing. Please try again."

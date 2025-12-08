@@ -1,14 +1,8 @@
 module Buttons
-  class ForInitialMessage < Base
+  class ForExtendedPromptMessage < Base
     # rubocop:disable Metrics/MethodLength
     def self.buttons
       [
-        [
-          {
-            "text": "Extend prompt",
-            "callback_data": "extend_prompt"
-          }
-        ],
         [
           {
             "text": "Gemini (0.035€)",
