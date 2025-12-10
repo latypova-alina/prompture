@@ -2,6 +2,6 @@ module MessageHandler
   class HandleMessage
     include Interactor::Organizer
 
-    organize UpdateRequest, NotifyUser
+    organize ParseUserMessage, SelectUpdateStrategy, NotifyUser
   end
 end

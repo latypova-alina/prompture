@@ -8,8 +8,6 @@ module ButtonHandler
       Generator::TaskCreatorSelectorJob.perform_async(prompt, image_url, button_request, chat_id)
     end
 
-    private
-
     delegate :prompt, to: :parent_request
   end
 end

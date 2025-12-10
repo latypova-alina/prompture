@@ -2,7 +2,6 @@ module ButtonHandler
   module CreateRequest
     class GeminiImage
       include Interactor
-      include Memery
 
       delegate :chat_id, :parent_request, to: :context
 
@@ -15,8 +14,6 @@ module ButtonHandler
           processor: "gemini_image"
         )
       end
-
-      private
 
       delegate :prompt, to: :parent_request
     end

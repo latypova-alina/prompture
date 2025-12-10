@@ -1,15 +1,15 @@
 module MessageHandler
-  class UpsertRequest
+  class SelectUpdateStrategy
     include Interactor
     include Memery
 
     delegate :message_text, :chat_id, :picture_id, :command, to: :context
 
     HANDLERS = {
-      "prompt_to_image" => CommandPromptToImageRequest::Update,
-      "prompt_to_video" => CommandPromptToVideoRequest::Update,
-      "image_to_video" => CommandImageToVideoRequest::Update,
-      "image_from_reference" => CommandImageFromReferenceRequest::Update
+      "prompt_to_image" => UpdateCommandRequest::PromptToImage,
+      "prompt_to_video" => UpdateCommandRequest::PromptToVideo,
+      "image_to_video" => UpdateCommandRequest::ImageToVideo,
+      "image_from_reference" => UpdateCommandRequest::ImageFromReference
     }.freeze
 
     def call

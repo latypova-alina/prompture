@@ -5,12 +5,11 @@ gem "dotenv-rails"
 gem "faraday"
 gem "interactor"
 gem "memery"
+gem "pg"
 gem "puma", "~> 6.0"
 gem "rails", "~> 8.0.3"
 gem "sidekiq", "~> 8.0"
 gem "telegram-bot"
-gem 'pg'
-
 
 group :development, :test do
   gem "byebug"

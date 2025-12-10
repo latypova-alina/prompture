@@ -2,7 +2,6 @@ module ButtonHandler
   module CreateRequest
     class MysticImage
       include Interactor
-      include Memery
 
       delegate :chat_id, :parent_request, to: :context
 
@@ -15,8 +14,6 @@ module ButtonHandler
           processor: "mystic_image"
         )
       end
-
-      private
 
       delegate :prompt, to: :parent_request
     end

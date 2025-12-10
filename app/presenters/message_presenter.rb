@@ -2,30 +2,32 @@ class MessagePresenter
   include Memery
 
   PRESENTERS = {
-    ImageToVideoRequest: ImageToVideoMessagePresenter,
-    ImageFromReferenceRequest: ImageFromReferenceMessagePresenter
+    CommandImageFromReferenceRequest: ImageFromReferenceMessagePresenter,
+    CommandImageToVideoRequest: ImageToVideoMessagePresenter,
+    CommandPromptToImageRequest: PromptToImageMessagePresenter,
+    CommandPromptToVideoRequest: PromptToVideoMessagePresenter
   }.freeze
 
-  def initialize(request)
-    @request = request
+  def initialize(command_request)
+    @command_request = command_request
   end
 
   private
 
-  attr_reader :request
+  attr_reader :command_request
 
   memoize def corresponding_class
     return prompt_presenter if prompt_request?
 
-    PRESENTERS[request.class].new(request)
+    PRESENTERS[command_request.class].new(command_request)
   end
 
   def prompt_request?
-    request.is_a?(PromptToImageRequest) || request.is_a?(PromptToVideoRequest)
+    command_request.is_a?(CommandPromptToImageRequest) || command_request.is_a?(PromptToVideoRequest)
   end
 
   def prompt_presenter
-    return FirstPromptMessagePresenter.new(request.prompt) unless request.extended_prompt
+    return FirstPromptMessagePresenter.new(command_request.prompt) unless command_request.extended_prompt
 
     ExtendedPromptMessagePresenter.new(request.extended_prompt)
   end

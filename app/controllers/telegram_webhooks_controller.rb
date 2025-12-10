@@ -4,7 +4,7 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
   include ErrorHandler
 
   def start!(*)
-    respond_with :message, text: t("telegram_webhooks.start.content")
+    respond_with :message, text: t("telegram_webhooks.commands.start")
   end
 
   def message(user_message)
@@ -22,7 +22,7 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
 
     HandleCommand.call(command: session[:command], chat_id: chat["id"])
 
-    respond_with :message, text: t("telegram_webhooks.start.prompt_to_video")
+    respond_with :message, text: t("telegram_webhooks.commands.prompt_to_video")
   end
 
   def prompt_to_image!(*)
@@ -30,7 +30,7 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
 
     HandleCommand.call(command: session[:command], chat_id: chat["id"])
 
-    respond_with :message, text: t("telegram_webhooks.start.prompt_to_image")
+    respond_with :message, text: t("telegram_webhooks.commands.prompt_to_image")
   end
 
   def image_to_video!(*)
@@ -38,15 +38,15 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
 
     HandleCommand.call(command: session[:command], chat_id: chat["id"])
 
-    respond_with :message, text: t("telegram_webhooks.start.image_to_video!")
+    respond_with :message, text: t("telegram_webhooks.commands.image_to_video!")
   end
 
   def image_from_reference!(*)
-    session[:command] = "image_from_reference!"
+    session[:command] = "image_from_reference"
 
     HandleCommand.call(command: session[:command], chat_id: chat["id"])
 
-    respond_with :message, text: t("telegram_webhooks.start.image_from_reference")
+    respond_with :message, text: t("telegram_webhooks.commands.image_from_reference")
   end
 
   def callback_query(button_request)
@@ -59,8 +59,6 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
       image_url: update["callback_query"]["message"]["entities"][0]["url"]
     )
   end
-
-  private
 
   delegate :image_prompt, to: :session_parser
 end

@@ -1,6 +1,6 @@
 module MessageHandler
-  module CommandPromptToImageRequest
-    class Update
+  module UpdateCommandRequest
+    class Base
       include Interactor
 
       delegate :chat_id, :message_text, :picture_id, to: :context
@@ -10,17 +10,23 @@ module MessageHandler
 
         raise CommandForgottenError unless last_request
 
-        last_request.update!(prompt: message_text)
+        context.command_request = last_request
+
+        update_record
       end
 
       private
 
+      def update_record
+        raise NotImplementedError
+      end
+
       def valid_message_type?
-        message_text && picture_id.blank?
+        raise NotImplementedError
       end
 
       memoize def last_request
-        ::CommandPromptToImageRequest.where(chat_id:).order(created_at: :desc).first
+        raise NotImplementedError
       end
     end
   end

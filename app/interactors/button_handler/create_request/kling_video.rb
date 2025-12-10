@@ -2,7 +2,6 @@ module ButtonHandler
   module CreateRequest
     class KlingVideo
       include Interactor
-      include Memery
 
       delegate :chat_id, :parent_request, :image_url, to: :context
 
@@ -18,8 +17,6 @@ module ButtonHandler
           processor: "kling_2_1_pro_image_to_video"
         )
       end
-
-      private
 
       delegate :prompt, to: :parent_request
     end

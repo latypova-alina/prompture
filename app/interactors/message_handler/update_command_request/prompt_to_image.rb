@@ -1,19 +1,11 @@
 module MessageHandler
-  module CommandPromptToVideoRequest
-    class Update
-      include Interactor
+  module UpdateCommandRequest
+    class PromptToImage < Base
+      private
 
-      delegate :chat_id, :message_text, :picture_id, to: :context
-
-      def call
-        context.fail!(error: MessageTypeError) unless valid_message_type?
-
-        raise CommandForgottenError unless last_request
-
+      def update_record
         last_request.update!(prompt: message_text)
       end
-
-      private
 
       def valid_message_type?
         message_text && picture_id.blank?

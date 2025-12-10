@@ -2,7 +2,6 @@ module ButtonHandler
   module CreateRequest
     class ExtendPrompt
       include Interactor
-      include Memery
 
       delegate :chat_id, :parent_request, to: :context
 
@@ -14,8 +13,6 @@ module ButtonHandler
           parent_request:
         )
       end
-
-      private
 
       delegate :prompt, to: :parent_request
     end

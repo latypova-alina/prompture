@@ -31,6 +31,7 @@ module Generator
       end
 
       def webhook_url
+        # TODO: send parent_class so it can be updated later
         "#{webhook_host}/freepik/webhook?token=#{token}&button_request=#{button_request}"
       end
 

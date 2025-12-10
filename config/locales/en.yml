@@ -1,7 +1,7 @@
 en:
   telegram_webhooks:
-    start:
-      content: Hi there! Please give a short description of what you want to create. In any language.
+    commands:
+      start: Hi there! Please choose a command from the menu list.
       prompt_to_video: "Great! Now please provide a prompt for the video. The prompt can be in any language and any length, and it can later be adapted with the help of the bot."
       prompt_to_image: "Great! Now please provide a prompt for the image. The prompt can be in any language and any length, and it can later be adapted with the help of the bot."
       image_to_video: "Great! Now please send me the image you want to turn into a video."
@@ -21,3 +21,4 @@ en:
     unknown: "Oops! Something went wrong. Please try again later."
     wrong_message_type: "The type of message you sent is not suitable for this command. Please send the correct type of message and try again."
     image_forgotten: "It seems like the image link is missing. Please try again."
+    command_request_forgotten: "It seems like your previous command request is missing. Please start over and provide the necessary information."
