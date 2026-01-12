@@ -22,9 +22,9 @@ MessageParser = Struct.new(:message) do
   end
 
   def image_as_document_id
-    verify_document_is_image
+    return nil unless document
 
-    document["file_id"]
+    document["file_id"] if document_is_image?
   end
 
   def image_id
@@ -33,9 +33,7 @@ MessageParser = Struct.new(:message) do
     photo.max_by { |pic| pic["file_size"] }["file_id"]
   end
 
-  def verify_document_is_image
-    return nil unless document
-
-    nil if document["mime_type"].start_with?("image/")
+  def document_is_image?
+    document["mime_type"].start_with?("image/")
   end
 end

@@ -2,13 +2,14 @@ module MessageHandler
   module UpdateCommandRequest
     class Base
       include Interactor
+      include Memery
 
       delegate :chat_id, :message_text, :picture_id, to: :context
 
       def call
         context.fail!(error: MessageTypeError) unless valid_message_type?
 
-        raise CommandForgottenError unless last_request
+        raise CommandRequestForgottenError unless last_request
 
         context.command_request = last_request
 

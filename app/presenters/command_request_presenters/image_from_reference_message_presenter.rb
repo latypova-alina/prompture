@@ -1,5 +1,5 @@
 module CommandRequestPresenters
-  class ImageToVideoMessagePresenter
+  class ImageFromReferenceMessagePresenter
     include MessageInterface
 
     def initialize(image_from_reference_request)

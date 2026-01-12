@@ -6,15 +6,23 @@ module ButtonHandler
     delegate :button_request, :chat_id, :parent_request, :image_url, to: :context
 
     HANDLERS = {
-      "extend_prompt" => CreateRequest::ExtendPrompt,
-      "mystic_image" => CreateRequest::MysticImage,
-      "gemini_image" => CreateRequest::GeminiImage,
-      "imagen_image" => CreateRequest::ImagenImage,
-      "kling_2_1_pro_image_to_video" => CreateRequest::KlingVideo
+      "extend_prompt" => RecordCreators::ButtonRequests::ExtendPrompt,
+      "mystic_image" => RecordCreators::ButtonRequests::Images::Mystic,
+      "gemini_image" => RecordCreators::ButtonRequests::Images::Gemini,
+      "imagen_image" => RecordCreators::ButtonRequests::Images::Imagen,
+      "kling_2_1_pro_image_to_video" => RecordCreators::ButtonRequests::Videos::Kling
     }.freeze
 
     def call
-      HANDLERS[button_request].call(chat_id:, parent_request:, image_url:)
+      context.button_request_record = record
+    end
+
+    private
+
+    delegate :record, to: :record_creator
+
+    def record_creator
+      HANDLERS[button_request].new(parent_request, image_url)
     end
   end
 end

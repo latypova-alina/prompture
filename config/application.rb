@@ -38,5 +38,6 @@ module Prompture
 
     # Don't generate system test files.
     config.generators.system_tests = nil
+    Dotenv.overload(".env.dev") if Rails.env.development?
   end
 end

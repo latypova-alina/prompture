@@ -8,6 +8,7 @@ class SendReply
     return if status == "IN_PROGRESS"
 
     if status == "COMPLETED"
+      # TODO: update parent record
       Generator::TaskRetrieverSelectorJob.perform_async(body[:task_id], params[:button_request], chat_id)
     elsif status == "FAILED"
       Generator::ErrorNotifierJob.perform_async(params[:button_request], chat_id)
@@ -17,7 +18,7 @@ class SendReply
   private
 
   memoize def body
-    params.require(:freepik_webhook).permit!
+    params.require(:prompt_to_image_webhook).permit!
   end
 
   memoize def status

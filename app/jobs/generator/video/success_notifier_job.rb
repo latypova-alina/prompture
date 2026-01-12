@@ -15,7 +15,7 @@ module Generator
       attr_reader :video_url
 
       def presenter
-        ButtonMessagePresenter.new(video_url, "video_message")
+        ::ButtonRequestPresenters::VideoProcessedMessagePresenter.new(video_url)
       end
     end
   end

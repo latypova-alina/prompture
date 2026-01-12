@@ -10,8 +10,7 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
   def message(user_message)
     handled_message = MessageHandler::HandleMessage.call(
       user_message:,
-      command: session[:command],
-      button_request: session[:button_request]
+      command: session[:command]
     )
 
     raise handled_message.context.error if handled_message.failure?
@@ -50,15 +49,17 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
   end
 
   def callback_query(button_request)
-    session[:button_request] = button_request
-
     ButtonHandler::HandleButton.call(
       button_request:,
-      command: session["command"],
-      chat_id: chat["id"],
-      image_url: update["callback_query"]["message"]["entities"][0]["url"]
+      command: session[:command],
+      image_url: image_url_from_message,
+      chat_id: chat["id"]
     )
   end
 
-  delegate :image_prompt, to: :session_parser
+  private
+
+  def image_url_from_message
+    update["callback_query"].dig("message", "entities", 0, "url")
+  end
 end

@@ -17,7 +17,7 @@ module Generator
       attr_reader :image_url
 
       def presenter
-        ButtonMessagePresenter.new(image_url, "image_message")
+        ButtonRequestPresenters::ImageProcessedMessagePresenter.new(image_url)
       end
     end
   end

@@ -10,8 +10,6 @@ module CommandRequestPresenters
     }.freeze
 
     def initialize(command_request)
-      super()
-
       @command_request = command_request
     end
 
@@ -20,7 +18,11 @@ module CommandRequestPresenters
     attr_reader :command_request
 
     memoize def corresponding_class
-      PRESENTERS[command_request.class].new(command_request)
+      PRESENTERS[command_request_class].new(command_request)
+    end
+
+    def command_request_class
+      command_request.class.name.to_sym
     end
   end
 end

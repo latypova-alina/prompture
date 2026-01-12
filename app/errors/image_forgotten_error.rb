@@ -1,1 +1,1 @@
-class CommandUnknownError < StandardError; end
+class ImageForgottenError < StandardError; end

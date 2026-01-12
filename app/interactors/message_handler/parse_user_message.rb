@@ -13,7 +13,7 @@ module MessageHandler
 
     private
 
-    delegate :message_text, :picture_id, to: :message_parser
+    delegate :message_text, :picture_id, :chat_id, to: :message_parser
 
     memoize def message_parser
       MessageParser.new(user_message)

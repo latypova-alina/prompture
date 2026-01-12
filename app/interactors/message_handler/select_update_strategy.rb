@@ -13,11 +13,26 @@ module MessageHandler
     }.freeze
 
     def call
-      handler = HANDLERS[command]
+      context.fail!(error: CommandUnknownError) unless handler
+      context.fail!(error: handler_result.context.error) if handler_result.failure?
 
-      return handler.call(message_text:, chat_id:, picture_id:) if handler
+      context.command_request = command_request
+    end
 
-      context.fail!(error: CommandUnknownError)
+    private
+
+    delegate :command_request, to: :handler_result
+
+    memoize def handler_result
+      handler.call(
+        message_text:,
+        chat_id:,
+        picture_id:
+      )
+    end
+
+    def handler
+      HANDLERS[command]
     end
   end
 end

@@ -10,8 +10,73 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 0) do
+ActiveRecord::Schema[8.0].define(version: 2025_12_04_172646) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
+  create_table "button_extend_prompt_requests", force: :cascade do |t|
+    t.text "extended_prompt"
+    t.string "status", default: "pending", null: false
+    t.string "parent_request_type", null: false
+    t.bigint "parent_request_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["parent_request_type", "parent_request_id"], name: "index_button_extend_prompt_requests_on_parent_request"
+  end
+
+  create_table "button_image_processing_requests", force: :cascade do |t|
+    t.string "image_url"
+    t.string "status", default: "pending", null: false
+    t.string "parent_request_type", null: false
+    t.bigint "parent_request_id", null: false
+    t.string "processor", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["parent_request_type", "parent_request_id"], name: "index_button_image_processing_requests_on_parent_request"
+  end
+
+  create_table "button_video_processing_requests", force: :cascade do |t|
+    t.string "video_url"
+    t.string "status", default: "pending", null: false
+    t.string "parent_request_type", null: false
+    t.bigint "parent_request_id", null: false
+    t.string "processor", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["parent_request_type", "parent_request_id"], name: "index_button_video_processing_requests_on_parent_request"
+  end
+
+  create_table "command_image_from_reference_requests", force: :cascade do |t|
+    t.string "reference_picture_id"
+    t.string "reference_image_url"
+    t.text "prompt"
+    t.bigint "chat_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "command_image_to_video_requests", force: :cascade do |t|
+    t.string "reference_picture_id"
+    t.string "reference_image_url"
+    t.text "prompt"
+    t.bigint "chat_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "command_prompt_to_image_requests", force: :cascade do |t|
+    t.text "prompt"
+    t.bigint "chat_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "command_prompt_to_video_requests", force: :cascade do |t|
+    t.text "prompt"
+    t.string "image_url"
+    t.string "video_url"
+    t.bigint "chat_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 end

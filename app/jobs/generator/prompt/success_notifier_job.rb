@@ -15,7 +15,7 @@ module Generator
       attr_reader :extended_prompt
 
       def presenter
-        MessagePresenter.new(extended_prompt, "prompt_message")
+        ::ButtonRequestPresenters::ExtendedPromptMessagePresenter.new(extended_prompt)
       end
     end
   end
