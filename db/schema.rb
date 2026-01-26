@@ -14,8 +14,19 @@ ActiveRecord::Schema[8.0].define(version: 2025_12_04_172646) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
+  create_table "button_child_messages", force: :cascade do |t|
+    t.bigint "tg_message_id", null: false
+    t.string "request_type", null: false
+    t.bigint "request_id", null: false
+    t.bigint "button_parent_message_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["button_parent_message_id"], name: "index_button_child_messages_on_button_parent_message_id"
+    t.index ["request_type", "request_id"], name: "index_button_child_messages_on_request"
+  end
+
   create_table "button_extend_prompt_requests", force: :cascade do |t|
-    t.text "extended_prompt"
+    t.text "prompt"
     t.string "status", default: "pending", null: false
     t.string "parent_request_type", null: false
     t.bigint "parent_request_id", null: false
@@ -33,6 +44,15 @@ ActiveRecord::Schema[8.0].define(version: 2025_12_04_172646) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["parent_request_type", "parent_request_id"], name: "index_button_image_processing_requests_on_parent_request"
+  end
+
+  create_table "button_parent_messages", force: :cascade do |t|
+    t.bigint "tg_message_id", null: false
+    t.string "request_type", null: false
+    t.bigint "request_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["request_type", "request_id"], name: "index_button_parent_messages_on_request"
   end
 
   create_table "button_video_processing_requests", force: :cascade do |t|
@@ -79,4 +99,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_12_04_172646) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
+
+  add_foreign_key "button_child_messages", "button_parent_messages"
 end

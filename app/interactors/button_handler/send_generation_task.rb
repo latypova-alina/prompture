@@ -2,8 +2,7 @@ module ButtonHandler
   class SendGenerationTask
     include Interactor
 
-    delegate :button_request, :button_request_record, :image_url, :chat_id, :parent_request, to: :context
-    delegate :prompt, to: :parent_request
+    delegate :button_request, :button_request_record, :image_url, :chat_id, :parent_request, :prompt, to: :context
 
     PROMPT_EXTENSION_JOBS = {
       "extend_prompt" => ::Generator::Prompt::ExtendJob

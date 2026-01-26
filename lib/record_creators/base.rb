@@ -2,7 +2,7 @@ module RecordCreators
   class Base
     include RecordCreators::Interface
 
-    attr_reader :parent_request, :image_url
+    attr_reader :parent_request, :image_url, :prompt
 
     def initialize(parent_request, image_url = nil)
       @parent_request = parent_request

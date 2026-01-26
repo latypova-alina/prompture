@@ -5,10 +5,17 @@ module MessageHandler
     delegate :command_request, :chat_id, to: :context
 
     def call
-      Telegram.bot.send_message(
+      Telegram::SendMessageWithButtons.call(
         chat_id:,
-        **CommandRequestPresenters::MessagePresenter.new(command_request).reply_data
+        presenter:,
+        request: command_request
       )
+    end
+
+    private
+
+    def presenter
+      CommandRequestPresenters::MessagePresenter.new(command_request)
     end
   end
 end

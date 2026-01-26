@@ -13,7 +13,7 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
       command: session[:command]
     )
 
-    raise handled_message.context.error if handled_message.failure?
+    raise handled_message.error if handled_message.failure?
   end
 
   def prompt_to_video!(*)
@@ -53,7 +53,8 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
       button_request:,
       command: session[:command],
       image_url: image_url_from_message,
-      chat_id: chat["id"]
+      chat_id: chat["id"],
+      tg_message_id: message_id
     )
   end
 
@@ -61,5 +62,9 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
 
   def image_url_from_message
     update["callback_query"].dig("message", "entities", 0, "url")
+  end
+
+  def message_id
+    update["callback_query"].dig("message", "message_id")
   end
 end

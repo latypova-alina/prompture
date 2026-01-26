@@ -2,6 +2,6 @@ module ButtonHandler
   class HandleButton
     include Interactor::Organizer
 
-    organize FindParentRequest, CreateRequest, SendGenerationTask
+    organize FindPrompt, FindParentRequest, CreateRequest, SendGenerationTask
   end
 end
