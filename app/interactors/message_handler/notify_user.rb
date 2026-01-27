@@ -7,12 +7,14 @@ module MessageHandler
     def call
       Telegram::SendMessageWithButtons.call(
         chat_id:,
-        presenter:,
+        reply_data:,
         request: command_request
       )
     end
 
     private
+
+    delegate :reply_data, to: :presenter
 
     def presenter
       CommandRequestPresenters::MessagePresenter.new(command_request)

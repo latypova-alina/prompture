@@ -7,7 +7,6 @@ module Generator
         @raw_prompt = raw_prompt
 
         SuccessNotifierJob.perform_async(extended_prompt, chat_id, button_request_id)
-        UpdateButtonRequestJob.perform_async(extended_prompt, button_request_id)
       rescue ChatGpt::ResponseError
         ErrorNotifierJob.perform_async(chat_id)
       end

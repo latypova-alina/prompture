@@ -8,8 +8,8 @@ class SendReply
     return if status == "IN_PROGRESS"
 
     if status == "COMPLETED"
-      # TODO: update parent record
-      Generator::TaskRetrieverSelectorJob.perform_async(body[:task_id], params[:button_request], chat_id)
+      Generator::TaskRetrieverSelectorJob.perform_async(body[:task_id], params[:button_request], params[:request_id],
+                                                        chat_id)
     elsif status == "FAILED"
       Generator::ErrorNotifierJob.perform_async(params[:button_request], chat_id)
     end

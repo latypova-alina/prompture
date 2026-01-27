@@ -15,7 +15,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_12_04_172646) do
   enable_extension "pg_catalog.plpgsql"
 
   create_table "button_child_messages", force: :cascade do |t|
-    t.bigint "tg_message_id", null: false
     t.string "request_type", null: false
     t.bigint "request_id", null: false
     t.bigint "button_parent_message_id", null: false

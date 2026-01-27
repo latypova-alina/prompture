@@ -14,7 +14,7 @@ module MessageHandler
 
     def call
       context.fail!(error: CommandUnknownError) unless handler
-      context.fail!(error: handler_result.context.error) if handler_result.failure?
+      context.fail!(error: handler_result.error) if handler_result.failure?
 
       context.command_request = command_request
     end
