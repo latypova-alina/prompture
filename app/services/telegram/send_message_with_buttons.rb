@@ -3,9 +3,10 @@ module Telegram
     def self.call(chat_id:, reply_data:, request:)
       response = ::Telegram.bot.send_message(chat_id:, **reply_data)
 
-      ButtonParentMessage.create!(
+      TelegramMessage.create!(
         tg_message_id: response.dig("result", "message_id"),
-        request:
+        request:,
+        chat_id:
       )
     end
   end

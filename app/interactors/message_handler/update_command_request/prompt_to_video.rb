@@ -8,7 +8,7 @@ module MessageHandler
       end
 
       def valid_message_type?
-        message_text && picture_id.blank? && last_request.picture_id.blank?
+        message_text && picture_id.blank? && last_request.image_url.blank?
       end
 
       memoize def last_request

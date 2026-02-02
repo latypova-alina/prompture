@@ -19,6 +19,8 @@ module Generator
 
       attr_reader :prompt, :chat_id, :button_request, :request_id
 
+      delegate :webhook_url, to: :webhook_url_builder
+
       memoize def response
         connection.post { |req| req.body = final_payload.to_json }
       end
@@ -31,18 +33,8 @@ module Generator
         payload.reverse_merge(webhook_url:, prompt:)
       end
 
-      def webhook_url
-        "#{webhook_host}/prompt_to_image_webhook?token=#{token}&button_request=#{button_request}&request_id=#{request_id}"
-      end
-
-      def webhook_host
-        return ENV["GENERATOR_WEBHOOK_BASE_URL"] unless Rails.env.production?
-
-        ENV["PRODUCTION_BASE_URL"]
-      end
-
-      def token
-        ChatToken.encode(chat_id)
+      def webhook_url_builder
+        Generator::WebhookUrlBuilder.new(button_request, request_id, chat_id)
       end
     end
   end

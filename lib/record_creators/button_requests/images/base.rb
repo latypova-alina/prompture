@@ -6,7 +6,8 @@ module RecordCreators
           ::ButtonImageProcessingRequest.create!(
             status: "PENDING",
             parent_request:,
-            processor:
+            processor:,
+            command_request:
           )
         end
 

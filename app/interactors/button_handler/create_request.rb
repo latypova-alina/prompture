@@ -3,7 +3,7 @@ module ButtonHandler
     include Interactor
     include Memery
 
-    delegate :button_request, :chat_id, :parent_request, :image_url, to: :context
+    delegate :button_request, :parent_request, :image_url, :command_request, to: :context
 
     HANDLERS = {
       "extend_prompt" => RecordCreators::ButtonRequests::ExtendPrompt,
@@ -22,7 +22,7 @@ module ButtonHandler
     delegate :record, to: :record_creator
 
     def record_creator
-      HANDLERS[button_request].new(parent_request, image_url)
+      HANDLERS[button_request].new(parent_request, command_request, image_url)
     end
   end
 end

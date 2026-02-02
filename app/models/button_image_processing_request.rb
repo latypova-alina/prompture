@@ -1,5 +1,6 @@
 class ButtonImageProcessingRequest < ApplicationRecord
-  belongs_to :parent_request, polymorphic: true
+  include HasOriginPrompt
 
-  has_one :button_child_message, as: :request, dependent: :destroy
+  belongs_to :parent_request, polymorphic: true
+  belongs_to :command_request, polymorphic: true
 end

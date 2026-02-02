@@ -3,9 +3,8 @@ module ButtonHandler
     include Interactor
     include Memery
 
-    delegate :button_request, :button_request_record, :image_url, :chat_id, :button_parent_message, to: :context
-    delegate :request, to: :button_parent_message, prefix: true
-    delegate :prompt, to: :button_parent_message_request
+    delegate :button_request, :button_request_record, :image_url, :chat_id, :parent_request, to: :context
+    delegate :parent_prompt, to: :parent_request
 
     PROMPT_EXTENSION_JOBS = {
       "extend_prompt" => ::Generator::Prompt::ExtendJob
@@ -35,15 +34,16 @@ module ButtonHandler
     private
 
     def perform_prompt_extension_job
-      PROMPT_EXTENSION_JOBS[button_request].perform_async(prompt, chat_id, button_request_id)
+      PROMPT_EXTENSION_JOBS[button_request].perform_async(parent_prompt, chat_id, button_request_id)
     end
 
     def perform_image_generator_job
-      IMAGE_GENERATOR_JOBS[button_request].perform_async(prompt, chat_id, button_request, button_request_id)
+      IMAGE_GENERATOR_JOBS[button_request].perform_async(parent_prompt, chat_id, button_request, button_request_id)
     end
 
     def perform_video_generator_job
-      VIDEO_GENERATOR_JOBS[button_request].perform_async(prompt, image_url, chat_id, button_request, button_request_id)
+      VIDEO_GENERATOR_JOBS[button_request].perform_async(parent_prompt, image_url, chat_id, button_request,
+                                                         button_request_id)
     end
 
     memoize def button_request_id

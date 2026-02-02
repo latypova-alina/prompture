@@ -5,11 +5,11 @@ module RecordCreators
         def record
           raise ImageForgottenError unless image_url.present?
 
-          context.record = ::ButtonVideoProcessorRequest.create!(
+          ::ButtonVideoProcessingRequest.create!(
             status: "PENDING",
-            image_url:,
             parent_request:,
-            processor:
+            processor:,
+            command_request:
           )
         end
 

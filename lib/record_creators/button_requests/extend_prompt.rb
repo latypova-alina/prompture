@@ -4,7 +4,8 @@ module RecordCreators
       def record
         ::ButtonExtendPromptRequest.create!(
           status: "PENDING",
-          parent_request:
+          parent_request:,
+          command_request:
         )
       end
     end

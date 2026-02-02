@@ -4,12 +4,12 @@ module Generator
       include Sidekiq::Job
       include Memery
 
-      def perform(task_id, chat_id)
+      def perform(task_id, chat_id, button_request_id)
         @task_id = task_id
 
         raise ::Freepik::ResponseError unless response.success?
 
-        ::Generator::Video::SuccessNotifierJob.perform_async(video_url, chat_id)
+        ::Generator::Video::SuccessNotifierJob.perform_async(video_url, chat_id, button_request_id)
       rescue ::Freepik::ResponseError
         ::Generator::Video::ErrorNotifierJob.perform_async(chat_id)
       end
