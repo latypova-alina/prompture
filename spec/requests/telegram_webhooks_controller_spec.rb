@@ -8,7 +8,7 @@ describe TelegramWebhooksController, telegram_bot: :rails do
   describe "#start!" do
     subject { -> { dispatch_command :start } }
 
-    let(:expected_text) { "Hi there! Please give a short description of what you want to create. In any language." }
+    let(:expected_text) { "Hi there! Please choose a command from the menu list." }
 
     it { is_expected.to respond_with_message(expected_text) }
   end
@@ -36,97 +36,170 @@ describe TelegramWebhooksController, telegram_bot: :rails do
   end
 
   describe "#message" do
-    let(:expected_message) do
-      <<~HTML.strip
-        Here is your prompt:
+    subject { -> { dispatch_message(prompt) } }
 
-        <blockquote>cute white kitten</blockquote>
+    context "when command was not selected" do
+      let(:expected_text) do
+        "Oops! It looks like you haven’t selected a command yet. Please choose one and follow the instructions."
+      end
 
-        What do you want to do next?
-      HTML
-    end
-    let(:expected_markup) do
-      {
-        inline_keyboard: [
-          [{ text: "Extend prompt", callback_data: "extend_prompt" }],
-          [{ text: "Gemini (0.035€)", callback_data: "gemini_image" }],
-          [{ text: "Imagen3 (0.04€)", callback_data: "imagen_image" }],
-          [{ text: "Mystic (0.1€)", callback_data: "mystic_image" }]
-        ]
-      }
+      it { is_expected.to respond_with_message(expected_text) }
     end
 
-    it "replies with MessagePresenter data" do
-      expect { dispatch_message(prompt) }
-        .to send_telegram_message(bot)
-        .with(
-          text: "#{expected_message}\n",
-          parse_mode: "HTML",
-          reply_markup: expected_markup,
-          chat_id: 456
-        )
+    context "when command is known" do
+      let(:session) { FakeSession.new }
+      let(:command) { "prompt_to_image" }
+
+      before do
+        allow_any_instance_of(described_class)
+          .to receive(:session)
+          .and_return(session)
+
+        session[:command] = command
+        session[:chat_id] = 456
+
+        CommandPromptToImageRequest.create!(prompt:, chat_id: 456)
+      end
+
+      let(:expected_message) do
+        <<~HTML.strip
+          Here is your prompt:
+
+          <blockquote>cute white kitten</blockquote>
+
+          What do you want to do next?
+        HTML
+      end
+
+      let(:expected_markup) do
+        {
+          inline_keyboard: [
+            [{ text: "Extend prompt", callback_data: "extend_prompt" }],
+            [{ text: "Gemini (0.035€)", callback_data: "gemini_image" }],
+            [{ text: "Imagen3 (0.04€)", callback_data: "imagen_image" }],
+            [{ text: "Mystic (0.1€)", callback_data: "mystic_image" }]
+          ]
+        }
+      end
+
+      it "replies with MessagePresenter data" do
+        expect { dispatch_message(prompt) }
+          .to send_telegram_message(bot)
+          .with(
+            text: "#{expected_message}\n",
+            parse_mode: "HTML",
+            reply_markup: expected_markup,
+            chat_id: 456
+          )
+      end
     end
   end
 
-  describe "#callback_query", :callback_query do
-    let(:data) { "extend_prompt" }
+  describe "#extend_prompt_callback_query", :callback_query do
     let(:session) { FakeSession.new }
     let(:chat_id) { 456 }
-    let(:image_url) { "http://example.com/image.png" }
+    let(:command) { "prompt_to_image" }
+    let(:button_request) { "extend_prompt" }
+    let(:callback_query_data) do
+      {
+        "callback_query" => {
+          "message" => {
+            "entities" => [],
+            "message_id" => 789
+          }
+        }
+      }
+    end
+    let(:button_extend_prompt_request) do
+      create(:button_extend_prompt_request,
+             prompt: "cute white kitten extended",
+             command_request:,
+             parent_request: command_request)
+    end
+
+    let(:command_request) { create(:command_prompt_to_image_request, prompt: "cute white kitten", chat_id:) }
 
     before do
-      allow(Generator::TaskCreatorSelectorJob).to receive(:perform_async)
-
       allow_any_instance_of(described_class)
         .to receive(:session)
         .and_return(session)
 
-      session["image_prompt"] = prompt
-      session["chat_id"] = chat_id
+      session[:command] = command
+
+      allow_any_instance_of(described_class)
+        .to receive(:chat)
+        .and_return({ "id" => chat_id })
+
+      allow_any_instance_of(described_class)
+        .to receive(:update)
+        .and_return(callback_query_data)
+
+      create(:telegram_message, tg_message_id: 789, chat_id:, request: command_request)
+
+      allow_any_instance_of(RecordCreators::ButtonRequests::ExtendPrompt)
+        .to receive(:record)
+        .and_return(button_extend_prompt_request)
     end
 
-    after { ChatState.del(chat_id, :last_image_url) }
+    it "runs ::Generator::Prompt::ExtendJob" do
+      expect(::Generator::Prompt::ExtendJob).to receive(:perform_async)
+        .with("cute white kitten", 456, button_extend_prompt_request.id)
 
-    context "when callback_data is extend_prompt" do
-      it "runs TaskCreatorSelectorJob" do
-        expect(Generator::TaskCreatorSelectorJob).to receive(:perform_async)
-          .with("cute white kitten", nil, "extend_prompt", 456)
+      described_class.new.callback_query(button_request)
+    end
+  end
 
-        described_class.new.callback_query("extend_prompt")
-      end
+  describe "#mystic_image_callback_query", :callback_query do
+    let(:session) { FakeSession.new }
+    let(:chat_id) { 456 }
+    let(:command) { "prompt_to_image" }
+    let(:button_request) { "mystic_image" }
+    let(:callback_query_data) do
+      {
+        "callback_query" => {
+          "message" => {
+            "entities" => [],
+            "message_id" => 789
+          }
+        }
+      }
+    end
+    let(:button_image_processing_request) do
+      create(:button_image_processing_request,
+             processor: "mystic",
+             command_request:,
+             parent_request: command_request)
     end
 
-    context "when callback data is mystic_image" do
-      before { ChatState.set(chat_id, :last_image_url, image_url) }
+    let(:command_request) { create(:command_prompt_to_image_request, prompt: "cute white kitten", chat_id:) }
 
-      it "runs TaskCreatorSelectorJob" do
-        expect(Generator::TaskCreatorSelectorJob).to receive(:perform_async)
-          .with("cute white kitten", "http://example.com/image.png", "mystic_image", 456)
+    before do
+      allow_any_instance_of(described_class)
+        .to receive(:session)
+        .and_return(session)
 
-        described_class.new.callback_query("mystic_image")
-      end
+      session[:command] = command
+
+      allow_any_instance_of(described_class)
+        .to receive(:chat)
+        .and_return({ "id" => chat_id })
+
+      allow_any_instance_of(described_class)
+        .to receive(:update)
+        .and_return(callback_query_data)
+
+      create(:telegram_message, tg_message_id: 789, chat_id:, request: command_request)
+
+      allow_any_instance_of(RecordCreators::ButtonRequests::Images::Mystic)
+        .to receive(:record)
+        .and_return(button_image_processing_request)
     end
 
-    context "when callback data is imagen_image" do
-      before { ChatState.set(chat_id, :last_image_url, image_url) }
+    it "runs ::Generator::Image::Mystic::TaskCreatorJob" do
+      expect(::Generator::Image::Mystic::TaskCreatorJob).to receive(:perform_async)
+        .with("cute white kitten", 456, "mystic_image", button_image_processing_request.id)
 
-      it "runs TaskCreatorSelectorJob" do
-        expect(Generator::TaskCreatorSelectorJob).to receive(:perform_async)
-          .with("cute white kitten", "http://example.com/image.png", "imagen_image", 456)
-
-        described_class.new.callback_query("imagen_image")
-      end
-    end
-
-    context "when callback data is kling_2_1_pro_image_to_video" do
-      before { ChatState.set(chat_id, :last_image_url, image_url) }
-
-      it "runs TaskCreatorSelectorJob" do
-        expect(Generator::TaskCreatorSelectorJob).to receive(:perform_async)
-          .with("cute white kitten", "http://example.com/image.png", "kling_2_1_pro_image_to_video", 456)
-
-        described_class.new.callback_query("kling_2_1_pro_image_to_video")
-      end
+      described_class.new.callback_query(button_request)
     end
   end
 end
