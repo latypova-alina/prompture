@@ -17,7 +17,7 @@ module MessageHandler
     delegate :reply_data, to: :presenter
 
     def presenter
-      CommandRequestPresenters::MessagePresenter.new(command_request)
+      CommandRequestPresenters::MessagePresenter.new(command_request:)
     end
   end
 end

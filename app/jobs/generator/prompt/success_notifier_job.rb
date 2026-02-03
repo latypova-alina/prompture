@@ -23,7 +23,7 @@ module Generator
       attr_reader :extended_prompt, :button_request_id
 
       def presenter
-        ::ButtonRequestPresenters::ExtendedPromptMessagePresenter.new(extended_prompt)
+        ::ButtonRequestPresenters::ExtendedPromptMessagePresenter.new(message: extended_prompt)
       end
 
       memoize def request

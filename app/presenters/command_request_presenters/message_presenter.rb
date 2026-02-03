@@ -9,7 +9,9 @@ module CommandRequestPresenters
       CommandPromptToVideoRequest: PromptRequestPresenter
     }.freeze
 
-    def initialize(command_request)
+    def initialize(command_request:, message: nil)
+      super(message:)
+
       @command_request = command_request
     end
 

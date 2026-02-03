@@ -25,6 +25,6 @@ module Buttons
           "callback_data": "mystic_image"
         }
       ]
-    ]
+    ].freeze
   end
 end

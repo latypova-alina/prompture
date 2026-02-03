@@ -14,7 +14,7 @@ module ButtonRequestPresenters
       attr_reader :image_url, :command_request_classname
 
       def presenter
-        PRESENTERS[command_request_classname].new(image_url)
+        PRESENTERS[command_request_classname].new(message: image_url)
       end
     end
   end

@@ -1,7 +1,7 @@
 class BasePresenter
   include Memery
 
-  def initialize(message)
+  def initialize(message:)
     @message = message
   end
 
