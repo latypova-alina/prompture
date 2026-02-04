@@ -11,6 +11,8 @@ module ButtonHandler
     delegate :command, :chat_id, to: :context
 
     def call
+      context.fail!(error: CommandRequestForgottenError) unless command_request
+
       context.command_request = command_request
     end
 

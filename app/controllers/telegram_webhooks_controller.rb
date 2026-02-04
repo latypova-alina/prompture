@@ -49,13 +49,15 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
   end
 
   def callback_query(button_request)
-    ButtonHandler::HandleButton.call(
+    handled_button = ButtonHandler::HandleButton.call(
       button_request:,
       command: session[:command],
       image_url: image_url_from_message,
       chat_id: chat["id"],
       tg_message_id: message_id
     )
+
+    raise handled_button.error if handled_button.failure?
   end
 
   private
