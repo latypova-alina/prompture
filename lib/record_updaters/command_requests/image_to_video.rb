@@ -1,5 +1,5 @@
-module MessageHandler
-  module UpdateCommandRequest
+module RecordUpdaters
+  module CommandRequests
     class ImageToVideo < Base
       private
 

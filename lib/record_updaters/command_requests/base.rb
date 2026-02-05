@@ -1,22 +1,25 @@
-module MessageHandler
-  module UpdateCommandRequest
+module RecordUpdaters
+  module CommandRequests
     class Base
-      include Interactor
       include Memery
 
-      delegate :chat_id, :message_text, :picture_id, to: :context
+      def initialize(message_text, chat_id, picture_id = nil)
+        @chat_id = chat_id
+        @message_text = message_text
+        @picture_id = picture_id
+      end
 
-      def call
-        context.fail!(error: MessageTypeError) unless valid_message_type?
-
+      def command_request
+        raise MessageTypeError unless valid_message_type?
         raise CommandRequestForgottenError unless last_request
 
-        context.command_request = last_request
-
         update_record
+        last_request
       end
 
       private
+
+      attr_reader :message_text, :chat_id, :picture_id
 
       def update_record
         raise NotImplementedError

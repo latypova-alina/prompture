@@ -1,5 +1,5 @@
-module MessageHandler
-  module UpdateCommandRequest
+module RecordUpdaters
+  module CommandRequests
     class PromptToImage < Base
       private
 

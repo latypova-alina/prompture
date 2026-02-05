@@ -6,17 +6,18 @@ module MessageHandler
     delegate :message_text, :chat_id, :picture_id, :command, to: :context
 
     HANDLERS = {
-      "prompt_to_image" => UpdateCommandRequest::PromptToImage,
-      "prompt_to_video" => UpdateCommandRequest::PromptToVideo,
-      "image_to_video" => UpdateCommandRequest::ImageToVideo,
-      "image_from_reference" => UpdateCommandRequest::ImageFromReference
+      "prompt_to_image" => ::RecordUpdaters::CommandRequests::PromptToImage,
+      "prompt_to_video" => ::RecordUpdaters::CommandRequests::PromptToVideo,
+      "image_to_video" => ::RecordUpdaters::CommandRequests::ImageToVideo,
+      "image_from_reference" => ::RecordUpdaters::CommandRequests::ImageFromReference
     }.freeze
 
     def call
       context.fail!(error: CommandUnknownError) unless handler
-      context.fail!(error: handler_result.error) if handler_result.failure?
 
       context.command_request = command_request
+    rescue MessageTypeError, CommandRequestForgottenError => e
+      context.fail!(error: e.class)
     end
 
     private
@@ -24,14 +25,10 @@ module MessageHandler
     delegate :command_request, to: :handler_result
 
     memoize def handler_result
-      handler.call(
-        message_text:,
-        chat_id:,
-        picture_id:
-      )
+      handler.new(message_text, chat_id, picture_id)
     end
 
-    def handler
+    memoize def handler
       HANDLERS[command]
     end
   end
