@@ -10,8 +10,8 @@ module RecordUpdaters
       end
 
       def command_request
-        raise MessageTypeError unless valid_message_type?
         raise CommandRequestForgottenError unless last_request
+        raise MessageTypeError unless valid_message_type?
 
         update_record
         last_request

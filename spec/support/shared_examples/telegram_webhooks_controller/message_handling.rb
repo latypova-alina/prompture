@@ -40,7 +40,8 @@ RSpec.shared_examples "message handling" do
       let(:prompt) { nil }
 
       let(:expected_text) do
-        "The type of message you sent is not suitable for this command. Please send the correct type of message and try again."
+        "The type of message you sent is not suitable for this command. " \
+        "Please send the correct type of message and try again."
       end
 
       it { is_expected.to respond_with_message(expected_text) }

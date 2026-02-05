@@ -11,6 +11,8 @@ class HandleCommand
   }.freeze
 
   def call
+    context.fail!(error: CommandUnknownError) unless HANDLERS.key?(command)
+
     HANDLERS[command].create!(chat_id:)
   end
 end
