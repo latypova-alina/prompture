@@ -47,26 +47,4 @@ RSpec.shared_examples "an image callback" do |processor:, record_creator:, job_c
       end.to raise_error(ParentNotFoundError)
     end
   end
-
-  context "when command is missing" do
-    let(:other_command_request) do
-      create(:command_prompt_to_image_request,
-             prompt: "other prompt",
-             chat_id: 0)
-    end
-    let(:parent_request) do
-      create(:button_extend_prompt_request,
-             prompt: "cute white kitten extended",
-             command_request: other_command_request,
-             parent_request: other_command_request)
-    end
-
-    before { setup_parent_message }
-
-    it "raises an error" do
-      expect do
-        described_class.new.callback_query(button_request_text)
-      end.to raise_error(CommandRequestForgottenError)
-    end
-  end
 end

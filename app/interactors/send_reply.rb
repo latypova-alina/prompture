@@ -18,7 +18,7 @@ class SendReply
   private
 
   memoize def body
-    params.require(:prompt_to_image_webhook).permit!
+    params.require(:freepik_webhook).permit!
   end
 
   memoize def status

@@ -7,7 +7,7 @@ module Generator
     end
 
     def webhook_url
-      "#{webhook_host}/prompt_to_image_webhook?token=#{token}&button_request=#{button_request}&request_id=#{request_id}"
+      "#{webhook_host}/freepik_webhook?token=#{token}&button_request=#{button_request}&request_id=#{request_id}"
     end
 
     private

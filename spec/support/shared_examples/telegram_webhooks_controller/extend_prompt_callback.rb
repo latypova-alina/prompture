@@ -34,14 +34,4 @@ RSpec.shared_examples "extend prompt callback" do |record_creator:, job_class:|
       described_class.new.callback_query(button_request_text)
     end
   end
-
-  context "when command is missing" do
-    let(:command_request) { nil }
-
-    it "raises an error" do
-      expect do
-        described_class.new.callback_query(button_request_text)
-      end.to raise_error(ParentNotFoundError)
-    end
-  end
 end

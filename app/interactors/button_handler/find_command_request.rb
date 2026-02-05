@@ -3,23 +3,25 @@ module ButtonHandler
     include Interactor
     include Memery
 
-    COMMAND_REQUESTS = {
-      "prompt_to_image" => CommandPromptToImageRequest,
-      "prompt_to_video" => CommandPromptToVideoRequest
-    }.freeze
+    delegate :parent_request, to: :context
 
-    delegate :command, :chat_id, to: :context
+    COMMAND_REQUEST_CLASSES = [
+      CommandPromptToImageRequest,
+      CommandPromptToVideoRequest,
+      CommandImageToVideoRequest,
+      CommandImageFromReferenceRequest
+    ].freeze
 
     def call
-      context.fail!(error: CommandRequestForgottenError) unless command_request
-
       context.command_request = command_request
     end
 
     private
 
     memoize def command_request
-      COMMAND_REQUESTS[command].where(chat_id:).order(created_at: :desc).first
+      return parent_request if COMMAND_REQUEST_CLASSES.include?(parent_request.class)
+
+      parent_request.command_request
     end
   end
 end
