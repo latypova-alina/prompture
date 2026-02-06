@@ -9,7 +9,7 @@ shared_context "stub create imagen task success request" do
           "Accept" => "application/json"
         },
         body: {
-          webhook_url: "https://example.com/freepik/webhook?token=#{token}&button_request=imagen_image",
+          webhook_url: "https://example.com/freepik_webhook?token=#{token}&button_request=imagen_image&request_id=#{request_id}",
           prompt:,
           "aspect_ratio": "social_story_9_16",
           "styling": {
@@ -65,7 +65,7 @@ shared_context "stub create imagen task fail request" do
           "Accept" => "application/json"
         },
         body: {
-          webhook_url: "https://example.com/freepik/webhook?token=#{token}&button_request=imagen_image",
+          webhook_url: "https://example.com/freepik_webhook?token=#{token}&button_request=imagen_image&request_id=#{request_id}",
           prompt:,
           "aspect_ratio": "social_story_9_16",
           "styling": {

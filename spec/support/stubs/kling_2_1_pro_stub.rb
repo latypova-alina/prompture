@@ -1,6 +1,6 @@
 require "rails_helper"
 
-shared_context "stub create kling task success request" do
+shared_context "stub create kling_2_1_pro task success request" do
   before do
     stub_request(:post, "https://api.freepik.com/v1/ai/image-to-video/kling-v2-1-pro")
       .with(
@@ -9,7 +9,7 @@ shared_context "stub create kling task success request" do
           "Accept" => "application/json"
         },
         body: {
-          webhook_url: "https://example.com/freepik/webhook?token=#{token}&button_request=kling_2_1_pro_image_to_video",
+          webhook_url: "https://example.com/freepik_webhook?token=#{token}&button_request=kling_2_1_pro_image_to_video&request_id=#{request_id}",
           prompt:,
           image: image_url,
           duration: "5",
@@ -28,7 +28,7 @@ shared_context "stub create kling task success request" do
   end
 end
 
-shared_context "stub retrieve kling task success request" do
+shared_context "stub retrieve kling_2_1_pro task success request" do
   before do
     stub_request(:get, "https://api.freepik.com/v1/ai/image-to-video/kling-v2-1/#{task_id}")
       .to_return(
@@ -50,12 +50,12 @@ shared_context "stub retrieve kling task success request" do
   end
 end
 
-shared_context "stub kling success request" do
-  include_context "stub create kling task success request"
-  include_context "stub retrieve kling task success request"
+shared_context "stub kling_2_1_pro success request" do
+  include_context "stub create kling_2_1_pro task success request"
+  include_context "stub retrieve kling_2_1_pro task success request"
 end
 
-shared_context "stub create kling task fail request" do
+shared_context "stub create kling_2_1_pro task fail request" do
   before do
     stub_request(:post, "https://api.freepik.com/v1/ai/image-to-video/kling-v2-1-pro")
       .with(
@@ -64,7 +64,7 @@ shared_context "stub create kling task fail request" do
           "Accept" => "application/json"
         },
         body: {
-          webhook_url: "https://example.com/freepik/webhook?token=#{token}&button_request=kling_2_1_pro_image_to_video",
+          webhook_url: "https://example.com/freepik_webhook?token=#{token}&button_request=kling_2_1_pro_image_to_video&request_id=#{request_id}",
           prompt:,
           image: image_url,
           duration: "5",
@@ -84,7 +84,7 @@ shared_context "stub create kling task fail request" do
   end
 end
 
-shared_context "stub retrieve kling task fail request" do
+shared_context "stub retrieve kling_2_1_pro task fail request" do
   before do
     stub_request(:get, "https://api.freepik.com/v1/ai/image-to-video/kling-v2-1/#{task_id}")
       .to_return(
@@ -100,7 +100,7 @@ shared_context "stub retrieve kling task fail request" do
   end
 end
 
-shared_context "stub retrieve kling task with FAILED status" do
+shared_context "stub retrieve kling_2_1_pro task with FAILED status" do
   before do
     stub_request(:get, "https://api.freepik.com/v1/ai/image-to-video/kling-v2-1/#{task_id}")
       .to_return(
@@ -122,7 +122,7 @@ shared_context "stub retrieve kling task with FAILED status" do
   end
 end
 
-shared_context "stub retrieve kling task with IN_PROGRESS status" do
+shared_context "stub retrieve kling_2_1_pro task with IN_PROGRESS status" do
   before do
     stub_request(:get, "https://api.freepik.com/v1/ai/image-to-video/kling-v2-1/#{task_id}")
       .to_return(
