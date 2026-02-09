@@ -4,7 +4,7 @@ default: &default
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
   username: <%= ENV["PGUSER"] %>
   password: <%= ENV["PGPASSWORD"] %>
-  host: <%= ENV["PGHOST"] %>
+  host: <%= ENV.fetch("PGHOST", "localhost") %>
 
 development:
   <<: *default
@@ -13,7 +13,6 @@ development:
 test:
   <<: *default
   database: prompture_test
-  host:  <%= ENV["PGHOST"] %> || "localhost"
 
 production:
   <<: *default
