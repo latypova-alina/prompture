@@ -17,7 +17,13 @@ blocks:
     task:
       jobs:
         - name: 'Rspec '
+          services:
+            - postgres
+          env_vars:
+            - name: RAILS_ENV
+              value: test
           commands:
             - checkout
             - bundle install
+            - bundle exec rails db:prepare
             - bundle exec rspec
