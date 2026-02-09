@@ -15,6 +15,17 @@ blocks:
             - bundle exec rubocop
   - name: Tests
     task:
+      services:
+        - postgres
+      env_vars:
+        - name: RAILS_ENV
+          value: test
+        - name: PGHOST
+          value: localhost
+        - name: PGUSER
+          value: postgres
+        - name: PGPASSWORD
+          value: ""
       jobs:
         - name: Rspec
           commands:
@@ -22,8 +33,3 @@ blocks:
             - bundle install
             - 'bundle exec rails db:prepare'
             - bundle exec rspec
-      env_vars:
-        - name: RAILS_ENV
-          value: test
-        - name: PGHOST
-          value: localhost
