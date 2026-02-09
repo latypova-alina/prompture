@@ -2,6 +2,7 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
   include Telegram::Bot::UpdatesController::MessageContext
   include SessionAccessor
   include ErrorHandler
+  include TgChatAuthorization
 
   def start!(*)
     respond_with :message, text: t("telegram_webhooks.commands.start")
