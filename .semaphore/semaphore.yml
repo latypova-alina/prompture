@@ -20,4 +20,10 @@ blocks:
           commands:
             - checkout
             - bundle install
+            - 'bundle exec rails db:prepare'
             - bundle exec rspec
+      env_vars:
+        - name: RAILS_ENV
+          value: test
+        - name: PGHOST
+          value: localhost
