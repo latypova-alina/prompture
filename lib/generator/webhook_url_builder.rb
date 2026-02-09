@@ -15,7 +15,7 @@ module Generator
     attr_reader :button_request, :request_id, :chat_id
 
     def webhook_host
-      return ENV["GENERATOR_WEBHOOK_BASE_URL"] unless Rails.env.production?
+      return ENV["GENERATOR_WEBHOOK_BASE_URL"] unless Rails.env.production? || Rails.env.staging?
 
       ENV["PRODUCTION_BASE_URL"]
     end

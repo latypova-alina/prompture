@@ -24,13 +24,16 @@ Run poller first:
 
 ```bash
 bundle exec rake telegram:bot:poller
+```
 
 Then open sidekiq:
 
 ```bash
 bundle exec sidekiq
+```
 
 Then open ngrok (for local webhooks)
 
 ```bash
 ngrok http 3000
+```
