@@ -15,13 +15,13 @@ blocks:
             - bundle exec rubocop
   - name: Tests
     task:
+      services:
+        - postgres
+      env_vars:
+        - name: RAILS_ENV
+          value: test
       jobs:
         - name: 'Rspec '
-          services:
-            - postgres
-          env_vars:
-            - name: RAILS_ENV
-              value: test
           commands:
             - checkout
             - bundle install
