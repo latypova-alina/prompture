@@ -1,0 +1,1 @@
+class CommandRequestForgottenError < StandardError; end

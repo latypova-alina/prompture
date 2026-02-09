@@ -1,38 +1,71 @@
 class TelegramWebhooksController < Telegram::Bot::UpdatesController
   include Telegram::Bot::UpdatesController::MessageContext
   include SessionAccessor
-  include MessageAccessor
+  include ErrorHandler
 
   def start!(*)
-    respond_with :message, text: t("telegram_webhooks.start.content")
+    respond_with :message, text: t("telegram_webhooks.commands.start")
   end
 
   def message(user_message)
-    @user_message = user_message
-    session[:image_prompt] = message_text
-    session[:chat_id] = message_parser.chat_id
+    handled_message = MessageHandler::HandleMessage.call(
+      user_message:,
+      command: session[:command]
+    )
 
-    respond_with :message, MessagePresenter.new(message_text, "initial_message").reply_data
+    raise handled_message.error if handled_message.failure?
   end
 
   def prompt_to_video!(*)
-    respond_with :message, text: t("telegram_webhooks.start.prompt_to_video")
+    session[:command] = "prompt_to_video"
+
+    HandleCommand.call(command: session[:command], chat_id: chat["id"])
+
+    respond_with :message, text: t("telegram_webhooks.commands.prompt_to_video")
   end
 
   def prompt_to_image!(*)
-    respond_with :message, text: t("telegram_webhooks.start.prompt_to_image")
+    session[:command] = "prompt_to_image"
+
+    HandleCommand.call(command: session[:command], chat_id: chat["id"])
+
+    respond_with :message, text: t("telegram_webhooks.commands.prompt_to_image")
+  end
+
+  def image_to_video!(*)
+    session[:command] = "image_to_video!"
+
+    HandleCommand.call(command: session[:command], chat_id: chat["id"])
+
+    respond_with :message, text: t("telegram_webhooks.commands.image_to_video!")
+  end
+
+  def image_from_reference!(*)
+    session[:command] = "image_from_reference"
+
+    HandleCommand.call(command: session[:command], chat_id: chat["id"])
+
+    respond_with :message, text: t("telegram_webhooks.commands.image_from_reference")
   end
 
   def callback_query(button_request)
-    image_url = ChatState.get(chat_id, :last_image_url)
+    handled_button = ButtonHandler::HandleButton.call(
+      button_request:,
+      image_url: image_url_from_message,
+      chat_id: chat["id"],
+      tg_message_id: message_id
+    )
 
-    Generator::TaskCreatorSelectorJob.perform_async(image_prompt, image_url, button_request, chat_id)
+    raise handled_button.error if handled_button.failure?
   end
 
   private
 
-  attr_reader :user_message
+  def image_url_from_message
+    update["callback_query"].dig("message", "entities", 0, "url")
+  end
 
-  delegate :message_text, to: :message_parser
-  delegate :image_prompt, :image_url, :chat_id, to: :session_parser
+  def message_id
+    update["callback_query"].dig("message", "message_id")
+  end
 end

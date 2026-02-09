@@ -7,12 +7,17 @@ describe Generator::Prompt::ExtendJob do
   let(:extended_prompt) { "make it longer but more creative" }
   let(:chat_id) { 99 }
 
+  let(:command_request) { create(:command_prompt_to_image_request) }
+  let(:button_request) do
+    create(:button_extend_prompt_request, parent_request: command_request, command_request:)
+  end
+
   before do
     allow(Generator::Prompt::SuccessNotifierJob).to receive(:perform_async)
     allow(Generator::Prompt::ErrorNotifierJob).to receive(:perform_async)
   end
 
-  subject { job.perform(raw_prompt, chat_id) }
+  subject { job.perform(raw_prompt, chat_id, button_request.id) }
 
   describe "#perform" do
     context "when the prompt extender succeeds" do
@@ -31,7 +36,7 @@ describe Generator::Prompt::ExtendJob do
         subject
 
         expect(Generator::Prompt::SuccessNotifierJob).to have_received(:perform_async)
-          .with(extended_prompt, chat_id)
+          .with(extended_prompt, chat_id, button_request.id)
       end
 
       it "does not enqueue ErrorNotifierJob" do

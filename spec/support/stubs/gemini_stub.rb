@@ -9,7 +9,7 @@ shared_context "stub create gemini task success request" do
           "Accept" => "application/json"
         },
         body: {
-          webhook_url: "https://example.com/freepik/webhook?token=#{token}&button_request=gemini_image",
+          webhook_url: "https://example.com/freepik_webhook?token=#{token}&button_request=gemini_image&request_id=#{request_id}",
           prompt: "#{prompt}\nThe same ratio as reference image.",
           reference_images: ["https://prompture.s3.eu-central-1.amazonaws.com/vertical.jpg"]
         }.to_json
@@ -62,7 +62,7 @@ shared_context "stub create gemini task fail request" do
           "Accept" => "application/json"
         },
         body: {
-          webhook_url: "https://example.com/freepik/webhook?token=#{token}&button_request=gemini_image",
+          webhook_url: "https://example.com/freepik_webhook?token=#{token}&button_request=gemini_image&request_id=#{request_id}",
           prompt: "#{prompt}\nThe same ratio as reference image.",
           reference_images: ["https://prompture.s3.eu-central-1.amazonaws.com/vertical.jpg"]
         }.to_json

@@ -1,6 +1,10 @@
 class BasePresenter
   include Memery
 
+  def initialize(message:)
+    @message = message
+  end
+
   def reply_data
     {
       parse_mode: "HTML",
@@ -10,6 +14,8 @@ class BasePresenter
   end
 
   private
+
+  attr_reader :message
 
   delegate :formatted_text, :inline_keyboard, to: :corresponding_class
 

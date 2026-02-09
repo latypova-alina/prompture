@@ -2,22 +2,38 @@ module Generator
   module Image
     class SuccessNotifierJob
       include Sidekiq::Job
+      include Memery
 
-      def perform(image_url, chat_id)
+      def perform(image_url, chat_id, button_request_id)
         @image_url = image_url
+        @button_request_id = button_request_id
 
-        ChatState.set(chat_id, :last_image_url, image_url)
+        Telegram::SendMessageWithButtons.call(
+          chat_id:,
+          reply_data:,
+          request:
+        )
 
-        Telegram.bot.send_message(chat_id:, **reply_data)
+        request.update!(status: "COMPLETED", image_url:)
       end
 
       private
 
       delegate :reply_data, to: :presenter
-      attr_reader :image_url
+      delegate :presenter, to: :presenter_selector
 
-      def presenter
-        ButtonMessagePresenter.new(image_url, "image_message")
+      attr_reader :image_url, :button_request_id
+
+      memoize def presenter_selector
+        ButtonRequestPresenters::ImageProcessedMessage::PresenterSelector.new(image_url, command_request_classname)
+      end
+
+      memoize def command_request_classname
+        request.command_request.class.name
+      end
+
+      memoize def request
+        ButtonImageProcessingRequest.find(button_request_id)
       end
     end
   end

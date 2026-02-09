@@ -5,19 +5,27 @@ describe Generator::Prompt::SuccessNotifierJob do
 
   let(:chat_id) { 789 }
   let(:extended_prompt) { "a very long and beautiful prompt" }
-  let(:reply_data) { { text: "Prompt text", parse_mode: "HTML" } }
-
-  before do
-    fake_bot = double(send_message: true, reset: true)
-    allow(Telegram).to receive(:bot).and_return(fake_bot)
-
-    presenter = instance_double(MessagePresenter, reply_data: reply_data)
-    allow(MessagePresenter).to receive(:new)
-      .with(extended_prompt, "prompt_message")
-      .and_return(presenter)
+  let(:reply_data) do
+    { chat_id: 789,
+      parse_mode: "HTML",
+      reply_markup:
+   { inline_keyboard:
+     [[{ callback_data: "gemini_image", text: "Gemini (0.035€)" }],
+      [{ callback_data: "imagen_image", text: "Imagen3 (0.04€)" }],
+      [{ callback_data: "mystic_image", text: "Mystic (0.1€)" }]] },
+      text: "a very long and beautiful prompt" }
+  end
+  let(:command_request) { create(:command_prompt_to_image_request) }
+  let(:button_request) do
+    create(:button_extend_prompt_request, parent_request: command_request, command_request:)
   end
 
-  subject { job.perform(extended_prompt, chat_id) }
+  before do
+    allow(Telegram).to receive(:bot).and_return(double(send_message: { "result" => { "message_id" => 789 } },
+                                                       reset: true))
+  end
+
+  subject { job.perform(extended_prompt, chat_id, button_request.id) }
 
   describe "#perform" do
     it "sends a Telegram message with presenter reply_data" do

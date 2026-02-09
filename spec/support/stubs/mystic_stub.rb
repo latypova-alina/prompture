@@ -9,7 +9,7 @@ shared_context "stub create mystic task success request" do
           "Accept" => "application/json"
         },
         body: {
-          webhook_url: "https://example.com/freepik/webhook?token=#{token}&button_request=mystic_image",
+          webhook_url: "https://example.com/freepik_webhook?token=#{token}&button_request=mystic_image&request_id=#{request_id}",
           prompt:,
           aspect_ratio: "social_story_9_16",
           model: "zen",
@@ -65,7 +65,7 @@ shared_context "stub create mystic task fail request" do
           "Accept" => "application/json"
         },
         body: {
-          webhook_url: "https://example.com/freepik/webhook?token=#{token}&button_request=mystic_image",
+          webhook_url: "https://example.com/freepik_webhook?token=#{token}&button_request=mystic_image&request_id=#{request_id}",
           prompt:,
           aspect_ratio: "social_story_9_16",
           model: "zen",

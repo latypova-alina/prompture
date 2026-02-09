@@ -1,0 +1,28 @@
+module ButtonHandler
+  class CreateRequest
+    include Interactor
+    include Memery
+
+    delegate :button_request, :parent_request, :image_url, :command_request, to: :context
+
+    HANDLERS = {
+      "extend_prompt" => RecordCreators::ButtonRequests::ExtendPrompt,
+      "mystic_image" => RecordCreators::ButtonRequests::Images::Mystic,
+      "gemini_image" => RecordCreators::ButtonRequests::Images::Gemini,
+      "imagen_image" => RecordCreators::ButtonRequests::Images::Imagen,
+      "kling_2_1_pro_image_to_video" => RecordCreators::ButtonRequests::Videos::Kling
+    }.freeze
+
+    def call
+      context.button_request_record = record
+    end
+
+    private
+
+    delegate :record, to: :record_creator
+
+    def record_creator
+      HANDLERS[button_request].new(parent_request, command_request, image_url)
+    end
+  end
+end

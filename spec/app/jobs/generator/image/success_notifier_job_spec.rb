@@ -5,31 +5,28 @@ describe Generator::Image::SuccessNotifierJob do
 
   let(:image_url) { "https://example.com/image.png" }
   let(:chat_id) { 456 }
-  let(:reply_data) { { text: "hi", parse_mode: "HTML" } }
-
-  before do
-    allow(ChatState).to receive(:set)
-    allow(Telegram).to receive(:bot).and_return(double(send_message: true, reset: true))
-
-    presenter_double = instance_double(ButtonMessagePresenter, reply_data: reply_data)
-    allow(ButtonMessagePresenter).to receive(:new)
-      .with(image_url, "image_message")
-      .and_return(presenter_double)
+  let(:reply_data) do
+    { chat_id: 456,
+      parse_mode: "HTML",
+      reply_markup: { inline_keyboard: [] },
+      text: "<a href=\"https://example.com/image.png\">Open image</a>" }
+  end
+  let(:command_request) { create(:command_prompt_to_image_request) }
+  let(:button_request) do
+    create(:button_image_processing_request, command_request:, parent_request: command_request)
   end
 
-  subject { job.perform(image_url, chat_id) }
+  before do
+    allow(Telegram).to receive(:bot).and_return(double(send_message: { "result" => { "message_id" => 789 } },
+                                                       reset: true))
+  end
+
+  subject { job.perform(image_url, chat_id, button_request.id) }
 
   describe "#perform" do
-    it "stores the last image URL in ChatState" do
-      subject
-
-      expect(ChatState).to have_received(:set)
-        .with(chat_id, :last_image_url, image_url)
-    end
-
     it "sends a Telegram message with presenter reply_data" do
       expect(Telegram.bot).to receive(:send_message).with(
-        chat_id: chat_id,
+        chat_id:,
         **reply_data
       )
 

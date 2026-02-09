@@ -19,6 +19,7 @@ RSpec.configure do |config|
   config.filter_rails_from_backtrace!
   config.after { Telegram.bot.reset }
   Sidekiq::Testing.fake!
+  config.include FactoryBot::Syntax::Methods
 
   config.before(:each) do
     fake_store = {}

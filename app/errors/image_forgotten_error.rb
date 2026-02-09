@@ -1,0 +1,1 @@
+class ImageForgottenError < StandardError; end

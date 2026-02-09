@@ -41,7 +41,7 @@ describe SendReply do
       interactor
 
       expect(Generator::TaskRetrieverSelectorJob).to have_received(:perform_async)
-        .with(task_id, button_request, chat_id)
+        .with(task_id, button_request, nil, chat_id)
     end
 
     it "does not enqueue ErrorNotifierJob" do
