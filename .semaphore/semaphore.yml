@@ -15,8 +15,6 @@ blocks:
             - bundle exec rubocop
   - name: Tests
     task:
-      services:
-        - postgres
       env_vars:
         - name: RAILS_ENV
           value: test
@@ -31,5 +29,6 @@ blocks:
           commands:
             - checkout
             - bundle install
-            - 'bundle exec rails db:prepare'
+            - sem-service start postgres
+            - bundle exec rails db:prepare
             - bundle exec rspec
