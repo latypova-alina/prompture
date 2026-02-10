@@ -4,6 +4,7 @@ class CommandPromptToVideoRequest < ApplicationRecord
   has_many :button_extend_prompt_requests, as: :command_request, dependent: :destroy
   has_many :button_image_processing_requests, as: :command_request, dependent: :destroy
   has_many :button_video_processing_requests, as: :command_request, dependent: :destroy
+  has_many :prompt_messages, as: :command_request, dependent: :destroy
 
   has_many :direct_button_extend_prompt_requests,
            as: :parent_request,
