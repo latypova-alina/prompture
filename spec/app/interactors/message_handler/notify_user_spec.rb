@@ -1,11 +1,11 @@
 require "rails_helper"
 
 describe MessageHandler::NotifyUser do
-  subject { described_class.call(command_request:, chat_id:) }
+  subject { described_class.call(prompt_message:, chat_id:) }
 
   let(:chat_id) { 456 }
-  let(:command_request) { create(:command_prompt_to_image_request) }
-  let(:presenter_class) { CommandRequestPresenters::MessagePresenter }
+  let(:prompt_message) { create(:prompt_message) }
+  let(:presenter_class) { UserMessagePresenters::MessagePresenter }
 
   let(:presenter) { instance_double(presenter_class) }
   let(:reply_data) { { text: "Hello", reply_markup: {} } }
@@ -13,7 +13,7 @@ describe MessageHandler::NotifyUser do
   before do
     allow(presenter_class)
       .to receive(:new)
-      .with(command_request:)
+      .with(user_message: prompt_message)
       .and_return(presenter)
 
     allow(presenter)
@@ -29,9 +29,9 @@ describe MessageHandler::NotifyUser do
 
     expect(presenter_class)
       .to have_received(:new)
-      .with(command_request:)
+      .with(user_message: prompt_message)
 
     expect(Telegram::SendMessageWithButtons).to have_received(:call).with(chat_id:, reply_data:,
-                                                                          request: command_request)
+                                                                          request: prompt_message)
   end
 end

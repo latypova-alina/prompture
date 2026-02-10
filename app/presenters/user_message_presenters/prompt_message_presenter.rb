@@ -1,9 +1,9 @@
-module CommandRequestPresenters
-  class PromptRequestPresenter
+module UserMessagePresenters
+  class PromptMessagePresenter
     include MessageInterface
 
-    def initialize(command_request)
-      @command_request = command_request
+    def initialize(prompt_message)
+      @prompt_message = prompt_message
     end
 
     def formatted_text
@@ -22,8 +22,8 @@ module CommandRequestPresenters
 
     private
 
-    attr_reader :command_request
+    attr_reader :prompt_message
 
-    delegate :prompt, to: :command_request
+    delegate :prompt, to: :prompt_message
   end
 end

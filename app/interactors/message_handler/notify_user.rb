@@ -2,13 +2,13 @@ module MessageHandler
   class NotifyUser
     include Interactor
 
-    delegate :command_request, :chat_id, to: :context
+    delegate :prompt_message, :chat_id, to: :context
 
     def call
       Telegram::SendMessageWithButtons.call(
         chat_id:,
         reply_data:,
-        request: command_request
+        request: prompt_message
       )
     end
 
@@ -17,7 +17,7 @@ module MessageHandler
     delegate :reply_data, to: :presenter
 
     def presenter
-      CommandRequestPresenters::MessagePresenter.new(command_request:)
+      UserMessagePresenters::MessagePresenter.new(user_message: prompt_message)
     end
   end
 end

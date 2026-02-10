@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_12_04_172646) do
+ActiveRecord::Schema[8.0].define(version: 2026_02_10_151303) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -74,19 +74,27 @@ ActiveRecord::Schema[8.0].define(version: 2025_12_04_172646) do
   end
 
   create_table "command_prompt_to_image_requests", force: :cascade do |t|
-    t.text "prompt"
     t.bigint "chat_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
   create_table "command_prompt_to_video_requests", force: :cascade do |t|
-    t.text "prompt"
-    t.string "image_url"
-    t.string "video_url"
     t.bigint "chat_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "prompt_messages", force: :cascade do |t|
+    t.text "prompt"
+    t.string "parent_request_type", null: false
+    t.bigint "parent_request_id", null: false
+    t.string "command_request_type", null: false
+    t.bigint "command_request_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["command_request_type", "command_request_id"], name: "index_prompt_messages_on_command_request"
+    t.index ["parent_request_type", "parent_request_id"], name: "index_prompt_messages_on_parent_request"
   end
 
   create_table "telegram_messages", force: :cascade do |t|

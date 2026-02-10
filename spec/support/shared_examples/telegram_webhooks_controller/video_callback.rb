@@ -5,15 +5,16 @@ RSpec.shared_examples "a video callback" do |processor:, record_creator:, job_cl
   let(:command) { "prompt_to_video" }
 
   context "when command is present" do
+    let(:prompt_message) { create(:prompt_message, prompt: "cute white kitten") }
+
     let(:command_request) do
       create(:command_prompt_to_video_request,
-             prompt: "cute white kitten",
              chat_id:)
     end
 
     let(:parent_request) do
-      create(:button_image_processing_request, image_url: "http://example.com/image.jpg", command_request:,
-                                               parent_request: command_request)
+      create(:button_image_processing_request, command_request:,
+                                               parent_request: prompt_message)
     end
 
     let(:button_video_processing_request) do
