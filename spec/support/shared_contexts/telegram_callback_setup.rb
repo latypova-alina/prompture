@@ -18,11 +18,10 @@ RSpec.shared_context "telegram callback setup" do
 
   let(:command_request) do
     create(:command_prompt_to_image_request,
-           prompt: "cute white kitten",
            chat_id:)
   end
 
-  let(:parent_request) { command_request }
+  let(:parent_request) { create(:prompt_message, prompt: "cute white kitten") }
 
   before do
     setup_session

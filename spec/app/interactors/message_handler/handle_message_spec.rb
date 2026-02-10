@@ -6,7 +6,9 @@ describe MessageHandler::HandleMessage do
       expect(described_class.organized).to eq(
         [
           MessageHandler::ParseUserMessage,
-          MessageHandler::SelectUpdateStrategy,
+          MessageHandler::FindCommandRequest,
+          MessageHandler::ValidateMessageType,
+          MessageHandler::CreatePromptMessage,
           MessageHandler::NotifyUser
         ]
       )
