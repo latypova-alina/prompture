@@ -7,6 +7,7 @@ module ErrorHandler
     rescue_from ImageForgottenError, with: :handle_image_forgotten
     rescue_from CommandRequestForgottenError, with: :handle_command_request_forgotten
     rescue_from ParentNotFoundError, with: :handle_parent_not_found
+    rescue_from TokenNotFoundError, with: :handle_token_not_found
   end
 
   private
@@ -29,5 +30,9 @@ module ErrorHandler
 
   def handle_parent_not_found(_error)
     respond_with :message, text: I18n.t("errors.parent_not_found")
+  end
+
+  def handle_token_not_found(_error)
+    respond_with :message, text: I18n.t("errors.token_not_found")
   end
 end
