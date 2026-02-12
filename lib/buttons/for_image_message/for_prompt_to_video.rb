@@ -4,7 +4,7 @@ module Buttons
       BUTTONS = [
         [
           {
-            "text": "Kling Pro 2.1 (0.42€)",
+            "text": "Kling Pro 2.1 (10 credits)",
             "callback_data": "kling_2_1_pro_image_to_video"
           }
         ]
