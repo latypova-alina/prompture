@@ -3,4 +3,8 @@ class ButtonVideoProcessingRequest < ApplicationRecord
 
   belongs_to :parent_request, polymorphic: true
   belongs_to :command_request, polymorphic: true
+
+  def cost
+    COSTS[:videos][processor.to_sym]
+  end
 end

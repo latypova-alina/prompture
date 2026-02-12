@@ -28,3 +28,4 @@ en:
     token_used: "Sorry, the token you provided has already been used."
     token_expired: "Sorry, the token you provided has expired."
     token_activated: "Hey, seems like you already have an active subscription :) Please choose a command and enjoy the bot!"
+    insufficient_credits: "Sorry, it looks like you don't have enough credits to perform this action :("

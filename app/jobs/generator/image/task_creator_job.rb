@@ -12,6 +12,7 @@ module Generator
 
         raise ::Freepik::ResponseError unless response.success?
       rescue Freepik::ResponseError
+        # Generator::Image::RefundJob.perform_async(chat_id, request_id)
         Generator::Image::ErrorNotifierJob.perform_async(chat_id)
       end
 
