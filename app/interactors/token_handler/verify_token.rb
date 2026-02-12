@@ -1,17 +1,24 @@
 module TokenHandler
   class VerifyToken
     include Interactor
-    include Memoist
+    include Memery
 
     delegate :token_code, to: :context
 
     def call
-      context.fail!(error: TokenNotFoundError) unless token
+      validate_token!
 
       context.token = token
     end
 
     private
+
+    def validate_token!
+      context.fail!(error: TokenNotFoundError) unless token
+      context.fail!(error: TokenActivatedError) if token.activated?
+      context.fail!(error: TokenUsedError) if token.used_at.present?
+      context.fail!(error: TokenExpiredError) if token.expired?
+    end
 
     memoize def token
       Token.find_by(code: token_code)

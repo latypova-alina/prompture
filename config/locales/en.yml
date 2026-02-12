@@ -24,4 +24,7 @@ en:
     image_forgotten: "It seems like the image link is missing. Please try again."
     command_request_forgotten: "It seems like your previous command request is missing. Please start over and provide the necessary information."
     unauthorized: "Sorry, you are not authorized to use this bot."
-    token_not_found: "Sorry, the token you provided is invalid. Please try again with a valid token."
+    token_not_found: "Sorry, the token you provided is invalid. You can ask administrator for a valid token."
+    token_used: "Sorry, the token you provided has already been used."
+    token_expired: "Sorry, the token you provided has expired."
+    token_activated: "Hey, seems like you already have an active subscription :) Please choose a command and enjoy the bot!"

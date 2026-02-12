@@ -1,4 +1,4 @@
-class TelegramMessage < ApplicationRecord
-  has_one :balance, depemdent: :destroy
+class User < ApplicationRecord
+  has_one :balance, dependent: :destroy
   has_many :tokens, dependent: :destroy
 end

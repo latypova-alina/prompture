@@ -11,13 +11,14 @@ class CreateBalances < ActiveRecord::Migration[8.0]
       t.integer :credits, null: false, default: 0
       t.references :user, null: false, foreign_key: true
       
-      t.timestampse
+      t.timestamps
     end
 
     create_table :tokens do |t|
       t.string :code, null: false
       t.integer :credits, null: false
-      t.references :user, null: false, foreign_key: true
+      t.text :greeting
+      t.references :user, null: true, foreign_key: true
       t.date :expires_at, null: false
       t.date :used_at
 

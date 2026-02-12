@@ -4,10 +4,14 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
   include ErrorHandler
   include TgChatAuthorization
 
-  def start!(token)
-    TokenHandler::HandleToken.call(token) if token.present?
+  def start!(token_code = nil)
+    handled_token = TokenHandler::HandleToken.call(
+      token_code:,
+      chat_id: chat["id"],
+      name: chat["first_name"]
+    )
 
-    respond_with :message, text: t("telegram_webhooks.commands.start")
+    raise handled_token.error if handled_token.failure?
   end
 
   def message(user_message)

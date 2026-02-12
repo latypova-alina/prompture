@@ -1,12 +1,13 @@
 module TokenHandler
-  class UpdateOrCreateBalance
+  class CreateOrUpdateBalance
     include Interactor
-    include Memoist
+    include Memery
 
     delegate :token, :user, to: :context
+    delegate :credits, to: :token
 
     def call
-      balance.increment!(:credits, token.credits)
+      balance.increment!(:credits, credits)
     end
 
     private

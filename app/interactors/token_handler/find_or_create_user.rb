@@ -1,7 +1,7 @@
 module TokenHandler
   class FindOrCreateUser
     include Interactor
-    include Memoist
+    include Memery
 
     delegate :chat_id, :name, to: :context
 
