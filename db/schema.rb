@@ -14,6 +14,19 @@ ActiveRecord::Schema[8.0].define(version: 2026_02_11_150545) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
+  create_table "balance_transactions", force: :cascade do |t|
+    t.integer "amount", null: false
+    t.string "transaction_type", null: false
+    t.bigint "user_id", null: false
+    t.string "source_type", null: false
+    t.bigint "source_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["source_type", "source_id"], name: "index_balance_transactions_on_source_type_and_source_id"
+    t.index ["user_id", "transaction_type", "source_type", "source_id"], name: "index_balance_transactions_uniqueness", unique: true
+    t.index ["user_id"], name: "index_balance_transactions_on_user_id"
+  end
+
   create_table "balances", force: :cascade do |t|
     t.integer "credits", default: 0, null: false
     t.bigint "user_id", null: false
@@ -125,6 +138,7 @@ ActiveRecord::Schema[8.0].define(version: 2026_02_11_150545) do
     t.date "used_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["code"], name: "index_tokens_on_code", unique: true
     t.index ["user_id"], name: "index_tokens_on_user_id"
   end
 
@@ -136,6 +150,7 @@ ActiveRecord::Schema[8.0].define(version: 2026_02_11_150545) do
     t.index ["chat_id"], name: "index_users_on_chat_id", unique: true
   end
 
+  add_foreign_key "balance_transactions", "users"
   add_foreign_key "balances", "users"
   add_foreign_key "tokens", "users"
 end

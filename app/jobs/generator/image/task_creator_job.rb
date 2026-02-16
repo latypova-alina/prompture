@@ -12,7 +12,7 @@ module Generator
 
         raise ::Freepik::ResponseError unless response.success?
       rescue Freepik::ResponseError
-        # Generator::Image::RefundJob.perform_async(chat_id, request_id)
+        Billing::Refunder.call(user:, amount: request.cost, source: request)
         Generator::Image::ErrorNotifierJob.perform_async(chat_id)
       end
 
@@ -32,6 +32,14 @@ module Generator
 
       def final_payload
         payload.reverse_merge(webhook_url:, prompt:)
+      end
+
+      memoize def request
+        ButtonImageProcessingRequest.find(request_id)
+      end
+
+      memoize def user
+        User.find_by!(chat_id:)
       end
 
       def webhook_url_builder

@@ -24,5 +24,24 @@ class CreateBalances < ActiveRecord::Migration[8.0]
 
       t.timestamps
     end
+    add_index :tokens, :code, unique: true
+
+    create_table :balance_transactions do |t|
+      t.integer :amount, null: false
+      t.string :transaction_type, null: false
+
+      t.references :user, null: false, foreign_key: true
+
+      t.string :source_type, null: false
+      t.bigint :source_id, null: false
+
+      t.timestamps
+    end
+
+    add_index :balance_transactions, [:source_type, :source_id]
+    add_index :balance_transactions,
+      [:user_id, :transaction_type, :source_type, :source_id],
+      unique: true,
+      name: "index_balance_transactions_uniqueness"
   end
 end

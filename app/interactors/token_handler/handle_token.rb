@@ -2,6 +2,6 @@ module TokenHandler
   class HandleToken
     include Interactor::Organizer
 
-    organize VerifyToken, FindOrCreateUser, UpdateToken, CreateOrUpdateBalance, NotifyUser
+    organize VerifyToken, FindOrCreateUser, UpdateToken, GrantCredits, NotifyUser
   end
 end

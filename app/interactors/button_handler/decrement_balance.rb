@@ -4,15 +4,12 @@ module ButtonHandler
     include Memery
 
     delegate :chat_id, :button_request_record, to: :context
-    delegate :balance, to: :user
     delegate :cost, to: :button_request_record
 
     def call
-      balance.with_lock do
-        context.fail!(error: InsufficientCreditsError) if balance.credits < cost
-
-        balance.decrement!(:credits, cost)
-      end
+      Billing::Charger.call(user:, amount: cost, source: button_request_record)
+    rescue InsufficientCreditsError => e
+      context.fail!(error: e.class)
     end
 
     private
