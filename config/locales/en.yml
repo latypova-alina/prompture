@@ -6,6 +6,7 @@ en:
       prompt_to_image: "Great! Now please provide a prompt for the image. The prompt can be in any language and any length, and it can later be adapted with the help of the bot."
       image_to_video: "Great! Now please send me the image you want to turn into a video."
       image_from_reference: "Great! Now please send me the reference image you want to use to generate a new image."
+      balance: "Your current balance is %{balance} credits."
     message:
       prompt_prefix: "Here is your prompt:"
       prompt_suffix: What do you want to do next?

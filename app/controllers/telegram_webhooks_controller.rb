@@ -31,6 +31,12 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
     respond_with :message, text: t("telegram_webhooks.commands.prompt_to_video")
   end
 
+  def balance!(*)
+    balance = Balance.joins(:user).find_by(users: { chat_id: chat["id"] })&.credits
+
+    respond_with :message, text: t("telegram_webhooks.commands.balance", balance:)
+  end
+
   def prompt_to_image!(*)
     session[:command] = "prompt_to_image"
 
