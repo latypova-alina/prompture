@@ -25,8 +25,4 @@ module TgChatAuthorization
        .split(",")
        .map(&:strip)
   end
-
-  memoize def user
-    User.find_by(chat_id: chat["id"])
-  end
 end

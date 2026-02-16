@@ -32,9 +32,7 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
   end
 
   def balance!(*)
-    balance = Balance.joins(:user).find_by(users: { chat_id: chat["id"] })&.credits
-
-    respond_with :message, text: t("telegram_webhooks.commands.balance", balance:)
+    respond_with :message, text: t("telegram_webhooks.commands.balance", balance: user.balance.credits)
   end
 
   def prompt_to_image!(*)
@@ -80,5 +78,9 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
 
   def message_id
     update["callback_query"].dig("message", "message_id")
+  end
+
+  memoize def user
+    User.eager_load(:balance).find_by(chat_id: chat["id"])
   end
 end
