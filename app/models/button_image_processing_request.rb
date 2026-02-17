@@ -6,9 +6,15 @@ class ButtonImageProcessingRequest < ApplicationRecord
   belongs_to :parent_request, polymorphic: true
   belongs_to :command_request, polymorphic: true
 
+  has_one :telegram_message, as: :request, dependent: :destroy
+
   validates :processor, presence: true, inclusion: { in: PROCESSOR_TYPES }
 
   def cost
     COSTS[:images][processor.to_sym]
+  end
+
+  def humanized_process_name
+    processor.humanize
   end
 end

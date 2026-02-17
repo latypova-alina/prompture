@@ -64,7 +64,8 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
       button_request:,
       image_url: image_url_from_message,
       chat_id: chat["id"],
-      tg_message_id: message_id
+      tg_message_id:,
+      callback_query_id:
     )
 
     raise handled_button.error if handled_button.failure?
@@ -76,8 +77,12 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
     update["callback_query"].dig("message", "entities", 0, "url")
   end
 
-  def message_id
+  def tg_message_id
     update["callback_query"].dig("message", "message_id")
+  end
+
+  def callback_query_id
+    update["callback_query"]["id"]
   end
 
   memoize def user

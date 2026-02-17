@@ -4,6 +4,11 @@ describe ButtonVideoProcessingRequest, type: :model do
   describe "associations" do
     it { is_expected.to belong_to(:parent_request) }
     it { is_expected.to belong_to(:command_request) }
+    it do
+      is_expected
+        .to have_one(:telegram_message)
+        .dependent(:destroy)
+    end
   end
 
   describe "validations" do
@@ -29,10 +34,14 @@ describe ButtonVideoProcessingRequest, type: :model do
     end
   end
 
-  describe "PROCESSOR_TYPES" do
-    it "contains allowed processors" do
-      expect(described_class::PROCESSOR_TYPES)
-        .to contain_exactly("kling_2_1_pro_image_to_video")
+  describe "#humanized_process_name" do
+    described_class::PROCESSOR_TYPES.each do |processor|
+      it "returns correct humanized name for #{processor}" do
+        record = build(:button_video_processing_request, processor:)
+
+        expected_name = I18n.t("telegram.generation.humanized_process_names.video.#{processor}")
+        expect(record.humanized_process_name).to eq(expected_name)
+      end
     end
   end
 end

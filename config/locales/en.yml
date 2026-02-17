@@ -30,3 +30,11 @@ en:
     token_expired: "Sorry, the token you provided has expired."
     token_activated: "Hey, seems like you already have an active subscription :) Please choose a command and enjoy the bot!"
     insufficient_credits: "Sorry, it looks like you don't have enough credits to perform this action :("
+  telegram:
+    generation:
+      processing: Generating %{process_name}, please wait…
+      humanized_process_names:
+        extend_prompt: "prompt"
+        video:
+          kling_2_1_pro_image_to_video: "Kling Pro video"
+
