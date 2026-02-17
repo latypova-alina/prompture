@@ -8,6 +8,7 @@ describe ButtonHandler::HandleButton do
           ButtonHandler::FindParentRequest,
           ButtonHandler::FindCommandRequest,
           ButtonHandler::CreateRequest,
+          ButtonHandler::DecrementBalance,
           ButtonHandler::SendGenerationTask
         ]
       )

@@ -2,8 +2,7 @@ RSpec.shared_examples "video task retriever job" do |processor:|
   let(:task_id) { "abc123" }
   let(:chat_id) { 456 }
   let(:job) { described_class.new }
-  let(:command_request) { create(:command_prompt_to_video_request) }
-  let(:button_request) { create(:button_video_processing_request, command_request:, parent_request: command_request) }
+  let(:button_request) { create(:button_video_processing_request) }
 
   before do
     allow(Generator::Video::SuccessNotifierJob).to receive(:perform_async)

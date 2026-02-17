@@ -1,0 +1,1 @@
+class TokenExpiredError < StandardError; end

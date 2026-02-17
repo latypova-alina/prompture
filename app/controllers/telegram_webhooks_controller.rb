@@ -4,8 +4,14 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
   include ErrorHandler
   include TgChatAuthorization
 
-  def start!(*)
-    respond_with :message, text: t("telegram_webhooks.commands.start")
+  def start!(token_code = nil)
+    handled_token = TokenHandler::HandleToken.call(
+      token_code:,
+      chat_id: chat["id"],
+      name: chat["first_name"]
+    )
+
+    raise handled_token.error if handled_token.failure?
   end
 
   def message(user_message)
@@ -23,6 +29,10 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
     HandleCommand.call(command: session[:command], chat_id: chat["id"])
 
     respond_with :message, text: t("telegram_webhooks.commands.prompt_to_video")
+  end
+
+  def balance!(*)
+    respond_with :message, text: t("telegram_webhooks.commands.balance", balance: user.balance.credits)
   end
 
   def prompt_to_image!(*)
@@ -68,5 +78,9 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
 
   def message_id
     update["callback_query"].dig("message", "message_id")
+  end
+
+  memoize def user
+    User.eager_load(:balance).find_by(chat_id: chat["id"])
   end
 end

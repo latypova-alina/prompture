@@ -1,0 +1,1 @@
+class TokenUsedError < StandardError; end

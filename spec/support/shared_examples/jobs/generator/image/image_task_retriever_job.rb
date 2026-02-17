@@ -1,8 +1,7 @@
 RSpec.shared_examples "image task retriever job" do |processor:|
   let(:task_id) { "abc123" }
   let(:chat_id) { 456 }
-  let(:command_request) { create(:command_prompt_to_image_request) }
-  let(:button_request) { create(:button_image_processing_request, command_request:, parent_request: command_request) }
+  let(:button_request) { create(:button_image_processing_request) }
   let(:job) { described_class.new }
 
   before do

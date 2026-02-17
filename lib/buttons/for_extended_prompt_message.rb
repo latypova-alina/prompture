@@ -3,19 +3,19 @@ module Buttons
     BUTTONS = [
       [
         {
-          "text": "Gemini (0.035€)",
+          "text": "Gemini (1 credit)",
           "callback_data": "gemini_image"
         }
       ],
       [
         {
-          "text": "Imagen3 (0.04€)",
+          "text": "Imagen3 (1 credit)",
           "callback_data": "imagen_image"
         }
       ],
       [
         {
-          "text": "Mystic (0.1€)",
+          "text": "Mystic (2 credits)",
           "callback_data": "mystic_image"
         }
       ]

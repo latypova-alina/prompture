@@ -6,6 +6,7 @@ en:
       prompt_to_image: "Great! Now please provide a prompt for the image. The prompt can be in any language and any length, and it can later be adapted with the help of the bot."
       image_to_video: "Great! Now please send me the image you want to turn into a video."
       image_from_reference: "Great! Now please send me the reference image you want to use to generate a new image."
+      balance: "Your current balance is %{balance} credits."
     message:
       prompt_prefix: "Here is your prompt:"
       prompt_suffix: What do you want to do next?
@@ -24,3 +25,8 @@ en:
     image_forgotten: "It seems like the image link is missing. Please try again."
     command_request_forgotten: "It seems like your previous command request is missing. Please start over and provide the necessary information."
     unauthorized: "Sorry, you are not authorized to use this bot."
+    token_not_found: "Sorry, the token you provided is invalid. You can ask administrator for a valid token."
+    token_used: "Sorry, the token you provided has already been used."
+    token_expired: "Sorry, the token you provided has expired."
+    token_activated: "Hey, seems like you already have an active subscription :) Please choose a command and enjoy the bot!"
+    insufficient_credits: "Sorry, it looks like you don't have enough credits to perform this action :("

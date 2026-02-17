@@ -1,7 +1,8 @@
 module TgChatAuthorization
   extend ActiveSupport::Concern
+  include Memery
 
-  included { before_action :authorize_chat! }
+  included { before_action :authorize_chat!, except: [:start!] }
 
   IMG_URL = "https://prompture.s3.eu-central-1.amazonaws.com/authorize/2.jpg".freeze
 
@@ -10,14 +11,13 @@ module TgChatAuthorization
   def authorize_chat!
     return if allowed_chat?
 
-    respond_with :message, text: I18n.t("errors.unauthorized")
     respond_with(:photo, photo: IMG_URL)
 
-    throw :abort
+    raise UnauthorizedError
   end
 
   def allowed_chat?
-    allowed_chat_ids.include?(chat["id"].to_s)
+    allowed_chat_ids.include?(chat["id"].to_s) || user.present?
   end
 
   def allowed_chat_ids

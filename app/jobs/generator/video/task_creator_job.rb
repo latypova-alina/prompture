@@ -13,6 +13,8 @@ module Generator
 
         raise ::Freepik::ResponseError unless response.success?
       rescue Freepik::ResponseError
+        Billing::Refunder.call(user:, amount: request.cost, source: request)
+
         Generator::Video::ErrorNotifierJob.perform_async(chat_id)
       end
 
@@ -28,6 +30,14 @@ module Generator
 
       def payload
         raise NotImplementedError
+      end
+
+      memoize def request
+        ButtonVideoProcessingRequest.find(request_id)
+      end
+
+      memoize def user
+        User.find_by!(chat_id:)
       end
 
       def final_payload

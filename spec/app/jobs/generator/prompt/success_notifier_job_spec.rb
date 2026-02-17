@@ -10,9 +10,9 @@ describe Generator::Prompt::SuccessNotifierJob do
       parse_mode: "HTML",
       reply_markup:
    { inline_keyboard:
-     [[{ callback_data: "gemini_image", text: "Gemini (0.035€)" }],
-      [{ callback_data: "imagen_image", text: "Imagen3 (0.04€)" }],
-      [{ callback_data: "mystic_image", text: "Mystic (0.1€)" }]] },
+     [[{ callback_data: "gemini_image", text: "Gemini (1 credit)" }],
+      [{ callback_data: "imagen_image", text: "Imagen3 (1 credit)" }],
+      [{ callback_data: "mystic_image", text: "Mystic (2 credits)" }]] },
       text: "a very long and beautiful prompt" }
   end
   let(:command_request) { create(:command_prompt_to_image_request) }

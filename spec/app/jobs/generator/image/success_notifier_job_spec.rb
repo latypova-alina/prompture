@@ -11,10 +11,7 @@ describe Generator::Image::SuccessNotifierJob do
       reply_markup: { inline_keyboard: [] },
       text: "<a href=\"https://example.com/image.png\">Open image</a>" }
   end
-  let(:command_request) { create(:command_prompt_to_image_request) }
-  let(:button_request) do
-    create(:button_image_processing_request, command_request:, parent_request: command_request)
-  end
+  let(:button_request) { create(:button_image_processing_request) }
 
   before do
     allow(Telegram).to receive(:bot).and_return(double(send_message: { "result" => { "message_id" => 789 } },
