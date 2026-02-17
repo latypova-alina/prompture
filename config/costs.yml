@@ -11,6 +11,10 @@ development:
 
 test:
   <<: *default
+  images:
+    mystic_image: 2
+    gemini_image: 1
+    imagen_image: 0
 
 production:
   <<: *default

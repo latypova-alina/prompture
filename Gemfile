@@ -19,6 +19,7 @@ end
 
 group :test do
   gem "rspec-rails", "~> 6.1.0"
+  gem "shoulda-matchers", "~> 7.0"
   gem "webmock"
 end
 

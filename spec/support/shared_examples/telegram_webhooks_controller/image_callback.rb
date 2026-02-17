@@ -8,10 +8,13 @@ RSpec.shared_examples "an image callback" do |processor:, record_creator:, job_c
                                             parent_request: command_request)
     end
 
+    let!(:user) { create(:user, :with_balance, chat_id: 456) }
+    let!(:balance_transaction) { create(:balance_transaction, user:, source: button_image_processing_request) }
+
     let(:button_image_processing_request) do
       create(
         :button_image_processing_request,
-        processor: processor,
+        processor: button_request_text,
         command_request:,
         parent_request:
       )

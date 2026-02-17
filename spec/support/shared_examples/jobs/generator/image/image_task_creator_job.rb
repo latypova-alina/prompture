@@ -5,9 +5,9 @@ RSpec.shared_examples "image task creator job" do |processor:|
   let(:task_id) { "#{processor}-task-456" }
   let(:token) { "encoded-token" }
   let(:request_id) { button_request_record.id }
-  let(:command_request) { create(:command_prompt_to_image_request) }
+  let!(:user) { create(:user, chat_id:) }
   let(:button_request_record) do
-    create(:button_image_processing_request, parent_request: command_request, command_request:)
+    create(:button_image_processing_request, processor: button_request)
   end
 
   before do
@@ -31,11 +31,18 @@ RSpec.shared_examples "image task creator job" do |processor:|
     context "when the API response is NOT successful" do
       include_context "stub create #{processor} task fail request"
 
+      before do
+        allow(Billing::Refunder).to receive(:call).with(user:, amount: button_request_record.cost,
+                                                        source: button_request_record)
+      end
+
       it "rescues and calls the error notifier job" do
         subject
 
         expect(Generator::Image::ErrorNotifierJob).to have_received(:perform_async)
           .with(chat_id)
+        expect(Billing::Refunder).to have_received(:call).with(user:, amount: button_request_record.cost,
+                                                               source: button_request_record)
       end
     end
   end

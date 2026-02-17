@@ -7,11 +7,11 @@ RSpec.shared_examples "extend prompt callback" do |record_creator:, job_class:|
     let(:button_request) do
       create(
         :button_extend_prompt_request,
-        prompt: "cute white kitten extended",
-        command_request:,
-        parent_request: command_request
+        prompt: "cute white kitten extended"
       )
     end
+
+    let!(:user) { create(:user, :with_balance, chat_id: 456) }
 
     before do
       setup_parent_message

@@ -11,7 +11,7 @@ module Generator
         @image_url = image_url
         @button_request = button_request
 
-        raise ::Freepik::ResponseError # unless response.success?
+        raise ::Freepik::ResponseError unless response.success?
       rescue Freepik::ResponseError
         Billing::Refunder.call(user:, amount: request.cost, source: request)
 

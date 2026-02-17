@@ -20,11 +20,14 @@ RSpec.shared_examples "a video callback" do |processor:, record_creator:, job_cl
     let(:button_video_processing_request) do
       create(
         :button_video_processing_request,
-        processor:,
+        processor: button_request_text,
         command_request:,
         parent_request:
       )
     end
+
+    let!(:user) { create(:user, :with_balance, chat_id: 456) }
+    let!(:balance_transaction) { create(:balance_transaction, user:, source: button_video_processing_request) }
 
     before do
       setup_parent_message

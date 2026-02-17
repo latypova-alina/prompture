@@ -6,7 +6,7 @@ describe RecordCreators::ButtonRequests::Videos::Kling do
   let(:image_url) { "https://example.com/image.jpg" }
   let(:command_request) { create(:command_prompt_to_video_request) }
   let(:parent_request) do
-    create(:button_image_processing_request, image_url:, command_request:, parent_request: command_request)
+    create(:button_image_processing_request, image_url:, command_request:)
   end
 
   it "creates a pending video processing request with kling processor" do

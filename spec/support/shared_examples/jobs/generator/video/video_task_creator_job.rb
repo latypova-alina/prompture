@@ -1,15 +1,17 @@
 RSpec.shared_examples "video task creator job" do |processor:|
   let(:prompt) { "little kitten" }
   let(:button_request) { "#{processor}_image_to_video" }
-  let(:chat_id) { 123 }
+  let(:chat_id) { 456 }
   let(:task_id) { "#{processor}-task-456" }
   let(:token) { "encoded-token" }
   let(:image_url) { "http://example.com/image.jpg" }
   let(:command_request) { create(:command_prompt_to_video_request) }
   let(:button_request_record) do
-    create(:button_video_processing_request, parent_request: command_request, command_request:)
+    create(:button_video_processing_request, parent_request: command_request, command_request:,
+                                             processor: button_request)
   end
   let(:request_id) { button_request_record.id }
+  let!(:user) { create(:user, chat_id:) }
 
   before do
     allow(ChatToken).to receive(:encode).with(chat_id).and_return(token)
@@ -31,6 +33,11 @@ RSpec.shared_examples "video task creator job" do |processor:|
 
     context "when the API response is NOT successful" do
       include_context "stub create #{processor} task fail request"
+
+      before do
+        allow(Billing::Refunder).to receive(:call).with(user:, amount: button_request_record.cost,
+                                                        source: button_request_record)
+      end
 
       it "rescues and calls the error notifier job" do
         subject
