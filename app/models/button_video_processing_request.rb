@@ -15,6 +15,6 @@ class ButtonVideoProcessingRequest < ApplicationRecord
   end
 
   def humanized_process_name
-    processor.humanize
+    I18n.t("telegram.generation.humanized_process_names.video.#{processor}")
   end
 end

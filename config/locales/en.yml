@@ -35,4 +35,6 @@ en:
       processing: Generating %{process_name}, please wait…
       humanized_process_names:
         extend_prompt: "prompt"
+        video:
+          kling_2_1_pro_image_to_video: "Kling Pro video"
 
