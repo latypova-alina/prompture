@@ -15,7 +15,6 @@ module TokenHandler
 
     def validate_token!
       context.fail!(error: TokenNotFoundError) unless token
-      context.fail!(error: TokenActivatedError) if token.activated?
       context.fail!(error: TokenUsedError) if token.used_at.present?
       context.fail!(error: TokenExpiredError) if token.expired?
     end

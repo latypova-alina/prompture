@@ -11,16 +11,22 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
       name: chat["first_name"]
     )
 
-    raise handled_token.error if handled_token.failure?
+    respond_with :message, text: start_message_for(handled_token)
+  end
+
+  def token!
+    session[:command] = "token"
+
+    respond_with :message, text: I18n.t("telegram_webhooks.commands.token.ask")
   end
 
   def message(user_message)
-    handled_message = MessageHandler::HandleMessage.call(
+    Telegram::MessageDispatcher.call(
+      command: session[:command],
+      chat_id: chat["id"],
       user_message:,
-      command: session[:command]
+      name: chat["first_name"]
     )
-
-    raise handled_message.error if handled_message.failure?
   end
 
   def prompt_to_video!(*)
@@ -87,5 +93,14 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
 
   memoize def user
     User.eager_load(:balance).find_by(chat_id: chat["id"])
+  end
+
+  def start_message_for(handled_token)
+    if handled_token.success?
+      t("telegram_webhooks.commands.start.with_valid_token",
+        credits: handled_token.token.credits)
+    else
+      t("telegram_webhooks.commands.start.no_token")
+    end
   end
 end

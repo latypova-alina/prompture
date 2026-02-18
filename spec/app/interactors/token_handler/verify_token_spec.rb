@@ -17,18 +17,6 @@ describe TokenHandler::VerifyToken do
       end
     end
 
-    context "when token is activated" do
-      let(:user) { create(:user) }
-      let!(:token) { create(:token, user:) }
-
-      it "fails with TokenActivatedError" do
-        result = subject
-
-        expect(result).to be_failure
-        expect(result.error).to eq(TokenActivatedError)
-      end
-    end
-
     context "when token is already used" do
       let!(:token) { create(:token, used_at: Date.current) }
 

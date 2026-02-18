@@ -1,12 +1,50 @@
 en:
   telegram_webhooks:
     commands:
-      start: Hi there! Please choose a command from the menu list.
+      start: 
+        no_token: |
+          👋 Hi! Great to see you here.
+
+          🤖 With this bot, you can generate images and videos using different AI models.
+
+          🎨 To generate an image, type:
+          /prompt_to_image
+
+          🎬 To generate a video, type:
+          /prompt_to_video
+
+          💰 To check your balance, type:
+          /balance
+
+          🔑 To activate a token, type:
+          /token
+
+          ℹ️ Each generation costs credits.
+          To top up your balance, use /token and enter a valid token.
+
+          Tokens are provided by the administrator.
+        with_valid_token: |
+          🤖 With this bot, you can generate images and videos using different AI models.
+
+          🎨 To generate an image:
+          /prompt_to_image
+
+          🎬 To generate a video:
+          /prompt_to_video
+
+          💰 To check your balance:
+          /balance
       prompt_to_video: "Great! Now please provide a prompt for the video. The prompt can be in any language and any length, and it can later be adapted with the help of the bot."
       prompt_to_image: "Great! Now please provide a prompt for the image. The prompt can be in any language and any length, and it can later be adapted with the help of the bot."
       image_to_video: "Great! Now please send me the image you want to turn into a video."
       image_from_reference: "Great! Now please send me the reference image you want to use to generate a new image."
       balance: "Your current balance is %{balance} credits."
+      token:
+        ask: "Please enter your token to activate it:"
+        activated: |
+          ✅ Your token has been successfully activated!
+
+          🎉 You have received %{credits} credits.
     message:
       prompt_prefix: "Here is your prompt:"
       prompt_suffix: What do you want to do next?
@@ -28,7 +66,6 @@ en:
     token_not_found: "Sorry, the token you provided is invalid. You can ask administrator for a valid token."
     token_used: "Sorry, the token you provided has already been used."
     token_expired: "Sorry, the token you provided has expired."
-    token_activated: "Hey, seems like you already have an active subscription :) Please choose a command and enjoy the bot!"
     insufficient_credits: "Sorry, it looks like you don't have enough credits to perform this action :("
   telegram:
     generation:
