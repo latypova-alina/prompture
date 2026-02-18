@@ -4,8 +4,4 @@ class Token < ApplicationRecord
   def expired?
     expires_at < Date.current
   end
-
-  def activated?
-    user_id.present?
-  end
 end

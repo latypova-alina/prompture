@@ -30,23 +30,4 @@ describe Token, type: :model do
       end
     end
   end
-
-  describe "#activated?" do
-    context "when user is assigned" do
-      let(:user) { create(:user) }
-      let(:token) { build(:token, user:) }
-
-      it "returns true" do
-        expect(token.activated?).to be true
-      end
-    end
-
-    context "when user is not assigned" do
-      let(:token) { build(:token, user: nil) }
-
-      it "returns false" do
-        expect(token.activated?).to be false
-      end
-    end
-  end
 end

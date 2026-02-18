@@ -1,1 +1,0 @@
-class TokenActivatedError < StandardError; end

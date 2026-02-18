@@ -11,7 +11,6 @@ module ErrorHandler
     rescue_from UnauthorizedError, with: :handle_unauthorized
     rescue_from TokenUsedError, with: :handle_token_used
     rescue_from TokenExpiredError, with: :handle_token_expired
-    rescue_from TokenActivatedError, with: :handle_token_activated
     rescue_from InsufficientCreditsError, with: :handle_insufficient_credits
   end
 
@@ -51,10 +50,6 @@ module ErrorHandler
 
   def handle_token_expired(_error)
     respond_with :message, text: I18n.t("errors.token_expired")
-  end
-
-  def handle_token_activated(_error)
-    respond_with :message, text: I18n.t("errors.token_activated")
   end
 
   def handle_insufficient_credits(_error)

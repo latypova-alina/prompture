@@ -6,7 +6,19 @@ module TokenHandler
     delegate :greeting, to: :token
 
     def call
-      ::Telegram.bot.send_message(chat_id:, text: greeting || I18n.t("telegram_webhooks.commands.start"))
+      ::Telegram.bot.send_message(chat_id:, text:)
+    end
+
+    private
+
+    def text
+      return default_text unless greeting.present?
+
+      "#{greeting}\n\n#{default_text}"
+    end
+
+    def default_text
+      I18n.t("telegram_webhooks.commands.token.activated", credits: token.credits)
     end
   end
 end
