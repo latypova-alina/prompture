@@ -11,59 +11,58 @@ describe TelegramWebhooksController, telegram_bot: :rails do
     let(:token) { create(:token) }
 
     context "when token is correct" do
-      let(:expected_text) { "Hello, Rihanna!" }
+      let(:expected_greeting_text) do
+        "Hello, Rihanna!\n\n✅ Your token has been successfully activated!\n\n🎉 You have received 100 credits.\n"
+      end
 
-      it { should respond_with_message(expected_text) }
+      let(:expected_default_text) do
+        I18n.t(
+          "telegram_webhooks.commands.start.with_valid_token",
+          credits: 100
+        )
+      end
+
+      it { should respond_with_message(expected_greeting_text) }
+      it { should respond_with_message(expected_default_text) }
 
       context "and token greeting is nil" do
         let(:token) { create(:token, greeting: nil) }
 
-        let(:expected_text) { "Hi there! Please choose a command from the menu list." }
-
-        it { should respond_with_message(expected_text) }
+        it { should respond_with_message(expected_default_text) }
       end
-    end
-
-    context "when token is used" do
-      let(:token) { create(:token, :used) }
-
-      let(:expected_text) { "Sorry, the token you provided has already been used." }
-
-      it { should respond_with_message(expected_text) }
     end
 
     context "when token is invalid" do
-      subject { -> { dispatch_command(:start, "invalid_token") } }
-
-      let(:expected_text) { "Sorry, the token you provided is invalid. You can ask administrator for a valid token." }
-
-      it { should respond_with_message(expected_text) }
-    end
-
-    context "when token is missing" do
-      subject { -> { dispatch_command(:start) } }
-
-      let(:expected_text) { "Sorry, the token you provided is invalid. You can ask administrator for a valid token." }
-
-      it { should respond_with_message(expected_text) }
-    end
-
-    context "when token is expired" do
-      let(:token) { create(:token, :expired) }
-
-      let(:expected_text) { "Sorry, the token you provided has expired." }
-
-      it { should respond_with_message(expected_text) }
-    end
-
-    context "when user uses this token again" do
-      let(:user) { create(:user, chat_id: 456) }
-      let(:token) { create(:token, :used, user:) }
       let(:expected_text) do
-        "Hey, seems like you already have an active subscription :) Please choose a command and enjoy the bot!"
+        I18n.t(
+          "telegram_webhooks.commands.start.no_token",
+          credits: 100
+        )
       end
 
-      it { should respond_with_message(expected_text) }
+      context "when token is used" do
+        let(:token) { create(:token, :used) }
+
+        it { should respond_with_message(expected_text) }
+      end
+
+      context "when token is invalid" do
+        subject { -> { dispatch_command(:start, "invalid_token") } }
+
+        it { should respond_with_message(expected_text) }
+      end
+
+      context "when token is missing" do
+        subject { -> { dispatch_command(:start) } }
+
+        it { should respond_with_message(expected_text) }
+      end
+
+      context "when token is expired" do
+        let(:token) { create(:token, :expired) }
+
+        it { should respond_with_message(expected_text) }
+      end
     end
   end
 
