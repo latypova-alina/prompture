@@ -17,7 +17,7 @@ module UserMessagePresenters
     end
 
     def inline_keyboard
-      Buttons::ForInitialPromptMessage::BUTTONS
+      Buttons::ForInitialPromptMessage.build
     end
 
     private

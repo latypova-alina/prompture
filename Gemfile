@@ -8,6 +8,7 @@ gem "memery"
 gem "pg"
 gem "puma", "~> 6.0"
 gem "rails", "~> 8.0.3"
+gem "rails-i18n"
 gem "sidekiq", "~> 8.0"
 gem "telegram-bot"
 
