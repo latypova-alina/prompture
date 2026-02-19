@@ -46,6 +46,30 @@ RSpec.shared_examples "message handling" do
 
       it { is_expected.to respond_with_message(expected_text) }
     end
+
+    context "when command is token" do
+      let(:command) { "token" }
+
+      context "when token is valid" do
+        before { create(:token, code: "valid_token") }
+
+        let(:prompt) { "valid_token" }
+
+        let(:expected_text) do
+          "Hello, Rihanna!\n\n✅ Your token has been successfully activated!\n\n🎉 You have received 100 credits.\n"
+        end
+
+        it { is_expected.to respond_with_message(expected_text) }
+      end
+
+      context "when token is invalid" do
+        let(:expected_text) do
+          "Sorry, the token you provided is invalid. You can ask administrator for a valid token."
+        end
+
+        it { is_expected.to respond_with_message(expected_text) }
+      end
+    end
   end
 
   context "when command was not selected" do

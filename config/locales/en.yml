@@ -62,7 +62,7 @@ en:
     wrong_message_type: "The type of message you sent is not suitable for this command. Please send the correct type of message and try again."
     image_forgotten: "It seems like the image link is missing. Please try again."
     command_request_forgotten: "It seems like your previous command request is missing. Please start over and provide the necessary information."
-    unauthorized: "Sorry, you are not authorized to use this bot."
+    unauthorized: "Seems you need to activate a token first :)"
     token_not_found: "Sorry, the token you provided is invalid. You can ask administrator for a valid token."
     token_used: "Sorry, the token you provided has already been used."
     token_expired: "Sorry, the token you provided has expired."
