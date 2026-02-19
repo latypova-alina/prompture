@@ -6,6 +6,6 @@ RSpec.shared_examples "command handling" do |command:|
   context "when chat is not allowed" do
     let(:chat_id) { 999 }
 
-    it { is_expected.to respond_with_message("Sorry, you are not authorized to use this bot.") }
+    it { is_expected.to respond_with_message("Seems you need to activate a token first :)") }
   end
 end

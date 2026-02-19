@@ -66,6 +66,16 @@ describe TelegramWebhooksController, telegram_bot: :rails do
     end
   end
 
+  describe "#token!" do
+    subject { -> { dispatch_command(:token) } }
+
+    let(:expected_text) do
+      "Please enter your token to activate it:"
+    end
+
+    it { should respond_with_message(expected_text) }
+  end
+
   describe "#prompt_to_video!" do
     let(:expected_text) do
       "Great! Now please provide a prompt for the video. The prompt can be in any language and any length, " \
