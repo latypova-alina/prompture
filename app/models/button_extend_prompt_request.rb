@@ -6,6 +6,8 @@ class ButtonExtendPromptRequest < ApplicationRecord
 
   has_one :telegram_message, as: :request, dependent: :destroy
 
+  delegate :user, to: :command_request
+
   def cost
     0
   end

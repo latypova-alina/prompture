@@ -1,6 +1,8 @@
 class CommandPromptToImageRequest < ApplicationRecord
   include HasOriginPrompt
 
+  belongs_to :user
+
   has_many :button_extend_prompt_requests, as: :command_request, dependent: :destroy
   has_many :button_image_processing_requests, as: :command_request, dependent: :destroy
   has_many :button_video_processing_requests, as: :command_request, dependent: :destroy

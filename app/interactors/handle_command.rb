@@ -1,5 +1,6 @@
 class HandleCommand
   include Interactor
+  include Memery
 
   delegate :command, :chat_id, to: :context
 
@@ -13,6 +14,12 @@ class HandleCommand
   def call
     context.fail!(error: CommandUnknownError) unless HANDLERS.key?(command)
 
-    HANDLERS[command].create!(chat_id:)
+    HANDLERS[command].create!(chat_id:, user:)
+  end
+
+  private
+
+  memoize def user
+    User.find_by!(chat_id:)
   end
 end

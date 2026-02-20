@@ -10,6 +10,8 @@ class ButtonImageProcessingRequest < ApplicationRecord
 
   validates :processor, presence: true, inclusion: { in: PROCESSOR_TYPES }
 
+  delegate :user, to: :command_request
+
   def cost
     COSTS[:images][processor.to_sym]
   end
