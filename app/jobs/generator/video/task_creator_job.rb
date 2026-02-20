@@ -1,7 +1,7 @@
 module Generator
   module Video
-    class TaskCreatorJob < ::Clients::Generator::BaseApiRequest
-      include Sidekiq::Job
+    class TaskCreatorJob < ApplicationJob
+      include ::Clients::Generator::BaseApiRequest
       include Memery
 
       def perform(prompt, image_url, chat_id, button_request, request_id)

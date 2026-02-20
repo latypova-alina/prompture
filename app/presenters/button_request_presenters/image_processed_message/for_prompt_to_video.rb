@@ -8,7 +8,7 @@ module ButtonRequestPresenters
       end
 
       def inline_keyboard
-        Buttons::ForImageMessage::ForPromptToVideo::BUTTONS
+        Buttons::ForImageMessage::ForPromptToVideo.build
       end
     end
   end

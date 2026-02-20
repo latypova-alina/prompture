@@ -1,20 +1,25 @@
 module Generator
   module Image
-    class SuccessNotifierJob
-      include Sidekiq::Job
+    class SuccessNotifierJob < ApplicationJob
       include Memery
 
-      def perform(image_url, chat_id, button_request_id)
+      def perform(image_url, chat_id, button_request_id, locale)
         @image_url = image_url
         @button_request_id = button_request_id
 
-        Telegram::SendMessageWithButtons.call(
-          chat_id:,
-          reply_data:,
-          request:
-        )
+        with_locale(locale) do
+          Telegram::SendMessageWithButtons.call(
+            chat_id:,
+            reply_data:,
+            request:
+          )
+        end
 
         request.update!(status: "COMPLETED", image_url:)
+      end
+
+      memoize def locale
+        request.user.locale.to_s
       end
 
       private
@@ -33,7 +38,9 @@ module Generator
       end
 
       memoize def request
-        ButtonImageProcessingRequest.find(button_request_id)
+        ButtonImageProcessingRequest
+          .includes(command_request: :user)
+          .find(button_request_id)
       end
     end
   end

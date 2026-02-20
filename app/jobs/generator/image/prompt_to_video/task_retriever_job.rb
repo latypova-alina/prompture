@@ -1,28 +1,26 @@
 module Generator
-  module Video
+  module Image
     class TaskRetrieverJob < ApplicationJob
       include ::Clients::Generator::BaseApiRequest
       include Memery
-      include WithLocaleInterface
 
       def perform(task_id, chat_id, button_request_id)
         @task_id = task_id
-        @button_request_id = button_request_id
 
         raise ::Freepik::ResponseError unless response.success?
 
-        ::Generator::Video::SuccessNotifierJob.perform_async(video_url, chat_id, button_request_id, locale)
+        ::Generator::Image::SuccessNotifierJob.perform_async(image_url, chat_id, button_request_id)
       rescue ::Freepik::ResponseError
-        ::Generator::Video::ErrorNotifierJob.perform_async(chat_id, locale)
+        ::Generator::Image::ErrorNotifierJob.perform_async(chat_id)
       end
 
-      def video_url
+      def image_url
         response_body.dig("data", "generated")[0]
       end
 
       private
 
-      attr_reader :task_id, :button_request_id
+      attr_reader :task_id
 
       memoize def response
         connection.get(task_id)
@@ -30,10 +28,6 @@ module Generator
 
       memoize def response_body
         JSON.parse(response.body)
-      end
-
-      def request_class
-        ButtonVideoProcessingRequest
       end
     end
   end

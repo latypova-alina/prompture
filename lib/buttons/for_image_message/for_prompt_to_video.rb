@@ -3,7 +3,7 @@ module Buttons
     class ForPromptToVideo < Buttons::Base
       def build
         [
-          build_processors_for_media
+          *build_processors_for_media
         ]
       end
 

@@ -1,7 +1,9 @@
-class ApplicationJob < ActiveJob::Base
-  # Automatically retry jobs that encountered a deadlock
-  # retry_on ActiveRecord::Deadlocked
+class ApplicationJob
+  include Sidekiq::Job
 
-  # Most jobs are safe to ignore if the underlying records are no longer available
-  # discard_on ActiveJob::DeserializationError
+  private
+
+  def with_locale(locale = nil, &block)
+    I18n.with_locale(locale.presence || I18n.default_locale, &block)
+  end
 end

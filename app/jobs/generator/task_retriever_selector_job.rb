@@ -1,7 +1,5 @@
 module Generator
-  class TaskRetrieverSelectorJob
-    include Sidekiq::Job
-
+  class TaskRetrieverSelectorJob < ApplicationJob
     RETRIEVER_JOBS = {
       "mystic_image" => Image::Mystic::TaskRetrieverJob,
       "gemini_image" => Image::Gemini::TaskRetrieverJob,
