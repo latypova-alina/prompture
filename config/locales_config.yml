@@ -1,0 +1,9 @@
+development:
+  supported_locales:
+    - en
+    - ru
+
+production:
+  supported_locales:
+    - en
+    - ru
