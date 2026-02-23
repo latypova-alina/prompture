@@ -23,7 +23,7 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
   end
 
   def message(user_message)
-    Telegram::MessageDispatcher.call(
+    TelegramIntegration::MessageDispatcher.call(
       command: session[:command],
       chat_id: chat["id"],
       user_message:,

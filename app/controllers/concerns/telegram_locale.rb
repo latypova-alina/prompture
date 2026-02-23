@@ -8,7 +8,7 @@ module TelegramLocale
 
     short = language_code.to_s.split("-").first.to_sym
 
-    I18n.available_locales.include?(short) ? short : I18n.default_locale
+    Rails.application.config.x.supported_locales.include?(short) ? short : I18n.default_locale
   end
 
   private

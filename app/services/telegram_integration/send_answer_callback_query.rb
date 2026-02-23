@@ -1,4 +1,4 @@
-module Telegram
+module TelegramIntegration
   class SendAnswerCallbackQuery
     def self.call(...)
       new(...).call

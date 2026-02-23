@@ -9,8 +9,8 @@ describe ButtonHandler::NotifyProcessingStarted do
   let(:button_request_record) { create(:button_image_processing_request) }
 
   describe "#call" do
-    it "calls Telegram::SendAnswerCallbackQuery with correct arguments" do
-      expect(Telegram::SendAnswerCallbackQuery)
+    it "calls TelegramIntegration::SendAnswerCallbackQuery with correct arguments" do
+      expect(TelegramIntegration::SendAnswerCallbackQuery)
         .to receive(:call)
         .with(
           callback_query_id:,
@@ -21,7 +21,7 @@ describe ButtonHandler::NotifyProcessingStarted do
     end
 
     it "is successful" do
-      allow(Telegram::SendAnswerCallbackQuery).to receive(:call)
+      allow(TelegramIntegration::SendAnswerCallbackQuery).to receive(:call)
 
       expect(result).to be_success
     end

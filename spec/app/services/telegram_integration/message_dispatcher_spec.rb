@@ -1,6 +1,6 @@
 require "rails_helper"
 
-describe Telegram::MessageDispatcher do
+describe TelegramIntegration::MessageDispatcher do
   subject { described_class.call(command:, chat_id:, user_message:, name:) }
 
   let(:chat_id) { 456 }

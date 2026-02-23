@@ -6,7 +6,7 @@ module ButtonHandler
     delegate :callback_query_id, :button_request_record, to: :context
 
     def call
-      Telegram::SendAnswerCallbackQuery.call(
+      TelegramIntegration::SendAnswerCallbackQuery.call(
         callback_query_id:,
         button_request: button_request_record
       )

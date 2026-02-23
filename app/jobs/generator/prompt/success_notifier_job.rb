@@ -8,7 +8,7 @@ module Generator
         @button_request_id = button_request_id
 
         with_locale(locale) do
-          Telegram::SendMessageWithButtons.call(
+          TelegramIntegration::SendMessageWithButtons.call(
             chat_id:,
             reply_data:,
             request:

@@ -5,7 +5,7 @@ module MessageHandler
     delegate :prompt_message, :chat_id, to: :context
 
     def call
-      Telegram::SendMessageWithButtons.call(
+      TelegramIntegration::SendMessageWithButtons.call(
         chat_id:,
         reply_data:,
         request: prompt_message

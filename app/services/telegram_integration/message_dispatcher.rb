@@ -1,4 +1,4 @@
-module Telegram
+module TelegramIntegration
   class MessageDispatcher
     TOKEN_COMMAND = "token".freeze
 

@@ -1,6 +1,6 @@
 require "rails_helper"
 
-describe Telegram::SendAnswerCallbackQuery do
+describe TelegramIntegration::SendAnswerCallbackQuery do
   subject { described_class.call(callback_query_id:, button_request:) }
 
   let(:callback_query_id) { "abc123" }
