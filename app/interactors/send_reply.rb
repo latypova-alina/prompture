@@ -8,10 +8,15 @@ class SendReply
     return if status == "IN_PROGRESS"
 
     if status == "COMPLETED"
-      Generator::TaskRetrieverSelectorJob.perform_async(body[:task_id], params[:button_request], params[:request_id],
-                                                        chat_id)
+      Generator::TaskRetrieverDispatcher.call(
+        task_id: body[:task_id],
+        button_request: params[:button_request],
+        request_id: params[:request_id],
+        chat_id:
+      )
+
     elsif status == "FAILED"
-      Generator::ErrorNotifierJob.perform_async(params[:button_request], chat_id)
+      Generator::ErrorNotifierDispatcher.call(button_request: params[:button_request], chat_id:)
     end
   end
 
