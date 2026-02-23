@@ -22,6 +22,10 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
     respond_with :message, text: I18n.t("telegram_webhooks.commands.token.ask")
   end
 
+  def help!
+    respond_with :message, text: I18n.t("telegram_webhooks.commands.help")
+  end
+
   def message(user_message)
     TelegramIntegration::MessageDispatcher.call(
       command: session[:command],

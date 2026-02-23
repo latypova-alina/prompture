@@ -73,7 +73,12 @@ en:
           🎉 You have received %{credits} credits.
     message:
       prompt_prefix: "Here is your prompt:"
-      prompt_suffix: "What do you want to do next? You can either extend the prompt or generate an image using one of the following processors:"
+      prompt_suffix: |
+        What do you want to do next? You can: 
+        
+        🔹 extend the prompt
+          
+        🔹 generate an image using one of the processors (Mystic/Gemini/Imagen)
       provide_prompt: "Please provide the description (optional)"
       buttons:
         extend_prompt: "Extend prompt"
@@ -91,6 +96,8 @@ en:
           kling_2_1_pro_image_to_video:
             one: "Kling Pro 2.1 %{count} credit"
             other: "Kling Pro 2.1 %{count} credits"
+      image_processed: "Open image"
+      video_processed: "Open video"
   errors:
     prompt_forgotten: "Please provide the prompt again"
     extend_prompt_error: "Sorry, I couldn't process your request. Please try again later."
@@ -116,4 +123,8 @@ en:
         extend_prompt: "prompt"
         video:
           kling_2_1_pro_image_to_video: "Kling Pro video"
+        image:
+          mystic_image: "Mystic image"
+          gemini_image: "Gemini image"
+          imagen_image: "Imagen image"
 

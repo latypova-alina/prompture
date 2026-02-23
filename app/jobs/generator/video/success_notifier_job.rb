@@ -22,6 +22,12 @@ module Generator
       memoize def presenter
         ::ButtonRequestPresenters::VideoProcessedMessagePresenter.new(message: video_url)
       end
+
+      memoize def request
+        ButtonVideoProcessingRequest
+          .includes(command_request: :user)
+          .find(button_request_id)
+      end
     end
   end
 end

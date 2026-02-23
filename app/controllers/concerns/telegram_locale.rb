@@ -8,7 +8,7 @@ module TelegramLocale
 
     short = language_code.to_s.split("-").first.to_sym
 
-    Rails.application.config.x.supported_locales.include?(short) ? short : I18n.default_locale
+    locale_supported?(short) ? short : I18n.default_locale
   end
 
   private
@@ -18,7 +18,7 @@ module TelegramLocale
   end
 
   def resolved_locale
-    return user.locale if user&.locale.present?
+    return user_locale if user_locale && locale_supported?(user_locale)
 
     normalized_locale
   end
@@ -27,5 +27,13 @@ module TelegramLocale
     update.dig("message", "from", "language_code") ||
       update.dig("callback_query", "from", "language_code") ||
       update.dig("edited_message", "from", "language_code")
+  end
+
+  def locale_supported?(locale)
+    Rails.application.config.x.supported_locales.include?(locale.to_s)
+  end
+
+  def user_locale
+    user&.locale.presence&.to_s
   end
 end

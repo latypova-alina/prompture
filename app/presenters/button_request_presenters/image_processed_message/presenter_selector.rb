@@ -6,15 +6,16 @@ module ButtonRequestPresenters
         "CommandPromptToVideoRequest" => ForPromptToVideo
       }.freeze
 
-      def initialize(image_url, command_request_classname)
+      def initialize(image_url, command_request_classname, locale)
         @image_url = image_url
         @command_request_classname = command_request_classname
+        @locale = locale
       end
 
-      attr_reader :image_url, :command_request_classname
+      attr_reader :image_url, :command_request_classname, :locale
 
       def presenter
-        PRESENTERS[command_request_classname].new(message: image_url)
+        PRESENTERS[command_request_classname].new(message: image_url, locale:)
       end
     end
   end
