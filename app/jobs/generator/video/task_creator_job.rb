@@ -3,11 +3,12 @@ module Generator
     class TaskCreatorJob < ApplicationJob
       include ::Clients::Generator::BaseApiRequest
       include Memery
+      include Generator::WithLocaleInterface
 
-      def perform(prompt, image_url, chat_id, button_request, request_id)
+      def perform(prompt, image_url, chat_id, button_request, button_request_id)
         @prompt = prompt
         @chat_id = chat_id
-        @request_id = request_id
+        @button_request_id = button_request_id
         @image_url = image_url
         @button_request = button_request
 
@@ -15,14 +16,15 @@ module Generator
       rescue Freepik::ResponseError
         Billing::Refunder.call(user:, amount: request.cost, source: request)
 
-        Generator::Video::ErrorNotifierJob.perform_async(chat_id)
+        Generator::Video::ErrorNotifierJob.perform_async(chat_id, locale)
       end
 
       private
 
-      attr_reader :prompt, :chat_id, :button_request, :image_url, :request_id
+      attr_reader :prompt, :chat_id, :button_request, :image_url, :button_request_id
 
       delegate :webhook_url, to: :webhook_url_builder
+      delegate :user, to: :request
 
       memoize def response
         connection.post { |req| req.body = final_payload.to_json }
@@ -32,12 +34,8 @@ module Generator
         raise NotImplementedError
       end
 
-      memoize def request
-        ButtonVideoProcessingRequest.find(request_id)
-      end
-
-      memoize def user
-        User.find_by!(chat_id:)
+      def request_class
+        ButtonVideoProcessingRequest
       end
 
       def final_payload
@@ -45,7 +43,7 @@ module Generator
       end
 
       def webhook_url_builder
-        Generator::WebhookUrlBuilder.new(button_request, request_id, chat_id)
+        Generator::WebhookUrlBuilder.new(button_request, button_request_id, chat_id)
       end
     end
   end

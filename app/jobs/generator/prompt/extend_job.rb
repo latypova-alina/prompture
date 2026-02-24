@@ -1,7 +1,6 @@
 module Generator
   module Prompt
     class ExtendJob < ApplicationJob
-      include Memery
       include WithLocaleInterface
 
       def perform(raw_prompt, chat_id, button_request_id)
