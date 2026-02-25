@@ -18,7 +18,7 @@ describe Generator::Image::SuccessNotifierJob do
                                                        reset: true))
   end
 
-  subject { job.perform(image_url, chat_id, button_request.id) }
+  subject { job.perform(image_url, chat_id, button_request.id, :en) }
 
   describe "#perform" do
     it "sends a Telegram message with presenter reply_data" do

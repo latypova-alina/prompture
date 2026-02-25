@@ -10,9 +10,11 @@ describe Generator::Prompt::SuccessNotifierJob do
       parse_mode: "HTML",
       reply_markup:
    { inline_keyboard:
-     [[{ callback_data: "gemini_image", text: "Gemini (1 credit)" }],
-      [{ callback_data: "imagen_image", text: "Imagen3 (1 credit)" }],
-      [{ callback_data: "mystic_image", text: "Mystic (2 credits)" }]] },
+     [
+       [{ callback_data: "mystic_image", text: "Mystic (2 credits)" }],
+       [{ callback_data: "gemini_image", text: "Gemini (1 credit)" }],
+       [{ callback_data: "imagen_image", text: "Imagen (0 credits)" }]
+     ] },
       text: "a very long and beautiful prompt" }
   end
   let(:command_request) { create(:command_prompt_to_image_request) }
@@ -25,7 +27,7 @@ describe Generator::Prompt::SuccessNotifierJob do
                                                        reset: true))
   end
 
-  subject { job.perform(extended_prompt, chat_id, button_request.id) }
+  subject { job.perform(extended_prompt, chat_id, button_request.id, "en") }
 
   describe "#perform" do
     it "sends a Telegram message with presenter reply_data" do

@@ -3,12 +3,14 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
   include SessionAccessor
   include ErrorHandler
   include TgChatAuthorization
+  include TelegramLocale
 
   def start!(token_code = nil)
     handled_token = TokenHandler::HandleToken.call(
       token_code:,
       chat_id: chat["id"],
-      name: chat["first_name"]
+      name: chat["first_name"],
+      locale: normalized_locale
     )
 
     respond_with :message, text: start_message_for(handled_token)
@@ -20,12 +22,17 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
     respond_with :message, text: I18n.t("telegram_webhooks.commands.token.ask")
   end
 
+  def help!
+    respond_with :message, text: I18n.t("telegram_webhooks.commands.help")
+  end
+
   def message(user_message)
-    Telegram::MessageDispatcher.call(
+    TelegramIntegration::MessageDispatcher.call(
       command: session[:command],
       chat_id: chat["id"],
       user_message:,
-      name: chat["first_name"]
+      name: chat["first_name"],
+      locale: normalized_locale
     )
   end
 

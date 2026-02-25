@@ -1,0 +1,14 @@
+development:
+  supported_locales:
+    - en
+    - ru
+
+production:
+  supported_locales:
+    - en
+    - ru
+
+test:
+  supported_locales:
+    - en
+    - ru

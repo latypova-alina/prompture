@@ -1,6 +1,7 @@
 module Generator
   module Video
-    class BaseTaskCreatorJob < ::Clients::Generator::BaseApiRequest
+    class BaseTaskCreatorJob < ApplicationJob
+      include ::Clients::Generator::BaseApiRequest
       include Memery
 
       def perform(image_url, chat_id)

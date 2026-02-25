@@ -1,18 +1,19 @@
 module Generator
   module Prompt
-    class SuccessNotifierJob
-      include Sidekiq::Job
+    class SuccessNotifierJob < ApplicationJob
       include Memery
 
-      def perform(extended_prompt, chat_id, button_request_id)
+      def perform(extended_prompt, chat_id, button_request_id, locale)
         @extended_prompt = extended_prompt
         @button_request_id = button_request_id
 
-        Telegram::SendMessageWithButtons.call(
-          chat_id:,
-          reply_data:,
-          request:
-        )
+        with_locale(locale) do
+          TelegramIntegration::SendMessageWithButtons.call(
+            chat_id:,
+            reply_data:,
+            request:
+          )
+        end
 
         request.update!(prompt: extended_prompt, status: "COMPLETED")
       end
@@ -26,8 +27,14 @@ module Generator
         ::ButtonRequestPresenters::ExtendedPromptMessagePresenter.new(message: extended_prompt)
       end
 
+      def locale
+        request.user.locale.to_s
+      end
+
       memoize def request
-        ButtonExtendPromptRequest.find(button_request_id)
+        ButtonExtendPromptRequest
+          .includes(command_request: :user)
+          .find(button_request_id)
       end
     end
   end

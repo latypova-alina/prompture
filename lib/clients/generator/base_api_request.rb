@@ -1,6 +1,6 @@
 module Clients
   module Generator
-    class BaseApiRequest
+    module BaseApiRequest
       include Memery
 
       private

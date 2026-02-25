@@ -78,8 +78,7 @@ describe TelegramWebhooksController, telegram_bot: :rails do
 
   describe "#prompt_to_video!" do
     let(:expected_text) do
-      "Great! Now please provide a prompt for the video. The prompt can be in any language and any length, " \
-      "and it can later be adapted with the help of the bot."
+      "Great! Now please provide a prompt for the video. It can later be extended with the help of the bot."
     end
 
     it_behaves_like "command handling",
@@ -88,8 +87,7 @@ describe TelegramWebhooksController, telegram_bot: :rails do
 
   describe "#prompt_to_image!" do
     let(:expected_text) do
-      "Great! Now please provide a prompt for the image. The prompt can be in any language and any length, " \
-      "and it can later be adapted with the help of the bot."
+      "Great! Now please provide a prompt for the image. It can later be extended with the help of the bot."
     end
 
     it_behaves_like "command handling",
@@ -103,8 +101,6 @@ describe TelegramWebhooksController, telegram_bot: :rails do
   end
 
   describe "#balance", :callback_query do
-    let!(:user) { create(:user, :with_balance) }
-
     let(:expected_text) do
       "Your current balance is 100 credits."
     end

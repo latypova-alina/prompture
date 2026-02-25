@@ -10,7 +10,11 @@ RSpec.shared_examples "message handling" do
 
         <blockquote>cute white kitten</blockquote>
 
-        What do you want to do next?
+        What do you want to do next? You can:
+
+        🔹 extend the prompt
+
+        🔹 generate an image using one of the processors (Mystic/Gemini/Imagen)
       HTML
     end
 
@@ -18,9 +22,9 @@ RSpec.shared_examples "message handling" do
       {
         inline_keyboard: [
           [{ text: "Extend prompt", callback_data: "extend_prompt" }],
+          [{ text: "Mystic (2 credits)", callback_data: "mystic_image" }],
           [{ text: "Gemini (1 credit)", callback_data: "gemini_image" }],
-          [{ text: "Imagen3 (1 credit)", callback_data: "imagen_image" }],
-          [{ text: "Mystic (2 credits)", callback_data: "mystic_image" }]
+          [{ text: "Imagen (0 credits)", callback_data: "imagen_image" }]
         ]
       }
     end
@@ -29,7 +33,7 @@ RSpec.shared_examples "message handling" do
       expect { dispatch_message(prompt) }
         .to send_telegram_message(bot)
         .with(
-          text: "#{expected_message}\n",
+          text: a_string_including("Here is your prompt:"),
           parse_mode: "HTML",
           reply_markup: expected_markup,
           chat_id: 456

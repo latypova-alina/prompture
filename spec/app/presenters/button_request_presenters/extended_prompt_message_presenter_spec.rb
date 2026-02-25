@@ -13,7 +13,14 @@ describe ButtonRequestPresenters::ExtendedPromptMessagePresenter do
 
   describe "#inline_keyboard" do
     subject { super().inline_keyboard }
+    let(:expected_buttons) do
+      [
+        [{ callback_data: "mystic_image", text: "Mystic (2 credits)" }],
+        [{ callback_data: "gemini_image", text: "Gemini (1 credit)" }],
+        [{ callback_data: "imagen_image", text: "Imagen (0 credits)" }]
+      ]
+    end
 
-    it { is_expected.to eq(Buttons::ForExtendedPromptMessage::BUTTONS) }
+    it { is_expected.to eq(expected_buttons) }
   end
 end

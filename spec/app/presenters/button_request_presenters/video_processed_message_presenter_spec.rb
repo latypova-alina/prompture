@@ -15,6 +15,6 @@ describe ButtonRequestPresenters::VideoProcessedMessagePresenter do
   describe "#inline_keyboard" do
     subject { super().inline_keyboard }
 
-    it { is_expected.to eq(Buttons::ForVideoMessage::BUTTONS) }
+    it { is_expected.to eq([]) }
   end
 end

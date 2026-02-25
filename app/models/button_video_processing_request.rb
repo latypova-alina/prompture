@@ -10,6 +10,8 @@ class ButtonVideoProcessingRequest < ApplicationRecord
 
   validates :processor, presence: true, inclusion: { in: PROCESSOR_TYPES }
 
+  delegate :user, to: :command_request
+
   def cost
     COSTS[:videos][processor.to_sym]
   end

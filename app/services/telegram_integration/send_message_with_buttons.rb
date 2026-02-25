@@ -1,4 +1,4 @@
-module Telegram
+module TelegramIntegration
   class SendMessageWithButtons
     def self.call(chat_id:, reply_data:, request:)
       response = ::Telegram.bot.send_message(chat_id:, **reply_data)

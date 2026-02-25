@@ -1,6 +1,6 @@
 require "rails_helper"
 
-describe Telegram::SendMessageWithButtons do
+describe TelegramIntegration::SendMessageWithButtons do
   subject { described_class.call(chat_id:, reply_data:, request: request_record) }
 
   let(:chat_id) { 456 }

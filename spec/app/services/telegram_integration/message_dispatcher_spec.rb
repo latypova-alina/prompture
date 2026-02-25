@@ -1,11 +1,12 @@
 require "rails_helper"
 
-describe Telegram::MessageDispatcher do
-  subject { described_class.call(command:, chat_id:, user_message:, name:) }
+describe TelegramIntegration::MessageDispatcher do
+  subject { described_class.call(command:, chat_id:, user_message:, name:, locale:) }
 
   let(:chat_id) { 456 }
   let(:name) { "Rihanna" }
   let(:user_message) { { "text" => "ABC123" } }
+  let(:locale) { :en }
 
   describe ".call" do
     context "when command is token" do
@@ -15,7 +16,7 @@ describe Telegram::MessageDispatcher do
       it "calls TokenHandler::HandleToken with correct arguments" do
         expect(TokenHandler::HandleToken)
           .to receive(:call)
-          .with(chat_id:, token_code: "ABC123", name:)
+          .with(chat_id:, token_code: "ABC123", name:, locale:)
           .and_return(result)
 
         subject

@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :user do
-    chat_id { 456 }
+    sequence(:chat_id) { |n| 1000 + n }
     name { "Rihanna" }
   end
 

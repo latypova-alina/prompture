@@ -1,8 +1,9 @@
 class BasePresenter
   include Memery
 
-  def initialize(message:)
+  def initialize(message:, locale: I18n.locale)
     @message = message
+    @locale = locale
   end
 
   def reply_data
@@ -15,7 +16,7 @@ class BasePresenter
 
   private
 
-  attr_reader :message
+  attr_reader :message, :locale
 
   delegate :formatted_text, :inline_keyboard, to: :corresponding_class
 

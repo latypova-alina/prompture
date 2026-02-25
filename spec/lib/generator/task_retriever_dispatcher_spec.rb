@@ -1,11 +1,8 @@
 require "rails_helper"
 
-describe Generator::TaskRetrieverSelectorJob do
-  let(:job) { described_class.new }
-
+describe Generator::TaskRetrieverDispatcher do
   let(:task_id) { "abc123" }
   let(:chat_id) { 456 }
-
   let(:request_id) { 789 }
 
   before do
@@ -14,11 +11,16 @@ describe Generator::TaskRetrieverSelectorJob do
     end
   end
 
-  describe "#perform" do
+  describe ".call" do
     context "for every known button_request" do
       it "dispatches to the correct retriever job" do
         described_class::RETRIEVER_JOBS.each do |button_request, klass|
-          job.perform(task_id, button_request, request_id, chat_id)
+          described_class.call(
+            task_id: task_id,
+            button_request: button_request,
+            request_id: request_id,
+            chat_id: chat_id
+          )
 
           expect(klass).to have_received(:perform_async)
             .with(task_id, chat_id, request_id)
@@ -28,9 +30,12 @@ describe Generator::TaskRetrieverSelectorJob do
 
     context "for unknown button_request" do
       it "does nothing" do
-        unknown = "not_existing_button"
-
-        job.perform(task_id, unknown, chat_id, request_id)
+        described_class.call(
+          task_id: task_id,
+          button_request: "not_existing_button",
+          request_id: request_id,
+          chat_id: chat_id
+        )
 
         described_class::RETRIEVER_JOBS.each_value do |klass|
           expect(klass).not_to have_received(:perform_async)

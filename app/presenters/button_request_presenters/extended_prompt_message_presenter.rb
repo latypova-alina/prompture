@@ -7,7 +7,7 @@ module ButtonRequestPresenters
     end
 
     def inline_keyboard
-      Buttons::ForExtendedPromptMessage::BUTTONS
+      Buttons::ForExtendedPromptMessage.build
     end
   end
 end

@@ -1,14 +1,21 @@
 module Buttons
   module ForImageMessage
-    class ForPromptToVideo
-      BUTTONS = [
+    class ForPromptToVideo < Buttons::Base
+      def build
         [
-          {
-            "text": "Kling Pro 2.1 (10 credits)",
-            "callback_data": "kling_2_1_pro_image_to_video"
-          }
+          *build_processors_for_media
         ]
-      ].freeze
+      end
+
+      private
+
+      def scope
+        "generate_video"
+      end
+
+      def type
+        :videos
+      end
     end
   end
 end

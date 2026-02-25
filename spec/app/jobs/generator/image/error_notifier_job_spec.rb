@@ -5,7 +5,7 @@ describe Generator::Image::ErrorNotifierJob do
 
   before { allow(Telegram).to receive(:bot).and_return(double(send_message: true, reset: true)) }
 
-  subject { described_class.new.perform(chat_id) }
+  subject { described_class.new.perform(chat_id, :en) }
 
   describe "#perform" do
     it "sends an error message to the user" do

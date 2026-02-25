@@ -1,6 +1,13 @@
 en:
   telegram_webhooks:
     commands:
+      description:
+        start: "🚀 Start interacting with the bot and get instructions on how to use it"
+        help: "❓ Get instructions on how to use the bot"
+        balance: "💰 Check your current balance"
+        token: "🔑 Activate a token"
+        prompt_to_video: "🎬 Prompt → picture → video"
+        prompt_to_image: "🖼 Prompt → image"
       start: 
         no_token: |
           👋 Hi! Great to see you here.
@@ -34,8 +41,27 @@ en:
 
           💰 To check your balance:
           /balance
-      prompt_to_video: "Great! Now please provide a prompt for the video. The prompt can be in any language and any length, and it can later be adapted with the help of the bot."
-      prompt_to_image: "Great! Now please provide a prompt for the image. The prompt can be in any language and any length, and it can later be adapted with the help of the bot."
+      help: |
+        🤖 With this bot, you can generate images and videos using different AI models.
+
+        🎨 To generate an image, type:
+        /prompt_to_image
+
+        🎬 To generate a video, type:
+        /prompt_to_video
+
+        💰 To check your balance, type:
+        /balance
+
+        🔑 To activate a token, type:
+        /token
+
+        ℹ️ Each generation costs credits.
+        To top up your balance, use /token and enter a valid token.
+
+        Tokens are provided by the administrator.
+      prompt_to_video: "Great! Now please provide a prompt for the video. It can later be extended with the help of the bot."
+      prompt_to_image: "Great! Now please provide a prompt for the image. It can later be extended with the help of the bot."
       image_to_video: "Great! Now please send me the image you want to turn into a video."
       image_from_reference: "Great! Now please send me the reference image you want to use to generate a new image."
       balance: "Your current balance is %{balance} credits."
@@ -47,8 +73,31 @@ en:
           🎉 You have received %{credits} credits.
     message:
       prompt_prefix: "Here is your prompt:"
-      prompt_suffix: What do you want to do next?
+      prompt_suffix: |
+        What do you want to do next? You can: 
+        
+        🔹 extend the prompt
+          
+        🔹 generate an image using one of the processors (Mystic/Gemini/Imagen)
       provide_prompt: "Please provide the description (optional)"
+      buttons:
+        extend_prompt: "Extend prompt"
+        generate_image:
+          mystic_image: 
+            one: "Mystic (%{count} credit)"
+            other: "Mystic (%{count} credits)"
+          gemini_image:
+            one: "Gemini (%{count} credit)"
+            other: "Gemini (%{count} credits)"
+          imagen_image:
+            one: "Imagen (%{count} credit)"
+            other: "Imagen (%{count} credits)"
+        generate_video:
+          kling_2_1_pro_image_to_video:
+            one: "Kling Pro 2.1 (%{count} credit)"
+            other: "Kling Pro 2.1 (%{count} credits)"
+      image_processed: "Open image"
+      video_processed: "Open video"
   errors:
     prompt_forgotten: "Please provide the prompt again"
     extend_prompt_error: "Sorry, I couldn't process your request. Please try again later."
@@ -62,7 +111,7 @@ en:
     wrong_message_type: "The type of message you sent is not suitable for this command. Please send the correct type of message and try again."
     image_forgotten: "It seems like the image link is missing. Please try again."
     command_request_forgotten: "It seems like your previous command request is missing. Please start over and provide the necessary information."
-    unauthorized: "Seems you need to activate a token first :)"
+    unauthorized: "Seems you need to activate a token first 🔑"
     token_not_found: "Sorry, the token you provided is invalid. You can ask administrator for a valid token."
     token_used: "Sorry, the token you provided has already been used."
     token_expired: "Sorry, the token you provided has expired."
@@ -74,4 +123,8 @@ en:
         extend_prompt: "prompt"
         video:
           kling_2_1_pro_image_to_video: "Kling Pro video"
+        image:
+          mystic_image: "Mystic image"
+          gemini_image: "Gemini image"
+          imagen_image: "Imagen image"
 

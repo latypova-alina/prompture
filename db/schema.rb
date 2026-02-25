@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2026_02_11_150545) do
+ActiveRecord::Schema[8.0].define(version: 2026_02_19_160026) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -83,6 +83,8 @@ ActiveRecord::Schema[8.0].define(version: 2026_02_11_150545) do
     t.bigint "chat_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "user_id"
+    t.index ["user_id"], name: "index_command_image_from_reference_requests_on_user_id"
   end
 
   create_table "command_image_to_video_requests", force: :cascade do |t|
@@ -92,18 +94,24 @@ ActiveRecord::Schema[8.0].define(version: 2026_02_11_150545) do
     t.bigint "chat_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "user_id"
+    t.index ["user_id"], name: "index_command_image_to_video_requests_on_user_id"
   end
 
   create_table "command_prompt_to_image_requests", force: :cascade do |t|
     t.bigint "chat_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "user_id"
+    t.index ["user_id"], name: "index_command_prompt_to_image_requests_on_user_id"
   end
 
   create_table "command_prompt_to_video_requests", force: :cascade do |t|
     t.bigint "chat_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "user_id"
+    t.index ["user_id"], name: "index_command_prompt_to_video_requests_on_user_id"
   end
 
   create_table "prompt_messages", force: :cascade do |t|
@@ -147,10 +155,15 @@ ActiveRecord::Schema[8.0].define(version: 2026_02_11_150545) do
     t.bigint "chat_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "locale", default: "en", null: false
     t.index ["chat_id"], name: "index_users_on_chat_id", unique: true
   end
 
   add_foreign_key "balance_transactions", "users"
   add_foreign_key "balances", "users"
+  add_foreign_key "command_image_from_reference_requests", "users"
+  add_foreign_key "command_image_to_video_requests", "users"
+  add_foreign_key "command_prompt_to_image_requests", "users"
+  add_foreign_key "command_prompt_to_video_requests", "users"
   add_foreign_key "tokens", "users"
 end

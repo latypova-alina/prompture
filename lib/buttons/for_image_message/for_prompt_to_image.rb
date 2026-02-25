@@ -1,7 +1,13 @@
 module Buttons
   module ForImageMessage
     class ForPromptToImage
-      BUTTONS = [].freeze
+      def self.build
+        new.build
+      end
+
+      def build
+        []
+      end
     end
   end
 end

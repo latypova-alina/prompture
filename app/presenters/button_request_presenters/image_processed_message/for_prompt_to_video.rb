@@ -4,11 +4,11 @@ module ButtonRequestPresenters
       include MessageInterface
 
       def formatted_text
-        "<a href=\"#{message}\">Open image</a>"
+        "<a href=\"#{message}\">#{I18n.t('telegram_webhooks.message.image_processed', locale:)}</a>"
       end
 
       def inline_keyboard
-        Buttons::ForImageMessage::ForPromptToVideo::BUTTONS
+        Buttons::ForImageMessage::ForPromptToVideo.build
       end
     end
   end

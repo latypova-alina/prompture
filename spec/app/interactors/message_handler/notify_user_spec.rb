@@ -20,7 +20,7 @@ describe MessageHandler::NotifyUser do
       .to receive(:reply_data)
       .and_return(reply_data)
 
-    allow(Telegram::SendMessageWithButtons)
+    allow(TelegramIntegration::SendMessageWithButtons)
       .to receive(:call)
   end
 
@@ -31,7 +31,7 @@ describe MessageHandler::NotifyUser do
       .to have_received(:new)
       .with(user_message: prompt_message)
 
-    expect(Telegram::SendMessageWithButtons).to have_received(:call).with(chat_id:, reply_data:,
-                                                                          request: prompt_message)
+    expect(TelegramIntegration::SendMessageWithButtons).to have_received(:call).with(chat_id:, reply_data:,
+                                                                                     request: prompt_message)
   end
 end

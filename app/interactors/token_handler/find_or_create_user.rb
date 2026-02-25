@@ -3,7 +3,7 @@ module TokenHandler
     include Interactor
     include Memery
 
-    delegate :chat_id, :name, to: :context
+    delegate :chat_id, :name, :locale, to: :context
 
     def call
       context.user = user
@@ -14,6 +14,7 @@ module TokenHandler
     memoize def user
       User.find_or_create_by(chat_id:) do |u|
         u.name = context.name || "User#{context.chat_id}"
+        u.locale = locale
       end
     end
   end

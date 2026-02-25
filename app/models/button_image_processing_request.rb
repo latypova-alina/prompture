@@ -10,11 +10,13 @@ class ButtonImageProcessingRequest < ApplicationRecord
 
   validates :processor, presence: true, inclusion: { in: PROCESSOR_TYPES }
 
+  delegate :user, to: :command_request
+
   def cost
     COSTS[:images][processor.to_sym]
   end
 
   def humanized_process_name
-    processor.humanize
+    I18n.t("telegram.generation.humanized_process_names.image.#{processor}")
   end
 end

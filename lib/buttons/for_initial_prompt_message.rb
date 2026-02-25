@@ -1,30 +1,27 @@
 module Buttons
-  class ForInitialPromptMessage
-    BUTTONS = [
+  class ForInitialPromptMessage < Base
+    def build
       [
-        {
-          "text": "Extend prompt",
-          "callback_data": "extend_prompt"
-        }
-      ],
-      [
-        {
-          "text": "Gemini (1 credit)",
-          "callback_data": "gemini_image"
-        }
-      ],
-      [
-        {
-          "text": "Imagen3 (1 credit)",
-          "callback_data": "imagen_image"
-        }
-      ],
-      [
-        {
-          "text": "Mystic (2 credits)",
-          "callback_data": "mystic_image"
-        }
+        [extend_prompt_button],
+        *build_processors_for_media
       ]
-    ].freeze
+    end
+
+    private
+
+    def extend_prompt_button
+      {
+        text: I18n.t("telegram_webhooks.message.buttons.extend_prompt"),
+        callback_data: "extend_prompt"
+      }
+    end
+
+    def scope
+      "generate_image"
+    end
+
+    def type
+      :images
+    end
   end
 end

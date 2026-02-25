@@ -1,16 +1,17 @@
 module Generator
   module Video
-    class SuccessNotifierJob
-      include Sidekiq::Job
+    class SuccessNotifierJob < ApplicationJob
       include Memery
 
-      def perform(video_url, chat_id, button_request_id)
-        @video_url = video_url
-        @button_request_id = button_request_id
+      def perform(video_url, chat_id, button_request_id, locale)
+        with_locale(locale) do
+          @video_url = video_url
+          @button_request_id = button_request_id
 
-        ::Telegram.bot.send_message(chat_id:, **reply_data)
+          ::Telegram.bot.send_message(chat_id:, **reply_data)
 
-        request.update!(status: "COMPLETED", video_url:)
+          request.update!(status: "COMPLETED", video_url:)
+        end
       end
 
       private
@@ -23,7 +24,9 @@ module Generator
       end
 
       memoize def request
-        ButtonVideoProcessingRequest.find(button_request_id)
+        ButtonVideoProcessingRequest
+          .includes(command_request: :user)
+          .find(button_request_id)
       end
     end
   end

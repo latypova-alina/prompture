@@ -5,13 +5,16 @@ RSpec.shared_examples "video task creator job" do |processor:|
   let(:task_id) { "#{processor}-task-456" }
   let(:token) { "encoded-token" }
   let(:image_url) { "http://example.com/image.jpg" }
-  let(:command_request) { create(:command_prompt_to_video_request) }
+  let(:command_request) { create(:command_prompt_to_video_request, user:) }
   let(:button_request_record) do
-    create(:button_video_processing_request, parent_request: command_request, command_request:,
-                                             processor: button_request)
+    create(:button_video_processing_request,
+           command_request:,
+           parent_request: command_request,
+           processor: button_request)
   end
   let(:request_id) { button_request_record.id }
   let!(:user) { create(:user, chat_id:) }
+  let(:locale) { "en" }
 
   before do
     allow(ChatToken).to receive(:encode).with(chat_id).and_return(token)
@@ -43,7 +46,7 @@ RSpec.shared_examples "video task creator job" do |processor:|
         subject
 
         expect(Generator::Video::ErrorNotifierJob).to have_received(:perform_async)
-          .with(chat_id)
+          .with(chat_id, locale)
       end
     end
   end
