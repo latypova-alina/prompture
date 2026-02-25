@@ -17,9 +17,9 @@ module Generator
 
     def call
       case button_request
-      when *ErrorNotifierJob::IMAGE_BUTTON_REQUESTS
+      when *IMAGE_BUTTON_REQUESTS
         Generator::Image::ErrorNotifierJob.perform_async(chat_id)
-      when *ErrorNotifierJob::VIDEO_BUTTON_REQUESTS
+      when *VIDEO_BUTTON_REQUESTS
         Generator::Video::ErrorNotifierJob.perform_async(chat_id)
       end
     end
