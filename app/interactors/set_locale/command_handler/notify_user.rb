@@ -15,7 +15,7 @@ module SetLocale
       delegate :reply_data, to: :presenter
 
       memoize def presenter
-        LocaleCommandHandlerPresenter.new(locale:)
+        SetLocale::CommandHandlerPresenter.new(locale:)
       end
     end
   end

@@ -18,7 +18,8 @@ module MediaGenerator
       delegate :reply_data, to: :presenter
 
       def presenter
-        UserMessagePresenters::MessagePresenter.new(user_message: prompt_message)
+        byebug
+        UserMessagePresenters::PromptMessagePresenter.new(prompt_message)
       end
     end
   end
