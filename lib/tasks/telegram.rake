@@ -13,7 +13,9 @@ namespace :telegram do
             { command: "prompt_to_video",
               description: I18n.t("telegram_webhooks.commands.description.prompt_to_video") },
             { command: "prompt_to_image",
-              description: I18n.t("telegram_webhooks.commands.description.prompt_to_image") }
+              description: I18n.t("telegram_webhooks.commands.description.prompt_to_image") },
+            { command: "set_locale",
+              description: I18n.t("telegram_webhooks.commands.description.set_locale") }
           ],
           language_code: locale
         )

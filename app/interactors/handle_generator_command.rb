@@ -1,4 +1,4 @@
-class HandleCommand
+class HandleGeneratorCommand
   include Interactor
   include Memery
 

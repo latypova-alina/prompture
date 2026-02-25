@@ -8,6 +8,7 @@ en:
         token: "🔑 Activate a token"
         prompt_to_video: "🎬 Prompt → picture → video"
         prompt_to_image: "🖼 Prompt → image"
+        set_locale: "🌐 Set language"
       start: 
         no_token: |
           👋 Hi! Great to see you here.
@@ -71,6 +72,9 @@ en:
           ✅ Your token has been successfully activated!
 
           🎉 You have received %{credits} credits.
+      set_locale:
+        ask: "Please select your preferred language:"
+        locale_updated: "Your language has been updated 🌐"
     message:
       prompt_prefix: "Here is your prompt:"
       prompt_suffix: |
@@ -96,6 +100,9 @@ en:
           kling_2_1_pro_image_to_video:
             one: "Kling Pro 2.1 (%{count} credit)"
             other: "Kling Pro 2.1 (%{count} credits)"
+        set_locale:
+          en: "English"
+          ru: "Русский"
       image_processed: "Open image"
       video_processed: "Open video"
   errors:

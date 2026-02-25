@@ -1,6 +1,6 @@
 require "rails_helper"
 
-describe HandleCommand do
+describe HandleGeneratorCommand do
   subject { described_class.call(command:, chat_id:) }
 
   let(:command) { "prompt_to_image" }
