@@ -18,7 +18,7 @@ module TokenHandler
     end
 
     def default_text
-      I18n.t("telegram_webhooks.commands.token.activated", credits: token.credits)
+      I18n.t("telegram_webhooks.commands.activate_token.activated", credits: token.credits)
     end
   end
 end

@@ -20,7 +20,7 @@ module Generator
       attr_reader :video_url, :button_request_id
 
       memoize def presenter
-        ::ButtonRequestPresenters::VideoProcessedMessagePresenter.new(message: video_url)
+        MediaGenerator::ButtonRequestPresenters::VideoProcessedMessagePresenter.new(message: video_url)
       end
 
       memoize def request

@@ -24,7 +24,7 @@ module Generator
       attr_reader :extended_prompt, :button_request_id
 
       def presenter
-        ::ButtonRequestPresenters::ExtendedPromptMessagePresenter.new(message: extended_prompt)
+        MediaGenerator::ButtonRequestPresenters::ExtendedPromptMessagePresenter.new(message: extended_prompt)
       end
 
       def locale

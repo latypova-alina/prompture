@@ -1,13 +1,15 @@
-module ButtonRequestPresenters
-  class ExtendedPromptMessagePresenter < BasePresenter
-    include MessageInterface
+module MediaGenerator
+  module ButtonRequestPresenters
+    class ExtendedPromptMessagePresenter < BasePresenter
+      include MessageInterface
 
-    def formatted_text
-      message
-    end
+      def formatted_text
+        message
+      end
 
-    def inline_keyboard
-      Buttons::ForExtendedPromptMessage.build
+      def inline_keyboard
+        Buttons::ForExtendedPromptMessage.build
+      end
     end
   end
 end

@@ -1,6 +1,6 @@
 require "rails_helper"
 
-describe ButtonRequestPresenters::ExtendedPromptMessagePresenter do
+describe MediaGenerator::ButtonRequestPresenters::ExtendedPromptMessagePresenter do
   subject { described_class.new(message:) }
 
   let(:message) { "Extended prompt text" }

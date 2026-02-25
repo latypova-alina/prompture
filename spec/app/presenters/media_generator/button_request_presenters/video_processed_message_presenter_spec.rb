@@ -1,6 +1,6 @@
 require "rails_helper"
 
-describe ButtonRequestPresenters::VideoProcessedMessagePresenter do
+describe MediaGenerator::ButtonRequestPresenters::VideoProcessedMessagePresenter do
   subject { described_class.new(message:) }
 
   let(:message) { "https://example.com/video.mp4" }

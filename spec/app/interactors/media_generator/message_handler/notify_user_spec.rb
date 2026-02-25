@@ -5,7 +5,7 @@ describe MediaGenerator::MessageHandler::NotifyUser do
 
   let(:chat_id) { 456 }
   let(:prompt_message) { create(:prompt_message) }
-  let(:presenter_class) { UserMessagePresenters::MessagePresenter }
+  let(:presenter_class) { MediaGenerator::UserMessagePresenters::MessagePresenter }
 
   let(:presenter) { instance_double(presenter_class) }
   let(:reply_data) { { text: "Hello", reply_markup: {} } }

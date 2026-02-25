@@ -1,6 +1,6 @@
 require "rails_helper"
 
-describe ButtonRequestPresenters::ImageProcessedMessage::ForPromptToVideo do
+describe MediaGenerator::ButtonRequestPresenters::ImageProcessedMessage::ForPromptToVideo do
   subject { described_class.new(message:) }
 
   let(:message) { "https://example.com/image.png" }
