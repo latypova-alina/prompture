@@ -15,6 +15,11 @@ describe ButtonRequestPresenters::ImageProcessedMessage::ForPromptToVideo do
   describe "#inline_keyboard" do
     subject { super().inline_keyboard }
 
-    it { is_expected.to eq(Buttons::ForImageMessage::ForPromptToVideo::BUTTONS) }
+    let(:expected_buttons) do
+      [[{ callback_data: "kling_2_1_pro_image_to_video",
+          text: "Kling Pro 2.1 (10 credits)" }]]
+    end
+
+    it { is_expected.to eq(expected_buttons) }
   end
 end

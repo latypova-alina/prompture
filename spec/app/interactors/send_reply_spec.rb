@@ -15,8 +15,8 @@ describe SendReply do
   end
 
   before do
-    allow(Generator::TaskRetrieverSelectorJob).to receive(:perform_async)
-    allow(Generator::ErrorNotifierJob).to receive(:perform_async)
+    allow(Generator::TaskRetrieverDispatcher).to receive(:call)
+    allow(Generator::ErrorNotifierDispatcher).to receive(:call)
 
     allow(ChatToken).to receive(:decode).with(token).and_return(chat_id)
   end
@@ -29,42 +29,42 @@ describe SendReply do
     it "does not enqueue any jobs" do
       interactor
 
-      expect(Generator::TaskRetrieverSelectorJob).not_to have_received(:perform_async)
-      expect(Generator::ErrorNotifierJob).not_to have_received(:perform_async)
+      expect(Generator::TaskRetrieverDispatcher).not_to have_received(:call)
+      expect(Generator::ErrorNotifierDispatcher).not_to have_received(:call)
     end
   end
 
   context "when status is COMPLETED" do
     let(:status) { "COMPLETED" }
 
-    it "enqueues TaskRetrieverSelectorJob" do
+    it "calls TaskRetrieverDispatcher" do
       interactor
 
-      expect(Generator::TaskRetrieverSelectorJob).to have_received(:perform_async)
-        .with(task_id, button_request, nil, chat_id)
+      expect(Generator::TaskRetrieverDispatcher).to have_received(:call)
+        .with(task_id:, button_request:, request_id: nil, chat_id:)
     end
 
-    it "does not enqueue ErrorNotifierJob" do
+    it "does not call ErrorNotifierDispatcher" do
       interactor
 
-      expect(Generator::ErrorNotifierJob).not_to have_received(:perform_async)
+      expect(Generator::ErrorNotifierDispatcher).not_to have_received(:call)
     end
   end
 
   context "when status is FAILED" do
     let(:status) { "FAILED" }
 
-    it "enqueues ErrorNotifierJob" do
+    it "calls ErrorNotifierDispatcher" do
       interactor
 
-      expect(Generator::ErrorNotifierJob).to have_received(:perform_async)
-        .with(button_request, chat_id)
+      expect(Generator::ErrorNotifierDispatcher).to have_received(:call)
+        .with(button_request:, chat_id:)
     end
 
-    it "does not enqueue TaskRetrieverSelectorJob" do
+    it "does not call TaskRetrieverDispatcher" do
       interactor
 
-      expect(Generator::TaskRetrieverSelectorJob).not_to have_received(:perform_async)
+      expect(Generator::TaskRetrieverDispatcher).not_to have_received(:call)
     end
   end
 end

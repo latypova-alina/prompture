@@ -1,7 +1,7 @@
 require "rails_helper"
 
 describe TokenHandler::FindOrCreateUser do
-  subject { described_class.call(chat_id:, name:) }
+  subject { described_class.call(chat_id:, name:, locale: :en) }
 
   let(:chat_id) { 456 }
   let(:name) { "Barbara" }

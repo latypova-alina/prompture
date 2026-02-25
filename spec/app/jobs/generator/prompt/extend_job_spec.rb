@@ -36,7 +36,7 @@ describe Generator::Prompt::ExtendJob do
         subject
 
         expect(Generator::Prompt::SuccessNotifierJob).to have_received(:perform_async)
-          .with(extended_prompt, chat_id, button_request.id)
+          .with(extended_prompt, chat_id, button_request.id, "en")
       end
 
       it "does not enqueue ErrorNotifierJob" do
@@ -58,7 +58,7 @@ describe Generator::Prompt::ExtendJob do
         subject
 
         expect(Generator::Prompt::ErrorNotifierJob).to have_received(:perform_async)
-          .with(chat_id)
+          .with(chat_id, "en")
       end
 
       it "does not enqueue SuccessNotifierJob" do

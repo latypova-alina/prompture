@@ -3,12 +3,13 @@ require "rails_helper"
 describe ButtonHandler::DecrementBalance do
   subject { described_class.call(chat_id: 456, button_request_record:) }
 
-  let!(:balance) { create(:balance, credits: 100) }
+  let(:user) { create(:user, chat_id: 456) }
+  let!(:balance) { create(:balance, credits: 100, user:) }
 
   describe "#call" do
     context "when cost is zero" do
       let(:button_request_record) do
-        create(:button_image_processing_request, :no_cost)
+        create(:button_image_processing_request, :no_cost, :belonging_to_user, user:)
       end
 
       it "does not call Billing::Charger" do
@@ -20,7 +21,7 @@ describe ButtonHandler::DecrementBalance do
 
     context "when cost is positive" do
       let(:button_request_record) do
-        create(:button_image_processing_request)
+        create(:button_image_processing_request, :belonging_to_user, user:)
       end
 
       before { allow(Billing::Charger).to receive(:call) }

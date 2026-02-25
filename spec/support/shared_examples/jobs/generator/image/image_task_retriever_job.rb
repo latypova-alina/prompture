@@ -3,6 +3,7 @@ RSpec.shared_examples "image task retriever job" do |processor:|
   let(:chat_id) { 456 }
   let(:button_request) { create(:button_image_processing_request) }
   let(:job) { described_class.new }
+  let(:locale) { "en" }
 
   before do
     allow(Generator::Image::SuccessNotifierJob).to receive(:perform_async)
@@ -29,7 +30,7 @@ RSpec.shared_examples "image task retriever job" do |processor:|
         subject
 
         expect(Generator::Image::SuccessNotifierJob).to have_received(:perform_async)
-          .with("https://ai-statics.freepik.com/completed_task_image.jpg", chat_id, button_request.id)
+          .with("https://ai-statics.freepik.com/completed_task_image.jpg", chat_id, button_request.id, locale)
       end
 
       it "does not enqueue ErrorNotifierJob" do
@@ -46,7 +47,7 @@ RSpec.shared_examples "image task retriever job" do |processor:|
         subject
 
         expect(Generator::Image::ErrorNotifierJob).to have_received(:perform_async)
-          .with(chat_id)
+          .with(chat_id, locale)
       end
 
       it "does not enqueue SuccessNotifierJob" do

@@ -7,3 +7,8 @@ production:
   supported_locales:
     - en
     - ru
+
+test:
+  supported_locales:
+    - en
+    - ru

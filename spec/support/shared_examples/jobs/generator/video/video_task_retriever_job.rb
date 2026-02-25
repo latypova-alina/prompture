@@ -3,6 +3,7 @@ RSpec.shared_examples "video task retriever job" do |processor:|
   let(:chat_id) { 456 }
   let(:job) { described_class.new }
   let(:button_request) { create(:button_video_processing_request) }
+  let(:locale) { "en" }
 
   before do
     allow(Generator::Video::SuccessNotifierJob).to receive(:perform_async)
@@ -29,7 +30,7 @@ RSpec.shared_examples "video task retriever job" do |processor:|
         subject
 
         expect(Generator::Video::SuccessNotifierJob).to have_received(:perform_async)
-          .with("https://ai-statics.freepik.com/completed_task_video.mp4", chat_id, button_request.id)
+          .with("https://ai-statics.freepik.com/completed_task_video.mp4", chat_id, button_request.id, locale)
       end
 
       it "does not enqueue ErrorNotifierJob" do
@@ -46,7 +47,7 @@ RSpec.shared_examples "video task retriever job" do |processor:|
         subject
 
         expect(Generator::Video::ErrorNotifierJob).to have_received(:perform_async)
-          .with(chat_id)
+          .with(chat_id, locale)
       end
 
       it "does not enqueue SuccessNotifierJob" do

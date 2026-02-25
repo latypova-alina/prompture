@@ -7,7 +7,7 @@ RSpec.shared_examples "image task creator job" do |processor:|
   let(:request_id) { button_request_record.id }
   let!(:user) { create(:user, chat_id:) }
   let(:button_request_record) do
-    create(:button_image_processing_request, processor: button_request)
+    create(:button_image_processing_request, :belonging_to_user, user:, processor: button_request)
   end
 
   before do
@@ -40,7 +40,7 @@ RSpec.shared_examples "image task creator job" do |processor:|
         subject
 
         expect(Generator::Image::ErrorNotifierJob).to have_received(:perform_async)
-          .with(chat_id)
+          .with(chat_id, "en")
         expect(Billing::Refunder).to have_received(:call).with(user:, amount: button_request_record.cost,
                                                                source: button_request_record)
       end

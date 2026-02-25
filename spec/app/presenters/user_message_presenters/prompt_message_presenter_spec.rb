@@ -25,8 +25,17 @@ describe UserMessagePresenters::PromptMessagePresenter do
   describe "#inline_keyboard" do
     subject { super().inline_keyboard }
 
+    let(:expected_buttons) do
+      [
+        [{ callback_data: "extend_prompt", text: "Extend prompt" }],
+        [{ callback_data: "mystic_image", text: "Mystic (2 credits)" }],
+        [{ callback_data: "gemini_image", text: "Gemini (1 credit)" }],
+        [{ callback_data: "imagen_image", text: "Imagen (0 credits)" }]
+      ]
+    end
+
     it "returns initial prompt buttons" do
-      expect(subject).to eq(Buttons::ForInitialPromptMessage::BUTTONS)
+      expect(subject).to eq(expected_buttons)
     end
   end
 end
