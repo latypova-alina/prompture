@@ -45,8 +45,8 @@ describe TelegramIntegration::MessageDispatcher do
       let(:command) { "something_else" }
       let(:result) { double(failure?: false) }
 
-      it "calls MessageHandler::HandleMessage" do
-        expect(MessageHandler::HandleMessage)
+      it "calls MediaGenerator::MessageHandler::HandleMessage" do
+        expect(MediaGenerator::MessageHandler::HandleMessage)
           .to receive(:call)
           .with(command:, user_message:)
           .and_return(result)

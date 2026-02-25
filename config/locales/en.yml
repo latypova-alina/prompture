@@ -5,7 +5,7 @@ en:
         start: "🚀 Start interacting with the bot and get instructions on how to use it"
         help: "❓ Get instructions on how to use the bot"
         balance: "💰 Check your current balance"
-        token: "🔑 Activate a token"
+        activate_token: "🔑 Activate a token"
         prompt_to_video: "🎬 Prompt → picture → video"
         prompt_to_image: "🖼 Prompt → image"
         set_locale: "🌐 Set language"
@@ -25,10 +25,10 @@ en:
           /balance
 
           🔑 To activate a token, type:
-          /token
+          /activate_token
 
           ℹ️ Each generation costs credits.
-          To top up your balance, use /token and enter a valid token.
+          To top up your balance, use /activate_token and enter a valid token.
 
           Tokens are provided by the administrator.
         with_valid_token: |
@@ -55,10 +55,10 @@ en:
         /balance
 
         🔑 To activate a token, type:
-        /token
+        /activate_token
 
         ℹ️ Each generation costs credits.
-        To top up your balance, use /token and enter a valid token.
+        To top up your balance, use /activate_token and enter a valid token.
 
         Tokens are provided by the administrator.
       prompt_to_video: "Great! Now please provide a prompt for the video. It can later be extended with the help of the bot."
@@ -66,7 +66,7 @@ en:
       image_to_video: "Great! Now please send me the image you want to turn into a video."
       image_from_reference: "Great! Now please send me the reference image you want to use to generate a new image."
       balance: "Your current balance is %{balance} credits."
-      token:
+      activate_token:
         ask: "Please enter your token to activate it:"
         activated: |
           ✅ Your token has been successfully activated!

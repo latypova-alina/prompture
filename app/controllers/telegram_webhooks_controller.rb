@@ -16,10 +16,10 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
     respond_with :message, text: start_message_for(handled_token)
   end
 
-  def token!
-    session[:command] = "token"
+  def activate_token!(*)
+    session[:command] = "activate_token"
 
-    respond_with :message, text: I18n.t("telegram_webhooks.commands.token.ask")
+    respond_with :message, text: I18n.t("telegram_webhooks.commands.activate_token.ask")
   end
 
   def help!
@@ -39,7 +39,7 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
   def prompt_to_video!(*)
     session[:command] = "prompt_to_video"
 
-    HandleGeneratorCommand.call(command: session[:command], chat_id: chat["id"])
+    MediaGenerator::CommandHandler::HandleCommand.call(command: session[:command], chat_id: chat["id"])
 
     respond_with :message, text: t("telegram_webhooks.commands.prompt_to_video")
   end
@@ -60,7 +60,7 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
   def prompt_to_image!(*)
     session[:command] = "prompt_to_image"
 
-    HandleGeneratorCommand.call(command: session[:command], chat_id: chat["id"])
+    MediaGenerator::CommandHandler::HandleCommand.call(command: session[:command], chat_id: chat["id"])
 
     respond_with :message, text: t("telegram_webhooks.commands.prompt_to_image")
   end
@@ -68,7 +68,7 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
   def image_to_video!(*)
     session[:command] = "image_to_video!"
 
-    HandleGeneratorCommand.call(command: session[:command], chat_id: chat["id"])
+    MediaGenerator::CommandHandler::HandleCommand.call(command: session[:command], chat_id: chat["id"])
 
     respond_with :message, text: t("telegram_webhooks.commands.image_to_video!")
   end
@@ -76,7 +76,7 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
   def image_from_reference!(*)
     session[:command] = "image_from_reference"
 
-    HandleGeneratorCommand.call(command: session[:command], chat_id: chat["id"])
+    MediaGenerator::CommandHandler::HandleCommand.call(command: session[:command], chat_id: chat["id"])
 
     respond_with :message, text: t("telegram_webhooks.commands.image_from_reference")
   end

@@ -27,7 +27,7 @@ module TelegramIntegration
       when TOKEN_COMMAND
         TokenHandler::HandleToken.call(chat_id:, token_code: user_message["text"], name:, locale:)
       else
-        MessageHandler::HandleMessage.call(command:, user_message:)
+        MediaGenerator::MessageHandler::HandleMessage.call(command:, user_message:)
       end
     end
   end

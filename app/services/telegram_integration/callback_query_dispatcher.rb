@@ -29,10 +29,10 @@ module TelegramIntegration
       when SET_LOCALE_COMMAND
         SetLocale::ButtonHandler::HandleButton.call(selected_locale: splitted_button_request.last, chat_id:)
       else
-        ButtonHandler::HandleButton.call(
+        MediaGenerator::ButtonHandler::HandleButton.call(
           button_request:,
-          image_url: image_url_from_message,
-          chat_id: chat["id"],
+          image_url:,
+          chat_id:,
           tg_message_id:,
           callback_query_id:
         )
