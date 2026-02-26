@@ -103,6 +103,7 @@ en:
         set_locale:
           en: "English"
           ru: "Русский"
+          es: "Español"
       image_processed: "Open image"
       video_processed: "Open video"
   errors:
@@ -122,7 +123,7 @@ en:
     token_not_found: "Sorry, the token you provided is invalid. You can ask administrator for a valid token."
     token_used: "Sorry, the token you provided has already been used."
     token_expired: "Sorry, the token you provided has expired."
-    insufficient_credits: "Sorry, it looks like you don't have enough credits to perform this action :("
+    insufficient_credits: "Sorry, it looks like you don't have enough credits to perform this action 💰"
   telegram:
     generation:
       processing: Generating %{process_name}, please wait…

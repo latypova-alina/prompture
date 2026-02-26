@@ -1,0 +1,146 @@
+es:
+  telegram_webhooks:
+    commands:
+      description:
+        start: "🚀 Comienza a interactuar con el bot y recibe instrucciones sobre cómo usarlo"
+        help: "❓ Obtén instrucciones sobre cómo usar el bot"
+        balance: "💰 Consulta tu saldo actual"
+        activate_token: "🔑 Activa un token"
+        prompt_to_video: "🎬 Prompt → imagen → video"
+        prompt_to_image: "🖼 Prompt → imagen"
+        set_locale: "🌐 Cambiar idioma"
+      start:
+        no_token: |
+          👋 ¡Hola! Me alegra verte por aquí.
+
+          🤖 Con este bot puedes generar imágenes y videos usando diferentes modelos de IA.
+
+          🎨 Para generar una imagen, escribe:
+          /prompt_to_image
+
+          🎬 Para generar un video, escribe:
+          /prompt_to_video
+
+          💰 Para consultar tu saldo, escribe:
+          /balance
+
+          🔑 Para activar un token, escribe:
+          /activate_token
+
+          ℹ️ Cada generación cuesta créditos.
+          Para recargar tu saldo, usa /activate_token e introduce un token válido.
+
+          Los tokens son proporcionados por el administrador.
+        with_valid_token: |
+          🤖 Con este bot puedes generar imágenes y videos usando diferentes modelos de IA.
+
+          🎨 Para generar una imagen:
+          /prompt_to_image
+
+          🎬 Para generar un video:
+          /prompt_to_video
+
+          💰 Para consultar tu saldo:
+          /balance
+      help: |
+        🤖 Con este bot puedes generar imágenes y videos usando diferentes modelos de IA.
+
+        🎨 Para generar una imagen, escribe:
+        /prompt_to_image
+
+        🎬 Para generar un video, escribe:
+        /prompt_to_video
+
+        💰 Para consultar tu saldo, escribe:
+        /balance
+
+        🔑 Para activar un token, escribe:
+        /activate_token
+
+        ℹ️ Cada generación cuesta créditos.
+        Para recargar tu saldo, usa /activate_token e introduce un token válido.
+
+        Los tokens son proporcionados por el administrador.
+      prompt_to_video: "¡Genial! Ahora, por favor, proporciona un prompt para el video. Más adelante podrás ampliarlo con la ayuda del bot."
+      prompt_to_image: "¡Genial! Ahora, por favor, proporciona un prompt para la imagen. Más adelante podrás ampliarlo con la ayuda del bot."
+      image_to_video: "¡Genial! Ahora, por favor, envíame la imagen que quieres convertir en un video."
+      image_from_reference: "¡Genial! Ahora, por favor, envíame la imagen de referencia que quieres usar para generar una nueva imagen."
+      balance: "Tu saldo actual es de %{balance} créditos."
+      activate_token:
+        ask: "Por favor, introduce tu token para activarlo:"
+        activated: |
+          ✅ ¡Tu token ha sido activado correctamente!
+
+          🎉 Has recibido %{credits} créditos.
+      set_locale:
+        ask: "Por favor, selecciona tu idioma preferido:"
+        locale_updated: "Tu idioma ha sido actualizado 🌐"
+    message:
+      prompt_prefix: "Aquí está tu prompt:"
+      prompt_suffix: |
+        ¿Qué quieres hacer a continuación? Puedes:
+
+        🔹 extender el prompt
+          
+        🔹 generar una imagen usando uno de los procesadores (Mystic/Gemini/Imagen)
+      provide_prompt: "Por favor, proporciona la descripción (opcional)"
+      buttons:
+        extend_prompt: "Extender prompt"
+        generate_image:
+          mystic_image:
+            one: "Mystic (%{count} crédito)"
+            other: "Mystic (%{count} créditos)"
+          gemini_image:
+            one: "Gemini (%{count} crédito)"
+            other: "Gemini (%{count} créditos)"
+          imagen_image:
+            one: "Imagen (%{count} crédito)"
+            other: "Imagen (%{count} créditos)"
+        generate_video:
+          kling_2_1_pro_image_to_video:
+            one: "Kling Pro 2.1 (%{count} crédito)"
+            other: "Kling Pro 2.1 (%{count} créditos)"
+        set_locale:
+          en: "English"
+          ru: "Русский"
+          es: "Español"
+        image_processed: "Abrir imagen"
+        video_processed: "Abrir video"
+  errors:
+    prompt_forgotten: "Por favor, proporciona el prompt nuevamente"
+    extend_prompt_error: "Lo siento, no pude procesar tu solicitud. Por favor, inténtalo de nuevo más tarde."
+    parent_not_found: "Lo siento, no pude encontrar la solicitud original. Por favor, proporciona un nuevo comando."
+    image_generating_error: "Lo siento, no pude generar la imagen. Por favor, inténtalo de nuevo más tarde."
+    image_generating_timeout_error: "Lo siento, la generación de la imagen está tardando demasiado. Por favor, inténtalo de nuevo más tarde."
+    video_generating_error: "Lo siento, no pude generar el video. Por favor, inténtalo de nuevo más tarde."
+    video_generating_timeout_error: "Lo siento, la generación del video está tardando demasiado. Por favor, inténtalo de nuevo más tarde."
+    command_unknown: "¡Ups! Parece que aún no has seleccionado un comando. Por favor, elige uno y sigue las instrucciones."
+    unknown: "¡Ups! Algo salió mal. Por favor, inténtalo de nuevo más tarde."
+    wrong_message_type: "El tipo de mensaje que enviaste no es adecuado para este comando. Por favor, envía el tipo de mensaje correcto e inténtalo de nuevo."
+    image_forgotten: "Parece que falta el enlace de la imagen. Por favor, inténtalo de nuevo."
+    command_request_forgotten: "Parece que falta tu solicitud de comando anterior. Por favor, comienza de nuevo y proporciona la información necesaria."
+    unauthorized: "Parece que primero necesitas activar un token 🔑"
+    token_not_found: "Lo siento, el token que proporcionaste no es válido. Puedes pedirle al administrador un token válido."
+    token_used: "Lo siento, el token que proporcionaste ya ha sido utilizado."
+    token_expired: "Lo siento, el token que proporcionaste ha expirado."
+    insufficient_credits: "Lo siento, parece que no tienes suficientes créditos para realizar esta acción 💰"
+  telegram:
+    generation:
+      processing: "Generando %{process_name}, por favor espera…"
+      humanized_process_names:
+        extend_prompt: "prompt"
+        video:
+          kling_2_1_pro_image_to_video: "video de Kling Pro"
+        image:
+          mystic_image: "imagen de Mystic"
+          gemini_image: "imagen de Gemini"
+          imagen_image: "imagen de Imagen"
+
+
+
+
+
+
+
+
+

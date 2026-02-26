@@ -2,13 +2,16 @@ development:
   supported_locales:
     - en
     - ru
+    - es
 
 production:
   supported_locales:
     - en
     - ru
+    - es
 
 test:
   supported_locales:
     - en
     - ru
+    - es

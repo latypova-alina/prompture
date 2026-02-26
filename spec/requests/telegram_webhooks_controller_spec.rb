@@ -66,7 +66,7 @@ describe TelegramWebhooksController, telegram_bot: :rails do
     end
   end
 
-  describe "#token!" do
+  describe "#activate_token!" do
     subject { -> { dispatch_command(:activate_token) } }
 
     let(:expected_text) do
@@ -74,6 +74,27 @@ describe TelegramWebhooksController, telegram_bot: :rails do
     end
 
     it { should respond_with_message(expected_text) }
+  end
+
+  describe "#help!" do
+    subject { -> { dispatch_command(:help) } }
+
+    let(:expected_text) do
+      I18n.t("telegram_webhooks.commands.help")
+    end
+
+    it { should respond_with_message(expected_text) }
+  end
+
+  describe "#set_locale!" do
+    subject { -> { dispatch_command(:set_locale) } }
+
+    let(:expected_text) do
+      "Please select your preferred language:"
+    end
+
+    it_behaves_like "command handling",
+                    command: :set_locale
   end
 
   describe "#prompt_to_video!" do
@@ -148,5 +169,9 @@ describe TelegramWebhooksController, telegram_bot: :rails do
                     processor: "kling_2_1_pro",
                     record_creator: RecordCreators::ButtonRequests::Videos::Kling,
                     job_class: ::Generator::Video::Kling::TaskCreatorJob
+  end
+
+  describe "#set_locale_callback_query", :callback_query do
+    it_behaves_like "set_locale callback"
   end
 end

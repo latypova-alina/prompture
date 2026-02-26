@@ -110,6 +110,7 @@ ru:
         set_locale:
           en: "English"
           ru: "Русский"
+          es: "Español"
       image_processed: "Открыть изображение"
       video_processed: "Открыть видео"
   errors:

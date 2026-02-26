@@ -4,6 +4,7 @@ module MediaGenerator
       include MessageInterface
 
       def initialize(prompt_message)
+        super()
         @prompt_message = prompt_message
       end
 

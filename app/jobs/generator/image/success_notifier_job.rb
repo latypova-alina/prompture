@@ -30,8 +30,9 @@ module Generator
       attr_reader :image_url, :button_request_id
 
       memoize def presenter_selector
-        MediaGenerator::ButtonRequestPresenters::ImageProcessedMessage::PresenterSelector.new(image_url, command_request_classname,
-                                                                                              locale)
+        MediaGenerator::ButtonRequestPresenters::ImageProcessedMessage::PresenterSelector.new(
+          image_url, command_request_classname, locale
+        )
       end
 
       memoize def command_request_classname
