@@ -1,6 +1,6 @@
 module TelegramIntegration
   class MessageDispatcher
-    TOKEN_COMMAND = "token".freeze
+    TOKEN_COMMAND = "activate_token".freeze
 
     def self.call(...)
       new(...).call

@@ -9,8 +9,8 @@ describe TelegramIntegration::MessageDispatcher do
   let(:locale) { :en }
 
   describe ".call" do
-    context "when command is token" do
-      let(:command) { "token" }
+    context "when command is activate_token" do
+      let(:command) { "activate_token" }
       let(:result) { double(failure?: false) }
 
       it "calls TokenHandler::HandleToken with correct arguments" do

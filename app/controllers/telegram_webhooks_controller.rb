@@ -1,9 +1,9 @@
 class TelegramWebhooksController < Telegram::Bot::UpdatesController
   include Telegram::Bot::UpdatesController::MessageContext
+  include TelegramLocale
   include SessionAccessor
   include ErrorHandler
   include TgChatAuthorization
-  include TelegramLocale
 
   def start!(token_code = nil)
     handled_token = TokenHandler::HandleToken.call(
