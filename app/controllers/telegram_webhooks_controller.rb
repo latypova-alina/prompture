@@ -1,9 +1,9 @@
 class TelegramWebhooksController < Telegram::Bot::UpdatesController
   include Telegram::Bot::UpdatesController::MessageContext
+  include TelegramLocale
   include SessionAccessor
   include ErrorHandler
   include TgChatAuthorization
-  include TelegramLocale
 
   def start!(token_code = nil)
     handled_token = TokenHandler::HandleToken.call(
@@ -16,10 +16,10 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
     respond_with :message, text: start_message_for(handled_token)
   end
 
-  def token!
-    session[:command] = "token"
+  def activate_token!(*)
+    session[:command] = "activate_token"
 
-    respond_with :message, text: I18n.t("telegram_webhooks.commands.token.ask")
+    respond_with :message, text: I18n.t("telegram_webhooks.commands.activate_token.ask")
   end
 
   def help!
@@ -39,9 +39,18 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
   def prompt_to_video!(*)
     session[:command] = "prompt_to_video"
 
-    HandleCommand.call(command: session[:command], chat_id: chat["id"])
+    MediaGenerator::CommandHandler::HandleCommand.call(command: session[:command], chat_id: chat["id"])
 
     respond_with :message, text: t("telegram_webhooks.commands.prompt_to_video")
+  end
+
+  def set_locale!(*)
+    session[:command] = "set_locale"
+
+    SetLocale::CommandHandler::HandleCommand.call(
+      chat_id: chat["id"],
+      locale: normalized_locale
+    )
   end
 
   def balance!(*)
@@ -51,7 +60,7 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
   def prompt_to_image!(*)
     session[:command] = "prompt_to_image"
 
-    HandleCommand.call(command: session[:command], chat_id: chat["id"])
+    MediaGenerator::CommandHandler::HandleCommand.call(command: session[:command], chat_id: chat["id"])
 
     respond_with :message, text: t("telegram_webhooks.commands.prompt_to_image")
   end
@@ -59,7 +68,7 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
   def image_to_video!(*)
     session[:command] = "image_to_video!"
 
-    HandleCommand.call(command: session[:command], chat_id: chat["id"])
+    MediaGenerator::CommandHandler::HandleCommand.call(command: session[:command], chat_id: chat["id"])
 
     respond_with :message, text: t("telegram_webhooks.commands.image_to_video!")
   end
@@ -67,21 +76,19 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
   def image_from_reference!(*)
     session[:command] = "image_from_reference"
 
-    HandleCommand.call(command: session[:command], chat_id: chat["id"])
+    MediaGenerator::CommandHandler::HandleCommand.call(command: session[:command], chat_id: chat["id"])
 
     respond_with :message, text: t("telegram_webhooks.commands.image_from_reference")
   end
 
   def callback_query(button_request)
-    handled_button = ButtonHandler::HandleButton.call(
+    TelegramIntegration::CallbackQueryDispatcher.call(
       button_request:,
       image_url: image_url_from_message,
       chat_id: chat["id"],
       tg_message_id:,
       callback_query_id:
     )
-
-    raise handled_button.error if handled_button.failure?
   end
 
   private

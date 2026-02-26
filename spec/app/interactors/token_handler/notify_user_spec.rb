@@ -10,7 +10,7 @@ describe TokenHandler::NotifyUser do
     it "sends greeting and activated message via Telegram" do
       activated_text =
         I18n.t(
-          "telegram_webhooks.commands.token.activated",
+          "telegram_webhooks.commands.activate_token.activated",
           credits: token.credits
         )
 
@@ -36,7 +36,7 @@ describe TokenHandler::NotifyUser do
       it "sends default activated message" do
         activated_text =
           I18n.t(
-            "telegram_webhooks.commands.token.activated",
+            "telegram_webhooks.commands.activate_token.activated",
             credits: token.credits
           )
 

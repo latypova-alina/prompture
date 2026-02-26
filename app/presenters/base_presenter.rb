@@ -1,7 +1,7 @@
 class BasePresenter
   include Memery
 
-  def initialize(message:, locale: I18n.locale)
+  def initialize(message: nil, locale: I18n.locale)
     @message = message
     @locale = locale
   end

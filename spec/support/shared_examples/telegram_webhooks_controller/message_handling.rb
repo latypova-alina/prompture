@@ -51,8 +51,8 @@ RSpec.shared_examples "message handling" do
       it { is_expected.to respond_with_message(expected_text) }
     end
 
-    context "when command is token" do
-      let(:command) { "token" }
+    context "when command is activate_token" do
+      let(:command) { "activate_token" }
 
       context "when token is valid" do
         before { create(:token, code: "valid_token") }

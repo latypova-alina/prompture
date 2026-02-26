@@ -2,7 +2,7 @@ module TgChatAuthorization
   extend ActiveSupport::Concern
   include Memery
 
-  included { before_action :authorize_chat!, except: %i[start! token! message] }
+  included { before_action :authorize_chat!, except: %i[start! activate_token! message] }
 
   private
 
