@@ -1,20 +1,26 @@
 default: &default
-  images:
+  generate_image:
     mystic_image: 2
     gemini_image: 1
     imagen_image: 1
-  videos:
+  generate_video:
     kling_2_1_pro_image_to_video: 10
+  prompt:
+    extend_prompt: 1
 
 development:
   <<: *default
 
 test:
   <<: *default
-  images:
+  generate_image:
     mystic_image: 2
     gemini_image: 1
     imagen_image: 0
+  generate_video:
+    kling_2_1_pro_image_to_video: 10
+  prompt:
+    extend_prompt: 1
 
 production:
   <<: *default

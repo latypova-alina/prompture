@@ -9,7 +9,7 @@ class ButtonExtendPromptRequest < ApplicationRecord
   delegate :user, to: :command_request
 
   def cost
-    0
+    COSTS[:prompt][:extend_prompt]
   end
 
   def humanized_process_name

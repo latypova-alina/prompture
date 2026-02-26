@@ -1,17 +1,15 @@
 module Buttons
   class ForExtendedPromptMessage < Base
+    include MediaInterface
+
     def build
       [*build_processors_for_media]
     end
 
     private
 
-    def scope
+    def media_scope
       "generate_image"
-    end
-
-    def type
-      :images
     end
   end
 end

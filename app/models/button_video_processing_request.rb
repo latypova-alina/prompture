@@ -13,7 +13,7 @@ class ButtonVideoProcessingRequest < ApplicationRecord
   delegate :user, to: :command_request
 
   def cost
-    COSTS[:videos][processor.to_sym]
+    COSTS[:generate_video][processor.to_sym]
   end
 
   def humanized_process_name

@@ -21,7 +21,7 @@ RSpec.shared_examples "message handling" do
     let(:expected_markup) do
       {
         inline_keyboard: [
-          [{ text: "Extend prompt", callback_data: "extend_prompt" }],
+          [{ text: "Extend prompt (1 credit)", callback_data: "extend_prompt" }],
           [{ text: "Mystic (2 credits)", callback_data: "mystic_image" }],
           [{ text: "Gemini (1 credit)", callback_data: "gemini_image" }],
           [{ text: "Imagen (0 credits)", callback_data: "imagen_image" }]

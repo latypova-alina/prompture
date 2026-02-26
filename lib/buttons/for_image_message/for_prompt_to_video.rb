@@ -1,6 +1,8 @@
 module Buttons
   module ForImageMessage
     class ForPromptToVideo < Buttons::Base
+      include MediaInterface
+
       def build
         [
           *build_processors_for_media
@@ -9,12 +11,8 @@ module Buttons
 
       private
 
-      def scope
+      def media_scope
         "generate_video"
-      end
-
-      def type
-        :videos
       end
     end
   end

@@ -85,7 +85,10 @@ en:
         🔹 generate an image using one of the processors (Mystic/Gemini/Imagen)
       provide_prompt: "Please provide the description (optional)"
       buttons:
-        extend_prompt: "Extend prompt"
+        prompt:
+          extend_prompt:
+            one: "Extend prompt (%{count} credit)"
+            other: "Extend prompt (%{count} credits)"
         generate_image:
           mystic_image: 
             one: "Mystic (%{count} credit)"

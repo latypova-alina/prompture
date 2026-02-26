@@ -29,7 +29,7 @@ describe ButtonVideoProcessingRequest, type: :model do
         record = build(:button_video_processing_request, processor:)
 
         expect(record.cost)
-          .to eq(COSTS[:videos][processor.to_sym])
+          .to eq(COSTS[:generate_video][processor.to_sym])
       end
     end
   end
