@@ -5,7 +5,7 @@ describe MediaGenerator::MessageHandler::NotifyUser do
 
   let(:chat_id) { 456 }
   let(:prompt_message) { create(:prompt_message) }
-  let(:presenter_class) { MediaGenerator::UserMessagePresenters::MessagePresenter }
+  let(:presenter_class) { MediaGenerator::UserMessagePresenters::PromptMessagePresenter }
 
   let(:presenter) { instance_double(presenter_class) }
   let(:reply_data) { { text: "Hello", reply_markup: {} } }
@@ -13,7 +13,7 @@ describe MediaGenerator::MessageHandler::NotifyUser do
   before do
     allow(presenter_class)
       .to receive(:new)
-      .with(user_message: prompt_message)
+      .with(prompt_message)
       .and_return(presenter)
 
     allow(presenter)
@@ -29,7 +29,7 @@ describe MediaGenerator::MessageHandler::NotifyUser do
 
     expect(presenter_class)
       .to have_received(:new)
-      .with(user_message: prompt_message)
+      .with(prompt_message)
 
     expect(TelegramIntegration::SendMessageWithButtons).to have_received(:call).with(chat_id:, reply_data:,
                                                                                      request: prompt_message)

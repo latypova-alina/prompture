@@ -67,7 +67,7 @@ describe TelegramWebhooksController, telegram_bot: :rails do
   end
 
   describe "#token!" do
-    subject { -> { dispatch_command(:token) } }
+    subject { -> { dispatch_command(:activate_token) } }
 
     let(:expected_text) do
       "Please enter your token to activate it:"
