@@ -13,7 +13,7 @@ class ButtonImageProcessingRequest < ApplicationRecord
   delegate :user, to: :command_request
 
   def cost
-    COSTS[:images][processor.to_sym]
+    COSTS[:generate_image][processor.to_sym]
   end
 
   def humanized_process_name

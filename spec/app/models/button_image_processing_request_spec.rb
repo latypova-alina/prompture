@@ -31,7 +31,7 @@ describe ButtonImageProcessingRequest, type: :model do
 
     it "returns correct cost from COSTS config" do
       expect(subject.cost).to eq(
-        COSTS[:images][processor.to_sym]
+        COSTS[:generate_image][processor.to_sym]
       )
     end
   end

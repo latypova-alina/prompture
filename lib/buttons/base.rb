@@ -6,42 +6,20 @@ module Buttons
 
     private
 
-    def processor_button(processor)
-      credits = cost_for(processor)
+    def button_for(scope, type)
+      credits = cost_for(scope, type)
 
       {
         text: I18n.t(
-          "telegram_webhooks.message.buttons.#{scope}.#{processor}",
+          "telegram_webhooks.message.buttons.#{scope}.#{type}",
           count: credits
         ),
-        callback_data: processor.to_s
+        callback_data: type.to_s
       }
     end
 
-    def build_processors_for_media
-      processors.map do |processor|
-        [
-          processor_button(
-            processor
-          )
-        ]
-      end
-    end
-
-    def cost_for(processor)
-      COSTS[type][processor]
-    end
-
-    def processors
-      COSTS[type].keys
-    end
-
-    def scope
-      raise NotImplementedError
-    end
-
-    def type
-      raise NotImplementedError
+    def cost_for(scope, type)
+      COSTS[scope][type]
     end
   end
 end

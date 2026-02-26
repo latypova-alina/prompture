@@ -1,27 +1,18 @@
 module Buttons
   class ForInitialPromptMessage < Base
+    include MediaInterface
+
     def build
       [
-        [extend_prompt_button],
+        [button_for(:prompt, :extend_prompt)],
         *build_processors_for_media
       ]
     end
 
     private
 
-    def extend_prompt_button
-      {
-        text: I18n.t("telegram_webhooks.message.buttons.extend_prompt"),
-        callback_data: "extend_prompt"
-      }
-    end
-
-    def scope
+    def media_scope
       "generate_image"
-    end
-
-    def type
-      :images
     end
   end
 end

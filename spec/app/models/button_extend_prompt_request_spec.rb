@@ -15,7 +15,7 @@ describe ButtonExtendPromptRequest, type: :model do
     subject { build(:button_extend_prompt_request) }
 
     it "returns 0" do
-      expect(subject.cost).to eq(0)
+      expect(subject.cost).to eq(1)
     end
   end
 

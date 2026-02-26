@@ -84,7 +84,12 @@ ru:
         🔹 сгенерировать изображение с помощью одного из процессоров (Mystic/Gemini/Imagen)
       provide_prompt: "Пожалуйста, укажи промпт (необязательно)"
       buttons:
-        extend_prompt: "Расширить промпт"
+        prompt:
+          extend_prompt:
+            one: "Расширить промпт (%{count} кредит)"
+            few: "Расширить промпт (%{count} кредита)"
+            many: "Расширить промпт (%{count} кредитов)"
+            other: "Расширить промпт (%{count} кредитов)"
         generate_image:
           mystic_image: 
             one: "Mystic (%{count} кредит)"
