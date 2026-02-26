@@ -87,6 +87,8 @@ ru:
         prompt:
           extend_prompt:
             one: "Расширить промпт (%{count} кредит)"
+            few: "Расширить промпт (%{count} кредита)"
+            many: "Расширить промпт (%{count} кредитов)"
             other: "Расширить промпт (%{count} кредитов)"
         generate_image:
           mystic_image: 
