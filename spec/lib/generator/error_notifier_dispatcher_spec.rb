@@ -1,7 +1,8 @@
 require "rails_helper"
 
 describe Generator::ErrorNotifierDispatcher do
-  let(:chat_id) { 123 }
+  let(:chat_id) { 456 }
+  let!(:user) { create(:user, chat_id:, locale: :en) }
 
   before do
     allow(Generator::Image::ErrorNotifierJob).to receive(:perform_async)
@@ -18,7 +19,7 @@ describe Generator::ErrorNotifierDispatcher do
           )
 
           expect(Generator::Image::ErrorNotifierJob)
-            .to have_received(:perform_async).with(chat_id)
+            .to have_received(:perform_async).with(chat_id, "en")
 
           expect(Generator::Video::ErrorNotifierJob)
             .not_to have_received(:perform_async)
@@ -35,7 +36,7 @@ describe Generator::ErrorNotifierDispatcher do
           )
 
           expect(Generator::Video::ErrorNotifierJob)
-            .to have_received(:perform_async).with(chat_id)
+            .to have_received(:perform_async).with(chat_id, "en")
 
           expect(Generator::Image::ErrorNotifierJob)
             .not_to have_received(:perform_async)
