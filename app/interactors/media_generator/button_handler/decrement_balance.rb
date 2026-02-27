@@ -4,7 +4,7 @@ module MediaGenerator
       include Interactor
       include Memery
 
-      delegate :chat_id, :button_request_record, to: :context
+      delegate :chat_id, :button_request_record, :command_request, to: :context
       delegate :cost, to: :button_request_record
       delegate :user, to: :command_request
 

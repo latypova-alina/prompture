@@ -1,10 +1,12 @@
 module Generator
   module Image
     module Mystic
-      class TaskCreatorJob < ::Generator::Image::TaskCreatorJob
+      class PayloadStrategyForCreate
         API_URL = "https://api.freepik.com/v1/ai/mystic".freeze
 
-        private
+        def initialize(prompt)
+          @prompt = prompt
+        end
 
         def payload
           {
@@ -14,6 +16,12 @@ module Generator
             "resolution": "2k"
           }
         end
+
+        def api_url
+          API_URL
+        end
+
+        attr_reader :prompt
       end
     end
   end

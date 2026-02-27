@@ -1,10 +1,12 @@
 module Generator
   module Image
     module Imagen
-      class TaskCreatorJob < ::Generator::Image::TaskCreatorJob
+      class PayloadStrategyForCreate
         API_URL = "https://api.freepik.com/v1/ai/text-to-image/imagen3".freeze
 
-        private
+        def initialize(prompt)
+          @prompt = prompt
+        end
 
         def payload
           {
@@ -14,6 +16,12 @@ module Generator
               "style": "3d"
             }
           }
+        end
+
+        attr_reader :prompt
+
+        def api_url
+          API_URL
         end
       end
     end
