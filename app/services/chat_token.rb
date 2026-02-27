@@ -1,6 +1,6 @@
-class ChatToken
-  def self.encode(chat_id)
-    verifier.generate(chat_id)
+class RequestIdToken
+  def self.encode(request_id)
+    verifier.generate(request_id)
   end
 
   def self.decode(token)
@@ -9,7 +9,7 @@ class ChatToken
 
   def self.verifier
     ActiveSupport::MessageVerifier.new(
-      ENV.fetch("CHAT_TOKEN_SECRET"),
+      ENV.fetch("REQUEST_ID_SECRET"),
       digest: "SHA256"
     )
   end

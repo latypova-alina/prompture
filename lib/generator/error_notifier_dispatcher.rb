@@ -2,34 +2,28 @@ module Generator
   class ErrorNotifierDispatcher
     include Memery
 
-    IMAGE_BUTTON_REQUESTS = %w[mystic_image gemini_image imagen_image].freeze
+    IMAGE_PROCESSORS = %w[mystic_image gemini_image imagen_image].freeze
 
-    VIDEO_BUTTON_REQUESTS = %w[kling_2_1_pro_image_to_video].freeze
+    VIDEO_PROCESSORS = %w[kling_2_1_pro_image_to_video].freeze
 
     def self.call(...)
       new(...).call
     end
 
-    def initialize(button_request:, chat_id:)
-      @button_request = button_request
-      @chat_id = chat_id
+    def initialize(processor:, button_request_id:)
+      @processor = processor
+      @button_request_id = button_request_id
     end
 
-    attr_reader :button_request, :chat_id
+    attr_reader :processor, :button_request_id
 
     def call
-      case button_request
-      when *IMAGE_BUTTON_REQUESTS
-        Generator::Image::ErrorNotifierJob.perform_async(chat_id, locale)
-      when *VIDEO_BUTTON_REQUESTS
-        Generator::Video::ErrorNotifierJob.perform_async(chat_id, locale)
+      case processor
+      when *IMAGE_PROCESSORS
+        Generator::Image::ErrorNotifierJob.perform_async(button_request_id)
+      when *VIDEO_PROCESSORS
+        Generator::Video::ErrorNotifierJob.perform_async(button_request_id)
       end
-    end
-
-    private
-
-    memoize def locale
-      User.find_by!(chat_id:).locale.to_s
     end
   end
 end

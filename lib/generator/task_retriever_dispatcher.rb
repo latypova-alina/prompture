@@ -12,19 +12,20 @@ module Generator
       new(...).call
     end
 
-    def initialize(task_id:, button_request:, request_id:, chat_id:)
-      @task_id = task_id
-      @button_request = button_request
-      @request_id = request_id
-      @chat_id = chat_id
+    def initialize(context)
+      @context = context
     end
-
-    attr_reader :task_id, :button_request, :request_id, :chat_id
 
     def call
-      return unless RETRIEVER_JOBS.key?(button_request)
+      return unless RETRIEVER_JOBS.key?(processor)
 
-      RETRIEVER_JOBS[button_request].perform_async(task_id, chat_id, request_id)
+      RETRIEVER_JOBS[processor].perform_async(task_id, button_request_id)
     end
+
+    private
+
+    attr_reader :context
+
+    delegate :task_id, :processor, :button_request_id, to: :context
   end
 end

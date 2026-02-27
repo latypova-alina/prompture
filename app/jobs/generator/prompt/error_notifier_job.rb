@@ -1,7 +1,9 @@
 module Generator
   module Prompt
-    class ErrorNotifierJob < ApplicationJob
-      def perform(chat_id, locale)
+    class ErrorNotifierJob < BaseNotifierJob
+      def perform(chat_id, button_request_id)
+        @button_request_id = button_request_id
+
         with_locale(locale) do
           Telegram.bot.send_message(
             chat_id:,
@@ -9,6 +11,10 @@ module Generator
           )
         end
       end
+
+      private
+
+      attr_reader :button_request_id
     end
   end
 end

@@ -1,25 +1,20 @@
 module Generator
   module Image
-    class SuccessNotifierJob < ApplicationJob
+    class SuccessNotifierJob < BaseNotifierJob
       include Memery
 
-      def perform(image_url, chat_id, button_request_id, locale)
+      def perform(image_url, button_request_id)
         @image_url = image_url
         @button_request_id = button_request_id
 
         with_locale(locale) do
           TelegramIntegration::SendMessageWithButtons.call(
-            chat_id:,
             reply_data:,
             request:
           )
         end
 
         request.update!(status: "COMPLETED", image_url:)
-      end
-
-      memoize def locale
-        request.user.locale.to_s
       end
 
       private
@@ -37,12 +32,6 @@ module Generator
 
       memoize def command_request_classname
         request.command_request.class.name
-      end
-
-      memoize def request
-        ButtonImageProcessingRequest
-          .includes(command_request: :user)
-          .find(button_request_id)
       end
     end
   end

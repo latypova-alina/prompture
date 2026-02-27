@@ -5,7 +5,7 @@ module Generator
     private
 
     memoize def request
-      request_class.includes(command_request: :user).find(button_request_id)
+      request_class.includes(:parent_request, command_request: :user).find(button_request_id)
     end
 
     memoize def locale
