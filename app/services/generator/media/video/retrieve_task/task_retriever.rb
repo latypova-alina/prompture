@@ -2,31 +2,19 @@ module Generator
   module Media
     module Video
       module RetrieveTask
-        class TaskRetriever
-          def initialize(task_id, processor)
-            @task_id = task_id
-            @processor = processor
-          end
-
-          delegate :video_url, to: :extractor
-
+        class TaskRetriever < Generator::Media::RetrieveTask::TaskRetrieverBase
           private
 
-          attr_reader :task_id, :processor
-
-          delegate :api_response, to: :api_client
-          delegate :api_url, to: :api_url_fetcher
-
-          def extractor
-            VideoExtractor.new(api_response)
+          def extractor_class
+            VideoExtractor
           end
 
-          def api_client
-            ApiClient.new(task_id, api_url)
+          def api_client_class
+            ApiClient
           end
 
-          def api_url_fetcher
-            ApiUrlFetcher.new(processor)
+          def api_url_fetcher_class
+            ApiUrlFetcher
           end
         end
       end

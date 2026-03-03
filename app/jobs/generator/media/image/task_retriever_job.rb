@@ -8,7 +8,7 @@ module Generator
           @task_id = task_id
           @processor = processor
 
-          SuccessNotifierJob.perform_async(image_url, button_request_id)
+          SuccessNotifierJob.perform_async(media_url, button_request_id)
         rescue Freepik::ResponseError
           ErrorNotifierJob.perform_async(button_request_id)
         end
@@ -17,7 +17,7 @@ module Generator
 
         attr_reader :task_id, :processor
 
-        delegate :image_url, to: :task_retriever
+        delegate :media_url, to: :task_retriever
 
         memoize def task_retriever
           Image::RetrieveTask::TaskRetriever.new(task_id, processor)
