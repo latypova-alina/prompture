@@ -6,15 +6,9 @@ module MediaGenerator
 
       delegate :button_request, :button_request_record, :image_url, to: :context
 
-      PROMPT_EXTENSION_JOBS = {
-        "extend_prompt" => ::Generator::Prompt::ExtendJob
-      }.freeze
+      PROMPT_EXTENSION_PROCESS_NAME = "extend_prompt".freeze
 
-      IMAGE_GENERATOR_JOBS = {
-        "mystic_image" => ::Generator::Image::Mystic::TaskCreatorJob,
-        "gemini_image" => ::Generator::Image::Gemini::TaskCreatorJob,
-        "imagen_image" => ::Generator::Image::Imagen::TaskCreatorJob
-      }.freeze
+      IMAGE_PROCESSORS = %w[mystic_image gemini_image imagen_image].freeze
 
       VIDEO_GENERATOR_JOBS = {
         "kling_2_1_pro_image_to_video" => Generator::Video::Kling::TaskCreatorJob
@@ -22,9 +16,9 @@ module MediaGenerator
 
       def call
         case button_request
-        when *PROMPT_EXTENSION_JOBS.keys
+        when PROMPT_EXTENSION_PROCESS_NAME
           perform_prompt_extension_job
-        when *IMAGE_GENERATOR_JOBS.keys
+        when *IMAGE_PROCESSORS
           perform_image_generator_job
         when *VIDEO_GENERATOR_JOBS.keys
           perform_video_generator_job
@@ -34,11 +28,11 @@ module MediaGenerator
       private
 
       def perform_prompt_extension_job
-        PROMPT_EXTENSION_JOBS[button_request].perform_async(button_request_id)
+        ::Generator::Prompt::ExtendJob.perform_async(button_request_id)
       end
 
       def perform_image_generator_job
-        IMAGE_GENERATOR_JOBS[button_request].perform_async(button_request_id)
+        Generator::Image::TaskCreatorJob.perform_async(button_request_id)
       end
 
       def perform_video_generator_job

@@ -9,32 +9,18 @@ module MediaGenerator
       return if status == "IN_PROGRESS"
 
       if status == "COMPLETED"
-        Generator::TaskRetrieverDispatcher.call(task_retriever_context)
+        Generator::Image::TaskRetrieverJob.perform_async(task_id, button_request_id, processor)
       elsif status == "FAILED"
-        Generator::ErrorNotifierDispatcher.call(processor: params[:processor], button_request_id:)
+        Generator::ErrorNotifierDispatcher.call(processor:, button_request_id:)
       end
     end
 
     private
 
-    def task_retriever_context
-      Generator::TaskRetrieverContext.new(
-        task_id: body[:task_id],
-        processor: params[:processor],
-        button_request_id:
-      )
-    end
+    delegate :processor, :status, :button_request_id, :task_id, to: :task_retriever_context
 
-    memoize def body
-      params.require(:freepik_webhook).permit!
-    end
-
-    memoize def status
-      body[:status]
-    end
-
-    memoize def button_request_id
-      RequestIdToken.decode(params[:request_id_token])
+    memoize def task_retriever_context
+      Generator::TaskRetrieverContext.new(params:)
     end
   end
 end

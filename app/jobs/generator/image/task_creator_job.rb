@@ -4,9 +4,9 @@ module Generator
       def perform(button_request_id)
         @button_request_id = button_request_id
 
-        TaskCreatorDispatcher.call(request)
+        CreateTask::TaskCreator.call(request)
       rescue Freepik::ResponseError
-        FailureHandler.call(request)
+        CreateTask::FailureHandler.call(request)
       end
 
       private

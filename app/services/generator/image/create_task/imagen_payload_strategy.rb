@@ -1,8 +1,8 @@
 module Generator
   module Image
-    module Mystic
-      class PayloadStrategyForCreate
-        API_URL = "https://api.freepik.com/v1/ai/mystic".freeze
+    module CreateTask
+      class ImagenPayloadStrategy
+        API_URL = "https://api.freepik.com/v1/ai/text-to-image/imagen3".freeze
 
         def initialize(prompt)
           @prompt = prompt
@@ -10,18 +10,19 @@ module Generator
 
         def payload
           {
+            prompt:,
             "aspect_ratio": "social_story_9_16",
-            "model": "zen",
-            "filter_nsfw": false,
-            "resolution": "2k"
+            "styling": {
+              "style": "3d"
+            }
           }
         end
+
+        attr_reader :prompt
 
         def api_url
           API_URL
         end
-
-        attr_reader :prompt
       end
     end
   end

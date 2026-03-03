@@ -1,34 +1,25 @@
 module Generator
   module Image
     class TaskRetrieverJob < ApplicationJob
-      include ::Clients::Generator::BaseApiRequest
       include Memery
 
-      def perform(task_id, button_request_id)
+      def perform(task_id, button_request_id, processor)
         @task_id = task_id
-        @button_request_id = button_request_id
+        @processor = processor
 
-        raise ::Freepik::ResponseError unless response.success?
-
-        ::Generator::Image::SuccessNotifierJob.perform_async(image_url, button_request_id)
-      rescue ::Freepik::ResponseError
-        ::Generator::Image::ErrorNotifierJob.perform_async(button_request_id)
-      end
-
-      def image_url
-        response_body.dig("data", "generated")[0]
+        SuccessNotifierJob.perform_async(image_url, button_request_id)
+      rescue Freepik::ResponseError
+        ErrorNotifierJob.perform_async(button_request_id)
       end
 
       private
 
-      attr_reader :task_id, :button_request_id
+      attr_reader :task_id, :processor
 
-      memoize def response
-        connection.get(task_id)
-      end
+      delegate :image_url, to: :task_retriever
 
-      memoize def response_body
-        JSON.parse(response.body)
+      memoize def task_retriever
+        RetrieveTask::TaskRetriever.new(task_id, processor)
       end
     end
   end
