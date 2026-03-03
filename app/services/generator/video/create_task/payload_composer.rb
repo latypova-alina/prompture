@@ -1,5 +1,5 @@
 module Generator
-  module Image
+  module Video
     module CreateTask
       class PayloadComposer
         def initialize(request, strategy)
@@ -8,7 +8,7 @@ module Generator
         end
 
         def final_payload
-          strategy.payload.reverse_merge(webhook_url:)
+          strategy.payload.reverse_merge(webhook_url:, image: image_url)
         end
 
         private
@@ -16,8 +16,8 @@ module Generator
         attr_reader :request, :strategy
 
         delegate :processor, to: :request
-
         delegate :webhook_url, to: :webhook_url_builder
+        delegate :image_url, to: :request
 
         def webhook_url_builder
           Generator::WebhookUrlBuilder.new(processor:, button_request_id: request.id)

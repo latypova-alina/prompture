@@ -1,13 +1,11 @@
 module Generator
-  module Image
+  module Video
     module CreateTask
       class StrategySelector
         include Memery
 
         STRATEGIES = {
-          "mystic_image" => MysticPayloadStrategy,
-          "gemini_image" => GeminiPayloadStrategy,
-          "imagen_image" => ImagenPayloadStrategy
+          "kling_2_1_pro_image_to_video" => KlingPayloadStrategy
         }.freeze
 
         def self.call(...)

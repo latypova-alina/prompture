@@ -9,7 +9,7 @@ module MediaGenerator
       return if status == "IN_PROGRESS"
 
       if status == "COMPLETED"
-        Generator::Image::TaskRetrieverJob.perform_async(task_id, button_request_id, processor)
+        Generator::TaskRetrieverDispatcher.call(task_id:, button_request_id:, processor:)
       elsif status == "FAILED"
         Generator::ErrorNotifierDispatcher.call(processor:, button_request_id:)
       end

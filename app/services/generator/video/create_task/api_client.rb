@@ -1,14 +1,16 @@
 module Generator
-  module Image
-    module RetrieveTask
+  module Video
+    module CreateTask
       class ApiClient
-        def initialize(task_id, api_url)
-          @task_id = task_id
+        def initialize(api_url, payload)
           @api_url = api_url
+          @payload = payload
         end
 
-        def api_response
-          connection.get("#{api_url}/#{task_id}")
+        def response
+          connection.post do |req|
+            req.body = payload.to_json
+          end
         end
 
         private
@@ -19,7 +21,7 @@ module Generator
           ::Clients::Generator::Connection.new(api_url)
         end
 
-        attr_reader :task_id, :api_url
+        attr_reader :api_url, :payload
       end
     end
   end

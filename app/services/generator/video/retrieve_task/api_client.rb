@@ -1,5 +1,5 @@
 module Generator
-  module Image
+  module Video
     module RetrieveTask
       class ApiClient
         def initialize(task_id, api_url)
