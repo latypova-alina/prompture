@@ -24,11 +24,11 @@ module MediaGenerator
       end
 
       def perform_image_generator_job
-        Generator::Image::TaskCreatorJob.perform_async(button_request_id)
+        Generator::Media::Image::TaskCreatorJob.perform_async(button_request_id)
       end
 
       def perform_video_generator_job
-        Generator::Video::TaskCreatorJob.perform_async(button_request_id)
+        Generator::Media::Video::TaskCreatorJob.perform_async(button_request_id)
       end
 
       memoize def button_request_id

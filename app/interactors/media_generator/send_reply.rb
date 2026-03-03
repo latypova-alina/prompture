@@ -9,9 +9,9 @@ module MediaGenerator
       return if status == "IN_PROGRESS"
 
       if status == "COMPLETED"
-        Generator::TaskRetrieverDispatcher.call(task_id:, button_request_id:, processor:)
+        Generator::Media::TaskRetrieverDispatcher.call(task_id:, button_request_id:, processor:)
       elsif status == "FAILED"
-        Generator::ErrorNotifierDispatcher.call(processor:, button_request_id:)
+        Generator::Media::ErrorNotifierDispatcher.call(processor:, button_request_id:)
       end
     end
 
@@ -20,7 +20,7 @@ module MediaGenerator
     delegate :processor, :status, :button_request_id, :task_id, to: :task_retriever_context
 
     memoize def task_retriever_context
-      Generator::TaskRetrieverContext.new(params:)
+      Generator::Media::TaskRetrieverContext.new(params:)
     end
   end
 end
