@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe Buttons::ForSetLocale do
+describe Buttons::ForSetLocale do
   describe ".build" do
     subject(:result) { described_class.build }
 

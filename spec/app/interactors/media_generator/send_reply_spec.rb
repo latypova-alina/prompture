@@ -1,70 +1,72 @@
 require "rails_helper"
 
 describe MediaGenerator::SendReply do
-  let(:token) { "encoded-token" }
-  let(:chat_id) { 123 }
-  let(:button_request) { "extend_prompt" }
-  let(:task_id) { "task-42" }
+  subject(:result) { described_class.call(params:) }
 
-  let(:params) do
-    ActionController::Parameters.new(
-      freepik_webhook: { status: status, task_id: task_id },
-      button_request: button_request,
-      token: token
+  let(:params) { { some: "params" } }
+
+  let(:context_double) do
+    instance_double(
+      Generator::Media::TaskRetrieverContext,
+      status: status,
+      processor: processor,
+      button_request_id: button_request_id,
+      task_id: task_id
     )
   end
 
+  let(:processor) { "mystic_image" }
+  let(:button_request_id) { 123 }
+  let(:task_id) { "abc-123" }
+
   before do
-    allow(Generator::TaskRetrieverDispatcher).to receive(:call)
-    allow(Generator::ErrorNotifierDispatcher).to receive(:call)
-
-    allow(ChatToken).to receive(:decode).with(token).and_return(chat_id)
+    allow(Generator::Media::TaskRetrieverContext)
+      .to receive(:new)
+      .with(params:)
+      .and_return(context_double)
   end
 
-  subject(:interactor) { described_class.call(params:) }
+  describe "#call" do
+    context "when status is IN_PROGRESS" do
+      let(:status) { "IN_PROGRESS" }
 
-  context "when status is IN_PROGRESS" do
-    let(:status) { "IN_PROGRESS" }
+      it "does nothing" do
+        expect(Generator::Media::TaskRetrieverDispatcher).not_to receive(:call)
+        expect(Generator::Media::ErrorNotifierDispatcher).not_to receive(:call)
 
-    it "does not enqueue any jobs" do
-      interactor
-
-      expect(Generator::TaskRetrieverDispatcher).not_to have_received(:call)
-      expect(Generator::ErrorNotifierDispatcher).not_to have_received(:call)
-    end
-  end
-
-  context "when status is COMPLETED" do
-    let(:status) { "COMPLETED" }
-
-    it "calls TaskRetrieverDispatcher" do
-      interactor
-
-      expect(Generator::TaskRetrieverDispatcher).to have_received(:call)
-        .with(task_id:, button_request:, request_id: nil, chat_id:)
+        result
+      end
     end
 
-    it "does not call ErrorNotifierDispatcher" do
-      interactor
+    context "when status is COMPLETED" do
+      let(:status) { "COMPLETED" }
 
-      expect(Generator::ErrorNotifierDispatcher).not_to have_received(:call)
+      it "calls TaskRetrieverDispatcher with correct arguments" do
+        expect(Generator::Media::TaskRetrieverDispatcher)
+          .to receive(:call)
+          .with(
+            task_id: task_id,
+            button_request_id: button_request_id,
+            processor: processor
+          )
+
+        result
+      end
     end
-  end
 
-  context "when status is FAILED" do
-    let(:status) { "FAILED" }
+    context "when status is FAILED" do
+      let(:status) { "FAILED" }
 
-    it "calls ErrorNotifierDispatcher" do
-      interactor
+      it "calls ErrorNotifierDispatcher with correct arguments" do
+        expect(Generator::Media::ErrorNotifierDispatcher)
+          .to receive(:call)
+          .with(
+            processor: processor,
+            button_request_id: button_request_id
+          )
 
-      expect(Generator::ErrorNotifierDispatcher).to have_received(:call)
-        .with(button_request:, chat_id:)
-    end
-
-    it "does not call TaskRetrieverDispatcher" do
-      interactor
-
-      expect(Generator::TaskRetrieverDispatcher).not_to have_received(:call)
+        result
+      end
     end
   end
 end

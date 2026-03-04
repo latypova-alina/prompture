@@ -8,7 +8,7 @@ RSpec.shared_examples "an image callback" do |processor:, record_creator:, job_c
                                             parent_request: command_request)
     end
 
-    let!(:user) { create(:user, :with_balance, chat_id: 456) }
+    let!(:user) { create(:user, chat_id: 456) }
     let!(:balance_transaction) { create(:balance_transaction, user:, source: button_image_processing_request) }
 
     let(:button_image_processing_request) do
@@ -31,9 +31,6 @@ RSpec.shared_examples "an image callback" do |processor:, record_creator:, job_c
     it "enqueues the image generation job" do
       expect(job_class).to receive(:perform_async)
         .with(
-          "cute white kitten extended",
-          chat_id,
-          button_request_text,
           button_image_processing_request.id
         )
 

@@ -1,9 +1,8 @@
 require "rails_helper"
 
 describe MediaGenerator::MessageHandler::NotifyUser do
-  subject { described_class.call(prompt_message:, chat_id:) }
+  subject { described_class.call(prompt_message:) }
 
-  let(:chat_id) { 456 }
   let(:prompt_message) { create(:prompt_message) }
   let(:presenter_class) { MediaGenerator::UserMessagePresenters::PromptMessagePresenter }
 
@@ -31,7 +30,7 @@ describe MediaGenerator::MessageHandler::NotifyUser do
       .to have_received(:new)
       .with(prompt_message)
 
-    expect(TelegramIntegration::SendMessageWithButtons).to have_received(:call).with(chat_id:, reply_data:,
+    expect(TelegramIntegration::SendMessageWithButtons).to have_received(:call).with(reply_data:,
                                                                                      request: prompt_message)
   end
 end

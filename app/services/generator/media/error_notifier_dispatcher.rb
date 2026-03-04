@@ -17,9 +17,9 @@ module Generator
       def call
         case processor
         when *Generator::Processors::IMAGE
-          Generator::Image::ErrorNotifierJob.perform_async(button_request_id)
+          Generator::Media::Image::ErrorNotifierJob.perform_async(button_request_id)
         when *Generator::Processors::VIDEO
-          Generator::Video::ErrorNotifierJob.perform_async(button_request_id)
+          Generator::Media::Video::ErrorNotifierJob.perform_async(button_request_id)
         end
       end
     end

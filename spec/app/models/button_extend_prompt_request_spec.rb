@@ -11,6 +11,31 @@ describe ButtonExtendPromptRequest, type: :model do
     end
   end
 
+  describe "delegations" do
+    let(:user) { create(:user, locale: "es") }
+    let(:command_request) { create(:command_prompt_to_image_request, chat_id: 123, user:) }
+
+    subject(:button_request) do
+      create(
+        :button_extend_prompt_request,
+        command_request:,
+        parent_request: command_request
+      )
+    end
+
+    it "delegates user to command_request" do
+      expect(button_request.user).to eq(user)
+    end
+
+    it "delegates chat_id to command_request" do
+      expect(button_request.chat_id).to eq(123)
+    end
+
+    it "delegates locale to user" do
+      expect(button_request.locale).to eq("es")
+    end
+  end
+
   describe "#cost" do
     subject { build(:button_extend_prompt_request) }
 

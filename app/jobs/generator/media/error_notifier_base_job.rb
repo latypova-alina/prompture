@@ -1,39 +1,37 @@
 module Generator
   module Media
-    module Image
-      class ErrorNotifierBaseJob < ApplicationJob
-        include Memery
+    class ErrorNotifierBaseJob < ApplicationJob
+      include Memery
 
-        def perform(button_request_id)
-          @button_request_id = button_request_id
+      def perform(button_request_id)
+        @button_request_id = button_request_id
 
-          with_locale(locale) do
-            Telegram.bot.send_message(
-              chat_id:,
-              text: I18n.t("errors.image_generating_error")
-            )
-          end
-
-          request.update!(status: "FAILED")
+        with_locale(locale) do
+          Telegram.bot.send_message(
+            chat_id:,
+            text: error_text
+          )
         end
 
-        private
+        request.update!(status: "FAILED")
+      end
 
-        attr_reader :button_request_id
+      private
 
-        delegate :chat_id, to: :request
+      attr_reader :button_request_id
 
-        def error_text
-          raise NotImplementedError
-        end
+      delegate :chat_id, :locale, to: :request
 
-        def request_class
-          raise NotImplementedError
-        end
+      def error_text
+        raise NotImplementedError
+      end
 
-        memoize def request
-          request_class.includes(:parent_request, command_request: :user).find(button_request_id)
-        end
+      def request_class
+        raise NotImplementedError
+      end
+
+      memoize def request
+        request_class.includes(:parent_request, command_request: :user).find(button_request_id)
       end
     end
   end

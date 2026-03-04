@@ -20,6 +20,8 @@ module Generator
 
         delegate :user, :cost, to: :request
 
+        attr_reader :request
+
         def error_notifier_job_class
           raise NotImplementedError
         end

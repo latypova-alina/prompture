@@ -3,7 +3,7 @@ RSpec.shared_examples "set_locale callback" do
 
   let(:button_request_text) { "set_locale:es" }
 
-  let!(:user) { create(:user, :with_balance, chat_id: 456, locale: "en") }
+  let!(:user) { create(:user, chat_id: 456, locale: "en") }
 
   it "changes the users locale" do
     expect do

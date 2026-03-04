@@ -8,7 +8,7 @@ module Generator
           RetrieveTask::TaskRetriever
         end
 
-        def failure_handler_job_class
+        def error_notifier_job_class
           ErrorNotifierJob
         end
 

@@ -1,42 +1,57 @@
+# spec/jobs/generator/prompt/success_notifier_job_spec.rb
+
 require "rails_helper"
 
 describe Generator::Prompt::SuccessNotifierJob do
-  let(:job) { described_class.new }
+  subject(:perform_job) do
+    described_class.new.perform(extended_prompt, button_request.id)
+  end
 
-  let(:chat_id) { 789 }
-  let(:extended_prompt) { "a very long and beautiful prompt" }
-  let(:reply_data) do
-    { chat_id: 789,
-      parse_mode: "HTML",
-      reply_markup:
-   { inline_keyboard:
-     [
-       [{ callback_data: "mystic_image", text: "Mystic (2 credits)" }],
-       [{ callback_data: "gemini_image", text: "Gemini (1 credit)" }],
-       [{ callback_data: "imagen_image", text: "Imagen (0 credits)" }]
-     ] },
-      text: "a very long and beautiful prompt" }
-  end
-  let(:command_request) { create(:command_prompt_to_image_request) }
+  let(:extended_prompt) { "Extended prompt text" }
+
   let(:button_request) do
-    create(:button_extend_prompt_request, parent_request: command_request, command_request:)
+    create(
+      :button_extend_prompt_request,
+      :belonging_to_user,
+      status: "PENDING",
+      prompt: nil
+    )
   end
+
+  let(:reply_data) { { text: "Some reply" } }
+
+  let(:presenter_instance) { instance_double(MediaGenerator::ButtonRequestPresenters::ExtendedPromptMessagePresenter) }
 
   before do
-    allow(Telegram).to receive(:bot).and_return(double(send_message: { "result" => { "message_id" => 789 } },
-                                                       reset: true))
+    allow(MediaGenerator::ButtonRequestPresenters::ExtendedPromptMessagePresenter)
+      .to receive(:new)
+      .with(message: extended_prompt)
+      .and_return(presenter_instance)
+
+    allow(presenter_instance)
+      .to receive(:reply_data)
+      .and_return(reply_data)
+
+    allow(TelegramIntegration::SendMessageWithButtons)
+      .to receive(:call)
   end
 
-  subject { job.perform(extended_prompt, chat_id, button_request.id, "en") }
-
   describe "#perform" do
-    it "sends a Telegram message with presenter reply_data" do
-      expect(Telegram.bot).to receive(:send_message).with(
-        chat_id: chat_id,
-        **reply_data
-      )
+    it "sends telegram message with reply data and request" do
+      expect(TelegramIntegration::SendMessageWithButtons)
+        .to receive(:call)
+        .with(reply_data: reply_data, request: button_request)
 
-      subject
+      perform_job
+    end
+
+    it "updates request prompt and status" do
+      expect { perform_job }
+        .to change { button_request.reload.status }
+        .from("PENDING")
+        .to("COMPLETED")
+
+      expect(button_request.reload.prompt).to eq(extended_prompt)
     end
   end
 end

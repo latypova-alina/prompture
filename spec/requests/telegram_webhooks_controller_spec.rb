@@ -140,35 +140,35 @@ describe TelegramWebhooksController, telegram_bot: :rails do
     it_behaves_like "an image callback",
                     processor: "mystic",
                     record_creator: RecordCreators::ButtonRequests::Images::Mystic,
-                    job_class: ::Generator::Image::Mystic::TaskCreatorJob
+                    job_class: ::Generator::Media::Image::TaskCreatorJob
   end
 
   describe "#mystic_image_callback_query", :callback_query do
     it_behaves_like "an image callback",
                     processor: "mystic",
                     record_creator: RecordCreators::ButtonRequests::Images::Mystic,
-                    job_class: ::Generator::Image::Mystic::TaskCreatorJob
+                    job_class: ::Generator::Media::Image::TaskCreatorJob
   end
 
   describe "#gemini_image_callback_query", :callback_query do
     it_behaves_like "an image callback",
                     processor: "gemini",
                     record_creator: RecordCreators::ButtonRequests::Images::Gemini,
-                    job_class: ::Generator::Image::Gemini::TaskCreatorJob
+                    job_class: ::Generator::Media::Image::TaskCreatorJob
   end
 
   describe "#imagen_image_callback_query", :callback_query do
     it_behaves_like "an image callback",
                     processor: "imagen",
                     record_creator: RecordCreators::ButtonRequests::Images::Imagen,
-                    job_class: ::Generator::Image::Imagen::TaskCreatorJob
+                    job_class: ::Generator::Media::Image::TaskCreatorJob
   end
 
   describe "#kling_video_callback_query", :callback_query do
     it_behaves_like "a video callback",
                     processor: "kling_2_1_pro",
                     record_creator: RecordCreators::ButtonRequests::Videos::Kling,
-                    job_class: ::Generator::Video::Kling::TaskCreatorJob
+                    job_class: ::Generator::Media::Video::TaskCreatorJob
   end
 
   describe "#set_locale_callback_query", :callback_query do

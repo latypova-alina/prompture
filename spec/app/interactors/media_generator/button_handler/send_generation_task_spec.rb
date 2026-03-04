@@ -11,10 +11,8 @@ describe MediaGenerator::ButtonHandler::SendGenerationTask do
 
   before do
     allow(Generator::Prompt::ExtendJob).to receive(:perform_async)
-    allow(Generator::Image::Mystic::TaskCreatorJob).to receive(:perform_async)
-    allow(Generator::Image::Gemini::TaskCreatorJob).to receive(:perform_async)
-    allow(Generator::Image::Imagen::TaskCreatorJob).to receive(:perform_async)
-    allow(Generator::Video::Kling::TaskCreatorJob).to receive(:perform_async)
+    allow(Generator::Media::Image::TaskCreatorJob).to receive(:perform_async)
+    allow(Generator::Media::Video::TaskCreatorJob).to receive(:perform_async)
   end
 
   context "when button_request is extend_prompt" do
@@ -25,7 +23,7 @@ describe MediaGenerator::ButtonHandler::SendGenerationTask do
 
       expect(Generator::Prompt::ExtendJob)
         .to have_received(:perform_async)
-        .with(parent_prompt, chat_id, button_request_record.id)
+        .with(button_request_record.id)
     end
   end
 
@@ -35,33 +33,9 @@ describe MediaGenerator::ButtonHandler::SendGenerationTask do
     it "enqueues image generator job" do
       subject
 
-      expect(Generator::Image::Mystic::TaskCreatorJob)
+      expect(Generator::Media::Image::TaskCreatorJob)
         .to have_received(:perform_async)
-        .with(parent_prompt, chat_id, button_request, button_request_record.id)
-    end
-  end
-
-  context "when button_request is gemini_image" do
-    let(:button_request) { "gemini_image" }
-
-    it "enqueues image generator job" do
-      subject
-
-      expect(Generator::Image::Gemini::TaskCreatorJob)
-        .to have_received(:perform_async)
-        .with(parent_prompt, chat_id, button_request, button_request_record.id)
-    end
-  end
-
-  context "when button_request is imagen_image" do
-    let(:button_request) { "imagen_image" }
-
-    it "enqueues image generator job" do
-      subject
-
-      expect(Generator::Image::Imagen::TaskCreatorJob)
-        .to have_received(:perform_async)
-        .with(parent_prompt, chat_id, button_request, button_request_record.id)
+        .with(button_request_record.id)
     end
   end
 
@@ -71,9 +45,9 @@ describe MediaGenerator::ButtonHandler::SendGenerationTask do
     it "enqueues video generator job" do
       subject
 
-      expect(Generator::Video::Kling::TaskCreatorJob)
+      expect(Generator::Media::Video::TaskCreatorJob)
         .to have_received(:perform_async)
-        .with(parent_prompt, image_url, chat_id, button_request, button_request_record.id)
+        .with(button_request_record.id)
     end
   end
 end

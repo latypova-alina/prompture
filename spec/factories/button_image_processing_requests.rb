@@ -17,7 +17,7 @@ FactoryBot.define do
     end
 
     trait :belonging_to_user do
-      transient { user { create(:user) } }
+      transient { user { create(:user, :with_balance) } }
 
       command_request { create(:command_prompt_to_image_request, user:) }
     end

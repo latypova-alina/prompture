@@ -1,10 +1,11 @@
 require "rails_helper"
 
 describe MediaGenerator::ButtonHandler::DecrementBalance do
-  subject { described_class.call(chat_id: 456, button_request_record:) }
+  subject { described_class.call(chat_id: 456, button_request_record:, command_request:) }
 
   let(:user) { create(:user, chat_id: 456) }
   let!(:balance) { create(:balance, credits: 100, user:) }
+  let(:command_request) { button_request_record.command_request }
 
   describe "#call" do
     context "when cost is zero" do

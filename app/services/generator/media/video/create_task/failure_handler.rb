@@ -6,7 +6,7 @@ module Generator
           private
 
           def error_notifier_job_class
-            Generator::Video::ErrorNotifierJob
+            Generator::Media::Video::ErrorNotifierJob
           end
         end
       end

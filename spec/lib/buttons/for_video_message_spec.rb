@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe Buttons::ForVideoMessage do
+describe Buttons::ForVideoMessage do
   describe ".build" do
     subject(:result) { described_class.build }
 
