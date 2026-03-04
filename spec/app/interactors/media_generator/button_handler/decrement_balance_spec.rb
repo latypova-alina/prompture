@@ -4,7 +4,6 @@ describe MediaGenerator::ButtonHandler::DecrementBalance do
   subject { described_class.call(chat_id: 456, button_request_record:, command_request:) }
 
   let(:command_request) { button_request_record.command_request }
-  let(:balance) { command_request.user.balance }
 
   describe "#call" do
     context "when cost is zero" do
@@ -20,15 +19,13 @@ describe MediaGenerator::ButtonHandler::DecrementBalance do
     end
 
     context "when cost is positive" do
-      let(:button_request_record) do
-        create(:button_image_processing_request)
-      end
+      let(:button_request_record) { create(:button_image_processing_request) }
 
       before { allow(Billing::Charger).to receive(:call) }
 
       it "calls Billing::Charger with correct arguments" do
         expect(Billing::Charger).to receive(:call).with(
-          user: balance.user,
+          user: command_request.user,
           amount: button_request_record.cost,
           source: button_request_record
         )

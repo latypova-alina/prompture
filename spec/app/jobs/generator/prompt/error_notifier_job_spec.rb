@@ -18,7 +18,7 @@ describe Generator::Prompt::ErrorNotifierJob do
   describe "#perform" do
     it "sends telegram message with correct chat_id and error text" do
       expect(telegram_bot).to receive(:send_message).with(
-        chat_id: chat_id,
+        chat_id:,
         text: I18n.t("errors.extend_prompt_error")
       )
 

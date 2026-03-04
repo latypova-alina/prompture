@@ -3,12 +3,7 @@ require "rails_helper"
 describe Generator::Media::Image::ErrorNotifierJob do
   subject(:perform_job) { described_class.new.perform(button_request.id) }
 
-  let(:button_request) do
-    create(
-      :button_image_processing_request,
-      status: "PENDING"
-    )
-  end
+  let(:button_request) { create(:button_image_processing_request, status: "PENDING") }
 
   let(:telegram_bot) { double }
 

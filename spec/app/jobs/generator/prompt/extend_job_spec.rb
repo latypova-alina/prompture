@@ -6,16 +6,9 @@ describe Generator::Prompt::ExtendJob do
   let(:parent_prompt_text) { "Original prompt" }
   let(:extended_prompt_text) { "Extended prompt" }
 
-  let(:parent_request) do
-    create(:prompt_message, prompt: parent_prompt_text)
-  end
+  let(:parent_request) { create(:prompt_message, prompt: parent_prompt_text) }
 
-  let(:button_request) do
-    create(
-      :button_extend_prompt_request,
-      parent_request:
-    )
-  end
+  let(:button_request) { create(:button_extend_prompt_request, parent_request:) }
 
   let(:prompt_extender_instance) { instance_double(Generator::PromptExtender) }
 

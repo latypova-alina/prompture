@@ -3,12 +3,7 @@ require "rails_helper"
 describe Generator::Media::Image::TaskCreatorJob do
   subject(:perform_job) { described_class.new.perform(button_request.id) }
 
-  let(:button_request) do
-    create(
-      :button_image_processing_request,
-      status: "PENDING"
-    )
-  end
+  let(:button_request) { create(:button_image_processing_request, status: "PENDING") }
 
   describe "#perform" do
     context "when task creator succeeds" do

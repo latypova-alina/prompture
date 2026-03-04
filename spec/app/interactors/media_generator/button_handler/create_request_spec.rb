@@ -13,12 +13,12 @@ describe MediaGenerator::ButtonHandler::CreateRequest do
   let(:button_request) { "mystic_image" }
   let(:image_url) { "https://example.com/image.png" }
 
-  let(:parent_request) { instance_double("ParentRequest") }
-  let(:command_request) { instance_double("CommandRequest") }
+  let(:parent_request) { create(:prompt_message) }
+  let(:command_request) { create(:command_prompt_to_image_request) }
 
   let(:record_creator_class) { RecordCreators::ButtonRequests::Images::Mystic }
   let(:record_creator) { instance_double(record_creator_class, record:) }
-  let(:record) { instance_double("ButtonImageProcessingRequest") }
+  let(:record) { create(:button_image_processing_request) }
 
   before do
     allow(record_creator_class)
