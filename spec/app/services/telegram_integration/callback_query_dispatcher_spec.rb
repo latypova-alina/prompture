@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe TelegramIntegration::CallbackQueryDispatcher do
+describe TelegramIntegration::CallbackQueryDispatcher do
   subject(:dispatch) do
     described_class.call(
       button_request:,

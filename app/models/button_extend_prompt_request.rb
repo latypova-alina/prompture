@@ -6,7 +6,8 @@ class ButtonExtendPromptRequest < ApplicationRecord
 
   has_one :telegram_message, as: :request, dependent: :destroy
 
-  delegate :user, to: :command_request
+  delegate :user, :chat_id, to: :command_request
+  delegate :locale, to: :user
 
   def cost
     COSTS[:prompt][:extend_prompt]

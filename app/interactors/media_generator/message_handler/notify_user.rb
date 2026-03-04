@@ -3,11 +3,10 @@ module MediaGenerator
     class NotifyUser
       include Interactor
 
-      delegate :prompt_message, :chat_id, to: :context
+      delegate :prompt_message, to: :context
 
       def call
         TelegramIntegration::SendMessageWithButtons.call(
-          chat_id:,
           reply_data:,
           request: prompt_message
         )

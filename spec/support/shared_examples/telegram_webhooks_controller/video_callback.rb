@@ -26,7 +26,7 @@ RSpec.shared_examples "a video callback" do |processor:, record_creator:, job_cl
       )
     end
 
-    let!(:user) { create(:user, :with_balance, chat_id: 456) }
+    let!(:user) { create(:user, chat_id: 456) }
     let!(:balance_transaction) { create(:balance_transaction, user:, source: button_video_processing_request) }
 
     before do
@@ -40,10 +40,6 @@ RSpec.shared_examples "a video callback" do |processor:, record_creator:, job_cl
     it "enqueues the video generation job" do
       expect(job_class).to receive(:perform_async)
         .with(
-          "cute white kitten",
-          nil,
-          chat_id,
-          button_request_text,
           button_video_processing_request.id
         )
 

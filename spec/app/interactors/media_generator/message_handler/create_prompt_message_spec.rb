@@ -4,7 +4,6 @@ describe MediaGenerator::MessageHandler::CreatePromptMessage do
   subject { described_class.call(message_text:, chat_id: 456, command_request:) }
 
   let(:message_text) { "cute white kitten" }
-  let(:chat_id) { 456 }
   let(:command_request) { create(:command_prompt_to_image_request) }
 
   describe "#call" do

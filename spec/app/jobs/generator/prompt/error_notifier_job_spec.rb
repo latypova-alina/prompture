@@ -1,20 +1,28 @@
 require "rails_helper"
 
 describe Generator::Prompt::ErrorNotifierJob do
-  let(:chat_id) { 123 }
+  subject(:perform_job) do
+    described_class.new.perform(chat_id, button_request.id)
+  end
 
-  before { allow(Telegram).to receive(:bot).and_return(double(send_message: true, reset: true)) }
+  let(:chat_id) { 456 }
 
-  subject { described_class.new.perform(chat_id, :en) }
+  let(:button_request) { create(:button_extend_prompt_request) }
+
+  let(:telegram_bot) { double }
+
+  before do
+    allow(Telegram).to receive(:bot).and_return(telegram_bot)
+  end
 
   describe "#perform" do
-    it "sends an error message to the user" do
-      expect(Telegram.bot).to receive(:send_message).with(
-        chat_id: chat_id,
-        text: "Sorry, I couldn't process your request. Please try again later."
+    it "sends telegram message with correct chat_id and error text" do
+      expect(telegram_bot).to receive(:send_message).with(
+        chat_id:,
+        text: I18n.t("errors.extend_prompt_error")
       )
 
-      subject
+      perform_job
     end
   end
 end

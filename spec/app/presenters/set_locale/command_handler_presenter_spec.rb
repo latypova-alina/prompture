@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe SetLocale::CommandHandlerPresenter do
+describe SetLocale::CommandHandlerPresenter do
   subject(:presenter) { described_class.new(locale:) }
 
   let(:locale) { "es" }

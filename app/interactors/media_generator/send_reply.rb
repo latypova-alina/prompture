@@ -9,30 +9,18 @@ module MediaGenerator
       return if status == "IN_PROGRESS"
 
       if status == "COMPLETED"
-        Generator::TaskRetrieverDispatcher.call(
-          task_id: body[:task_id],
-          button_request: params[:button_request],
-          request_id: params[:request_id],
-          chat_id:
-        )
-
+        Generator::Media::TaskRetrieverDispatcher.call(task_id:, button_request_id:, processor:)
       elsif status == "FAILED"
-        Generator::ErrorNotifierDispatcher.call(button_request: params[:button_request], chat_id:)
+        Generator::Media::ErrorNotifierDispatcher.call(processor:, button_request_id:)
       end
     end
 
     private
 
-    memoize def body
-      params.require(:freepik_webhook).permit!
-    end
+    delegate :processor, :status, :button_request_id, :task_id, to: :task_retriever_context
 
-    memoize def status
-      body[:status]
-    end
-
-    memoize def chat_id
-      ChatToken.decode(params[:token])
+    memoize def task_retriever_context
+      Generator::Media::TaskRetrieverContext.new(params:)
     end
   end
 end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2026_02_19_160026) do
+ActiveRecord::Schema[8.0].define(version: 2026_03_03_171257) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -72,6 +72,7 @@ ActiveRecord::Schema[8.0].define(version: 2026_02_19_160026) do
     t.bigint "command_request_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "image_url", null: false
     t.index ["command_request_type", "command_request_id"], name: "index_button_video_processing_requests_on_command_request"
     t.index ["parent_request_type", "parent_request_id"], name: "index_button_video_processing_requests_on_parent_request"
   end

@@ -6,6 +6,7 @@ module RecordCreators
           raise ImageForgottenError unless image_url.present?
 
           ::ButtonVideoProcessingRequest.create!(
+            image_url:,
             status: "PENDING",
             parent_request:,
             processor:,
