@@ -6,7 +6,6 @@ describe Generator::Media::Video::ErrorNotifierJob do
   let(:button_request) do
     create(
       :button_video_processing_request,
-      :belonging_to_user,
       status: "PENDING"
     )
   end

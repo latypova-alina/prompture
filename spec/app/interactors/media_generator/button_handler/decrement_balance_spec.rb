@@ -3,14 +3,13 @@ require "rails_helper"
 describe MediaGenerator::ButtonHandler::DecrementBalance do
   subject { described_class.call(chat_id: 456, button_request_record:, command_request:) }
 
-  let(:user) { create(:user, chat_id: 456) }
-  let!(:balance) { create(:balance, credits: 100, user:) }
   let(:command_request) { button_request_record.command_request }
+  let(:balance) { command_request.user.balance }
 
   describe "#call" do
     context "when cost is zero" do
       let(:button_request_record) do
-        create(:button_image_processing_request, :no_cost, :belonging_to_user, user:)
+        create(:button_image_processing_request, :no_cost)
       end
 
       it "does not call Billing::Charger" do
@@ -22,7 +21,7 @@ describe MediaGenerator::ButtonHandler::DecrementBalance do
 
     context "when cost is positive" do
       let(:button_request_record) do
-        create(:button_image_processing_request, :belonging_to_user, user:)
+        create(:button_image_processing_request)
       end
 
       before { allow(Billing::Charger).to receive(:call) }

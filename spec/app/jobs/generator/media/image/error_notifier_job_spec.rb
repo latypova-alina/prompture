@@ -6,7 +6,6 @@ describe Generator::Media::Image::ErrorNotifierJob do
   let(:button_request) do
     create(
       :button_image_processing_request,
-      :belonging_to_user,
       status: "PENDING"
     )
   end

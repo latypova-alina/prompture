@@ -12,7 +12,6 @@ describe Generator::Prompt::SuccessNotifierJob do
   let(:button_request) do
     create(
       :button_extend_prompt_request,
-      :belonging_to_user,
       status: "PENDING",
       prompt: nil
     )

@@ -7,12 +7,7 @@ describe Generator::Prompt::ErrorNotifierJob do
 
   let(:chat_id) { 456 }
 
-  let(:button_request) do
-    create(
-      :button_extend_prompt_request,
-      :belonging_to_user
-    )
-  end
+  let(:button_request) { create(:button_extend_prompt_request) }
 
   let(:telegram_bot) { double }
 

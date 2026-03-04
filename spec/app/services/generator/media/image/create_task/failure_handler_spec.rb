@@ -3,7 +3,7 @@ require "rails_helper"
 describe Generator::Media::Image::CreateTask::FailureHandler do
   subject(:call_handler) { described_class.call(request) }
 
-  let(:request) { create(:button_image_processing_request, :belonging_to_user) }
+  let(:request) { create(:button_image_processing_request) }
 
   before do
     allow(Billing::Refunder).to receive(:call)

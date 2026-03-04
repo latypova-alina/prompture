@@ -5,9 +5,9 @@ RSpec.shared_examples "image task creator job" do |processor:|
   let(:task_id) { "#{processor}-task-456" }
   let(:token) { "encoded-token" }
   let(:request_id) { button_request_record.id }
-  let!(:user) { create(:user, chat_id:) }
+  let!(:user) { button_request_record.user }
   let(:button_request_record) do
-    create(:button_image_processing_request, :belonging_to_user, user:, processor: button_request)
+    create(:button_image_processing_request, processor: button_request)
   end
 
   before do
