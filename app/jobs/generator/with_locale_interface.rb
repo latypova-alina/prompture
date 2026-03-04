@@ -15,9 +15,5 @@ module Generator
     def request_class
       raise NotImplementedError
     end
-
-    def button_request_id
-      raise NotImplementedError
-    end
   end
 end

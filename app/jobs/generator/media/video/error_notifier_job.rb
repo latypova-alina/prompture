@@ -1,27 +1,16 @@
 module Generator
   module Media
     module Video
-      class ErrorNotifierJob < BaseNotifierJob
-        include WithLocaleInterface
-
-        def perform(button_request_id)
-          @button_request_id = button_request_id
-
-          with_locale(locale) do
-            Telegram.bot.send_message(
-              chat_id:,
-              text: I18n.t("errors.video_generating_error")
-            )
-          end
-
-          request.update!(status: "FAILED")
-        end
-
+      class ErrorNotifierJob < Generator::Media::ErrorNotifierBaseJob
         private
 
-        attr_reader :button_request_id
+        def error_text
+          I18n.t("errors.video_generating_error")
+        end
 
-        delegate :chat_id, to: :request
+        def request_class
+          ButtonVideoProcessingRequest
+        end
       end
     end
   end

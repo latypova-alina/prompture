@@ -1,26 +1,19 @@
 module Generator
   module Media
     module Video
-      class TaskRetrieverJob < ApplicationJob
-        include Memery
-
-        def perform(task_id, button_request_id, processor)
-          @task_id = task_id
-          @processor = processor
-
-          SuccessNotifierJob.perform_async(media_url, button_request_id)
-        rescue Freepik::ResponseError
-          ErrorNotifierJob.perform_async(button_request_id)
-        end
-
+      class TaskRetrieverJob < Generator::Media::TaskRetrieverBaseJob
         private
 
-        attr_reader :task_id, :processor
+        def task_retriever_class
+          RetrieveTask::TaskRetriever
+        end
 
-        delegate :media_url, to: :task_retriever
+        def failure_handler_job_class
+          ErrorNotifierJob
+        end
 
-        memoize def task_retriever
-          RetrieveTask::TaskRetriever.new(task_id, processor)
+        def success_notifier_job_class
+          SuccessNotifierJob
         end
       end
     end

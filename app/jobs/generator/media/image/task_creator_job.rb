@@ -1,18 +1,20 @@
 module Generator
   module Media
     module Image
-      class TaskCreatorJob < BaseNotifierJob
-        def perform(button_request_id)
-          @button_request_id = button_request_id
-
-          CreateTask::TaskCreator.call(request)
-        rescue Freepik::ResponseError
-          CreateTask::FailureHandler.call(request)
-        end
-
+      class TaskCreatorJob < Generator::Media::TaskCreatorBaseJob
         private
 
-        attr_reader :button_request_id
+        def task_creator_class
+          CreateTask::TaskCreator
+        end
+
+        def failure_handler_class
+          CreateTask::FailureHandler
+        end
+
+        def request_class
+          ButtonImageProcessingRequest
+        end
       end
     end
   end

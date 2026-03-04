@@ -7,8 +7,6 @@ module Generator
             strategy.payload.reverse_merge(webhook_url:, image: image_url)
           end
 
-          private
-
           delegate :image_url, to: :request
         end
       end
