@@ -6,8 +6,8 @@ describe MediaGenerator::ButtonHandler::SendGenerationTask do
   let(:chat_id) { 456 }
   let(:image_url) { "https://example.com/image.png" }
   let(:parent_prompt) { "cute white kitten" }
-  let(:parent_request) { instance_double("CommandPromptToImageRequest", parent_prompt: parent_prompt) }
-  let(:button_request_record) { instance_double("ButtonExtendPromptRequest", id: 123) }
+  let(:parent_request) { create(:prompt_message, prompt: parent_prompt) }
+  let(:button_request_record) { create(:button_extend_prompt_request, parent_request:) }
 
   before do
     allow(Generator::Media::Prompt::TaskCreatorJob).to receive(:perform_async)

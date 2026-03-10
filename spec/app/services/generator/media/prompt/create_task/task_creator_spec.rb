@@ -3,7 +3,7 @@ require "rails_helper"
 describe Generator::Media::Prompt::CreateTask::TaskCreator do
   subject(:call_service) { described_class.call(request) }
 
-  let(:request) { instance_double(ButtonExtendPromptRequest) }
+  let(:request) { create(:button_extend_prompt_request) }
 
   let(:strategy_selector_instance) { instance_double(Generator::Media::Prompt::CreateTask::StrategySelector) }
   let(:strategy_instance) { instance_double("Strategy", api_url: api_url) }

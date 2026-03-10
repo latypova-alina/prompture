@@ -5,7 +5,7 @@ require "rails_helper"
 describe Generator::Media::Image::CreateTask::TaskCreator do
   subject(:call_service) { described_class.call(request) }
 
-  let(:request) { instance_double(ButtonImageProcessingRequest) }
+  let(:request) { create(:button_image_processing_request) }
 
   let(:strategy_selector_instance) { instance_double(Generator::Media::Image::CreateTask::StrategySelector) }
   let(:strategy_instance) { instance_double("Strategy", api_url: api_url) }
