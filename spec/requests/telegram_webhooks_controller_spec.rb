@@ -133,7 +133,7 @@ describe TelegramWebhooksController, telegram_bot: :rails do
   describe "#extend_prompt_callback_query", :callback_query do
     it_behaves_like "extend prompt callback",
                     record_creator: RecordCreators::ButtonRequests::ExtendPrompt,
-                    job_class: ::Generator::Prompt::ExtendJob
+                    job_class: ::Generator::Media::Prompt::TaskCreatorJob
   end
 
   describe "#mystic_image_callback_query", :callback_query do

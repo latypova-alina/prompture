@@ -10,7 +10,7 @@ describe MediaGenerator::ButtonHandler::SendGenerationTask do
   let(:button_request_record) { instance_double("ButtonExtendPromptRequest", id: 123) }
 
   before do
-    allow(Generator::Prompt::ExtendJob).to receive(:perform_async)
+    allow(Generator::Media::Prompt::TaskCreatorJob).to receive(:perform_async)
     allow(Generator::Media::Image::TaskCreatorJob).to receive(:perform_async)
     allow(Generator::Media::Video::TaskCreatorJob).to receive(:perform_async)
   end
@@ -21,7 +21,7 @@ describe MediaGenerator::ButtonHandler::SendGenerationTask do
     it "enqueues prompt extension job" do
       subject
 
-      expect(Generator::Prompt::ExtendJob)
+      expect(Generator::Media::Prompt::TaskCreatorJob)
         .to have_received(:perform_async)
         .with(button_request_record.id)
     end
