@@ -3,6 +3,8 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 gem "dotenv-rails"
 gem "faraday"
+gem "flipper"
+gem "flipper-active_record"
 gem "interactor"
 gem "memery"
 gem "pg"

@@ -131,9 +131,25 @@ describe TelegramWebhooksController, telegram_bot: :rails do
   end
 
   describe "#extend_prompt_callback_query", :callback_query do
-    it_behaves_like "extend prompt callback",
-                    record_creator: RecordCreators::ButtonRequests::ExtendPrompt,
-                    job_class: ::Generator::Media::Prompt::TaskCreatorJob
+    context "when improve_prompt_with_freepik is enabled for user" do
+      before do
+        allow(Flipper[:improve_prompt_with_freepik]).to receive(:enabled?).and_return(true)
+      end
+
+      it_behaves_like "extend prompt callback",
+                      record_creator: RecordCreators::ButtonRequests::ExtendPrompt,
+                      job_class: ::Generator::Media::Prompt::TaskCreatorJob
+    end
+
+    context "when improve_prompt_with_freepik is disabled for user" do
+      before do
+        allow(Flipper[:improve_prompt_with_freepik]).to receive(:enabled?).and_return(false)
+      end
+
+      it_behaves_like "extend prompt callback",
+                      record_creator: RecordCreators::ButtonRequests::ExtendPrompt,
+                      job_class: ::Generator::Prompt::ExtendJob
+    end
   end
 
   describe "#mystic_image_callback_query", :callback_query do
