@@ -13,6 +13,8 @@ module Generator
 
       def call
         case processor
+        when Generator::Processors::PROMPT_EXTENSION
+          Prompt::TaskRetrieverJob.perform_async(task_id, button_request_id, processor)
         when *Generator::Processors::IMAGE
           Image::TaskRetrieverJob.perform_async(task_id, button_request_id, processor)
         when *Generator::Processors::VIDEO

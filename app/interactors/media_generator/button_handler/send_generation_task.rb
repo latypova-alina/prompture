@@ -20,7 +20,7 @@ module MediaGenerator
       private
 
       def perform_prompt_extension_job
-        ::Generator::Prompt::ExtendJob.perform_async(button_request_id)
+        ::Generator::Media::Prompt::TaskCreatorJob.perform_async(button_request_id)
       end
 
       def perform_image_generator_job

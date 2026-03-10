@@ -16,4 +16,8 @@ class ButtonExtendPromptRequest < ApplicationRecord
   def humanized_process_name
     I18n.t("telegram.generation.humanized_process_names.extend_prompt")
   end
+
+  def processor
+    "extend_prompt"
+  end
 end
