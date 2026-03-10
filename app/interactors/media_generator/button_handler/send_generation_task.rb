@@ -4,7 +4,7 @@ module MediaGenerator
       include Interactor
       include Memery
 
-      delegate :button_request, :button_request_record, to: :context
+      delegate :button_request, :button_request_record, :command_request, to: :context
 
       def call
         case button_request
@@ -19,8 +19,14 @@ module MediaGenerator
 
       private
 
+      delegate :user, to: :command_request
+
       def perform_prompt_extension_job
-        ::Generator::Prompt::ExtendJob.perform_async(button_request_id)
+        if Flipper[:improve_prompt_with_freepik].enabled?(user)
+          ::Generator::Media::Prompt::TaskCreatorJob.perform_async(button_request_id)
+        else
+          ::Generator::Prompt::ExtendJob.perform_async(button_request_id)
+        end
       end
 
       def perform_image_generator_job

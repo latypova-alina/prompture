@@ -1,25 +1,23 @@
-# spec/services/generator/media/image/create_task/task_creator_spec.rb
-
 require "rails_helper"
 
-describe Generator::Media::Image::CreateTask::TaskCreator do
+describe Generator::Media::Prompt::CreateTask::TaskCreator do
   subject(:call_service) { described_class.call(request) }
 
-  let(:request) { create(:button_image_processing_request) }
+  let(:request) { create(:button_extend_prompt_request) }
 
-  let(:strategy_selector_instance) { instance_double(Generator::Media::Image::CreateTask::StrategySelector) }
+  let(:strategy_selector_instance) { instance_double(Generator::Media::Prompt::CreateTask::StrategySelector) }
   let(:strategy_instance) { instance_double("Strategy", api_url: api_url) }
 
-  let(:payload_composer_instance) { instance_double(Generator::Media::Image::CreateTask::PayloadComposer) }
+  let(:payload_composer_instance) { instance_double(Generator::Media::Prompt::CreateTask::PayloadComposer) }
   let(:final_payload) { { foo: "bar" } }
 
-  let(:api_client_instance) { instance_double(Generator::Media::Image::CreateTask::ApiClient) }
+  let(:api_client_instance) { instance_double(Generator::Media::Prompt::CreateTask::ApiClient) }
   let(:response) { instance_double("Response", success?: success) }
 
   let(:api_url) { "https://api.example.com" }
 
   before do
-    allow(Generator::Media::Image::CreateTask::StrategySelector)
+    allow(Generator::Media::Prompt::CreateTask::StrategySelector)
       .to receive(:new)
       .with(request)
       .and_return(strategy_selector_instance)
@@ -28,7 +26,7 @@ describe Generator::Media::Image::CreateTask::TaskCreator do
       .to receive(:strategy)
       .and_return(strategy_instance)
 
-    allow(Generator::Media::Image::CreateTask::PayloadComposer)
+    allow(Generator::Media::Prompt::CreateTask::PayloadComposer)
       .to receive(:new)
       .with(request, strategy_instance)
       .and_return(payload_composer_instance)
@@ -37,7 +35,7 @@ describe Generator::Media::Image::CreateTask::TaskCreator do
       .to receive(:final_payload)
       .and_return(final_payload)
 
-    allow(Generator::Media::Image::CreateTask::ApiClient)
+    allow(Generator::Media::Prompt::CreateTask::ApiClient)
       .to receive(:new)
       .with(api_url, final_payload)
       .and_return(api_client_instance)

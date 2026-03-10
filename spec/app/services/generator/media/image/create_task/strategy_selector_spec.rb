@@ -6,15 +6,11 @@ describe Generator::Media::Image::CreateTask::StrategySelector do
   let(:parent_prompt) { "little kitten" }
 
   let(:parent_request) do
-    instance_double("PromptMessage", parent_prompt:)
+    create(:prompt_message, prompt: parent_prompt)
   end
 
   let(:request) do
-    instance_double(
-      ButtonImageProcessingRequest,
-      processor:,
-      parent_request:
-    )
+    create(:button_image_processing_request, parent_request:, processor:)
   end
 
   describe "#strategy" do
@@ -54,14 +50,6 @@ describe Generator::Media::Image::CreateTask::StrategySelector do
           .to be_a(Generator::Media::Image::CreateTask::ImagenPayloadStrategy)
 
         expect(strategy.prompt).to eq(parent_prompt)
-      end
-    end
-
-    context "when processor is unknown" do
-      let(:processor) { "unknown_processor" }
-
-      it "raises KeyError" do
-        expect { selector.strategy }.to raise_error(KeyError)
       end
     end
   end

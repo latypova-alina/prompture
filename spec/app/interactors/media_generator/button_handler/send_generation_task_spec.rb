@@ -1,16 +1,18 @@
 require "rails_helper"
 
 describe MediaGenerator::ButtonHandler::SendGenerationTask do
-  subject { described_class.call(button_request:, button_request_record:, parent_request:, image_url:, chat_id:) }
+  subject do
+    described_class.call(button_request:, button_request_record:, command_request: parent_request.command_request)
+  end
 
-  let(:chat_id) { 456 }
-  let(:image_url) { "https://example.com/image.png" }
   let(:parent_prompt) { "cute white kitten" }
-  let(:parent_request) { instance_double("CommandPromptToImageRequest", parent_prompt: parent_prompt) }
-  let(:button_request_record) { instance_double("ButtonExtendPromptRequest", id: 123) }
+  let(:parent_request) { create(:prompt_message, prompt: parent_prompt) }
+  let(:button_request_record) { create(:button_extend_prompt_request, parent_request:) }
+  let(:user) { parent_request.command_request.user }
 
   before do
     allow(Generator::Prompt::ExtendJob).to receive(:perform_async)
+    allow(Generator::Media::Prompt::TaskCreatorJob).to receive(:perform_async)
     allow(Generator::Media::Image::TaskCreatorJob).to receive(:perform_async)
     allow(Generator::Media::Video::TaskCreatorJob).to receive(:perform_async)
   end
@@ -18,12 +20,42 @@ describe MediaGenerator::ButtonHandler::SendGenerationTask do
   context "when button_request is extend_prompt" do
     let(:button_request) { "extend_prompt" }
 
-    it "enqueues prompt extension job" do
-      subject
+    context "when improve_prompt_with_freepik is enabled for user" do
+      before do
+        allow(Flipper[:improve_prompt_with_freepik])
+          .to receive(:enabled?)
+          .with(user)
+          .and_return(true)
+      end
 
-      expect(Generator::Prompt::ExtendJob)
-        .to have_received(:perform_async)
-        .with(button_request_record.id)
+      it "enqueues prompt extension job via Freepik flow" do
+        subject
+
+        expect(Generator::Media::Prompt::TaskCreatorJob)
+          .to have_received(:perform_async)
+          .with(button_request_record.id)
+
+        expect(Generator::Prompt::ExtendJob).not_to have_received(:perform_async)
+      end
+    end
+
+    context "when improve_prompt_with_freepik is disabled for user" do
+      before do
+        allow(Flipper[:improve_prompt_with_freepik])
+          .to receive(:enabled?)
+          .with(user)
+          .and_return(false)
+      end
+
+      it "enqueues legacy ExtendJob" do
+        subject
+
+        expect(Generator::Prompt::ExtendJob)
+          .to have_received(:perform_async)
+          .with(button_request_record.id)
+
+        expect(Generator::Media::Prompt::TaskCreatorJob).not_to have_received(:perform_async)
+      end
     end
   end
 
