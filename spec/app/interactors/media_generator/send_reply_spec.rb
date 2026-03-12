@@ -4,6 +4,7 @@ describe MediaGenerator::SendReply do
   subject(:result) { described_class.call(params:) }
 
   let(:params) { { some: "params" } }
+  let(:generated) { ["generated_media_url"] }
 
   let(:context_double) do
     instance_double(
@@ -11,7 +12,8 @@ describe MediaGenerator::SendReply do
       status: status,
       processor: processor,
       button_request_id: button_request_id,
-      task_id: task_id
+      task_id: task_id,
+      generated:
     )
   end
 
@@ -45,9 +47,9 @@ describe MediaGenerator::SendReply do
         expect(Generator::Media::TaskRetrieverDispatcher)
           .to receive(:call)
           .with(
-            task_id: task_id,
-            button_request_id: button_request_id,
-            processor: processor
+            task_id:,
+            button_request_id:,
+            processor:
           )
 
         result
