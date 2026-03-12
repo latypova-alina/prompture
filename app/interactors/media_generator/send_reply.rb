@@ -9,7 +9,7 @@ module MediaGenerator
       return if status == "IN_PROGRESS"
 
       if status == "COMPLETED"
-        Generator::Media::TaskRetrieverDispatcher.call(task_id:, button_request_id:, processor:)
+        handle_completed_status
       elsif status == "FAILED"
         Generator::Media::ErrorNotifierDispatcher.call(processor:, button_request_id:)
       end
@@ -17,10 +17,18 @@ module MediaGenerator
 
     private
 
-    delegate :processor, :status, :button_request_id, :task_id, to: :task_retriever_context
+    delegate :processor, :status, :button_request_id, :task_id, :generated, to: :task_retriever_context
 
     memoize def task_retriever_context
       Generator::Media::TaskRetrieverContext.new(params:)
+    end
+
+    def handle_completed_status
+      if generated.empty?
+        Generator::Media::FreepikEmptyGenerationAlert.call(processor:, button_request_id:)
+      else
+        Generator::Media::TaskRetrieverDispatcher.call(task_id:, button_request_id:, processor:)
+      end
     end
   end
 end

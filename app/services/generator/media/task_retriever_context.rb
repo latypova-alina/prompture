@@ -17,6 +17,10 @@ module Generator
         RequestIdToken.decode(request_id_token)
       end
 
+      def generated
+        body[:generated]
+      end
+
       private
 
       def request_id_token
