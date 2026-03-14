@@ -11,6 +11,7 @@ module Generator
 
           def payload
             {
+              prompt:,
               "aspect_ratio": "social_story_9_16",
               "model": "zen",
               "filter_nsfw": false,
