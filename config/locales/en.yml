@@ -130,6 +130,7 @@ en:
     token_used: "Sorry, the token you provided has already been used."
     token_expired: "Sorry, the token you provided has expired."
     insufficient_credits: "Sorry, it looks like you don't have enough credits to perform this action 💰"
+    moderation: "Your message cannot be processed because it violates our content policy."
   telegram:
     generation:
       processing: Generating %{process_name}, please wait…
