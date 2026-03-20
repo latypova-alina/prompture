@@ -12,6 +12,7 @@ module ErrorHandler
     rescue_from TokenUsedError, with: :handle_token_used
     rescue_from TokenExpiredError, with: :handle_token_expired
     rescue_from InsufficientCreditsError, with: :handle_insufficient_credits
+    rescue_from ModerationError, with: :handle_moderation
   end
 
   private
@@ -54,5 +55,9 @@ module ErrorHandler
 
   def handle_insufficient_credits(_error)
     respond_with :message, text: I18n.t("errors.insufficient_credits")
+  end
+
+  def handle_moderation(_error)
+    respond_with :message, text: I18n.t("errors.moderation")
   end
 end

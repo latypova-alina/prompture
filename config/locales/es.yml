@@ -8,6 +8,7 @@ es:
         activate_token: "🔑 Activa un token"
         prompt_to_video: "🎬 Prompt → imagen → video"
         prompt_to_image: "🖼 Prompt → imagen"
+        prompt_policy: "🛡 Ver reglas de prompts"
         set_locale: "🌐 Cambiar idioma"
       start:
         no_token: |
@@ -65,6 +66,14 @@ es:
       prompt_to_image: "¡Genial! Ahora, por favor, proporciona un prompt para la imagen. Más adelante podrás ampliarlo con la ayuda del bot."
       image_to_video: "¡Genial! Ahora, por favor, envíame la imagen que quieres convertir en un video."
       image_from_reference: "¡Genial! Ahora, por favor, envíame la imagen de referencia que quieres usar para generar una nueva imagen."
+      prompt_policy: |
+        Politica de prompts 🛡
+
+        ♦️ No solicites contenido sexual.
+
+        ♦️ No solicites violencia grafica, autolesiones o actos peligrosos e ilegales.
+
+        ♦️ No solicites contenido de odio o acoso.
       balance: "Tu saldo actual es de %{balance} créditos."
       activate_token:
         ask: "Por favor, introduce tu token para activarlo:"
@@ -130,6 +139,7 @@ es:
     token_used: "Lo siento, el token que proporcionaste ya ha sido utilizado."
     token_expired: "Lo siento, el token que proporcionaste ha expirado."
     insufficient_credits: "Lo siento, parece que no tienes suficientes créditos para realizar esta acción 💰"
+    moderation: "Tu mensaje no se puede procesar porque infringe nuestra politica de contenido. Revisa las reglas: /prompt_policy"
   telegram:
     generation:
       processing: "Generando %{process_name}, por favor espera…"
