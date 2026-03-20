@@ -6,11 +6,14 @@ describe Moderation::OpenaiModeration do
 
     let(:text) { "test message" }
 
-    context "when OpenAI marks content as flagged" do
+    context "when categories trigger moderation" do
       let(:response) do
         {
           "results" => [
-            { "flagged" => true }
+            {
+              "categories" => { "sexual/minors" => true },
+              "category_scores" => {}
+            }
           ]
         }
       end
@@ -27,16 +30,17 @@ describe Moderation::OpenaiModeration do
           .and_return(response)
       end
 
-      it "returns true" do
-        expect(subject).to eq(true)
-      end
+      it { expect(subject).to eq(true) }
     end
 
-    context "when OpenAI marks content as safe" do
+    context "when scores trigger moderation" do
       let(:response) do
         {
           "results" => [
-            { "flagged" => false }
+            {
+              "categories" => {},
+              "category_scores" => { "violence" => 0.71 }
+            }
           ]
         }
       end
@@ -44,12 +48,47 @@ describe Moderation::OpenaiModeration do
       before do
         allow(OpenAIClient)
           .to receive(:moderations)
+          .with(
+            parameters: {
+              model: "omni-moderation-latest",
+              input: text
+            }
+          )
           .and_return(response)
       end
 
-      it "returns false" do
-        expect(subject).to eq(false)
+      it { expect(subject).to eq(true) }
+    end
+
+    context "when categories and scores are safe" do
+      let(:response) do
+        {
+          "results" => [
+            {
+              "categories" => { "sexual/minors" => false, "hate/threatening" => false },
+              "category_scores" => {
+                "violence" => 0.1,
+                "violence/graphic" => 0.1,
+                "sexual" => 0.1
+              }
+            }
+          ]
+        }
       end
+
+      before do
+        allow(OpenAIClient)
+          .to receive(:moderations)
+          .with(
+            parameters: {
+              model: "omni-moderation-latest",
+              input: text
+            }
+          )
+          .and_return(response)
+      end
+
+      it { expect(subject).to eq(false) }
     end
   end
 end

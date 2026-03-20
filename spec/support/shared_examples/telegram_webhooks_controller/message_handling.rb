@@ -60,7 +60,7 @@ RSpec.shared_examples "message handling" do
       end
 
       let(:expected_text) do
-        "Your message cannot be processed because it violates our content policy."
+        "Your message cannot be processed because it violates our content policy. See the rules: /prompt_policy"
       end
 
       it { is_expected.to respond_with_message(expected_text) }

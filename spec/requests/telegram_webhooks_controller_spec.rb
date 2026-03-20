@@ -86,6 +86,17 @@ describe TelegramWebhooksController, telegram_bot: :rails do
     it { should respond_with_message(expected_text) }
   end
 
+  describe "#prompt_policy!" do
+    subject { -> { dispatch_command(:prompt_policy) } }
+
+    let(:expected_text) do
+      I18n.t("telegram_webhooks.commands.prompt_policy")
+    end
+
+    it_behaves_like "command handling",
+                    command: :prompt_policy
+  end
+
   describe "#set_locale!" do
     subject { -> { dispatch_command(:set_locale) } }
 
