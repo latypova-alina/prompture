@@ -2,7 +2,10 @@ RSpec.shared_examples "message handling" do
   context "when command is known" do
     include_context "telegram callback setup"
 
-    before { setup_parent_message }
+    before do
+      setup_parent_message
+      allow(Moderation::OpenaiModeration).to receive(:flagged?).and_return(false)
+    end
 
     let(:expected_message) do
       <<~HTML.strip
@@ -46,6 +49,18 @@ RSpec.shared_examples "message handling" do
       let(:expected_text) do
         "The type of message you sent is not suitable for this command. " \
         "Please send the correct type of message and try again."
+      end
+
+      it { is_expected.to respond_with_message(expected_text) }
+    end
+
+    context "when message is flagged by moderation" do
+      before do
+        allow(Moderation::OpenaiModeration).to receive(:flagged?).and_return(true)
+      end
+
+      let(:expected_text) do
+        "Your message cannot be processed because it violates our content policy."
       end
 
       it { is_expected.to respond_with_message(expected_text) }

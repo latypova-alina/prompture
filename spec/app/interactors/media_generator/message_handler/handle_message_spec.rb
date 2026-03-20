@@ -7,8 +7,8 @@ describe MediaGenerator::MessageHandler::HandleMessage do
         [
           MediaGenerator::MessageHandler::ParseUserMessage,
           MediaGenerator::MessageHandler::FindCommandRequest,
-          MediaGenerator::MessageHandler::ModerateMessage,
           MediaGenerator::MessageHandler::ValidateMessageType,
+          MediaGenerator::MessageHandler::ModerateMessage,
           MediaGenerator::MessageHandler::CreatePromptMessage,
           MediaGenerator::MessageHandler::NotifyUser
         ]
