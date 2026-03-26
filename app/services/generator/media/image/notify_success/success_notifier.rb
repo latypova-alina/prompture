@@ -23,6 +23,9 @@ module Generator::Media::Image::NotifySuccess
 
     delegate :reply_data, to: :presenter
     delegate :presenter, to: :presenter_selector
+    delegate :user, to: :request
+    delegate :balance, to: :user
+    delegate :credits, to: :balance, prefix: true
 
     def send_telegram_message
       SendTelegramMessage.call(reply_data:, request:)
@@ -33,11 +36,12 @@ module Generator::Media::Image::NotifySuccess
     end
 
     def presenter_selector
-      PresenterSelector.new(image_url:, request:)
+      PresenterSelector.new(image_url:, request:, balance: balance_credits)
     end
 
     memoize def request
-      ButtonImageProcessingRequest.includes(:parent_request, command_request: :user).find(button_request_id)
+      ButtonImageProcessingRequest.includes(:parent_request,
+                                            command_request: { user: :balance }).find(button_request_id)
     end
   end
 end

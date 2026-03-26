@@ -6,9 +6,12 @@ describe Generator::Media::Image::NotifySuccess::SuccessNotifier do
   end
 
   let(:image_url) { "http://example.com/image.png" }
+  let(:balance) { 7 }
 
   let(:button_request) do
-    create(:button_image_processing_request, status: "PROCESSING")
+    create(:button_image_processing_request, status: "PROCESSING").tap do |request|
+      request.command_request.user.balance.update!(credits: balance)
+    end
   end
 
   let(:presenter_selector_instance) { double }
@@ -18,7 +21,7 @@ describe Generator::Media::Image::NotifySuccess::SuccessNotifier do
   before do
     allow(Generator::Media::Image::NotifySuccess::PresenterSelector)
       .to receive(:new)
-      .with(image_url:, request: button_request)
+      .with(image_url:, request: button_request, balance:)
       .and_return(presenter_selector_instance)
 
     allow(presenter_selector_instance)

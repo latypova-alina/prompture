@@ -20,6 +20,9 @@ module Generator::Media::Prompt::NotifySuccess
     private
 
     delegate :reply_data, to: :presenter
+    delegate :user, to: :request
+    delegate :balance, to: :user
+    delegate :credits, to: :balance, prefix: true
     attr_reader :extended_prompt, :button_request_id
 
     def send_telegram_message
@@ -31,11 +34,15 @@ module Generator::Media::Prompt::NotifySuccess
     end
 
     memoize def presenter
-      MediaGenerator::ButtonRequestPresenters::ExtendedPromptMessagePresenter.new(message: extended_prompt)
+      MediaGenerator::ButtonRequestPresenters::ExtendedPromptMessagePresenter.new(
+        message: extended_prompt,
+        balance: balance_credits,
+        locale: request.locale
+      )
     end
 
     memoize def request
-      ButtonExtendPromptRequest.includes(:parent_request, command_request: :user).find(button_request_id)
+      ButtonExtendPromptRequest.includes(:parent_request, command_request: { user: :balance }).find(button_request_id)
     end
   end
 end

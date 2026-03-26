@@ -19,7 +19,7 @@ module MediaGenerator
       end
 
       def inline_keyboard
-        Buttons::ForInitialPromptMessage.build
+        Buttons::ForInitialPromptMessage.build(locale:)
       end
 
       private

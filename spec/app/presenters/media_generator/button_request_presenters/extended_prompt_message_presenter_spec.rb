@@ -1,13 +1,21 @@
 require "rails_helper"
 
 describe MediaGenerator::ButtonRequestPresenters::ExtendedPromptMessagePresenter do
-  subject { described_class.new(message:) }
+  subject { described_class.new(message:, balance:) }
 
   let(:message) { "Extended prompt text" }
+  let(:balance) { 3 }
 
   describe "#formatted_text" do
     it "returns the message as formatted text" do
-      expect(subject.formatted_text).to eq(message)
+      expect(subject.formatted_text).to eq(
+        <<~TEXT
+          #{message}
+
+          ────────────
+          Your current balance is #{balance} credits.
+        TEXT
+      )
     end
   end
 

@@ -20,6 +20,9 @@ module Generator::Media::Video::NotifySuccess
     private
 
     delegate :reply_data, to: :presenter
+    delegate :user, to: :request
+    delegate :balance, to: :user
+    delegate :credits, to: :balance, prefix: true
     attr_reader :video_url, :button_request_id
 
     def send_telegram_message
@@ -31,11 +34,15 @@ module Generator::Media::Video::NotifySuccess
     end
 
     memoize def presenter
-      MediaGenerator::ButtonRequestPresenters::VideoProcessedMessagePresenter.new(message: video_url)
+      MediaGenerator::ButtonRequestPresenters::VideoProcessedMessagePresenter.new(
+        message: video_url,
+        balance: balance_credits
+      )
     end
 
     memoize def request
-      ButtonVideoProcessingRequest.includes(:parent_request, command_request: :user).find(button_request_id)
+      ButtonVideoProcessingRequest.includes(:parent_request,
+                                            command_request: { user: :balance }).find(button_request_id)
     end
   end
 end

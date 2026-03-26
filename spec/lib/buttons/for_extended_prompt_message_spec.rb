@@ -10,4 +10,16 @@ describe Buttons::ForExtendedPromptMessage do
        [{ callback_data: "imagen_image", text: "Imagen (0 credits)" }]]
     )
   end
+
+  context "when locale is russian" do
+    subject(:result) { described_class.build(locale: :ru) }
+
+    it "builds buttons with russian pluralization" do
+      expect(result).to eq(
+        [[{ callback_data: "mystic_image", text: "Mystic (2 кредита)" }],
+         [{ callback_data: "gemini_image", text: "Gemini (1 кредит)" }],
+         [{ callback_data: "imagen_image", text: "Imagen (0 кредитов)" }]]
+      )
+    end
+  end
 end
