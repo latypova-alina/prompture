@@ -9,4 +9,14 @@ FactoryBot.define do
       create(:balance, user:, credits: 100)
     end
   end
+
+  trait :with_custom_balance do
+    transient do
+      credits { 100 }
+    end
+
+    after(:create) do |user, evaluator|
+      create(:balance, user:, credits: evaluator.credits)
+    end
+  end
 end

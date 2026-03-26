@@ -6,9 +6,11 @@ describe Generator::Media::Video::NotifySuccess::SuccessNotifier do
   end
 
   let(:video_url) { "http://example.com/video.mp4" }
+  let(:balance) { 11 }
+  let(:user) { create(:user, :with_custom_balance, credits: balance) }
 
   let(:button_request) do
-    create(:button_video_processing_request, status: "PROCESSING")
+    create(:button_video_processing_request, status: "PENDING", user:)
   end
 
   let(:presenter_instance) { double }
@@ -17,7 +19,7 @@ describe Generator::Media::Video::NotifySuccess::SuccessNotifier do
   before do
     allow(MediaGenerator::ButtonRequestPresenters::VideoProcessedMessagePresenter)
       .to receive(:new)
-      .with(message: video_url)
+      .with(message: video_url, balance: balance)
       .and_return(presenter_instance)
 
     allow(presenter_instance)
@@ -34,7 +36,7 @@ describe Generator::Media::Video::NotifySuccess::SuccessNotifier do
 
       expect(MediaGenerator::ButtonRequestPresenters::VideoProcessedMessagePresenter)
         .to have_received(:new)
-        .with(message: video_url)
+        .with(message: video_url, balance: balance)
 
       expect(Generator::Media::Video::NotifySuccess::SendTelegramMessage)
         .to have_received(:call)

@@ -4,10 +4,11 @@ require "rails_helper"
 
 describe Generator::Media::Image::NotifySuccess::PresenterSelector do
   subject(:selector) do
-    described_class.new(image_url: image_url, request: request)
+    described_class.new(image_url: image_url, request: request, balance:)
   end
 
   let(:image_url) { "http://example.com/image.png" }
+  let(:balance) { 5 }
 
   let(:command_request) { create(:command_prompt_to_image_request) }
   let(:request) { create(:button_image_processing_request, command_request:) }
@@ -18,7 +19,7 @@ describe Generator::Media::Image::NotifySuccess::PresenterSelector do
   before do
     allow(MediaGenerator::ButtonRequestPresenters::ImageProcessedMessage::PresenterSelector)
       .to receive(:new)
-      .with(image_url, "CommandPromptToImageRequest", "en")
+      .with(image_url, "CommandPromptToImageRequest", "en", balance)
       .and_return(inner_selector_instance)
 
     allow(inner_selector_instance)

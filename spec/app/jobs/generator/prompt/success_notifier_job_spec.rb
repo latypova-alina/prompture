@@ -8,13 +8,14 @@ describe Generator::Prompt::SuccessNotifierJob do
   end
 
   let(:extended_prompt) { "Extended prompt text" }
+  let(:balance) { 9 }
 
   let(:button_request) do
     create(
       :button_extend_prompt_request,
       status: "PENDING",
       prompt: nil
-    )
+    ).tap { |request| request.user.balance.update!(credits: balance) }
   end
 
   let(:reply_data) { { text: "Some reply" } }
@@ -24,7 +25,7 @@ describe Generator::Prompt::SuccessNotifierJob do
   before do
     allow(MediaGenerator::ButtonRequestPresenters::ExtendedPromptMessagePresenter)
       .to receive(:new)
-      .with(message: extended_prompt)
+      .with(message: extended_prompt, balance:)
       .and_return(presenter_instance)
 
     allow(presenter_instance)

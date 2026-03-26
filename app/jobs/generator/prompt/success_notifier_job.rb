@@ -24,7 +24,10 @@ module Generator
       delegate :reply_data, to: :presenter
 
       def presenter
-        MediaGenerator::ButtonRequestPresenters::ExtendedPromptMessagePresenter.new(message: extended_prompt)
+        MediaGenerator::ButtonRequestPresenters::ExtendedPromptMessagePresenter.new(
+          message: extended_prompt,
+          balance: balance_credits
+        )
       end
     end
   end

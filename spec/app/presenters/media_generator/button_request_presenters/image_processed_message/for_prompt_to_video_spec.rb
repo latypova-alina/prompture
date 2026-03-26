@@ -1,14 +1,22 @@
 require "rails_helper"
 
 describe MediaGenerator::ButtonRequestPresenters::ImageProcessedMessage::ForPromptToVideo do
-  subject { described_class.new(message:) }
+  subject { described_class.new(message:, balance:) }
 
   let(:message) { "https://example.com/image.png" }
+  let(:balance) { 4 }
 
   describe "#formatted_text" do
     it "returns an HTML link to the image" do
       expect(subject.formatted_text)
-        .to eq("<a href=\"#{message}\">Open image</a>")
+        .to eq(
+          <<~TEXT
+            <a href="#{message}">Open image</a>
+
+            ────────────
+            Your current balance is #{balance} credits.
+          TEXT
+        )
     end
   end
 

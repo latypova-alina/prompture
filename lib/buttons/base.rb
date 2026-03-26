@@ -1,10 +1,16 @@
 module Buttons
   class Base
+    def initialize(locale: I18n.locale)
+      @locale = locale
+    end
+
     def self.build(...)
       new(...).build
     end
 
     private
+
+    attr_reader :locale
 
     def button_for(scope, type)
       credits = cost_for(scope, type)
@@ -12,7 +18,8 @@ module Buttons
       {
         text: I18n.t(
           "telegram_webhooks.message.buttons.#{scope}.#{type}",
-          count: credits
+          count: credits,
+          locale:
         ),
         callback_data: type.to_s
       }
