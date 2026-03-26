@@ -7,11 +7,10 @@ describe Generator::Media::Image::NotifySuccess::SuccessNotifier do
 
   let(:image_url) { "http://example.com/image.png" }
   let(:balance) { 7 }
+  let(:user) { create(:user, :with_custom_balance, credits: balance) }
 
   let(:button_request) do
-    create(:button_image_processing_request, status: "PROCESSING").tap do |request|
-      request.command_request.user.balance.update!(credits: balance)
-    end
+    create(:button_image_processing_request, status: "PENDING", user:)
   end
 
   let(:presenter_selector_instance) { double }

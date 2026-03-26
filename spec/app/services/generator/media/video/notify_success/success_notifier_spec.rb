@@ -7,11 +7,10 @@ describe Generator::Media::Video::NotifySuccess::SuccessNotifier do
 
   let(:video_url) { "http://example.com/video.mp4" }
   let(:balance) { 11 }
+  let(:user) { create(:user, :with_custom_balance, credits: balance) }
 
   let(:button_request) do
-    create(:button_video_processing_request, status: "PROCESSING").tap do |request|
-      request.command_request.user.balance.update!(credits: balance)
-    end
+    create(:button_video_processing_request, status: "PENDING", user:)
   end
 
   let(:presenter_instance) { double }
