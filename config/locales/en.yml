@@ -86,6 +86,7 @@ en:
         locale_updated: "Your language has been updated 🌐"
     message:
       prompt_prefix: "Here is your prompt:"
+      extended_prompt_prefix: "Here is your extended prompt ⬇️"
       prompt_suffix: |
         What do you want to do next? You can: 
         

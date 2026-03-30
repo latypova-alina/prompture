@@ -85,6 +85,7 @@ ru:
         locale_updated: "Ваш язык был обновлён 🌐"
     message:
       prompt_prefix: "Вот твой промпт:"
+      extended_prompt_prefix: "Вот твой расширенный промпт ⬇️"
       prompt_suffix: | 
         Что ты хочешь сделать дальше? Ты можешь:
           
