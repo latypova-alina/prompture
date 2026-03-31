@@ -22,7 +22,7 @@ module Generator::Media::Image::NotifySuccess
     attr_reader :image_url, :button_request_id
 
     delegate :reply_data, to: :presenter
-    delegate :presenter, to: :presenter_selector
+    delegate :presenter, to: :presenter_factory
     delegate :user, to: :request
     delegate :balance, to: :user
     delegate :credits, to: :balance, prefix: true
@@ -35,8 +35,8 @@ module Generator::Media::Image::NotifySuccess
       request.update!(status: "COMPLETED", image_url:)
     end
 
-    def presenter_selector
-      PresenterSelector.new(image_url:, request:, balance: balance_credits)
+    def presenter_factory
+      PresenterFactory.new(image_url:, request:, balance: balance_credits)
     end
 
     memoize def request

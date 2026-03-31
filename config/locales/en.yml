@@ -87,6 +87,7 @@ en:
     message:
       prompt_prefix: "Here is your prompt:"
       extended_prompt_prefix: "Here is your extended prompt ⬇️"
+      image_generated_prefix: "Here is your %{processor_name}-generated image 🖼️"
       prompt_suffix: |
         What do you want to do next? You can: 
         

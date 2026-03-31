@@ -86,6 +86,7 @@ ru:
     message:
       prompt_prefix: "Вот твой промпт:"
       extended_prompt_prefix: "Вот твой расширенный промпт ⬇️"
+      image_generated_prefix: "Вот твое %{processor_name}-сгенерированное изображение 🖼️"
       prompt_suffix: | 
         Что ты хочешь сделать дальше? Ты можешь:
           

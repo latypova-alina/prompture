@@ -87,6 +87,7 @@ es:
     message:
       prompt_prefix: "Aquí está tu prompt:"
       extended_prompt_prefix: "Aquí está tu prompt extendido ⬇️"
+      image_generated_prefix: "Aquí está tu imagen generada por %{processor_name} 🖼️"
       prompt_suffix: |
         ¿Qué quieres hacer a continuación? Puedes:
 

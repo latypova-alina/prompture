@@ -18,7 +18,7 @@ describe Generator::Media::Image::NotifySuccess::SuccessNotifier do
   let(:reply_data) { { text: "done" } }
 
   before do
-    allow(Generator::Media::Image::NotifySuccess::PresenterSelector)
+    allow(Generator::Media::Image::NotifySuccess::PresenterFactory)
       .to receive(:new)
       .with(image_url:, request: button_request, balance:)
       .and_return(presenter_selector_instance)
