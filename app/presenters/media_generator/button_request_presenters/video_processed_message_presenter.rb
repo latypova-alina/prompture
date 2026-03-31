@@ -10,7 +10,7 @@ module MediaGenerator
 
       def formatted_text
         <<~HTML
-          #{I18n.t("telegram_webhooks.message.video_generated_prefix", processor_name:, locale:)}
+          #{I18n.t('telegram_webhooks.message.video_generated_prefix', processor_name:, locale:)}
 
           <a href="#{message}">#{I18n.t('telegram_webhooks.message.video_processed', locale:)}</a>
 
