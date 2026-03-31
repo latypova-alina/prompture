@@ -12,7 +12,7 @@ describe MediaGenerator::ButtonRequestPresenters::ImageProcessedMessage::ForProm
       expect(subject.formatted_text)
         .to eq(
           <<~TEXT
-            Here is your #{processor_name}-generated image 🖼️
+            Here is your #{processor_name} 🖼️
 
             <a href="#{message}">Open image</a>
 

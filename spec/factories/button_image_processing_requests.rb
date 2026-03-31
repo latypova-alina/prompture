@@ -4,11 +4,10 @@ FactoryBot.define do
     image_url { nil }
     processor { "mystic_image" }
 
-    parent_request { command_request }
-
     transient { user { create(:user, :with_balance) } }
 
     command_request { create(:command_prompt_to_image_request, user:) }
+    parent_request { create(:prompt_message, command_request:) }
 
     trait :completed do
       status { "COMPLETED" }
