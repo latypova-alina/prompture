@@ -1,5 +1,5 @@
 module Generator::Media::Image::NotifySuccess
-  class PresenterSelector
+  class PresenterFactory
     def initialize(image_url:, request:, balance:)
       @image_url = image_url
       @request = request
@@ -12,11 +12,21 @@ module Generator::Media::Image::NotifySuccess
 
     attr_reader :image_url, :request, :balance
 
-    delegate :locale, to: :request
+    delegate :locale, :humanized_process_name, to: :request
 
     def presenter_selector
       MediaGenerator::ButtonRequestPresenters::ImageProcessedMessage::PresenterSelector.new(
-        image_url, command_request_classname, locale, balance
+        context:
+      )
+    end
+
+    def context
+      MediaGenerator::ButtonRequestPresenters::ImageProcessedMessage::Context.new(
+        image_url:,
+        command_request_classname:,
+        locale:,
+        balance:,
+        processor_name: humanized_process_name
       )
     end
 

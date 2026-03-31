@@ -7,17 +7,21 @@ module MediaGenerator
           "CommandPromptToVideoRequest" => ForPromptToVideo
         }.freeze
 
-        def initialize(image_url, command_request_classname, locale, balance)
-          @image_url = image_url
-          @command_request_classname = command_request_classname
-          @locale = locale
-          @balance = balance
+        def initialize(context:)
+          @context = context
         end
 
-        attr_reader :image_url, :command_request_classname, :locale, :balance
+        attr_reader :context
+
+        delegate :image_url, :command_request_classname, :locale, :balance, :processor_name, to: :context
 
         def presenter
-          PRESENTERS[command_request_classname].new(message: image_url, locale:, balance:)
+          PRESENTERS[command_request_classname].new(
+            message: image_url,
+            locale:,
+            balance:,
+            processor_name:
+          )
         end
       end
     end

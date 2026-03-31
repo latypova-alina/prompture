@@ -8,6 +8,8 @@ describe Generator::Media::Video::NotifySuccess::SuccessNotifier do
   let(:video_url) { "http://example.com/video.mp4" }
   let(:balance) { 11 }
   let(:user) { create(:user, :with_custom_balance, credits: balance) }
+  let(:processor_name) { button_request.humanized_process_name }
+  let(:locale) { user.locale }
 
   let(:button_request) do
     create(:button_video_processing_request, status: "PENDING", user:)
@@ -19,7 +21,7 @@ describe Generator::Media::Video::NotifySuccess::SuccessNotifier do
   before do
     allow(MediaGenerator::ButtonRequestPresenters::VideoProcessedMessagePresenter)
       .to receive(:new)
-      .with(message: video_url, balance: balance)
+      .with(message: video_url, balance: balance, locale:, processor_name:)
       .and_return(presenter_instance)
 
     allow(presenter_instance)
@@ -36,7 +38,7 @@ describe Generator::Media::Video::NotifySuccess::SuccessNotifier do
 
       expect(MediaGenerator::ButtonRequestPresenters::VideoProcessedMessagePresenter)
         .to have_received(:new)
-        .with(message: video_url, balance: balance)
+        .with(message: video_url, balance: balance, locale:, processor_name:)
 
       expect(Generator::Media::Video::NotifySuccess::SendTelegramMessage)
         .to have_received(:call)

@@ -60,11 +60,14 @@ describe ButtonVideoProcessingRequest, type: :model do
   end
 
   describe "#humanized_process_name" do
+    let(:user) { create(:user, locale: "es") }
+    let(:command_request) { create(:command_prompt_to_video_request, user:) }
+
     described_class::PROCESSOR_TYPES.each do |processor|
       it "returns correct humanized name for #{processor}" do
-        record = build(:button_video_processing_request, processor:)
+        record = build(:button_video_processing_request, processor:, command_request:)
 
-        expected_name = I18n.t("telegram.generation.humanized_process_names.video.#{processor}")
+        expected_name = I18n.t("telegram.generation.humanized_process_names.video.#{processor}", locale: "es")
         expect(record.humanized_process_name).to eq(expected_name)
       end
     end

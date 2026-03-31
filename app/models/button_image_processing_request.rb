@@ -18,6 +18,6 @@ class ButtonImageProcessingRequest < ApplicationRecord
   end
 
   def humanized_process_name
-    I18n.t("telegram.generation.humanized_process_names.image.#{processor}")
+    I18n.t("telegram.generation.humanized_process_names.image.#{processor}", locale:)
   end
 end

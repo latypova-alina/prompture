@@ -12,6 +12,8 @@ describe MediaGenerator::ButtonRequestPresenters::ExtendedPromptMessagePresenter
         <<~TEXT
           #{message}
 
+          #{I18n.t('telegram_webhooks.message.extended_prompt_postfix')}
+
           ────────────
           Your current balance is #{balance} credits.
         TEXT

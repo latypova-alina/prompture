@@ -3,8 +3,6 @@ FactoryBot.define do
     prompt  { "cute white kitten" }
     status  { "PENDING" }
 
-    parent_request { command_request }
-
     trait :completed do
       status { "COMPLETED" }
     end
@@ -12,5 +10,6 @@ FactoryBot.define do
     transient { user { create(:user, :with_balance) } }
 
     command_request { create(:command_prompt_to_image_request, user:) }
+    parent_request { create(:prompt_message, command_request:, parent_request: command_request) }
   end
 end

@@ -74,7 +74,9 @@ es:
         ♦️ No solicites violencia grafica, autolesiones o actos peligrosos e ilegales.
 
         ♦️ No solicites contenido de odio o acoso.
-      balance: "Tu saldo actual es de %{balance} créditos."
+      balance:
+        one: "Tu saldo actual es de %{balance} crédito."
+        other: "Tu saldo actual es de %{balance} créditos."
       activate_token:
         ask: "Por favor, introduce tu token para activarlo:"
         activated: |
@@ -85,7 +87,10 @@ es:
         ask: "Por favor, selecciona tu idioma preferido:"
         locale_updated: "Tu idioma ha sido actualizado 🌐"
     message:
-      prompt_prefix: "Aquí está tu prompt:"
+      extended_prompt_postfix: "Aquí está tu prompt extendido ⬆️ \n\nAhora puedes generar una imagen usando uno de los procesadores (Mystic/Gemini/Imagen)"
+      image_generated_prefix: "Aquí está tu %{processor_name} 🖼️"
+      image_generated_postfix: "Ahora puedes generar un video usando uno de los procesadores (Kling)"
+      video_generated_prefix: "Aquí está tu %{processor_name} 🎥"
       prompt_suffix: |
         ¿Qué quieres hacer a continuación? Puedes:
 

@@ -5,10 +5,22 @@ describe MediaGenerator::ButtonRequestPresenters::ImageProcessedMessage::Present
     let(:image_url) { "http://example.com/image.png" }
     let(:locale) { :ru }
     let(:balance) { 4 }
+    let(:processor_name) { "Mystic image" }
+    let(:context) do
+      MediaGenerator::ButtonRequestPresenters::ImageProcessedMessage::Context.new(
+        image_url:,
+        command_request_classname:,
+        locale:,
+        balance:,
+        processor_name:
+      )
+    end
 
     context "when command request is prompt to image" do
+      let(:command_request_classname) { "CommandPromptToImageRequest" }
+
       subject(:selector) do
-        described_class.new(image_url, "CommandPromptToImageRequest", locale, balance)
+        described_class.new(context:)
       end
 
       let(:presenter_instance) { double }
@@ -16,7 +28,7 @@ describe MediaGenerator::ButtonRequestPresenters::ImageProcessedMessage::Present
       before do
         allow(MediaGenerator::ButtonRequestPresenters::ImageProcessedMessage::ForPromptToImage)
           .to receive(:new)
-          .with(message: image_url, locale:, balance:)
+          .with(message: image_url, locale:, balance:, processor_name:)
           .and_return(presenter_instance)
       end
 
@@ -26,8 +38,10 @@ describe MediaGenerator::ButtonRequestPresenters::ImageProcessedMessage::Present
     end
 
     context "when command request is prompt to video" do
+      let(:command_request_classname) { "CommandPromptToVideoRequest" }
+
       subject(:selector) do
-        described_class.new(image_url, "CommandPromptToVideoRequest", locale, balance)
+        described_class.new(context:)
       end
 
       let(:presenter_instance) { double }
@@ -35,7 +49,7 @@ describe MediaGenerator::ButtonRequestPresenters::ImageProcessedMessage::Present
       before do
         allow(MediaGenerator::ButtonRequestPresenters::ImageProcessedMessage::ForPromptToVideo)
           .to receive(:new)
-          .with(message: image_url, locale:, balance:)
+          .with(message: image_url, locale:, balance:, processor_name:)
           .and_return(presenter_instance)
       end
 
