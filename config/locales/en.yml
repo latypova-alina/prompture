@@ -85,7 +85,6 @@ en:
         ask: "Please select your preferred language:"
         locale_updated: "Your language has been updated 🌐"
     message:
-      prompt_prefix: "Here is your prompt:"
       extended_prompt_postfix: "Here is your extended prompt ⬆️ \n\nYou can now generate an image using one of the processors (Mystic/Gemini/Imagen)"
       image_generated_prefix: "Here is your %{processor_name} 🖼️"
       prompt_suffix: |

@@ -9,8 +9,6 @@ describe MediaGenerator::UserMessagePresenters::PromptMessagePresenter do
   describe "#formatted_text" do
     let(:expected_text) do
       <<~HTML
-        #{I18n.t('telegram_webhooks.message.prompt_prefix')}
-
         <blockquote>#{prompt}</blockquote>
 
         #{I18n.t('telegram_webhooks.message.prompt_suffix')}
