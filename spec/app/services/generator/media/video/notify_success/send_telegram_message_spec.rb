@@ -21,12 +21,42 @@ describe Generator::Media::Video::NotifySuccess::SendTelegramMessage do
   end
 
   describe ".call" do
-    it "sends telegram message with reply data" do
-      call_service
+    context "when source telegram message exists" do
+      before do
+        create(:telegram_message, request: request.parent_request, tg_message_id: 123_456)
+      end
 
-      expect(telegram_bot)
-        .to have_received(:send_message)
-        .with(chat_id: request.chat_id, **reply_data)
+      it "sends telegram message as reply" do
+        call_service
+
+        expect(telegram_bot)
+          .to have_received(:send_message)
+          .with(chat_id: request.chat_id, **reply_data.merge(reply_to_message_id: 123_456))
+      end
+    end
+
+    context "when source telegram message does not exist" do
+      it "sends telegram message without reply reference" do
+        call_service
+
+        expect(telegram_bot)
+          .to have_received(:send_message)
+          .with(chat_id: request.chat_id, **reply_data)
+      end
+    end
+
+    context "when current request telegram message exists but parent message does not" do
+      before do
+        create(:telegram_message, request:, tg_message_id: 999_999)
+      end
+
+      it "sends telegram message without reply reference" do
+        call_service
+
+        expect(telegram_bot)
+          .to have_received(:send_message)
+          .with(chat_id: request.chat_id, **reply_data)
+      end
     end
   end
 end
