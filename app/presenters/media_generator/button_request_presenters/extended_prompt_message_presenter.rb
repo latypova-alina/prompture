@@ -14,7 +14,7 @@ module MediaGenerator
           #{I18n.t('telegram_webhooks.message.extended_prompt_postfix', locale:)}
 
           ────────────
-          #{I18n.t('telegram_webhooks.commands.balance', balance:, locale:)}
+          #{I18n.t('telegram_webhooks.commands.balance', balance:, count: balance, locale:)}
         TEXT
       end
 

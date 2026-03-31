@@ -58,7 +58,8 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
   end
 
   def balance!(*)
-    respond_with :message, text: t("telegram_webhooks.commands.balance", balance: user.balance.credits)
+    credits = user.balance.credits
+    respond_with :message, text: t("telegram_webhooks.commands.balance", balance: credits, count: credits)
   end
 
   def prompt_to_image!(*)
