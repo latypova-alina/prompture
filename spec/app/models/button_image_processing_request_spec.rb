@@ -63,13 +63,16 @@ describe ButtonImageProcessingRequest, type: :model do
 
   describe "#humanized_process_name" do
     let(:processor) { "mystic_image" }
+    let(:user) { create(:user, locale: "es") }
+    let(:command_request) { create(:command_prompt_to_image_request, user:) }
 
     subject do
-      build(:button_image_processing_request, processor:)
+      build(:button_image_processing_request, processor:, command_request:)
     end
 
     it "returns humanized processor name" do
-      expect(subject.humanized_process_name).to eq(processor.humanize)
+      expected_name = I18n.t("telegram.generation.humanized_process_names.image.#{processor}", locale: "es")
+      expect(subject.humanized_process_name).to eq(expected_name)
     end
   end
 end

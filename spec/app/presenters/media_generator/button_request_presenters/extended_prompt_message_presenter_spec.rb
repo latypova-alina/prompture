@@ -10,9 +10,9 @@ describe MediaGenerator::ButtonRequestPresenters::ExtendedPromptMessagePresenter
     it "returns the message as formatted text" do
       expect(subject.formatted_text).to eq(
         <<~TEXT
-          #{I18n.t('telegram_webhooks.message.extended_prompt_prefix')}
-          ────────────
           #{message}
+
+          #{I18n.t('telegram_webhooks.message.extended_prompt_postfix')}
 
           ────────────
           Your current balance is #{balance} credits.

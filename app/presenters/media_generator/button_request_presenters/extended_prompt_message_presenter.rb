@@ -9,9 +9,9 @@ module MediaGenerator
 
       def formatted_text
         <<~TEXT
-          #{I18n.t('telegram_webhooks.message.extended_prompt_prefix', locale:)}
-          ────────────
           #{message}
+
+          #{I18n.t('telegram_webhooks.message.extended_prompt_postfix', locale:)}
 
           ────────────
           #{I18n.t('telegram_webhooks.commands.balance', balance:, locale:)}

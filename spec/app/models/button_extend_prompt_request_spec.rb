@@ -45,10 +45,13 @@ describe ButtonExtendPromptRequest, type: :model do
   end
 
   describe "#humanized_process_name" do
-    subject { build(:button_extend_prompt_request) }
+    let(:user) { create(:user, locale: "es") }
+    let(:command_request) { create(:command_prompt_to_image_request, user:) }
+
+    subject { build(:button_extend_prompt_request, command_request:) }
 
     it "returns the correct I18n translation" do
-      expected_name = I18n.t("telegram.generation.humanized_process_names.extend_prompt")
+      expected_name = I18n.t("telegram.generation.humanized_process_names.extend_prompt", locale: "es")
       expect(subject.humanized_process_name).to eq(expected_name)
     end
   end

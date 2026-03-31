@@ -85,8 +85,8 @@ ru:
         locale_updated: "Ваш язык был обновлён 🌐"
     message:
       prompt_prefix: "Вот твой промпт:"
-      extended_prompt_prefix: "Вот твой расширенный промпт ⬇️"
-      image_generated_prefix: "Вот твое %{processor_name}-сгенерированное изображение 🖼️"
+      extended_prompt_postfix: "Вот твой расширенный промпт ⬆️ \n\nТеперь ты можешь сгенерировать изображение с помощью одного из процессоров (Mystic/Gemini/Imagen)"
+      image_generated_prefix: "Вот твое %{processor_name} 🖼️"
       prompt_suffix: | 
         Что ты хочешь сделать дальше? Ты можешь:
           

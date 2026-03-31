@@ -86,8 +86,8 @@ en:
         locale_updated: "Your language has been updated 🌐"
     message:
       prompt_prefix: "Here is your prompt:"
-      extended_prompt_prefix: "Here is your extended prompt ⬇️"
-      image_generated_prefix: "Here is your %{processor_name}-generated image 🖼️"
+      extended_prompt_postfix: "Here is your extended prompt ⬆️ \n\nYou can now generate an image using one of the processors (Mystic/Gemini/Imagen)"
+      image_generated_prefix: "Here is your %{processor_name} 🖼️"
       prompt_suffix: |
         What do you want to do next? You can: 
         
