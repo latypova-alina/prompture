@@ -43,5 +43,22 @@ describe Generator::Media::Prompt::NotifySuccess::SendTelegramMessage do
           )
       end
     end
+
+    context "when current request telegram message exists but parent message does not" do
+      before do
+        create(:telegram_message, request:, tg_message_id: 999_999)
+      end
+
+      it "sends telegram message without reply reference" do
+        call_service
+
+        expect(TelegramIntegration::SendMessageWithButtons)
+          .to have_received(:call)
+          .with(
+            reply_data:,
+            request:
+          )
+      end
+    end
   end
 end

@@ -40,8 +40,10 @@ module Generator::Media::Image::NotifySuccess
     end
 
     memoize def request
-      ButtonImageProcessingRequest.includes(:parent_request,
-                                            command_request: { user: :balance }).find(button_request_id)
+      ButtonImageProcessingRequest.includes(
+        { parent_request: :telegram_message },
+        { command_request: { user: :balance } }
+      ).find(button_request_id)
     end
   end
 end

@@ -24,9 +24,8 @@ module Generator::Media::Prompt::NotifySuccess
 
     attr_reader :reply_data, :request
 
-    delegate :locale, :telegram_message, :parent_request, to: :request
+    delegate :locale, :parent_request, to: :request
     delegate :telegram_message, to: :parent_request, prefix: true, allow_nil: true
-    delegate :tg_message_id, to: :telegram_message, prefix: true, allow_nil: true
     delegate :tg_message_id, to: :parent_request_telegram_message, prefix: true, allow_nil: true
 
     def reply_data_with_reply_reference
@@ -34,7 +33,7 @@ module Generator::Media::Prompt::NotifySuccess
     end
 
     def original_prompt_message_id
-      telegram_message_tg_message_id || parent_request_telegram_message_tg_message_id
+      parent_request_telegram_message_tg_message_id
     end
   end
 end
