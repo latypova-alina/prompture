@@ -90,6 +90,7 @@ ru:
     message:
       extended_prompt_postfix: "Вот твой расширенный промпт ⬆️ \n\nТеперь ты можешь сгенерировать изображение с помощью одного из процессоров (Mystic/Gemini/Imagen)"
       image_generated_prefix: "Вот твое %{processor_name} 🖼️"
+      image_generated_postfix: "Теперь ты можешь сгенерировать видео с помощью одного из процессоров (Kling)"
       video_generated_prefix: "Вот твое %{processor_name} 🎥"
       prompt_suffix: | 
         Что ты хочешь сделать дальше? Ты можешь:

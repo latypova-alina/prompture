@@ -15,6 +15,8 @@ module MediaGenerator
 
             <a href="#{message}">#{I18n.t('telegram_webhooks.message.image_processed', locale:)}</a>
 
+            #{I18n.t('telegram_webhooks.message.image_generated_postfix', locale:)}
+
             ────────────
             #{I18n.t('telegram_webhooks.commands.balance', balance:, count: balance, locale:)}
           HTML

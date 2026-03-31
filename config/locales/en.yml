@@ -89,6 +89,7 @@ en:
     message:
       extended_prompt_postfix: "Here is your extended prompt ⬆️ \n\nYou can now generate an image using one of the processors (Mystic/Gemini/Imagen)"
       image_generated_prefix: "Here is your %{processor_name} 🖼️"
+      image_generated_postfix: "You can now generate a video using one of the processors (Kling)"
       video_generated_prefix: "Here is your %{processor_name} 🎥"
       prompt_suffix: |
         What do you want to do next? You can: 

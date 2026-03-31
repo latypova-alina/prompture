@@ -15,6 +15,7 @@ describe MediaGenerator::ButtonRequestPresenters::ImageProcessedMessage::ForProm
             Here is your #{processor_name}-generated image 🖼️
 
             <a href="#{message}">Open image</a>
+            You can now generate a video using one of the processors (Kling)
 
             ────────────
             Your current balance is #{balance} credits.
