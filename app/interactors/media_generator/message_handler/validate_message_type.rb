@@ -4,7 +4,7 @@ module MediaGenerator
       include Interactor
       include Memery
 
-      delegate :message_text, :chat_id, :picture_id, :command, to: :context
+      delegate :message_text, :chat_id, :picture_id, :command, :url, to: :context
 
       VALIDATORS = {
         "prompt_to_image" => ::RecordValidators::CommandRequests::PromptToImage,
@@ -14,7 +14,7 @@ module MediaGenerator
       }.freeze
 
       def call
-        validator.new(message_text, chat_id, picture_id).validate
+        validator.new(context: validation_context).validate
       rescue MessageTypeError, CommandRequestForgottenError => e
         context.fail!(error: e.class)
       end
@@ -23,6 +23,16 @@ module MediaGenerator
 
       memoize def validator
         VALIDATORS[command]
+      end
+
+      def validation_context
+        ValidationContext.new(
+          message_text:,
+          chat_id:,
+          picture_id:,
+          command:,
+          url:
+        )
       end
     end
   end

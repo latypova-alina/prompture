@@ -64,7 +64,7 @@ es:
         Los tokens son proporcionados por el administrador.
       prompt_to_video: "¡Genial! Ahora, por favor, proporciona un prompt para el video. Más adelante podrás ampliarlo con la ayuda del bot."
       prompt_to_image: "¡Genial! Ahora, por favor, proporciona un prompt para la imagen. Más adelante podrás ampliarlo con la ayuda del bot."
-      image_to_video: "¡Genial! Ahora, por favor, envíame la imagen que quieres convertir en un video."
+      image_to_video: "¡Genial! Ahora, por favor, envíame la imagen que quieres convertir en un video. Puedes enviarla como URL (puedes copiarla de mensajes anteriores si hace falta)."
       image_from_reference: "¡Genial! Ahora, por favor, envíame la imagen de referencia que quieres usar para generar una nueva imagen."
       prompt_policy: |
         Politica de prompts 🛡
@@ -87,6 +87,7 @@ es:
         ask: "Por favor, selecciona tu idioma preferido:"
         locale_updated: "Tu idioma ha sido actualizado 🌐"
     message:
+      image_message_reply: "¡Genial! Ahora puedes generar un video usando uno de los procesadores (Kling)"
       extended_prompt_postfix: "Aquí está tu prompt extendido ⬆️ \n\nAhora puedes generar una imagen usando uno de los procesadores (Mystic/Gemini/Imagen)"
       image_generated_prefix: "Aquí está tu %{processor_name} 🖼️"
       image_generated_postfix: "Ahora puedes generar un video usando uno de los procesadores (Kling)"

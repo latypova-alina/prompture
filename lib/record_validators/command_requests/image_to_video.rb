@@ -4,15 +4,15 @@ module RecordValidators
       private
 
       def valid_message_type?
-        picture_only_provided? || text_only_provided?
+        url_provided? || picture_provided?
       end
 
-      def picture_only_provided?
-        last_request.picture_id.blank? && picture_id && message_text.blank?
+      def picture_provided?
+        picture_id.present?
       end
 
-      def text_only_provided?
-        last_request.prompt.blank? && message_text && picture_id.blank?
+      def url_provided?
+        url.present?
       end
     end
   end

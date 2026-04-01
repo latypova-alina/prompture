@@ -53,6 +53,8 @@ module TelegramIntegration
           description: I18n.t("telegram_webhooks.commands.description.prompt_to_video") },
         { command: "prompt_to_image",
           description: I18n.t("telegram_webhooks.commands.description.prompt_to_image") },
+        { command: "image_to_video",
+          description: I18n.t("telegram_webhooks.commands.description.image_to_video") },
         { command: "set_locale",
           description: I18n.t("telegram_webhooks.commands.description.set_locale") },
         { command: "prompt_policy",

@@ -10,6 +10,7 @@ en:
         prompt_to_image: "🖼 Prompt → image"
         prompt_policy: "🛡 View prompt policy rules"
         set_locale: "🌐 Set language"
+        image_to_video: "🖼🎬 Picture → video"
       start: 
         no_token: |
           👋 Hi! Great to see you here.
@@ -64,7 +65,7 @@ en:
         Tokens are provided by the administrator.
       prompt_to_video: "Great! Now please provide a prompt for the video. It can later be extended with the help of the bot."
       prompt_to_image: "Great! Now please provide a prompt for the image. It can later be extended with the help of the bot."
-      image_to_video: "Great! Now please send me the image you want to turn into a video."
+      image_to_video: "Great! Now please send me the image you want to turn into a video. It can be sent as a URL (you can copy it from previous messages if needed)."
       image_from_reference: "Great! Now please send me the reference image you want to use to generate a new image."
       prompt_policy: |
         Prompt policy 🛡
@@ -87,6 +88,7 @@ en:
         ask: "Please select your preferred language:"
         locale_updated: "Your language has been updated 🌐"
     message:
+      image_message_reply: "Great! You can now generate a video using one of the processors (Kling)"
       extended_prompt_postfix: "Here is your extended prompt ⬆️ \n\nYou can now generate an image using one of the processors (Mystic/Gemini/Imagen)"
       image_generated_prefix: "Here is your %{processor_name} 🖼️"
       image_generated_postfix: "You can now generate a video using one of the processors (Kling)"
