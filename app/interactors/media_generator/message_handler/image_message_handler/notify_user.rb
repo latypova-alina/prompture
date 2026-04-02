@@ -16,9 +16,10 @@ module MediaGenerator
         private
 
         delegate :reply_data, to: :presenter
+        delegate :image_url, to: :image_message
 
         def presenter
-          MediaGenerator::UserMessagePresenters::ImageMessagePresenter.new
+          MediaGenerator::UserMessagePresenters::ImageMessagePresenter.new(message: image_url)
         end
       end
     end

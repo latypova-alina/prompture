@@ -88,6 +88,7 @@ ru:
         ask: "Пожалуйста, выбери язык:"
         locale_updated: "Ваш язык был обновлён 🌐"
     message:
+      image_message_url: "Вот твое изображение"
       image_message_reply: "Отлично! Теперь ты можешь сгенерировать видео с помощью одного из процессоров (Kling)"
       extended_prompt_postfix: "Вот твой расширенный промпт ⬆️ \n\nТеперь ты можешь сгенерировать изображение с помощью одного из процессоров (Mystic/Gemini/Imagen)"
       image_generated_prefix: "Вот твое %{processor_name} 🖼️"

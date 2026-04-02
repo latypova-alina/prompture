@@ -88,6 +88,7 @@ en:
         ask: "Please select your preferred language:"
         locale_updated: "Your language has been updated 🌐"
     message:
+      image_message_url: "Here is your image"
       image_message_reply: "Great! You can now generate a video using one of the processors (Kling)"
       extended_prompt_postfix: "Here is your extended prompt ⬆️ \n\nYou can now generate an image using one of the processors (Mystic/Gemini/Imagen)"
       image_generated_prefix: "Here is your %{processor_name} 🖼️"

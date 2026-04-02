@@ -87,6 +87,7 @@ es:
         ask: "Por favor, selecciona tu idioma preferido:"
         locale_updated: "Tu idioma ha sido actualizado 🌐"
     message:
+      image_message_url: "Aquí está tu imagen"
       image_message_reply: "¡Genial! Ahora puedes generar un video usando uno de los procesadores (Kling)"
       extended_prompt_postfix: "Aquí está tu prompt extendido ⬆️ \n\nAhora puedes generar una imagen usando uno de los procesadores (Mystic/Gemini/Imagen)"
       image_generated_prefix: "Aquí está tu %{processor_name} 🖼️"
