@@ -1,7 +1,12 @@
 require "rails_helper"
 
 describe RecordValidators::CommandRequests::PromptToImage do
-  subject { described_class.new(message_text, 456, nil) }
+  subject do
+    described_class.new(
+      message_text:,
+      picture_id: nil
+    )
+  end
 
   describe "#validate" do
     context "when message_text is present" do

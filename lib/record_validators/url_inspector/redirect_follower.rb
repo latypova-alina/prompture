@@ -15,7 +15,7 @@ module RecordValidators
         return nil unless redirected_uri
 
         Requester.new(uri: redirected_uri, method: context.method_type, headers: context.headers)
-          .run(redirects: context.redirects + 1)
+                 .run(redirects: context.redirects + 1)
       end
 
       private
