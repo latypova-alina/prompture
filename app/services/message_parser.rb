@@ -11,7 +11,7 @@ MessageParser = Struct.new(:message) do
     message["chat"]["id"]
   end
 
-  def url
+  def image_url
     return nil unless url_entity
 
     message.fetch("text", "")[url_entity["offset"], url_entity["length"]]

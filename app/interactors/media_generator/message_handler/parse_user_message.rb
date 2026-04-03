@@ -10,12 +10,12 @@ module MediaGenerator
         context.message_text = message_text
         context.chat_id = chat_id
         context.picture_id = picture_id
-        context.url = url
+        context.image_url = image_url
       end
 
       private
 
-      delegate :message_text, :picture_id, :chat_id, :url, to: :message_parser
+      delegate :message_text, :picture_id, :chat_id, :image_url, to: :message_parser
 
       memoize def message_parser
         MessageParser.new(user_message)

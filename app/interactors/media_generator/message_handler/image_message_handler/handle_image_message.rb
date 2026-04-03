@@ -6,7 +6,7 @@ module MediaGenerator
 
         organize MediaGenerator::MessageHandler::ParseUserMessage,
                  MediaGenerator::MessageHandler::FindCommandRequest,
-                 MediaGenerator::MessageHandler::ValidateMessageType,
+                 ValidateMessageType,
                  CreateImageMessage,
                  NotifyUser
       end

@@ -1,8 +1,9 @@
 module RecordValidators
   module CommandRequests
     class Base
-      def initialize(context:)
-        @context = context
+      def initialize(message_text:, picture_id:)
+        @message_text = message_text
+        @picture_id = picture_id
       end
 
       def validate
@@ -11,9 +12,7 @@ module RecordValidators
 
       private
 
-      attr_reader :context
-
-      delegate :message_text, :chat_id, :picture_id, :command, :url, to: :context
+      attr_reader :message_text, :picture_id
 
       def valid_message_type?
         raise NotImplementedError
