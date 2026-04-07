@@ -3,42 +3,40 @@ require "uri"
 module RecordValidators
   module UrlInspector
     class ImageUrlInspector
-      ALLOWED_IMAGE_MEDIA_TYPES = %w[
-        image/jpeg
-        image/jpg
-        image/png
-      ].freeze
+      include Memery
 
       def initialize(image_url:)
         @image_url = image_url
       end
 
       def valid?
-        uri = URI.parse(image_url)
-        return false unless uri.is_a?(URI::HTTP) || uri.is_a?(URI::HTTPS)
+        return false unless parsed_uri
 
-        allowed_image_content_type?(head_response(uri)) || allowed_image_content_type?(range_response(uri))
-      rescue URI::InvalidURIError
-        false
+        return true if trusted?
+
+        simple_valid? && fetchable?
       end
 
       private
 
       attr_reader :image_url
 
-      def head_response(uri)
-        HeadRequester.new(uri:).run
+      memoize def parsed_uri
+        URI.parse(image_url)
+      rescue URI::InvalidURIError
+        nil
       end
 
-      def range_response(uri)
-        RangeRequester.new(uri:).run
+      def trusted?
+        TrustedSourceValidator.new(uri: parsed_uri).valid?
       end
 
-      def allowed_image_content_type?(response)
-        raw = response&.headers&.[]("content-type")&.split(";")&.first
-        return false if raw.blank?
+      def simple_valid?
+        SimpleImageUrlValidator.new(uri: parsed_uri).valid?
+      end
 
-        ALLOWED_IMAGE_MEDIA_TYPES.include?(raw.strip.downcase)
+      def fetchable?
+        FetchableUrlValidator.new(url: image_url).valid?
       end
     end
   end
