@@ -9,9 +9,9 @@ describe MediaGenerator::UserMessagePresenters::ImageMessagePresenter do
   describe "#formatted_text" do
     let(:expected_text) do
       <<~HTML
-        <a href="#{image_url}">#{I18n.t("telegram_webhooks.message.image_message_url", locale:)}</a>
+        <a href="#{image_url}">#{I18n.t('telegram_webhooks.message.image_message_url', locale:)}</a>
 
-        #{I18n.t("telegram_webhooks.message.image_message_reply", locale:)}
+        #{I18n.t('telegram_webhooks.message.image_message_reply', locale:)}
       HTML
     end
 
