@@ -96,9 +96,9 @@ RSpec.shared_examples "message handling" do
 
       let(:expected_text) do
         <<~HTML
-          <a href="#{image_url}">#{I18n.t("telegram_webhooks.message.image_message_url")}</a>
+          <a href="#{image_url}">#{I18n.t('telegram_webhooks.message.image_message_url')}</a>
 
-          #{I18n.t("telegram_webhooks.message.image_message_reply")}
+          #{I18n.t('telegram_webhooks.message.image_message_reply')}
         HTML
       end
 
