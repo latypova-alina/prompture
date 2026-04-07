@@ -54,5 +54,19 @@ describe TelegramIntegration::MessageDispatcher do
         subject
       end
     end
+
+    context "when command is IMAGE_TO_VIDEO_COMMAND" do
+      let(:command) { TelegramIntegration::MessageDispatcher::IMAGE_TO_VIDEO_COMMAND }
+      let(:result) { double(failure?: false) }
+
+      it "calls MediaGenerator::MessageHandler::ImageMessageHandler::HandleImageMessage" do
+        expect(MediaGenerator::MessageHandler::ImageMessageHandler::HandleImageMessage)
+          .to receive(:call)
+          .with(command:, user_message:)
+          .and_return(result)
+
+        subject
+      end
+    end
   end
 end
