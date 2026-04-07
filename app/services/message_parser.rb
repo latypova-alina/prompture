@@ -11,6 +11,12 @@ MessageParser = Struct.new(:message) do
     message["chat"]["id"]
   end
 
+  def image_url
+    return nil unless url_entity
+
+    message.fetch("text", "")[url_entity["offset"], url_entity["length"]]
+  end
+
   private
 
   def photo
@@ -35,5 +41,9 @@ MessageParser = Struct.new(:message) do
 
   def document_is_image?
     document["mime_type"].start_with?("image/")
+  end
+
+  def url_entity
+    message.fetch("entities", []).find { |entity| entity["type"] == "url" }
   end
 end

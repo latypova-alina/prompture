@@ -87,6 +87,48 @@ RSpec.shared_examples "message handling" do
         it { is_expected.to respond_with_message(expected_text) }
       end
     end
+
+    context "when message contains an image URL and command is image_to_video" do
+      let(:command) { "image_to_video" }
+      let!(:command_request) { create(:command_image_to_video_request, chat_id:) }
+      let(:image_url) { "https://example.com/image.png" }
+      let(:prompt) { image_url }
+
+      let(:expected_text) do
+        <<~HTML
+          <a href="#{image_url}">#{I18n.t('telegram_webhooks.message.image_message_url')}</a>
+
+          #{I18n.t('telegram_webhooks.message.image_message_reply')}
+        HTML
+      end
+
+      let(:image_url_options) do
+        {
+          "entities" => [{ "offset" => 0, "length" => image_url.length, "type" => "url" }]
+        }
+      end
+
+      let(:user_message) { dispatch_message(prompt, image_url_options) }
+
+      before do
+        allow(Flipper[:image_to_video]).to receive(:enabled?).and_return(true)
+        allow_any_instance_of(RecordValidators::UrlInspector::ImageUrlInspector).to receive(:valid?).and_return(true)
+      end
+
+      it { is_expected.to respond_with_message(expected_text) }
+
+      context "when the image URL is invalid" do
+        before do
+          allow_any_instance_of(RecordValidators::UrlInspector::ImageUrlInspector).to receive(:valid?).and_return(false)
+        end
+
+        let(:expected_text) do
+          I18n.t("errors.image_url_invalid")
+        end
+
+        it { is_expected.to respond_with_message(expected_text) }
+      end
+    end
   end
 
   context "when command was not selected" do

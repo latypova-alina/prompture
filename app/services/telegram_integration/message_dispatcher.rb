@@ -1,6 +1,7 @@
 module TelegramIntegration
   class MessageDispatcher
     TOKEN_COMMAND = "activate_token".freeze
+    IMAGE_TO_VIDEO_COMMAND = "image_to_video".freeze
 
     def self.call(...)
       new(...).call
@@ -26,6 +27,8 @@ module TelegramIntegration
       case command
       when TOKEN_COMMAND
         TokenHandler::HandleToken.call(chat_id:, token_code: user_message["text"], name:, locale:)
+      when IMAGE_TO_VIDEO_COMMAND
+        MediaGenerator::MessageHandler::ImageMessageHandler::HandleImageMessage.call(command:, user_message:)
       else
         MediaGenerator::MessageHandler::HandleMessage.call(command:, user_message:)
       end

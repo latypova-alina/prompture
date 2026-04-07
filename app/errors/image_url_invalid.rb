@@ -1,0 +1,1 @@
+class ImageUrlInvalid < StandardError; end

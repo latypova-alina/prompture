@@ -9,6 +9,7 @@ describe MediaGenerator::MessageHandler::ParseUserMessage do
   let(:message_text) { "hello world" }
   let(:chat_id) { 123 }
   let(:picture_id) { "abc-123" }
+  let(:image_url) { "https://example.com/image.jpg" }
 
   before do
     allow(MessageParser)
@@ -19,6 +20,7 @@ describe MediaGenerator::MessageHandler::ParseUserMessage do
     allow(message_parser).to receive(:message_text).and_return(message_text)
     allow(message_parser).to receive(:chat_id).and_return(chat_id)
     allow(message_parser).to receive(:picture_id).and_return(picture_id)
+    allow(message_parser).to receive(:image_url).and_return(image_url)
   end
 
   it "assigns parsed values to the context" do
@@ -27,6 +29,7 @@ describe MediaGenerator::MessageHandler::ParseUserMessage do
     expect(result.message_text).to eq(message_text)
     expect(result.chat_id).to eq(chat_id)
     expect(result.picture_id).to eq(picture_id)
+    expect(result.image_url).to eq(image_url)
 
     expect(MessageParser).to have_received(:new).with(user_message)
   end

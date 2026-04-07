@@ -5,4 +5,11 @@ namespace :flipper do
     Flipper[:improve_prompt_with_freepik].enable_group(:admins)
     puts "Flipper feature :improve_prompt_with_freepik enabled for :admins group"
   end
+
+  desc "Create and enable :image_to_video feature for admins"
+  task image_to_video: :environment do
+    Flipper.add(:image_to_video)
+    Flipper[:image_to_video].enable_group(:admins)
+    puts "Flipper feature :image_to_video enabled for :admins group"
+  end
 end
