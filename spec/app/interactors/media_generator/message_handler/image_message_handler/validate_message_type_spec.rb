@@ -1,17 +1,30 @@
 require "rails_helper"
 
 describe MediaGenerator::MessageHandler::ImageMessageHandler::ValidateMessageType do
-  subject(:result) { described_class.call(picture_id:, image_url:) }
+  subject(:result) { described_class.call(picture_id:, image_url:, width:, height:, size_bytes:) }
 
   let(:picture_id) { nil }
   let(:image_url) { "https://example.com/image.jpg" }
+  let(:width) { 960 }
+  let(:height) { 1280 }
+  let(:size_bytes) { 500.kilobytes }
   let(:validator_class) { RecordValidators::CommandRequests::ImageToVideo }
   let(:validator_instance) { instance_double(validator_class) }
 
   before do
     allow(validator_class)
       .to receive(:new)
-      .with(picture_id:, image_url:)
+      .with(
+        context: an_instance_of(MediaGenerator::MessageHandler::ImageMessageHandler::ValidationContext).and(
+          have_attributes(
+          picture_id:,
+          image_url:,
+          width:,
+          height:,
+          size_bytes:
+          )
+        )
+      )
       .and_return(validator_instance)
   end
 

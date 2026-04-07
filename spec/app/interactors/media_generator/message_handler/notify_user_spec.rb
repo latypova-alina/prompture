@@ -4,7 +4,7 @@ describe MediaGenerator::MessageHandler::NotifyUser do
   subject { described_class.call(prompt_message:) }
 
   let(:prompt_message) { create(:prompt_message) }
-  let(:presenter_class) { MediaGenerator::UserMessagePresenters::PromptMessagePresenter }
+  let(:presenter_class) { MediaGenerator::UserMessage::PromptMessagePresenter }
 
   let(:presenter) { instance_double(presenter_class) }
   let(:reply_data) { { text: "Hello", reply_markup: {} } }

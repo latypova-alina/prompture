@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2026_04_01_120000) do
+ActiveRecord::Schema[8.0].define(version: 2026_04_07_130000) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -131,7 +131,7 @@ ActiveRecord::Schema[8.0].define(version: 2026_04_01_120000) do
     t.index ["feature_key", "key", "value"], name: "index_flipper_gates_on_feature_key_and_key_and_value", unique: true
   end
 
-  create_table "image_messages", force: :cascade do |t|
+  create_table "image_url_messages", force: :cascade do |t|
     t.string "image_url"
     t.string "parent_request_type", null: false
     t.bigint "parent_request_id", null: false
@@ -139,8 +139,23 @@ ActiveRecord::Schema[8.0].define(version: 2026_04_01_120000) do
     t.bigint "command_request_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["command_request_type", "command_request_id"], name: "index_image_messages_on_command_request"
-    t.index ["parent_request_type", "parent_request_id"], name: "index_image_messages_on_parent_request"
+    t.index ["command_request_type", "command_request_id"], name: "index_image_url_messages_on_command_request"
+    t.index ["parent_request_type", "parent_request_id"], name: "index_image_url_messages_on_parent_request"
+  end
+
+  create_table "picture_messages", force: :cascade do |t|
+    t.string "picture_id"
+    t.integer "size"
+    t.integer "width"
+    t.integer "height"
+    t.string "parent_request_type", null: false
+    t.bigint "parent_request_id", null: false
+    t.string "command_request_type", null: false
+    t.bigint "command_request_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["command_request_type", "command_request_id"], name: "index_picture_messages_on_command_request"
+    t.index ["parent_request_type", "parent_request_id"], name: "index_picture_messages_on_parent_request"
   end
 
   create_table "prompt_messages", force: :cascade do |t|

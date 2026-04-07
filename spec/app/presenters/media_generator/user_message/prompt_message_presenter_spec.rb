@@ -1,6 +1,6 @@
 require "rails_helper"
 
-describe MediaGenerator::UserMessagePresenters::PromptMessagePresenter do
+describe MediaGenerator::UserMessage::PromptMessagePresenter do
   subject { described_class.new(prompt_message) }
 
   let(:prompt_message) { create(:prompt_message, prompt:) }

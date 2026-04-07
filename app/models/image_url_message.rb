@@ -1,4 +1,4 @@
-class ImageMessage < ApplicationRecord
+class ImageUrlMessage < ApplicationRecord
   include HasOriginPrompt
 
   belongs_to :parent_request, polymorphic: true

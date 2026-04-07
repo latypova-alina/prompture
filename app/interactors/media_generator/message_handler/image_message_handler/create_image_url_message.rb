@@ -1,13 +1,19 @@
 module MediaGenerator
   module MessageHandler
     module ImageMessageHandler
-      class CreateImageMessage
+      class CreateImageUrlMessage
         include Interactor
 
         delegate :image_url, :command_request, to: :context
 
         def call
-          context.image_message = ImageMessage.create!(
+          context.image_url_message = image_url.nil? ? nil : create_image_url_message
+        end
+
+        private
+
+        def create_image_url_message
+          ImageUrlMessage.create!(
             image_url:,
             parent_request: command_request,
             command_request:

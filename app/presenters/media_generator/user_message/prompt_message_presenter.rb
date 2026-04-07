@@ -1,5 +1,5 @@
 module MediaGenerator
-  module UserMessagePresenters
+  module UserMessage
     class PromptMessagePresenter < ::BasePresenter
       include MessageInterface
 

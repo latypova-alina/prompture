@@ -4,7 +4,7 @@ module MediaGenerator
       class ValidateMessageType
         include Interactor
 
-        delegate :picture_id, :image_url, to: :context
+        delegate :picture_id, :image_url, :width, :height, :size_bytes, to: :context
 
         def call
           validator.validate
@@ -15,7 +15,19 @@ module MediaGenerator
         private
 
         def validator
-          ::RecordValidators::CommandRequests::ImageToVideo.new(picture_id:, image_url:)
+          ::RecordValidators::CommandRequests::ImageToVideo.new(
+            context: validation_context
+          )
+        end
+
+        def validation_context
+          ValidationContext.new(
+            picture_id:,
+            image_url:,
+            width:,
+            height:,
+            size_bytes:
+          )
         end
       end
     end

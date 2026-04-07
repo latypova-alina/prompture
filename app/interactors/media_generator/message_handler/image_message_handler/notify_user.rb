@@ -4,22 +4,25 @@ module MediaGenerator
       class NotifyUser
         include Interactor
 
-        delegate :image_message, to: :context
+        delegate :image_url_message, :picture_message, to: :context
 
         def call
           TelegramIntegration::SendMessageWithButtons.call(
             reply_data:,
-            request: image_message
+            request:
           )
         end
 
         private
 
         delegate :reply_data, to: :presenter
-        delegate :image_url, to: :image_message
+
+        def request
+          image_url_message || picture_message
+        end
 
         def presenter
-          MediaGenerator::UserMessagePresenters::ImageMessagePresenter.new(message: image_url)
+          MediaGenerator::UserMessage::ImageMessage::PresenterSelector.new(request:).presenter
         end
       end
     end

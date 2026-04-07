@@ -3,9 +3,8 @@ module RecordValidators
     class ImageToVideo
       include Memery
 
-      def initialize(picture_id:, image_url:)
-        @picture_id = picture_id
-        @image_url = image_url
+      def initialize(context:)
+        @context = context
       end
 
       def validate
@@ -15,7 +14,9 @@ module RecordValidators
 
       private
 
-      attr_reader :picture_id, :image_url
+      attr_reader :context
+
+      delegate :picture_id, :image_url, :width, :height, :size_bytes, to: :context
 
       delegate :valid?, :invalid?, to: :image_url_check, prefix: true
       delegate :valid?, to: :picture_check, prefix: true
@@ -29,7 +30,16 @@ module RecordValidators
       end
 
       memoize def picture_check
-        PictureValidator.new(picture_id:)
+        PictureValidator.new(context: picture_validation_context)
+      end
+
+      def picture_validation_context
+        PictureValidationContext.new(
+          picture_id:,
+          width:,
+          height:,
+          size_bytes:
+        )
       end
     end
   end
