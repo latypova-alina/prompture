@@ -37,6 +37,5 @@ module StoreImage
     def aws_region
       ENV.fetch("AWS_REGION")
     end
-
   end
 end

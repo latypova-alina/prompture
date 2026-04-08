@@ -15,6 +15,7 @@ module StoreImage
     private
 
     attr_reader :picture_id
+
     delegate :file_path, to: :file_path_fetcher
 
     def download_uri
