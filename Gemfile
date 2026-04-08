@@ -2,6 +2,7 @@ source "https://rubygems.org"
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 gem "dotenv-rails"
+gem "aws-sdk-s3"
 gem "faraday"
 gem "flipper"
 gem "flipper-active_record"

@@ -1,0 +1,24 @@
+module MediaGenerator
+  module MessageHandler
+    module ImageMessageHandler
+      class EnqueueStoreImageJob
+        include Interactor
+
+        delegate :image_url_message, :picture_message, to: :context
+
+        def call
+          context.image_record = image_record
+          return if image_record.nil?
+
+          StoreImage::Job.perform_async(image_record.class.name, image_record.id)
+        end
+
+        private
+
+        def image_record
+          image_url_message || picture_message
+        end
+      end
+    end
+  end
+end
