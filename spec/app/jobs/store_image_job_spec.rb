@@ -11,7 +11,8 @@ describe StoreImageJob do
 
   before do
     allow(StoreImage::Download::Facade).to receive(:new).with(record).and_return(download_facade)
-    allow(StoreImage::Upload::Facade).to receive(:new).with(bytes: "image-bytes", filename: "image.jpg").and_return(upload_facade)
+    allow(StoreImage::Upload::Facade).to receive(:new).with(bytes: "image-bytes",
+                                                            filename: "image.jpg").and_return(upload_facade)
     allow(upload_facade).to receive(:upload_image)
     allow(StoreImage::StoredImageUpdater).to receive(:call)
   end

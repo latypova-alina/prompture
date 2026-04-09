@@ -16,7 +16,9 @@ describe MediaGenerator::MessageHandler::ImageMessageHandler::ParseUserMessage d
       { "file_id" => "large", "width" => 1280, "height" => 720, "file_size" => 5000 }
     ]
   end
-  let(:message_parser) { instance_double(MessageParser, message_text: "hello", picture_id: "large", chat_id: 12_345, image_url: nil) }
+  let(:message_parser) do
+    instance_double(MessageParser, message_text: "hello", picture_id: "large", chat_id: 12_345, image_url: nil)
+  end
 
   before do
     allow(MessageParser).to receive(:new).with(user_message).and_return(message_parser)

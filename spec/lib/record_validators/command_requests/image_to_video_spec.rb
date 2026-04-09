@@ -16,7 +16,9 @@ describe RecordValidators::CommandRequests::ImageToVideo do
   let(:width) { nil }
   let(:height) { nil }
   let(:size_bytes) { nil }
-  let(:image_url_validator) { instance_double(described_class::ImageUrlValidator, valid?: image_url_valid, invalid?: image_url_invalid) }
+  let(:image_url_validator) do
+    instance_double(described_class::ImageUrlValidator, valid?: image_url_valid, invalid?: image_url_invalid)
+  end
   let(:picture_validator) { instance_double(described_class::PictureValidator, valid?: picture_valid) }
   let(:image_url_valid) { false }
   let(:image_url_invalid) { false }
