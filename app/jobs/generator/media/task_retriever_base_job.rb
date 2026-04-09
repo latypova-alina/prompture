@@ -8,7 +8,7 @@ module Generator
         @button_request_id = button_request_id
         @processor = processor
 
-        success_notifier_job_class.perform_async(internal_media_url, button_request_id)
+        success_notifier_job_class.perform_async(media_url, button_request_id)
       rescue Freepik::ResponseError
         error_notifier_job_class.perform_async(button_request_id)
       end
@@ -17,7 +17,7 @@ module Generator
 
       attr_reader :task_id, :button_request_id, :processor
 
-      delegate :media_url, to: :task_retriever
+      delegate :media_url, to: :task_retriever, prefix: :generated
       delegate :internal_media_url, to: :stored_media
 
       memoize def task_retriever
@@ -25,7 +25,13 @@ module Generator
       end
 
       memoize def stored_media
-        Generator::Media::StoredMedia::Retriever.new(media_url:, button_request_id:, processor:)
+        Generator::Media::StoredMedia::Retriever.new(media_url: generated_media_url, button_request_id:, processor:)
+      end
+
+      def media_url
+        internal_media_url || generated_media_url
+      rescue StandardError
+        generated_media_url
       end
 
       def task_retriever_class
