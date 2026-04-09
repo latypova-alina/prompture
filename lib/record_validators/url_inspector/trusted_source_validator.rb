@@ -1,7 +1,7 @@
 module RecordValidators
   module UrlInspector
     class TrustedSourceValidator
-      TRUSTED_HOSTS = ["cdn-magnific.freepik.com"].freeze
+      TRUSTED_HOST_SUFFIX = ".freepik.com".freeze
 
       def initialize(uri:)
         @uri = uri
@@ -13,7 +13,7 @@ module RecordValidators
 
         return false if host.blank?
 
-        self.class::TRUSTED_HOSTS.include?(host)
+        host.end_with?(TRUSTED_HOST_SUFFIX)
       end
 
       private
