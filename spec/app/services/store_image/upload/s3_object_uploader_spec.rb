@@ -9,9 +9,7 @@ describe StoreImage::Upload::S3ObjectUploader do
   let(:s3_client) { instance_double(Aws::S3::Client) }
 
   before do
-    allow(ENV).to receive(:fetch).with("INTERNAL_BUCKET_NAME").and_return("internal-bucket")
-    allow(ENV).to receive(:fetch).with("AWS_REGION").and_return("eu-central-1")
-    allow(Aws::S3::Client).to receive(:new).with(region: "eu-central-1").and_return(s3_client)
+    allow(Aws::S3::Client).to receive(:new).with(region: ENV.fetch("AWS_REGION")).and_return(s3_client)
     allow(s3_client).to receive(:put_object)
   end
 
@@ -20,7 +18,7 @@ describe StoreImage::Upload::S3ObjectUploader do
       uploader.upload
 
       expect(s3_client).to have_received(:put_object).with(
-        bucket: "internal-bucket",
+        bucket: ENV.fetch("INTERNAL_BUCKET_NAME"),
         key: object_key,
         body: bytes,
         content_type:

@@ -5,11 +5,7 @@ describe StoreImage::Upload::StoredUrlBuilder do
 
   let(:object_key) { "images/20260409/uuid-image.jpg" }
 
-  before do
-    allow(ENV).to receive(:fetch).with("INTERNAL_BUCKET_BASE_URL").and_return("https://internal.example")
-  end
-
   it "builds stored url from base url and object key" do
-    expect(stored_url).to eq("https://internal.example/#{object_key}")
+    expect(stored_url).to eq("#{ENV.fetch('INTERNAL_BUCKET_BASE_URL')}/#{object_key}")
   end
 end

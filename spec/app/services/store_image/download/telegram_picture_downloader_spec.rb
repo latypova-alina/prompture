@@ -8,7 +8,6 @@ describe StoreImage::Download::TelegramPictureDownloader do
   let(:response) { instance_double(Faraday::Response, success?: true, status: 200, body: "telegram-image-bytes") }
 
   before do
-    allow(ENV).to receive(:fetch).with("TELEGRAM_BOT_TOKEN").and_return("telegram-token")
     allow(StoreImage::Download::TelegramFilePathFetcher)
       .to receive(:new)
       .with(picture_id:)
