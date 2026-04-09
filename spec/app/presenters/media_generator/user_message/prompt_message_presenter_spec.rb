@@ -1,6 +1,6 @@
 require "rails_helper"
 
-describe MediaGenerator::UserMessagePresenters::PromptMessagePresenter do
+describe MediaGenerator::UserMessage::PromptMessagePresenter do
   subject { described_class.new(prompt_message) }
 
   let(:prompt_message) { create(:prompt_message, prompt:) }
@@ -21,8 +21,6 @@ describe MediaGenerator::UserMessagePresenters::PromptMessagePresenter do
   end
 
   describe "#inline_keyboard" do
-    subject { super().inline_keyboard }
-
     let(:expected_buttons) do
       [
         [{ callback_data: "extend_prompt", text: "Extend prompt (1 credit)" }],
@@ -32,8 +30,8 @@ describe MediaGenerator::UserMessagePresenters::PromptMessagePresenter do
       ]
     end
 
-    it "returns initial prompt buttons" do
-      expect(subject).to eq(expected_buttons)
+    it "builds and returns initial prompt buttons for locale" do
+      expect(subject.inline_keyboard).to eq(expected_buttons)
     end
   end
 end

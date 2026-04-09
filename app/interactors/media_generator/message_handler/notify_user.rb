@@ -17,7 +17,7 @@ module MediaGenerator
       delegate :reply_data, to: :presenter
 
       def presenter
-        MediaGenerator::UserMessagePresenters::PromptMessagePresenter.new(prompt_message)
+        MediaGenerator::UserMessage::PromptMessagePresenter.new(prompt_message)
       end
     end
   end

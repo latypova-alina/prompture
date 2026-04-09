@@ -4,10 +4,12 @@ module MediaGenerator
       class HandleImageMessage
         include Interactor::Organizer
 
-        organize MediaGenerator::MessageHandler::ParseUserMessage,
+        organize ParseUserMessage,
                  MediaGenerator::MessageHandler::FindCommandRequest,
                  ValidateMessageType,
-                 CreateImageMessage,
+                 CreateImageUrlMessage,
+                 CreatePictureMessage,
+                 EnqueueStoreImageJob,
                  NotifyUser
       end
     end

@@ -1,6 +1,6 @@
 require "rails_helper"
 
-describe MediaGenerator::UserMessagePresenters::ImageMessagePresenter do
+describe MediaGenerator::UserMessage::ImageMessage::ImageUrlMessagePresenter do
   subject(:presenter) { described_class.new(message: image_url, locale:) }
 
   let(:image_url) { "https://example.com/image.png" }

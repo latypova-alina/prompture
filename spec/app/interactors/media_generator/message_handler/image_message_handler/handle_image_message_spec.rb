@@ -5,10 +5,12 @@ describe MediaGenerator::MessageHandler::ImageMessageHandler::HandleImageMessage
     it "organizes interactors in correct order" do
       expect(described_class.organized).to eq(
         [
-          MediaGenerator::MessageHandler::ParseUserMessage,
+          MediaGenerator::MessageHandler::ImageMessageHandler::ParseUserMessage,
           MediaGenerator::MessageHandler::FindCommandRequest,
           MediaGenerator::MessageHandler::ImageMessageHandler::ValidateMessageType,
-          MediaGenerator::MessageHandler::ImageMessageHandler::CreateImageMessage,
+          MediaGenerator::MessageHandler::ImageMessageHandler::CreateImageUrlMessage,
+          MediaGenerator::MessageHandler::ImageMessageHandler::CreatePictureMessage,
+          MediaGenerator::MessageHandler::ImageMessageHandler::EnqueueStoreImageJob,
           MediaGenerator::MessageHandler::ImageMessageHandler::NotifyUser
         ]
       )

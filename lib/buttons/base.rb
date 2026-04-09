@@ -26,7 +26,7 @@ module Buttons
     end
 
     def cost_for(scope, type)
-      COSTS[scope][type]
+      COSTS[scope.to_sym][type.to_sym]
     end
   end
 end
