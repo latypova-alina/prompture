@@ -10,7 +10,7 @@ module MediaGenerator
           context.image_record = image_record
           return if image_record.nil?
 
-          StoreImage::Job.perform_async(image_record.class.name, image_record.id)
+          StoreImageJob.perform_async(image_record.class.name, image_record.id)
         end
 
         private
