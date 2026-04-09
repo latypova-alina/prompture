@@ -3,7 +3,7 @@ require "faraday"
 module StoreImage
   module Download
     class TelegramPictureDownloader
-      TELEGRAM_API_BASE = "https://api.telegram.org"
+      TELEGRAM_API_BASE = "https://api.telegram.org".freeze
 
       def self.call(...)
         new(...).call

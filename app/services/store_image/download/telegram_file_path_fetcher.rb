@@ -4,7 +4,7 @@ require "json"
 module StoreImage
   module Download
     class TelegramFilePathFetcher
-      TELEGRAM_API_BASE = "https://api.telegram.org"
+      TELEGRAM_API_BASE = "https://api.telegram.org".freeze
 
       def initialize(picture_id:)
         @picture_id = picture_id
