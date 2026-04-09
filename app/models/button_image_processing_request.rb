@@ -7,6 +7,7 @@ class ButtonImageProcessingRequest < ApplicationRecord
   belongs_to :command_request, polymorphic: true
 
   has_one :telegram_message, as: :request, dependent: :destroy
+  has_one :stored_image, as: :source_message, dependent: :destroy
 
   validates :processor, presence: true, inclusion: { in: PROCESSOR_TYPES }
 
