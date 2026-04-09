@@ -10,6 +10,7 @@ describe MediaGenerator::MessageHandler::ImageMessageHandler::HandleImageMessage
           MediaGenerator::MessageHandler::ImageMessageHandler::ValidateMessageType,
           MediaGenerator::MessageHandler::ImageMessageHandler::CreateImageUrlMessage,
           MediaGenerator::MessageHandler::ImageMessageHandler::CreatePictureMessage,
+          MediaGenerator::MessageHandler::ImageMessageHandler::EnqueueStoreImageJob,
           MediaGenerator::MessageHandler::ImageMessageHandler::NotifyUser
         ]
       )

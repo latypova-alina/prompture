@@ -45,6 +45,10 @@ describe MediaGenerator::MessageHandler::ImageMessageHandler::CreatePictureMessa
         expect { result }
           .not_to change(PictureMessage, :count)
       end
+
+      it "assigns nil picture_message to the context" do
+        expect(result.picture_message).to be_nil
+      end
     end
   end
 end

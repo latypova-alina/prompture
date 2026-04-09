@@ -49,5 +49,12 @@ describe RecordValidators::CommandRequests::ImageToVideo::PictureValidator do
 
       it { expect(validator.valid?).to be(false) }
     end
+
+    context "when size is exactly 10MB" do
+      let(:picture_id) { "AgACAgIAAxkBAAIB..." }
+      let(:size_bytes) { 10.megabytes }
+
+      it { expect(validator.valid?).to be(true) }
+    end
   end
 end

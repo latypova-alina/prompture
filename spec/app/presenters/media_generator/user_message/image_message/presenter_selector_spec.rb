@@ -25,5 +25,14 @@ describe MediaGenerator::UserMessage::ImageMessage::PresenterSelector do
         )
       end
     end
+
+    context "when request type is unsupported" do
+      let(:request) { build(:prompt_message) }
+
+      it "raises NotImplementedError" do
+        expect { described_class.new(request:).presenter }
+          .to raise_error(NotImplementedError, /Unsupported request type/)
+      end
+    end
   end
 end

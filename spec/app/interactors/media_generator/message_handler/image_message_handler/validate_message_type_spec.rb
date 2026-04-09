@@ -17,11 +17,11 @@ describe MediaGenerator::MessageHandler::ImageMessageHandler::ValidateMessageTyp
       .with(
         context: an_instance_of(MediaGenerator::MessageHandler::ImageMessageHandler::ValidationContext).and(
           have_attributes(
-          picture_id:,
-          image_url:,
-          width:,
-          height:,
-          size_bytes:
+            picture_id:,
+            image_url:,
+            width:,
+            height:,
+            size_bytes:
           )
         )
       )

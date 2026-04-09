@@ -4,6 +4,8 @@ describe PictureMessage, type: :model do
   describe "associations" do
     it { is_expected.to belong_to(:parent_request) }
     it { is_expected.to belong_to(:command_request) }
+    it { is_expected.to have_one(:telegram_message).dependent(:destroy) }
+    it { is_expected.to have_one(:stored_image).dependent(:destroy) }
   end
 
   describe "delegations" do

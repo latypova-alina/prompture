@@ -23,5 +23,18 @@ describe MediaGenerator::MessageHandler::ImageMessageHandler::CreateImageUrlMess
       expect(image_url_message.parent_request).to eq(command_request)
       expect(image_url_message.command_request).to eq(command_request)
     end
+
+    context "when image_url is nil" do
+      let(:image_url) { nil }
+
+      it "does not create an ImageUrlMessage record" do
+        expect { result }
+          .not_to change(ImageUrlMessage, :count)
+      end
+
+      it "assigns nil image_url_message to the context" do
+        expect(result.image_url_message).to be_nil
+      end
+    end
   end
 end

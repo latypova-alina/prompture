@@ -1,10 +1,9 @@
 require "rails_helper"
 
 describe MediaGenerator::MessageHandler::ImageMessageHandler::NotifyUser do
-  subject(:call_interactor) { described_class.call(image_url_message:, picture_message:) }
+  subject(:call_interactor) { described_class.call(image_record:) }
 
-  let(:image_url_message) { create(:image_url_message) }
-  let(:picture_message) { nil }
+  let(:image_record) { create(:image_url_message) }
   let(:selector_class) { MediaGenerator::UserMessage::ImageMessage::PresenterSelector }
   let(:presenter) { instance_double(presenter_class) }
   let(:presenter_class) { MediaGenerator::UserMessage::ImageMessage::ImageUrlMessagePresenter }
@@ -14,7 +13,7 @@ describe MediaGenerator::MessageHandler::ImageMessageHandler::NotifyUser do
   before do
     allow(selector_class)
       .to receive(:new)
-      .with(request: image_url_message)
+      .with(request: image_record)
       .and_return(selector)
 
     allow(selector)
@@ -34,23 +33,22 @@ describe MediaGenerator::MessageHandler::ImageMessageHandler::NotifyUser do
 
     expect(selector_class)
       .to have_received(:new)
-      .with(request: image_url_message)
+      .with(request: image_record)
 
     expect(TelegramIntegration::SendMessageWithButtons).to have_received(:call).with(
       reply_data:,
-      request: image_url_message
+      request: image_record
     )
   end
 
-  context "when image_url_message is nil" do
-    let(:image_url_message) { nil }
-    let(:picture_message) { create(:picture_message) }
+  context "when image_record is picture_message" do
+    let(:image_record) { create(:picture_message) }
     let(:presenter_class) { MediaGenerator::UserMessage::ImageMessage::PictureMessagePresenter }
 
     before do
       allow(selector_class)
         .to receive(:new)
-        .with(request: picture_message)
+        .with(request: image_record)
         .and_return(selector)
 
       allow(selector)
@@ -58,12 +56,12 @@ describe MediaGenerator::MessageHandler::ImageMessageHandler::NotifyUser do
         .and_return(presenter)
     end
 
-    it "falls back to picture_message as request" do
+    it "uses picture_message as request" do
       call_interactor
 
       expect(TelegramIntegration::SendMessageWithButtons).to have_received(:call).with(
         reply_data:,
-        request: picture_message
+        request: image_record
       )
     end
   end
