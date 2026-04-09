@@ -41,3 +41,8 @@ Project guidance for AI/code agents working in this repository.
   - uploader handles internal bucket URL generation/upload
 - Prefer polymorphic associations for shared child entities (e.g., `StoredImage`).
 
+## Testing preferences
+
+- Prefer creating real persisted records (via factories/fixtures) in specs instead of using doubles for model records.
+- Use doubles for external dependencies/IO boundaries (APIs, SDK clients, network calls), not for ActiveRecord entities when a real record can be used.
+
