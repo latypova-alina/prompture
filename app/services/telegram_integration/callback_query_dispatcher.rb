@@ -8,9 +8,8 @@ module TelegramIntegration
       new(...).call
     end
 
-    def initialize(button_request:, image_url:, chat_id:, tg_message_id:, callback_query_id:)
+    def initialize(button_request:, chat_id:, tg_message_id:, callback_query_id:)
       @button_request = button_request
-      @image_url = image_url
       @chat_id = chat_id
       @tg_message_id = tg_message_id
       @callback_query_id = callback_query_id
@@ -22,7 +21,7 @@ module TelegramIntegration
 
     private
 
-    attr_reader :button_request, :image_url, :chat_id, :tg_message_id, :callback_query_id
+    attr_reader :button_request, :chat_id, :tg_message_id, :callback_query_id
 
     def handled_button
       case splitted_button_request.first
@@ -31,7 +30,6 @@ module TelegramIntegration
       else
         MediaGenerator::ButtonHandler::HandleButton.call(
           button_request:,
-          image_url:,
           chat_id:,
           tg_message_id:,
           callback_query_id:

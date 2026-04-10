@@ -49,8 +49,6 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
   end
 
   def set_locale!(*)
-    session[:command] = "set_locale"
-
     SetLocale::CommandHandler::HandleCommand.call(
       chat_id: chat["id"],
       locale: normalized_locale
@@ -94,7 +92,6 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
   def callback_query(button_request)
     TelegramIntegration::CallbackQueryDispatcher.call(
       button_request:,
-      image_url: image_url_from_message,
       chat_id: chat["id"],
       tg_message_id:,
       callback_query_id:
@@ -102,10 +99,6 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
   end
 
   private
-
-  def image_url_from_message
-    update["callback_query"].dig("message", "entities", 0, "url")
-  end
 
   def tg_message_id
     update["callback_query"].dig("message", "message_id")

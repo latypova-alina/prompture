@@ -16,6 +16,10 @@ module RecordCreators
 
         private
 
+        def image_url
+          parent_request.resolved_image_url
+        end
+
         def processor
           raise NotImplementedError
         end

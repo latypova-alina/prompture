@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2026_04_09_180000) do
+ActiveRecord::Schema[8.0].define(version: 2026_04_09_191000) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -150,6 +150,7 @@ ActiveRecord::Schema[8.0].define(version: 2026_04_09_180000) do
     t.bigint "command_request_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "tg_message_id"
     t.index ["command_request_type", "command_request_id"], name: "index_image_url_messages_on_command_request"
     t.index ["parent_request_type", "parent_request_id"], name: "index_image_url_messages_on_parent_request"
   end
@@ -165,6 +166,7 @@ ActiveRecord::Schema[8.0].define(version: 2026_04_09_180000) do
     t.bigint "command_request_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "tg_message_id"
     t.index ["command_request_type", "command_request_id"], name: "index_picture_messages_on_command_request"
     t.index ["parent_request_type", "parent_request_id"], name: "index_picture_messages_on_parent_request"
   end

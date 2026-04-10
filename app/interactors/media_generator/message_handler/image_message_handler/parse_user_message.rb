@@ -13,7 +13,7 @@ module MediaGenerator
 
         private
 
-        delegate :message_text, :picture_id, :chat_id, :image_url, to: :message_parser
+        delegate :message_text, :picture_id, :chat_id, :tg_message_id, :image_url, to: :message_parser
 
         memoize def message_parser
           MessageParser.new(user_message)
@@ -27,6 +27,7 @@ module MediaGenerator
           {
             message_text:,
             chat_id:,
+            tg_message_id:,
             picture_id:,
             image_url:,
             width:,

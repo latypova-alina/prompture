@@ -11,6 +11,10 @@ MessageParser = Struct.new(:message) do
     message["chat"]["id"]
   end
 
+  def tg_message_id
+    message["message_id"]
+  end
+
   def image_url
     return nil unless url_entity
 
