@@ -3,7 +3,7 @@ module RecordCreators
     module Videos
       class Base < RecordCreators::Base
         def record
-          raise ImageForgottenError unless image_url.present?
+          raise ImageNotReadyError unless image_url.present?
 
           ::ButtonVideoProcessingRequest.create!(
             image_url:,
@@ -16,8 +16,10 @@ module RecordCreators
 
         private
 
-        def image_url
-          parent_request.resolved_image_url
+        delegate :image_url, to: :image_resolver
+
+        def image_resolver
+          ImageResolver.new(parent_request)
         end
 
         def processor

@@ -16,7 +16,10 @@ module TelegramIntegration
     end
 
     def call
-      raise handled_button.error if handled_button.failure?
+      return unless handled_button.failure?
+      return notify_image_not_ready if handled_button.error == ImageNotReadyError
+
+      raise handled_button.error
     end
 
     private
@@ -39,6 +42,14 @@ module TelegramIntegration
 
     memoize def splitted_button_request
       button_request.split(":")
+    end
+
+    def notify_image_not_ready
+      Telegram.bot.answer_callback_query(
+        callback_query_id:,
+        text: I18n.t("errors.image_not_ready"),
+        show_alert: true
+      )
     end
   end
 end

@@ -16,6 +16,8 @@ module MediaGenerator
 
       def call
         context.button_request_record = record
+      rescue ImageNotReadyError
+        context.fail!(error: ImageNotReadyError)
       end
 
       private

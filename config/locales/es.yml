@@ -141,6 +141,7 @@ es:
     unknown: "¡Ups! Algo salió mal. Por favor, inténtalo de nuevo más tarde."
     wrong_message_type: "El tipo de mensaje que enviaste no es adecuado para este comando. Por favor, envía el tipo de mensaje correcto e inténtalo de nuevo."
     image_forgotten: "Parece que falta el enlace de la imagen. Por favor, inténtalo de nuevo."
+    image_not_ready: "La imagen aún se está preparando ⌛ Espera unos segundos y vuelve a pulsar"
     image_url_invalid: "El enlace de la imagen no es valido o la URL puede no contener una imagen ⚠️ \n\nAsegurate de que la imagen en la URL este en formato JPEG, JPG o PNG, y envia una URL directa valida. También puedes enviar la imagen como archivo 📁 o foto 🖼️"
     command_request_forgotten: "Parece que falta tu solicitud de comando anterior. Por favor, comienza de nuevo y proporciona la información necesaria."
     unauthorized: "Parece que primero necesitas activar un token 🔑"
