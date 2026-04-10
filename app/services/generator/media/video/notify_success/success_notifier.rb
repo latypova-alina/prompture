@@ -44,7 +44,7 @@ module Generator::Media::Video::NotifySuccess
     end
 
     memoize def request
-      ButtonVideoProcessingRequest.includes({ parent_request: :telegram_message },
+      ButtonVideoProcessingRequest.includes({ parent_request: :bot_telegram_message },
                                             command_request: { user: :balance }).find(button_request_id)
     end
   end

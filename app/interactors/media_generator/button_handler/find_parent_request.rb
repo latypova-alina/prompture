@@ -17,7 +17,7 @@ module MediaGenerator
       private
 
       memoize def parent
-        TelegramMessage.find_by(tg_message_id:, chat_id:)
+        BotTelegramMessage.find_by(tg_message_id:, chat_id:)
       end
     end
   end

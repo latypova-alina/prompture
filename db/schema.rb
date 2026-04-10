@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2026_04_07_140000) do
+ActiveRecord::Schema[8.0].define(version: 2026_04_09_180000) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -33,6 +33,17 @@ ActiveRecord::Schema[8.0].define(version: 2026_04_07_140000) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_balances_on_user_id"
+  end
+
+  create_table "bot_telegram_messages", force: :cascade do |t|
+    t.bigint "chat_id", null: false
+    t.bigint "tg_message_id", null: false
+    t.string "request_type", null: false
+    t.bigint "request_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["chat_id", "tg_message_id"], name: "index_bot_telegram_messages_on_chat_and_message", unique: true
+    t.index ["request_type", "request_id"], name: "index_telegram_messages_on_request"
   end
 
   create_table "button_extend_prompt_requests", force: :cascade do |t|
@@ -178,17 +189,6 @@ ActiveRecord::Schema[8.0].define(version: 2026_04_07_140000) do
     t.datetime "updated_at", null: false
     t.index ["source_message_type", "source_message_id"], name: "idx_on_source_message_type_source_message_id_b22a70b9b7", unique: true
     t.index ["source_message_type", "source_message_id"], name: "index_stored_images_on_source_message"
-  end
-
-  create_table "telegram_messages", force: :cascade do |t|
-    t.bigint "chat_id", null: false
-    t.bigint "tg_message_id", null: false
-    t.string "request_type", null: false
-    t.bigint "request_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["chat_id", "tg_message_id"], name: "index_telegram_messages_on_chat_and_message", unique: true
-    t.index ["request_type", "request_id"], name: "index_telegram_messages_on_request"
   end
 
   create_table "tokens", force: :cascade do |t|

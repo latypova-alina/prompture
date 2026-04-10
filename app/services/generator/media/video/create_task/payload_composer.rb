@@ -4,6 +4,7 @@ module Generator
       module CreateTask
         class PayloadComposer < Generator::Media::CreateTask::PayloadComposerBase
           def final_payload
+            byebug
             strategy.payload.reverse_merge(webhook_url:, image: image_url)
           end
 
