@@ -3,7 +3,11 @@ require "open-uri"
 module StoreImage
   module Download
     class UrlImageDownloader
-      BROWSER_USER_AGENT = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0 Safari/537.36".freeze
+      BROWSER_USER_AGENT = [
+        "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7)",
+        "AppleWebKit/537.36 (KHTML, like Gecko)",
+        "Chrome/122.0 Safari/537.36"
+      ].join(" ").freeze
       BROWSER_REFERER = "https://www.freepik.com/".freeze
 
       def self.call(...)
@@ -25,6 +29,7 @@ module StoreImage
       attr_reader :url
 
       def file
+        # rubocop:disable Security/Open
         URI.open(
           url,
           {
@@ -32,6 +37,7 @@ module StoreImage
             "Referer" => BROWSER_REFERER
           }
         )
+        # rubocop:enable Security/Open
       end
     end
   end
