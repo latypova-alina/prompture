@@ -38,11 +38,11 @@ describe TelegramIntegration::SendMessageWithButtons do
       subject
     end
 
-    it "creates a TelegramMessage record" do
+    it "creates a BotTelegramMessage record" do
       expect { subject }
-        .to change(TelegramMessage, :count).by(1)
+        .to change(BotTelegramMessage, :count).by(1)
 
-      record = TelegramMessage.last
+      record = BotTelegramMessage.last
 
       expect(record.tg_message_id).to eq(777)
       expect(record.chat_id).to eq(chat_id)

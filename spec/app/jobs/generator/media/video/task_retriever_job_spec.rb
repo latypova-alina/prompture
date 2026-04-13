@@ -10,6 +10,7 @@ describe Generator::Media::Video::TaskRetrieverJob do
   let(:processor) { "kling_2_1_pro_image_to_video" }
 
   let(:retriever_instance) { instance_double(Generator::Media::Video::RetrieveTask::TaskRetriever) }
+  let(:stored_media) { instance_double(Generator::Media::StoredMedia::Retriever, internal_media_url: media_url) }
   let(:media_url) { "http://example.com/video.mp4" }
 
   before do
@@ -18,6 +19,10 @@ describe Generator::Media::Video::TaskRetrieverJob do
     ).to receive(:new)
       .with(task_id, processor)
       .and_return(retriever_instance)
+    allow(Generator::Media::StoredMedia::Retriever)
+      .to receive(:new)
+      .with(media_url:, button_request_id:, processor:)
+      .and_return(stored_media)
   end
 
   describe "#perform" do
@@ -61,6 +66,24 @@ describe Generator::Media::Video::TaskRetrieverJob do
         expect(
           Generator::Media::Video::ErrorNotifierJob
         ).to receive(:perform_async).with(button_request_id)
+
+        perform_job
+      end
+    end
+
+    context "when internal media storing fails" do
+      before do
+        allow(retriever_instance).to receive(:media_url).and_return(media_url)
+        allow(stored_media).to receive(:internal_media_url).and_raise(StandardError)
+        allow(
+          Generator::Media::Video::SuccessNotifierJob
+        ).to receive(:perform_async)
+      end
+
+      it "falls back to generated media url and still notifies success" do
+        expect(
+          Generator::Media::Video::SuccessNotifierJob
+        ).to receive(:perform_async).with(media_url, button_request_id)
 
         perform_job
       end

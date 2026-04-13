@@ -6,9 +6,10 @@ describe ButtonImageProcessingRequest, type: :model do
     it { is_expected.to belong_to(:command_request) }
     it do
       is_expected
-        .to have_one(:telegram_message)
+        .to have_one(:bot_telegram_message)
         .dependent(:destroy)
     end
+    it { is_expected.to have_one(:stored_image).dependent(:destroy) }
   end
 
   describe "delegations" do
@@ -73,6 +74,26 @@ describe ButtonImageProcessingRequest, type: :model do
     it "returns humanized processor name" do
       expected_name = I18n.t("telegram.generation.humanized_process_names.image.#{processor}", locale: "es")
       expect(subject.humanized_process_name).to eq(expected_name)
+    end
+  end
+
+  describe "#resolved_image_url" do
+    let(:button_request) { create(:button_image_processing_request, image_url: "https://external.example/image.png") }
+
+    context "when stored_image exists" do
+      let!(:stored_image) do
+        create(:stored_image, source_message: button_request, image_url: "https://internal.example/image.png")
+      end
+
+      it "returns stored_image url" do
+        expect(button_request.resolved_image_url).to eq("https://internal.example/image.png")
+      end
+    end
+
+    context "when stored_image does not exist" do
+      it "returns original image_url" do
+        expect(button_request.resolved_image_url).to eq("https://external.example/image.png")
+      end
     end
   end
 end

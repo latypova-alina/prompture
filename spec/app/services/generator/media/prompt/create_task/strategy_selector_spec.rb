@@ -13,4 +13,14 @@ describe Generator::Media::Prompt::CreateTask::StrategySelector do
       expect(strategy.prompt).to eq(parent_prompt)
     end
   end
+
+  context "when parent_request has no parent_prompt method" do
+    let(:request) do
+      create(:button_extend_prompt_request, parent_request: create(:command_prompt_to_image_request))
+    end
+
+    it "initializes strategy with nil prompt" do
+      expect(strategy.prompt).to be_nil
+    end
+  end
 end

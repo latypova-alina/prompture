@@ -5,13 +5,11 @@ describe MediaGenerator::ButtonHandler::CreateRequest do
     described_class.call(
       button_request:,
       parent_request:,
-      command_request:,
-      image_url:
+      command_request:
     )
   end
 
   let(:button_request) { "mystic_image" }
-  let(:image_url) { "https://example.com/image.png" }
 
   let(:parent_request) { create(:prompt_message) }
   let(:command_request) { create(:command_prompt_to_image_request) }
@@ -23,7 +21,7 @@ describe MediaGenerator::ButtonHandler::CreateRequest do
   before do
     allow(record_creator_class)
       .to receive(:new)
-      .with(parent_request, command_request, image_url)
+      .with(parent_request, command_request)
       .and_return(record_creator)
   end
 
@@ -35,6 +33,19 @@ describe MediaGenerator::ButtonHandler::CreateRequest do
 
     expect(record_creator_class)
       .to have_received(:new)
-      .with(parent_request, command_request, image_url)
+      .with(parent_request, command_request)
+  end
+
+  context "when record creator raises ImageNotReadyError" do
+    before do
+      allow(record_creator).to receive(:record).and_raise(ImageNotReadyError)
+    end
+
+    it "fails with ImageNotReadyError" do
+      result = subject
+
+      expect(result).to be_failure
+      expect(result.error).to eq(ImageNotReadyError)
+    end
   end
 end

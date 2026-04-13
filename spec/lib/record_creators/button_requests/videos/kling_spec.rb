@@ -1,7 +1,7 @@
 require "rails_helper"
 
 describe RecordCreators::ButtonRequests::Videos::Kling do
-  subject { described_class.new(parent_request, command_request, image_url).record }
+  subject { described_class.new(parent_request, command_request).record }
 
   let(:image_url) { "https://example.com/image.jpg" }
   let(:command_request) { create(:command_prompt_to_video_request) }
@@ -23,8 +23,8 @@ describe RecordCreators::ButtonRequests::Videos::Kling do
   context "when image_url is missing" do
     let(:image_url) { nil }
 
-    it "raises an ImageForgottenError" do
-      expect { subject }.to raise_error(ImageForgottenError)
+    it "raises an ImageNotReadyError" do
+      expect { subject }.to raise_error(ImageNotReadyError)
     end
   end
 end

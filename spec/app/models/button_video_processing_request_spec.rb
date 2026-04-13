@@ -6,7 +6,7 @@ describe ButtonVideoProcessingRequest, type: :model do
     it { is_expected.to belong_to(:command_request) }
     it do
       is_expected
-        .to have_one(:telegram_message)
+        .to have_one(:bot_telegram_message)
         .dependent(:destroy)
     end
   end

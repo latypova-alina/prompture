@@ -16,13 +16,27 @@ RSpec.describe RecordValidators::UrlInspector::ImageUrlInspector do
       before do
         allow(RecordValidators::UrlInspector::TrustedSourceValidator).to receive(:new)
           .and_return(instance_double(RecordValidators::UrlInspector::TrustedSourceValidator, valid?: true))
+        allow(RecordValidators::UrlInspector::SimpleImageUrlValidator).to receive(:new)
+          .and_return(instance_double(RecordValidators::UrlInspector::SimpleImageUrlValidator, valid?: true))
       end
 
-      it "returns true and skips other validators" do
-        expect(RecordValidators::UrlInspector::SimpleImageUrlValidator).not_to receive(:new)
+      it "returns true and skips fetchable validator" do
         expect(RecordValidators::UrlInspector::FetchableUrlValidator).not_to receive(:new)
 
         expect(valid?).to be(true)
+      end
+    end
+
+    context "when url is trusted but not an image url" do
+      before do
+        allow(RecordValidators::UrlInspector::TrustedSourceValidator).to receive(:new)
+          .and_return(instance_double(RecordValidators::UrlInspector::TrustedSourceValidator, valid?: true))
+        allow(RecordValidators::UrlInspector::SimpleImageUrlValidator).to receive(:new)
+          .and_return(instance_double(RecordValidators::UrlInspector::SimpleImageUrlValidator, valid?: false))
+      end
+
+      it "returns false" do
+        expect(valid?).to be(false)
       end
     end
 

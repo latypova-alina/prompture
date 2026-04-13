@@ -18,6 +18,14 @@ describe Generator::Media::Video::CreateTask::StrategySelector do
     end
   end
 
+  context "when parent_request has no parent_prompt method" do
+    let(:parent_request) { create(:command_prompt_to_video_request) }
+
+    it "initializes strategy with nil prompt" do
+      expect(strategy.prompt).to be_nil
+    end
+  end
+
   context "when processor is not supported" do
     let(:request) do
       double(

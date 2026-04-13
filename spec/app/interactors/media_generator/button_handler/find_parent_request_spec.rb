@@ -9,9 +9,9 @@ describe MediaGenerator::ButtonHandler::FindParentRequest do
   let(:command_request) { create(:command_prompt_to_image_request) }
 
   context "when parent telegram message exists" do
-    let!(:telegram_message) do
+    let!(:bot_telegram_message) do
       create(
-        :telegram_message,
+        :bot_telegram_message,
         chat_id:,
         tg_message_id:,
         request: command_request

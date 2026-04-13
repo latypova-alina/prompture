@@ -12,6 +12,7 @@ describe Generator::Media::Prompt::TaskRetrieverJob do
   let(:retriever_instance) do
     instance_double(Generator::Media::Prompt::RetrieveTask::TaskRetriever)
   end
+  let(:stored_media) { instance_double(Generator::Media::StoredMedia::Retriever, internal_media_url: extended_prompt) }
   let(:extended_prompt) { "Extended prompt text" }
 
   before do
@@ -20,6 +21,10 @@ describe Generator::Media::Prompt::TaskRetrieverJob do
     ).to receive(:new)
       .with(task_id, processor)
       .and_return(retriever_instance)
+    allow(Generator::Media::StoredMedia::Retriever)
+      .to receive(:new)
+      .with(media_url: extended_prompt, button_request_id:, processor:)
+      .and_return(stored_media)
   end
 
   describe "#perform" do
@@ -63,6 +68,24 @@ describe Generator::Media::Prompt::TaskRetrieverJob do
         expect(
           Generator::Media::Prompt::ErrorNotifierJob
         ).to receive(:perform_async).with(button_request_id)
+
+        perform_job
+      end
+    end
+
+    context "when internal media storing fails" do
+      before do
+        allow(retriever_instance).to receive(:media_url).and_return(extended_prompt)
+        allow(stored_media).to receive(:internal_media_url).and_raise(StandardError)
+        allow(
+          Generator::Media::Prompt::SuccessNotifierJob
+        ).to receive(:perform_async)
+      end
+
+      it "falls back to generated media url and still notifies success" do
+        expect(
+          Generator::Media::Prompt::SuccessNotifierJob
+        ).to receive(:perform_async).with(extended_prompt, button_request_id)
 
         perform_job
       end
