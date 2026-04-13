@@ -45,10 +45,6 @@ module TelegramIntegration
 
     def build_commands
       [
-        { command: "start", description: I18n.t("telegram_webhooks.commands.description.start") },
-        { command: "help", description: I18n.t("telegram_webhooks.commands.description.help") },
-        { command: "balance", description: I18n.t("telegram_webhooks.commands.description.balance") },
-        { command: "activate_token", description: I18n.t("telegram_webhooks.commands.description.activate_token") },
         { command: "prompt_to_video",
           description: I18n.t("telegram_webhooks.commands.description.prompt_to_video") },
         { command: "prompt_to_image",
@@ -57,6 +53,10 @@ module TelegramIntegration
           description: I18n.t("telegram_webhooks.commands.description.image_to_video") },
         { command: "set_locale",
           description: I18n.t("telegram_webhooks.commands.description.set_locale") },
+        { command: "balance", description: I18n.t("telegram_webhooks.commands.description.balance") },
+        { command: "activate_token", description: I18n.t("telegram_webhooks.commands.description.activate_token") },
+        { command: "start", description: I18n.t("telegram_webhooks.commands.description.start") },
+        { command: "help", description: I18n.t("telegram_webhooks.commands.description.help") },
         { command: "prompt_policy",
           description: I18n.t("telegram_webhooks.commands.description.prompt_policy") }
       ]

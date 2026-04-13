@@ -20,16 +20,16 @@ describe MediaGenerator::MessageHandler::ImageMessageHandler::CreatePictureMessa
   let(:command_request) { create(:command_image_to_video_request) }
 
   describe "#call" do
-    it "creates a PictureMessage record" do
+    it "creates a UserPictureMessage record" do
       expect { result }
-        .to change(PictureMessage, :count).by(1)
+        .to change(UserPictureMessage, :count).by(1)
     end
 
     it "assigns picture_message to the context" do
-      expect(result.picture_message).to be_a(PictureMessage)
+      expect(result.picture_message).to be_a(UserPictureMessage)
     end
 
-    it "sets correct attributes on PictureMessage" do
+    it "sets correct attributes on UserPictureMessage" do
       picture_message = result.picture_message
 
       expect(picture_message.picture_id).to eq(picture_id)
@@ -44,9 +44,9 @@ describe MediaGenerator::MessageHandler::ImageMessageHandler::CreatePictureMessa
     context "when picture_id is nil" do
       let(:picture_id) { nil }
 
-      it "does not create a PictureMessage record" do
+      it "does not create a UserPictureMessage record" do
         expect { result }
-          .not_to change(PictureMessage, :count)
+          .not_to change(UserPictureMessage, :count)
       end
 
       it "assigns nil picture_message to the context" do

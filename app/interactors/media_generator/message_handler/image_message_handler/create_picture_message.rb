@@ -13,7 +13,7 @@ module MediaGenerator
         private
 
         def create_picture_message
-          PictureMessage.create!(
+          UserPictureMessage.create!(
             picture_id:,
             tg_message_id:,
             size: size_bytes,

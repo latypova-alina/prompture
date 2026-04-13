@@ -1,5 +1,5 @@
 FactoryBot.define do
-  factory :picture_message do
+  factory :user_picture_message do
     picture_id { "AgACAgIAAxkBAAIB..." }
     tg_message_id { 123_456 }
     size { 500.kilobytes }
