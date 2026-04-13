@@ -8,16 +8,16 @@ describe MediaGenerator::MessageHandler::ImageMessageHandler::CreateImageUrlMess
   let(:tg_message_id) { 123_456 }
 
   describe "#call" do
-    it "creates an ImageUrlMessage record" do
+    it "creates an UserImageUrlMessage record" do
       expect { result }
-        .to change(ImageUrlMessage, :count).by(1)
+        .to change(UserImageUrlMessage, :count).by(1)
     end
 
     it "assigns image_url_message to the context" do
-      expect(result.image_url_message).to be_a(ImageUrlMessage)
+      expect(result.image_url_message).to be_a(UserImageUrlMessage)
     end
 
-    it "sets correct attributes on ImageUrlMessage" do
+    it "sets correct attributes on UserImageUrlMessage" do
       image_url_message = result.image_url_message
 
       expect(image_url_message.image_url).to eq(image_url)
@@ -29,9 +29,9 @@ describe MediaGenerator::MessageHandler::ImageMessageHandler::CreateImageUrlMess
     context "when image_url is nil" do
       let(:image_url) { nil }
 
-      it "does not create an ImageUrlMessage record" do
+      it "does not create an UserImageUrlMessage record" do
         expect { result }
-          .not_to change(ImageUrlMessage, :count)
+          .not_to change(UserImageUrlMessage, :count)
       end
 
       it "assigns nil image_url_message to the context" do

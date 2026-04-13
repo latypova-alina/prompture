@@ -2,8 +2,8 @@ require "rails_helper"
 
 describe StoreImage::Download::Facade do
   describe "#bytes and #filename" do
-    context "when record is ImageUrlMessage" do
-      let(:record) { create(:image_url_message, image_url: "https://example.com/image.jpg") }
+    context "when record is UserImageUrlMessage" do
+      let(:record) { create(:user_image_url_message, image_url: "https://example.com/image.jpg") }
       let(:downloaded_bytes) { "url-image-bytes" }
       subject(:facade) { described_class.new(record) }
 
@@ -23,8 +23,8 @@ describe StoreImage::Download::Facade do
       end
     end
 
-    context "when record is PictureMessage" do
-      let(:record) { create(:picture_message, picture_id: "pic_123") }
+    context "when record is UserPictureMessage" do
+      let(:record) { create(:user_picture_message, picture_id: "pic_123") }
       let(:downloaded_bytes) { "telegram-image-bytes" }
       subject(:facade) { described_class.new(record) }
 

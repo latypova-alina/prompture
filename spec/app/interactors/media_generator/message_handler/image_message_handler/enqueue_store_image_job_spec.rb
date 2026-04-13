@@ -12,7 +12,7 @@ describe MediaGenerator::MessageHandler::ImageMessageHandler::EnqueueStoreImageJ
 
   describe "#call" do
     context "when image_url_message is present" do
-      let(:image_url_message) { create(:image_url_message) }
+      let(:image_url_message) { create(:user_image_url_message) }
 
       it "sets image_record in context" do
         expect(result.image_record).to eq(image_url_message)
@@ -29,7 +29,7 @@ describe MediaGenerator::MessageHandler::ImageMessageHandler::EnqueueStoreImageJ
     end
 
     context "when image_url_message is nil and picture_message is present" do
-      let(:picture_message) { create(:picture_message) }
+      let(:picture_message) { create(:user_picture_message) }
 
       it "sets image_record in context" do
         expect(result.image_record).to eq(picture_message)
@@ -46,8 +46,8 @@ describe MediaGenerator::MessageHandler::ImageMessageHandler::EnqueueStoreImageJ
     end
 
     context "when both image_url_message and picture_message are present" do
-      let(:image_url_message) { create(:image_url_message) }
-      let(:picture_message) { create(:picture_message) }
+      let(:image_url_message) { create(:user_image_url_message) }
+      let(:picture_message) { create(:user_picture_message) }
 
       it "prefers image_url_message for image_record" do
         expect(result.image_record).to eq(image_url_message)

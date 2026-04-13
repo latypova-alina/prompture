@@ -13,7 +13,7 @@ module MediaGenerator
         private
 
         def create_image_url_message
-          ImageUrlMessage.create!(
+          UserImageUrlMessage.create!(
             image_url:,
             tg_message_id:,
             parent_request: command_request,

@@ -3,7 +3,7 @@ require "rails_helper"
 describe MediaGenerator::MessageHandler::ImageMessageHandler::NotifyUser do
   subject(:call_interactor) { described_class.call(image_record:) }
 
-  let(:image_record) { create(:image_url_message) }
+  let(:image_record) { create(:user_image_url_message) }
   let(:selector_class) { MediaGenerator::UserMessage::ImageMessage::PresenterSelector }
   let(:presenter) { instance_double(presenter_class) }
   let(:presenter_class) { MediaGenerator::UserMessage::ImageMessage::ImageUrlMessagePresenter }
@@ -43,7 +43,7 @@ describe MediaGenerator::MessageHandler::ImageMessageHandler::NotifyUser do
   end
 
   context "when image_record is picture_message" do
-    let(:image_record) { create(:picture_message) }
+    let(:image_record) { create(:user_picture_message) }
     let(:presenter_class) { MediaGenerator::UserMessage::ImageMessage::PictureMessagePresenter }
 
     before do
@@ -68,7 +68,7 @@ describe MediaGenerator::MessageHandler::ImageMessageHandler::NotifyUser do
   end
 
   context "when image_record tg_message_id is nil" do
-    let(:image_record) { create(:image_url_message, tg_message_id: nil) }
+    let(:image_record) { create(:user_image_url_message, tg_message_id: nil) }
 
     it "sends reply data without reply reference" do
       call_interactor

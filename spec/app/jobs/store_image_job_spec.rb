@@ -3,7 +3,7 @@ require "rails_helper"
 describe StoreImageJob do
   subject(:perform_job) { described_class.new.perform(record_type, record_id) }
 
-  let!(:record) { create(:image_url_message) }
+  let!(:record) { create(:user_image_url_message) }
   let(:record_type) { record.class.name }
   let(:record_id) { record.id }
   let(:download_facade) { instance_double(StoreImage::Download::Facade, bytes: "image-bytes", filename: "image.jpg") }

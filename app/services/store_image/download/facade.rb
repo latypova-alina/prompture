@@ -23,9 +23,9 @@ module StoreImage
 
       memoize def resolved_source
         case record
-        when ImageUrlMessage
+        when UserImageUrlMessage
           [download_from_url(record.image_url), "image_url_#{record.id}.jpg"]
-        when PictureMessage
+        when UserPictureMessage
           [download_picture_bytes(record.picture_id), "picture_#{record.id}.jpg"]
         end
       end

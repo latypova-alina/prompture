@@ -8,9 +8,9 @@ module MediaGenerator
 
         def presenter
           case request
-          when ImageUrlMessage
+          when UserImageUrlMessage
             ImageUrlMessagePresenter.new(message: request.image_url)
-          when PictureMessage
+          when UserPictureMessage
             PictureMessagePresenter.new
           else
             raise NotImplementedError, "Unsupported request type: #{request.class}"

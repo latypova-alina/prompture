@@ -1,4 +1,6 @@
-class PictureMessage < ApplicationRecord
+class UserImageUrlMessage < ApplicationRecord
+  include HasOriginPrompt
+
   belongs_to :parent_request, polymorphic: true
   belongs_to :command_request, polymorphic: true
 
@@ -10,6 +12,6 @@ class PictureMessage < ApplicationRecord
   delegate :image_url, to: :stored_image, prefix: true, allow_nil: true
 
   def resolved_image_url
-    stored_image_image_url
+    stored_image_image_url || image_url
   end
 end

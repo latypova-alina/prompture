@@ -6,7 +6,7 @@ describe StoreImage::StoredImageUpdater do
   let(:image_url) { "https://internal.example/images/uuid-image.jpg" }
 
   context "when stored_image exists" do
-    let(:record) { create(:image_url_message) }
+    let(:record) { create(:user_image_url_message) }
     let!(:stored_image) { create(:stored_image, source_message: record, image_url: "https://old.example/image.jpg") }
 
     it "updates existing stored image url" do
@@ -17,7 +17,7 @@ describe StoreImage::StoredImageUpdater do
   end
 
   context "when stored_image does not exist" do
-    let(:record) { create(:picture_message) }
+    let(:record) { create(:user_picture_message) }
 
     it "builds and updates stored image url" do
       expect { call_updater }.to change(StoredImage, :count).by(1)
