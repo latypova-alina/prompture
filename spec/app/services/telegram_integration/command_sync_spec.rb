@@ -46,6 +46,24 @@ describe TelegramIntegration::CommandSync do
         .with(commands: kind_of(Array))
     end
 
+    it "sets default commands in expected order" do
+      sync
+
+      expected_commands = [
+        { command: "prompt_to_video", description: "desc" },
+        { command: "prompt_to_image", description: "desc" },
+        { command: "image_to_video", description: "desc" },
+        { command: "set_locale", description: "desc" },
+        { command: "balance", description: "desc" },
+        { command: "activate_token", description: "desc" },
+        { command: "start", description: "desc" },
+        { command: "help", description: "desc" },
+        { command: "prompt_policy", description: "desc" }
+      ]
+
+      expect(bot).to have_received(:set_my_commands).with(commands: expected_commands)
+    end
+
     it "sets commands for each supported locale" do
       sync
 
