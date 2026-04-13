@@ -17,7 +17,8 @@ module TelegramIntegration
 
     def call
       return unless handled_button.failure?
-      return notify_image_not_ready if handled_button.error == ImageNotReadyError
+
+      return notify_image_not_ready if image_not_ready_error?
 
       raise handled_button.error
     end
@@ -26,17 +27,23 @@ module TelegramIntegration
 
     attr_reader :button_request, :chat_id, :tg_message_id, :callback_query_id
 
+    def image_not_ready_error?
+      handled_button.error == ImageNotReadyError
+    end
+
+    def notify_image_not_ready
+      SendAlertCallbackQuery.call(
+        callback_query_id:,
+        text: I18n.t("errors.image_not_ready")
+      )
+    end
+
     def handled_button
       case splitted_button_request.first
       when SET_LOCALE_COMMAND
-        SetLocale::ButtonHandler::HandleButton.call(selected_locale: splitted_button_request.last, chat_id:)
+        handle_set_locale
       else
-        MediaGenerator::ButtonHandler::HandleButton.call(
-          button_request:,
-          chat_id:,
-          tg_message_id:,
-          callback_query_id:
-        )
+        handle_media_button
       end
     end
 
@@ -44,12 +51,21 @@ module TelegramIntegration
       button_request.split(":")
     end
 
-    def notify_image_not_ready
-      Telegram.bot.answer_callback_query(
-        callback_query_id:,
-        text: I18n.t("errors.image_not_ready"),
-        show_alert: true
-      )
+    def handle_set_locale
+      SetLocale::ButtonHandler::HandleButton.call(selected_locale: splitted_button_request.last, chat_id:)
+    end
+
+    def handle_media_button
+      MediaGenerator::ButtonHandler::HandleButton.call(**media_button_handler_params)
+    end
+
+    def media_button_handler_params
+      {
+        button_request:,
+        chat_id:,
+        tg_message_id:,
+        callback_query_id:
+      }
     end
   end
 end
