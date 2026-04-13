@@ -6,6 +6,7 @@ describe MediaGenerator::MessageHandler::ImageMessageHandler::ParseUserMessage d
   let(:user_message) do
     {
       "chat" => { "id" => 12_345 },
+      "message_id" => 999_111,
       "text" => "hello",
       "photo" => photos
     }
@@ -17,7 +18,8 @@ describe MediaGenerator::MessageHandler::ImageMessageHandler::ParseUserMessage d
     ]
   end
   let(:message_parser) do
-    instance_double(MessageParser, message_text: "hello", picture_id: "large", chat_id: 12_345, image_url: nil)
+    instance_double(MessageParser, message_text: "hello", picture_id: "large", chat_id: 12_345, tg_message_id: 999_111,
+                                   image_url: nil)
   end
 
   before do
@@ -28,6 +30,7 @@ describe MediaGenerator::MessageHandler::ImageMessageHandler::ParseUserMessage d
     it "assigns parsed message fields to context" do
       expect(result.message_text).to eq("hello")
       expect(result.chat_id).to eq(12_345)
+      expect(result.tg_message_id).to eq(999_111)
       expect(result.picture_id).to eq("large")
       expect(result.image_url).to be_nil
     end

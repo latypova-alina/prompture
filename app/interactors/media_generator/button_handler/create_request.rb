@@ -4,7 +4,7 @@ module MediaGenerator
       include Interactor
       include Memery
 
-      delegate :button_request, :parent_request, :image_url, :command_request, to: :context
+      delegate :button_request, :parent_request, :command_request, to: :context
 
       HANDLERS = {
         "extend_prompt" => RecordCreators::ButtonRequests::ExtendPrompt,
@@ -16,6 +16,8 @@ module MediaGenerator
 
       def call
         context.button_request_record = record
+      rescue ImageNotReadyError
+        context.fail!(error: ImageNotReadyError)
       end
 
       private
@@ -23,7 +25,7 @@ module MediaGenerator
       delegate :record, to: :record_creator
 
       def record_creator
-        HANDLERS[button_request].new(parent_request, command_request, image_url)
+        HANDLERS[button_request].new(parent_request, command_request)
       end
     end
   end

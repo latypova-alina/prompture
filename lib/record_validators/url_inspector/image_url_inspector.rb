@@ -11,10 +11,11 @@ module RecordValidators
 
       def valid?
         return false unless parsed_uri
+        return false unless simple_valid?
 
         return true if trusted?
 
-        simple_valid? && fetchable?
+        fetchable?
       end
 
       private

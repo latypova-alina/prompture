@@ -6,7 +6,7 @@ class ButtonVideoProcessingRequest < ApplicationRecord
   belongs_to :parent_request, polymorphic: true
   belongs_to :command_request, polymorphic: true
 
-  has_one :telegram_message, as: :request, dependent: :destroy
+  has_one :bot_telegram_message, as: :request, dependent: :destroy
 
   validates :processor, presence: true, inclusion: { in: PROCESSOR_TYPES }
 

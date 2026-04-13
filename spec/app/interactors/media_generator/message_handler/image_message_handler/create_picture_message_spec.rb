@@ -4,6 +4,7 @@ describe MediaGenerator::MessageHandler::ImageMessageHandler::CreatePictureMessa
   subject(:result) do
     described_class.call(
       picture_id:,
+      tg_message_id:,
       width:,
       height:,
       size_bytes:,
@@ -12,6 +13,7 @@ describe MediaGenerator::MessageHandler::ImageMessageHandler::CreatePictureMessa
   end
 
   let(:picture_id) { "AgACAgIAAxkBAAIB..." }
+  let(:tg_message_id) { 123_456 }
   let(:width) { 960 }
   let(:height) { 1280 }
   let(:size_bytes) { 500.kilobytes }
@@ -31,6 +33,7 @@ describe MediaGenerator::MessageHandler::ImageMessageHandler::CreatePictureMessa
       picture_message = result.picture_message
 
       expect(picture_message.picture_id).to eq(picture_id)
+      expect(picture_message.tg_message_id).to eq(tg_message_id)
       expect(picture_message.size).to eq(size_bytes)
       expect(picture_message.width).to eq(width)
       expect(picture_message.height).to eq(height)

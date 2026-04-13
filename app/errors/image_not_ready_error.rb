@@ -1,0 +1,1 @@
+class ImageNotReadyError < StandardError; end

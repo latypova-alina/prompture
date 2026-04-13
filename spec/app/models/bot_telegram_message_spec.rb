@@ -1,6 +1,6 @@
 require "rails_helper"
 
-describe TelegramMessage, type: :model do
+describe BotTelegramMessage, type: :model do
   describe "associations" do
     it { is_expected.to belong_to(:request) }
   end

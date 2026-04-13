@@ -51,7 +51,7 @@ RSpec.shared_context "telegram callback setup" do
 
   def setup_parent_message
     create(
-      :telegram_message,
+      :bot_telegram_message,
       tg_message_id: message_id,
       chat_id: chat_id,
       request: parent_request

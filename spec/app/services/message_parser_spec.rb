@@ -4,6 +4,7 @@ describe MessageParser do
   let(:message_hash) do
     {
       "text" => "Hello world",
+      "message_id" => 789,
       "chat" => { "id" => 456 }
     }
   end
@@ -19,6 +20,12 @@ describe MessageParser do
   describe "#chat_id" do
     it "returns the chat id from the message" do
       expect(parser.chat_id).to eq(456)
+    end
+  end
+
+  describe "#tg_message_id" do
+    it "returns the message id from the message" do
+      expect(parser.tg_message_id).to eq(789)
     end
   end
 

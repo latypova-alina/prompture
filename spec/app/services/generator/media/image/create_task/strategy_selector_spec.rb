@@ -52,5 +52,16 @@ describe Generator::Media::Image::CreateTask::StrategySelector do
         expect(strategy.prompt).to eq(parent_prompt)
       end
     end
+
+    context "when parent_request has no parent_prompt method" do
+      let(:processor) { "mystic_image" }
+      let(:parent_request) { create(:command_prompt_to_image_request) }
+
+      it "initializes strategy with nil prompt" do
+        strategy = selector.strategy
+
+        expect(strategy.prompt).to be_nil
+      end
+    end
   end
 end

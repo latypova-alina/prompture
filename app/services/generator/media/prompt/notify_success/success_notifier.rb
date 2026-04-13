@@ -43,7 +43,7 @@ module Generator::Media::Prompt::NotifySuccess
 
     memoize def request
       ButtonExtendPromptRequest.includes(
-        { parent_request: :telegram_message },
+        { parent_request: :bot_telegram_message },
         { command_request: { user: :balance } }
       ).find(button_request_id)
     end

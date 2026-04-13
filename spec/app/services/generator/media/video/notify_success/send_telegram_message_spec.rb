@@ -23,7 +23,7 @@ describe Generator::Media::Video::NotifySuccess::SendTelegramMessage do
   describe ".call" do
     context "when source telegram message exists" do
       before do
-        create(:telegram_message, request: request.parent_request, tg_message_id: 123_456)
+        create(:bot_telegram_message, request: request.parent_request, tg_message_id: 123_456)
       end
 
       it "sends telegram message as reply" do
@@ -47,7 +47,7 @@ describe Generator::Media::Video::NotifySuccess::SendTelegramMessage do
 
     context "when current request telegram message exists but parent message does not" do
       before do
-        create(:telegram_message, request:, tg_message_id: 999_999)
+        create(:bot_telegram_message, request:, tg_message_id: 999_999)
       end
 
       it "sends telegram message without reply reference" do

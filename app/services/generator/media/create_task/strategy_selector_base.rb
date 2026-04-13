@@ -13,7 +13,7 @@ module Generator
         end
 
         def strategy
-          strategies.fetch(processor).new(parent_prompt)
+          strategies.fetch(processor).new(prompt)
         end
 
         private
@@ -21,7 +21,12 @@ module Generator
         attr_reader :request
 
         delegate :parent_request, :processor, to: :request
-        delegate :parent_prompt, to: :parent_request
+
+        def prompt
+          return parent_request.parent_prompt if parent_request.respond_to?(:parent_prompt)
+
+          nil
+        end
 
         def strategies
           raise NotImplementedError
