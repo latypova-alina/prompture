@@ -14,9 +14,9 @@ module MediaGenerator
 
         def create_file_message
           UserFileMessage.create!(
-            file_id:,
+            file_id: picture_id,
             tg_message_id:,
-            size_bytes:,
+            size: size_bytes,
             parent_request: command_request,
             command_request:
           )

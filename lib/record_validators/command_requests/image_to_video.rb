@@ -20,6 +20,7 @@ module RecordValidators
 
       delegate :valid?, :invalid?, to: :image_url_check, prefix: true
       delegate :valid?, to: :picture_check, prefix: true
+      delegate :valid?, to: :file_check, prefix: true
 
       def valid_message_type?
         image_url_check_valid? || picture_check_valid? || file_check_valid?
