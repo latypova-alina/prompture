@@ -8,7 +8,8 @@ module MediaGenerator
 
         def call
           context.image_record = image_record
-          return if image_record.nil?
+
+          raise StandardError, "Image record is nil" if image_record.nil?
 
           StoreImage::Job.perform_async(image_record.class.name, image_record.id)
         end

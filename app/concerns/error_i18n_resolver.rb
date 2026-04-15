@@ -15,7 +15,7 @@ module ErrorI18nResolver
     "ImageResolutionError" => "errors.image_resolution"
   }.freeze
 
-  DEFAULT_ERROR_I18N_KEY = "errors.unknown"
+  DEFAULT_ERROR_I18N_KEY = "errors.unknown".freeze
 
   private
 
