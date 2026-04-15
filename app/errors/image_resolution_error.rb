@@ -1,0 +1,1 @@
+class ImageResolutionError < StandardError; end

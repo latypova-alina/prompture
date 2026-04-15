@@ -4,7 +4,7 @@ module MediaGenerator
       class EnqueueStoreImageJob
         include Interactor
 
-        delegate :image_url_message, :picture_message, to: :context
+        delegate :image_url_message, :picture_message, :file_message, to: :context
 
         def call
           context.image_record = image_record
@@ -16,7 +16,7 @@ module MediaGenerator
         private
 
         def image_record
-          image_url_message || picture_message
+          image_url_message || picture_message || file_message
         end
       end
     end

@@ -9,6 +9,8 @@ module StoreImage
       end
 
       def upload_image
+        dimensions_validator.validate!
+
         object_uploader.upload
       end
 
@@ -25,6 +27,10 @@ module StoreImage
 
       memoize def object_uploader
         S3ObjectUploader.new(bytes:, object_key:, content_type:)
+      end
+
+      memoize def dimensions_validator
+        ImageDimensionsValidator.new(bytes:)
       end
 
       memoize def stored_url_builder

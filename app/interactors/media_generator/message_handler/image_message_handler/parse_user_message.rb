@@ -45,7 +45,15 @@ module MediaGenerator
         end
 
         def size_bytes
+          largest_photo_file_size || document_file_size
+        end
+
+        def largest_photo_file_size
           largest_photo&.dig("file_size")
+        end
+
+        def document_file_size
+          user_message.dig("document", "file_size")
         end
       end
     end
