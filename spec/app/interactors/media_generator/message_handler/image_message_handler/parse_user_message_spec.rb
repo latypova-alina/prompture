@@ -50,5 +50,23 @@ describe MediaGenerator::MessageHandler::ImageMessageHandler::ParseUserMessage d
         expect(result.size_bytes).to be_nil
       end
     end
+
+    context "when photo array is missing but document exists" do
+      let(:photos) { nil }
+      let(:user_message) do
+        {
+          "chat" => { "id" => 12_345 },
+          "message_id" => 999_111,
+          "text" => "hello",
+          "document" => { "file_size" => 12_345 }
+        }
+      end
+
+      it "sets size_bytes from document file_size" do
+        expect(result.width).to be_nil
+        expect(result.height).to be_nil
+        expect(result.size_bytes).to eq(12_345)
+      end
+    end
   end
 end

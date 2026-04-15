@@ -91,7 +91,7 @@ RSpec.shared_examples "message handling" do
     context "when message contains an image URL and command is image_to_video" do
       let(:command) { "image_to_video" }
       let!(:command_request) { create(:command_image_to_video_request, chat_id:) }
-      let(:image_url) { "https://example.com/image.png" }
+      let(:image_url) { "https://cdn-magnific.freepik.com/image.png" }
       let(:prompt) { image_url }
 
       let(:expected_text) do
@@ -109,9 +109,14 @@ RSpec.shared_examples "message handling" do
       before do
         allow(Flipper[:image_to_video]).to receive(:enabled?).and_return(true)
         allow_any_instance_of(RecordValidators::UrlInspector::ImageUrlInspector).to receive(:valid?).and_return(true)
+        allow(StoreImage::Job).to receive(:perform_async)
       end
 
-      it { is_expected.to respond_with_message(expected_text) }
+      it "enqueues StoreImage::Job" do
+        user_message
+
+        expect(StoreImage::Job).to have_received(:perform_async)
+      end
 
       context "when the image URL is invalid" do
         before do
@@ -123,6 +128,60 @@ RSpec.shared_examples "message handling" do
         end
 
         it { is_expected.to respond_with_message(expected_text) }
+      end
+    end
+
+    context "when message contains a picture and command is image_to_video" do
+      let(:command) { "image_to_video" }
+      let!(:command_request) { create(:command_image_to_video_request, chat_id:) }
+      let(:prompt) { nil }
+      let(:picture_options) do
+        {
+          "photo" => [
+            { "file_id" => "small", "width" => 320, "height" => 240, "file_size" => 1000 },
+            { "file_id" => "large", "width" => 1280, "height" => 720, "file_size" => 5000 }
+          ]
+        }
+      end
+      let(:user_message) { dispatch_message(prompt, picture_options) }
+
+      before do
+        allow(Flipper[:image_to_video]).to receive(:enabled?).and_return(true)
+        allow(StoreImage::Job).to receive(:perform_async)
+      end
+
+      it "enqueues StoreImage::Job" do
+        user_message
+
+        expect(StoreImage::Job).to have_received(:perform_async)
+      end
+    end
+
+    context "when message contains a file and command is image_to_video" do
+      let(:command) { "image_to_video" }
+      let!(:command_request) { create(:command_image_to_video_request, chat_id:) }
+      let(:prompt) { nil }
+      let(:file_options) do
+        {
+          "document" => {
+            "file_name" => "image.png",
+            "mime_type" => "image/png",
+            "file_id" => "BQACAgIAAxkBAAIHp_file",
+            "file_size" => 1_226_192
+          }
+        }
+      end
+      let(:user_message) { dispatch_message(prompt, file_options) }
+
+      before do
+        allow(Flipper[:image_to_video]).to receive(:enabled?).and_return(true)
+        allow(StoreImage::Job).to receive(:perform_async)
+      end
+
+      it "enqueues StoreImage::Job" do
+        user_message
+
+        expect(StoreImage::Job).to have_received(:perform_async)
       end
     end
   end
