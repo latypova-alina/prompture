@@ -10,8 +10,7 @@ module MediaGenerator
                  CreateImageUrlMessage,
                  CreatePictureMessage,
                  CreateFileMessage,
-                 EnqueueStoreImageJob,
-                 NotifyUser
+                 EnqueueStoreImageJob
       end
     end
   end
