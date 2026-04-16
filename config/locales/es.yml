@@ -73,7 +73,6 @@ es:
         🔹 un archivo 📁
 
         Ten en cuenta que la imagen debe tener al menos 300x300 píxeles y ser menor de 10 MB.
-      image_to_video_unavailable: "Lo siento, esta función aún está en desarrollo. Por favor, inténtalo de nuevo más tarde."
       image_from_reference: "¡Genial! Ahora, por favor, envíame la imagen de referencia que quieres usar para generar una nueva imagen."
       prompt_policy: |
         Politica de prompts 🛡

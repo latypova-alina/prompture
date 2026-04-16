@@ -131,28 +131,8 @@ describe TelegramWebhooksController, telegram_bot: :rails do
       I18n.t("telegram_webhooks.commands.image_to_video")
     end
 
-    before do
-      allow(Flipper[:image_to_video]).to receive(:enabled?).and_return(true)
-    end
-
     it_behaves_like "command handling",
                     command: :image_to_video
-
-    context "when image_to_video feature is disabled" do
-      let!(:user) { create(:user, :with_balance, chat_id: 456) }
-
-      before do
-        allow(Flipper[:image_to_video]).to receive(:enabled?).and_return(false)
-      end
-
-      let(:expected_text) do
-        I18n.t("telegram_webhooks.commands.image_to_video_unavailable")
-      end
-
-      subject { -> { dispatch_command(:image_to_video) } }
-
-      it { is_expected.to respond_with_message(expected_text) }
-    end
   end
 
   describe "#message" do

@@ -69,11 +69,6 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
   end
 
   def image_to_video!(*)
-    unless Flipper[:image_to_video].enabled?(user)
-      respond_with :message, text: t("telegram_webhooks.commands.image_to_video_unavailable")
-      return
-    end
-
     session[:command] = "image_to_video"
 
     MediaGenerator::CommandHandler::HandleCommand.call(command: session[:command], chat_id: chat["id"])
