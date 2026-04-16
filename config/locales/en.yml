@@ -65,7 +65,15 @@ en:
         Tokens are provided by the administrator.
       prompt_to_video: "Great! Now please provide a prompt for the video. It can later be extended with the help of the bot."
       prompt_to_image: "Great! Now please provide a prompt for the image. It can later be extended with the help of the bot."
-      image_to_video: "Great! Now please send me the image you want to turn into a video. It can be sent as a URL (you can copy it from previous messages if needed)."
+      image_to_video: |
+        Great! Now please send me the image you want to turn into a video.
+        It can be sent as:
+
+        🔹 a URL 🔗 (you can copy one from previous messages if needed)
+        🔹 a picture 🖼
+        🔹 a file 📁
+
+        Please note that the image must be at least 300x300 pixels and smaller than 10 MB.
       image_to_video_unavailable: "Sorry, this feature is still in development. Please try again later."
       image_from_reference: "Great! Now please send me the reference image you want to use to generate a new image."
       prompt_policy: |
