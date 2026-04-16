@@ -1,6 +1,6 @@
 require "rails_helper"
 
-describe StoreImageJob do
+describe StoreImage::Job do
   subject(:perform_job) { described_class.new.perform(record_type, record_id) }
 
   let!(:record) { create(:user_image_url_message) }
@@ -15,6 +15,8 @@ describe StoreImageJob do
                                                             filename: "image.jpg").and_return(upload_facade)
     allow(upload_facade).to receive(:upload_image)
     allow(StoreImage::StoredImageUpdater).to receive(:call)
+    allow(StoreImage::SuccessNotifierJob).to receive(:perform_async)
+    allow(StoreImage::ErrorNotifierJob).to receive(:perform_async)
   end
 
   describe "#perform" do
@@ -38,6 +40,34 @@ describe StoreImageJob do
         record:,
         image_url: "https://internal.example/image.jpg"
       )
+    end
+
+    it "enqueues success notifier job" do
+      perform_job
+
+      expect(StoreImage::SuccessNotifierJob).to have_received(:perform_async).with(record_type, record_id)
+    end
+
+    context "when upload fails with image resolution error" do
+      before do
+        allow(upload_facade).to receive(:upload_image).and_raise(ImageResolutionError)
+      end
+
+      it "does not update stored image" do
+        perform_job
+
+        expect(StoreImage::StoredImageUpdater).not_to have_received(:call)
+      end
+
+      it "enqueues notifier with error class name" do
+        perform_job
+
+        expect(StoreImage::ErrorNotifierJob).to have_received(:perform_async).with(
+          record_type,
+          record_id,
+          "ImageResolutionError"
+        )
+      end
     end
   end
 end

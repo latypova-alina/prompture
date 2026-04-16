@@ -1,13 +1,14 @@
 require "rails_helper"
 
 describe MediaGenerator::MessageHandler::ImageMessageHandler::EnqueueStoreImageJob do
-  subject(:result) { described_class.call(image_url_message:, picture_message:) }
+  subject(:result) { described_class.call(image_url_message:, picture_message:, file_message:) }
 
   let(:image_url_message) { nil }
   let(:picture_message) { nil }
+  let(:file_message) { nil }
 
   before do
-    allow(StoreImageJob).to receive(:perform_async)
+    allow(StoreImage::Job).to receive(:perform_async)
   end
 
   describe "#call" do
@@ -18,10 +19,10 @@ describe MediaGenerator::MessageHandler::ImageMessageHandler::EnqueueStoreImageJ
         expect(result.image_record).to eq(image_url_message)
       end
 
-      it "enqueues StoreImageJob for image_url_message" do
+      it "enqueues StoreImage::Job for image_url_message" do
         result
 
-        expect(StoreImageJob).to have_received(:perform_async).with(
+        expect(StoreImage::Job).to have_received(:perform_async).with(
           image_url_message.class.name,
           image_url_message.id
         )
@@ -35,10 +36,10 @@ describe MediaGenerator::MessageHandler::ImageMessageHandler::EnqueueStoreImageJ
         expect(result.image_record).to eq(picture_message)
       end
 
-      it "enqueues StoreImageJob for picture_message" do
+      it "enqueues StoreImage::Job for picture_message" do
         result
 
-        expect(StoreImageJob).to have_received(:perform_async).with(
+        expect(StoreImage::Job).to have_received(:perform_async).with(
           picture_message.class.name,
           picture_message.id
         )
@@ -53,10 +54,10 @@ describe MediaGenerator::MessageHandler::ImageMessageHandler::EnqueueStoreImageJ
         expect(result.image_record).to eq(image_url_message)
       end
 
-      it "enqueues StoreImageJob for image_url_message" do
+      it "enqueues StoreImage::Job for image_url_message" do
         result
 
-        expect(StoreImageJob).to have_received(:perform_async).with(
+        expect(StoreImage::Job).to have_received(:perform_async).with(
           image_url_message.class.name,
           image_url_message.id
         )
@@ -64,14 +65,39 @@ describe MediaGenerator::MessageHandler::ImageMessageHandler::EnqueueStoreImageJ
     end
 
     context "when both image_url_message and picture_message are nil" do
-      it "sets image_record to nil in context" do
-        expect(result.image_record).to be_nil
+      it "raises an error" do
+        expect { result }.to raise_error(StandardError, "Image record is nil")
       end
 
-      it "does not enqueue StoreImageJob" do
+      it "does not enqueue StoreImage::Job" do
+        expect { result }.to raise_error(StandardError, "Image record is nil")
+        expect(StoreImage::Job).not_to have_received(:perform_async)
+      end
+    end
+
+    context "when only file_message is present" do
+      let(:command_request) { create(:command_image_to_video_request) }
+      let(:file_message) do
+        UserFileMessage.create!(
+          file_id: "BQACAgIAAxkBAAIHp...",
+          size: 1.megabyte,
+          tg_message_id: 123_456,
+          parent_request: command_request,
+          command_request:
+        )
+      end
+
+      it "sets image_record in context" do
+        expect(result.image_record).to eq(file_message)
+      end
+
+      it "enqueues StoreImage::Job for file_message" do
         result
 
-        expect(StoreImageJob).not_to have_received(:perform_async)
+        expect(StoreImage::Job).to have_received(:perform_async).with(
+          file_message.class.name,
+          file_message.id
+        )
       end
     end
   end

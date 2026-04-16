@@ -4,6 +4,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 gem "aws-sdk-s3"
 gem "dotenv-rails"
 gem "faraday"
+gem "fastimage"
 gem "flipper"
 gem "flipper-active_record"
 gem "interactor"

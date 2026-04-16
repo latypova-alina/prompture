@@ -9,8 +9,8 @@ module MediaGenerator
                  ValidateMessageType,
                  CreateImageUrlMessage,
                  CreatePictureMessage,
-                 EnqueueStoreImageJob,
-                 NotifyUser
+                 CreateFileMessage,
+                 EnqueueStoreImageJob
       end
     end
   end

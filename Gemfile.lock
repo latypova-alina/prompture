@@ -129,6 +129,7 @@ GEM
       multipart-post (~> 2.0)
     faraday-net_http (3.4.1)
       net-http (>= 0.5.0)
+    fastimage (2.4.1)
     flipper (1.4.0)
       concurrent-ruby (< 2)
     flipper-active_record (1.4.0)
@@ -359,6 +360,7 @@ DEPENDENCIES
   dotenv-rails
   factory_bot_rails
   faraday
+  fastimage
   flipper
   flipper-active_record
   interactor

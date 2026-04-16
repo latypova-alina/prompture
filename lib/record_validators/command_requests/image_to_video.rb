@@ -20,9 +20,10 @@ module RecordValidators
 
       delegate :valid?, :invalid?, to: :image_url_check, prefix: true
       delegate :valid?, to: :picture_check, prefix: true
+      delegate :valid?, to: :file_check, prefix: true
 
       def valid_message_type?
-        image_url_check_valid? || picture_check_valid?
+        image_url_check_valid? || picture_check_valid? || file_check_valid?
       end
 
       memoize def image_url_check
@@ -31,6 +32,10 @@ module RecordValidators
 
       memoize def picture_check
         PictureValidator.new(context: picture_validation_context)
+      end
+
+      memoize def file_check
+        FileValidator.new(picture_id:, size_bytes:)
       end
 
       def picture_validation_context

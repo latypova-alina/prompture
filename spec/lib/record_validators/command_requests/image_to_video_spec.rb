@@ -20,9 +20,11 @@ describe RecordValidators::CommandRequests::ImageToVideo do
     instance_double(described_class::ImageUrlValidator, valid?: image_url_valid, invalid?: image_url_invalid)
   end
   let(:picture_validator) { instance_double(described_class::PictureValidator, valid?: picture_valid) }
+  let(:file_validator) { instance_double(described_class::FileValidator, valid?: file_valid) }
   let(:image_url_valid) { false }
   let(:image_url_invalid) { false }
   let(:picture_valid) { false }
+  let(:file_valid) { false }
 
   before do
     allow(described_class::ImageUrlValidator)
@@ -43,6 +45,11 @@ describe RecordValidators::CommandRequests::ImageToVideo do
         )
       )
       .and_return(picture_validator)
+
+    allow(described_class::FileValidator)
+      .to receive(:new)
+      .with(picture_id:, size_bytes:)
+      .and_return(file_validator)
   end
 
   describe "#validate" do
@@ -83,6 +90,20 @@ describe RecordValidators::CommandRequests::ImageToVideo do
       let(:height) { 1280 }
       let(:size_bytes) { 500.kilobytes }
       let(:picture_valid) { true }
+
+      it "does not raise an error" do
+        expect { validator.validate }.not_to raise_error
+      end
+    end
+
+    context "when file validator is valid and picture validator is not valid" do
+      let(:picture_id) { "BQACAgIAAxkBAAIHp..." }
+      let(:image_url) { nil }
+      let(:width) { nil }
+      let(:height) { nil }
+      let(:size_bytes) { 1.megabyte }
+      let(:picture_valid) { false }
+      let(:file_valid) { true }
 
       it "does not raise an error" do
         expect { validator.validate }.not_to raise_error
