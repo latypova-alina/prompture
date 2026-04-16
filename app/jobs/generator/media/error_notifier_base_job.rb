@@ -7,10 +7,7 @@ module Generator
         @button_request_id = button_request_id
 
         with_locale(locale) do
-          Telegram.bot.send_message(
-            chat_id:,
-            text: error_text
-          )
+          Telegram.bot.send_message(**message_data)
         end
 
         request.update!(status: "FAILED")
@@ -20,7 +17,9 @@ module Generator
 
       attr_reader :button_request_id
 
-      delegate :chat_id, :locale, to: :request
+      delegate :chat_id, :locale, :parent_request, to: :request
+      delegate :bot_telegram_message, to: :parent_request, prefix: true, allow_nil: true
+      delegate :tg_message_id, to: :parent_request_bot_telegram_message, prefix: true, allow_nil: true
 
       def error_text
         raise NotImplementedError
@@ -28,6 +27,18 @@ module Generator
 
       def request_class
         raise NotImplementedError
+      end
+
+      def message_data
+        {
+          chat_id:,
+          text: error_text,
+          reply_to_message_id: original_prompt_message_id
+        }.compact
+      end
+
+      def original_prompt_message_id
+        parent_request_bot_telegram_message_tg_message_id
       end
 
       memoize def request

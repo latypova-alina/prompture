@@ -14,13 +14,31 @@ describe Generator::Media::Video::FreepikEmptyAlertJob do
   end
 
   describe "#perform" do
-    it "sends telegram message with correct chat_id and error text" do
-      expect(telegram_bot).to receive(:send_message).with(
-        chat_id: button_request.chat_id,
-        text: I18n.t("errors.empty_generation_our_fault_video")
-      )
+    context "when parent request has bot telegram message" do
+      before do
+        create(:bot_telegram_message, request: button_request.parent_request, tg_message_id: 123_456)
+      end
 
-      perform_job
+      it "sends telegram message with reply_to_message_id" do
+        expect(telegram_bot).to receive(:send_message).with(
+          chat_id: button_request.chat_id,
+          text: I18n.t("errors.empty_generation_our_fault_video"),
+          reply_to_message_id: 123_456
+        )
+
+        perform_job
+      end
+    end
+
+    context "when parent request has no bot telegram message" do
+      it "sends telegram message without reply_to_message_id" do
+        expect(telegram_bot).to receive(:send_message).with(
+          chat_id: button_request.chat_id,
+          text: I18n.t("errors.empty_generation_our_fault_video")
+        )
+
+        perform_job
+      end
     end
 
     it "calls Billing::Refunder with correct arguments" do
