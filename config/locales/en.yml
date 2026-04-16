@@ -74,7 +74,6 @@ en:
         🔹 a file 📁
 
         Please note that the image must be at least 300x300 pixels and smaller than 10 MB.
-      image_to_video_unavailable: "Sorry, this feature is still in development. Please try again later."
       image_from_reference: "Great! Now please send me the reference image you want to use to generate a new image."
       prompt_policy: |
         Prompt policy 🛡

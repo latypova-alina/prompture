@@ -107,7 +107,6 @@ RSpec.shared_examples "message handling" do
       let(:user_message) { dispatch_message(prompt, image_url_options) }
 
       before do
-        allow(Flipper[:image_to_video]).to receive(:enabled?).and_return(true)
         allow_any_instance_of(RecordValidators::UrlInspector::ImageUrlInspector).to receive(:valid?).and_return(true)
         allow(StoreImage::Job).to receive(:perform_async)
       end
@@ -146,7 +145,6 @@ RSpec.shared_examples "message handling" do
       let(:user_message) { dispatch_message(prompt, picture_options) }
 
       before do
-        allow(Flipper[:image_to_video]).to receive(:enabled?).and_return(true)
         allow(StoreImage::Job).to receive(:perform_async)
       end
 
@@ -174,7 +172,6 @@ RSpec.shared_examples "message handling" do
       let(:user_message) { dispatch_message(prompt, file_options) }
 
       before do
-        allow(Flipper[:image_to_video]).to receive(:enabled?).and_return(true)
         allow(StoreImage::Job).to receive(:perform_async)
       end
 
