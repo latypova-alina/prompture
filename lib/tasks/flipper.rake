@@ -11,5 +11,4 @@ namespace :flipper do
     Flipper.remove(:image_to_video)
     puts "Flipper feature :image_to_video removed"
   end
-
 end
