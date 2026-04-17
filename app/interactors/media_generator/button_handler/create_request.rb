@@ -9,6 +9,7 @@ module MediaGenerator
       HANDLERS = {
         "extend_prompt" => RecordCreators::ButtonRequests::ExtendPrompt,
         "mystic_image" => RecordCreators::ButtonRequests::Images::Mystic,
+        "flux_image" => RecordCreators::ButtonRequests::Images::Flux,
         "gemini_image" => RecordCreators::ButtonRequests::Images::Gemini,
         "imagen_image" => RecordCreators::ButtonRequests::Images::Imagen,
         "kling_2_1_pro_image_to_video" => RecordCreators::ButtonRequests::Videos::Kling,

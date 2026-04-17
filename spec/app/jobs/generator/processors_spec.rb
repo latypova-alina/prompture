@@ -8,7 +8,7 @@ describe Generator::Processors do
 
     it "defines image processors" do
       expect(described_class::IMAGE).to eq(
-        %w[mystic_image gemini_image imagen_image]
+        %w[mystic_image flux_image gemini_image imagen_image]
       )
     end
 

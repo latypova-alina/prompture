@@ -4,6 +4,7 @@ module Generator
 
     IMAGE = %w[
       mystic_image
+      flux_image
       gemini_image
       imagen_image
     ].freeze

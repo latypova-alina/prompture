@@ -98,7 +98,7 @@ ru:
     message:
       image_message_url: "Вот твое изображение"
       image_message_reply: "Отлично! Теперь ты можешь сгенерировать видео с помощью одного из процессоров (Kling)"
-      extended_prompt_postfix: "Вот твой расширенный промпт ⬆️ \n\nТеперь ты можешь сгенерировать изображение с помощью одного из процессоров (Mystic/Gemini/Imagen)"
+      extended_prompt_postfix: "Вот твой расширенный промпт ⬆️ \n\nТеперь ты можешь сгенерировать изображение с помощью одного из процессоров (Mystic/Flux/Gemini/Imagen)"
       image_generated_prefix: "Вот твое %{processor_name} 🖼️"
       image_generated_postfix: "Теперь ты можешь сгенерировать видео с помощью одного из процессоров (Kling)"
       video_generated_prefix: "Вот твое %{processor_name} 🎥"
@@ -107,7 +107,7 @@ ru:
           
         🔹 расширить промпт (👉 ⚠️ результат будет на английском языке для улучшения качества генерации)
           
-        🔹 сгенерировать изображение с помощью одного из процессоров (Mystic/Gemini/Imagen)
+        🔹 сгенерировать изображение с помощью одного из процессоров (Mystic/Flux/Gemini/Imagen)
       provide_prompt: "Пожалуйста, укажи промпт (необязательно)"
       buttons:
         prompt:
@@ -122,6 +122,11 @@ ru:
             few: "Mystic (%{count} кредита)"
             many: "Mystic (%{count} кредитов)"
             other: "Mystic (%{count} кредитов)"
+          flux_image:
+            one: "Flux (%{count} кредит)"
+            few: "Flux (%{count} кредита)"
+            many: "Flux (%{count} кредитов)"
+            other: "Flux (%{count} кредитов)"
           gemini_image:
             one: "Gemini (%{count} кредит)"
             few: "Gemini (%{count} кредита)"
@@ -184,5 +189,6 @@ ru:
           seedance_1_5_pro_image_to_video: "видео Seedance Pro"
         image:
           mystic_image: "изображение Mystic"
+          flux_image: "изображение Flux"
           gemini_image: "изображение Gemini"
           imagen_image: "изображение Imagen"

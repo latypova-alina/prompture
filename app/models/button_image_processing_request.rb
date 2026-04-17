@@ -1,7 +1,7 @@
 class ButtonImageProcessingRequest < ApplicationRecord
   include HasOriginPrompt
 
-  PROCESSOR_TYPES = %w[mystic_image gemini_image imagen_image].freeze
+  PROCESSOR_TYPES = %w[mystic_image flux_image gemini_image imagen_image].freeze
 
   belongs_to :parent_request, polymorphic: true
   belongs_to :command_request, polymorphic: true
