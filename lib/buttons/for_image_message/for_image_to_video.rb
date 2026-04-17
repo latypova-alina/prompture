@@ -12,7 +12,7 @@ module Buttons
       end
 
       def media_processors
-        COSTS[:generate_video].keys
+        COSTS[:generate_video].keys - %i[seedance_1_5_pro_image_to_video]
       end
     end
   end

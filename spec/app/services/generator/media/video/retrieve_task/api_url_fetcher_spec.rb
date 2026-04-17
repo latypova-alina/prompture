@@ -13,6 +13,15 @@ describe Generator::Media::Video::RetrieveTask::ApiUrlFetcher do
       end
     end
 
+    context "when processor is seedance" do
+      let(:processor) { "seedance_1_5_pro_image_to_video" }
+
+      it "returns seedance api url" do
+        expect(api_url)
+          .to eq("https://api.freepik.com/v1/ai/video/seedance-1-5-pro-720p")
+      end
+    end
+
     context "when processor is unknown" do
       let(:processor) { "unknown_processor" }
 

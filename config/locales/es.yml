@@ -127,6 +127,9 @@ es:
           kling_2_1_pro_image_to_video:
             one: "Kling Pro 2.1 (%{count} crédito)"
             other: "Kling Pro 2.1 (%{count} créditos)"
+          seedance_1_5_pro_image_to_video:
+            one: "Seedance Pro 1.5 (%{count} crédito)"
+            other: "Seedance Pro 1.5 (%{count} créditos)"
         set_locale:
           en: "English"
           ru: "Русский"
@@ -165,6 +168,7 @@ es:
         extend_prompt: "prompt"
         video:
           kling_2_1_pro_image_to_video: "video de Kling Pro"
+          seedance_1_5_pro_image_to_video: "video de Seedance Pro"
         image:
           mystic_image: "imagen de Mystic"
           gemini_image: "imagen de Gemini"

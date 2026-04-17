@@ -11,7 +11,8 @@ module MediaGenerator
         "mystic_image" => RecordCreators::ButtonRequests::Images::Mystic,
         "gemini_image" => RecordCreators::ButtonRequests::Images::Gemini,
         "imagen_image" => RecordCreators::ButtonRequests::Images::Imagen,
-        "kling_2_1_pro_image_to_video" => RecordCreators::ButtonRequests::Videos::Kling
+        "kling_2_1_pro_image_to_video" => RecordCreators::ButtonRequests::Videos::Kling,
+        "seedance_1_5_pro_image_to_video" => RecordCreators::ButtonRequests::Videos::Seedance
       }.freeze
 
       def call

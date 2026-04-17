@@ -48,4 +48,23 @@ describe MediaGenerator::ButtonHandler::CreateRequest do
       expect(result.error).to eq(ImageNotReadyError)
     end
   end
+
+  context "when button_request is seedance_1_5_pro_image_to_video" do
+    let(:button_request) { "seedance_1_5_pro_image_to_video" }
+    let(:record_creator_class) { RecordCreators::ButtonRequests::Videos::Seedance }
+    let(:record) { create(:button_video_processing_request, processor: button_request) }
+    let(:parent_request) { create(:button_image_processing_request, image_url: "https://example.com/image.png") }
+    let(:command_request) { create(:command_prompt_to_video_request) }
+
+    it "uses the seedance video record creator" do
+      result = subject
+
+      expect(result).to be_success
+      expect(result.button_request_record).to eq(record)
+
+      expect(record_creator_class)
+        .to have_received(:new)
+        .with(parent_request, command_request)
+    end
+  end
 end

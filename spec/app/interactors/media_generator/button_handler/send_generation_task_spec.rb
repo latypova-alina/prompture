@@ -82,4 +82,16 @@ describe MediaGenerator::ButtonHandler::SendGenerationTask do
         .with(button_request_record.id)
     end
   end
+
+  context "when button_request is seedance_1_5_pro_image_to_video" do
+    let(:button_request) { "seedance_1_5_pro_image_to_video" }
+
+    it "enqueues video generator job" do
+      subject
+
+      expect(Generator::Media::Video::TaskCreatorJob)
+        .to have_received(:perform_async)
+        .with(button_request_record.id)
+    end
+  end
 end
