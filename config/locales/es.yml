@@ -97,7 +97,7 @@ es:
     message:
       image_message_url: "Aquí está tu imagen"
       image_message_reply: "¡Genial! Ahora puedes generar un video usando uno de los procesadores (Kling)"
-      extended_prompt_postfix: "Aquí está tu prompt extendido ⬆️ \n\nAhora puedes generar una imagen usando uno de los procesadores (Mystic/Gemini/Imagen)"
+      extended_prompt_postfix: "Aquí está tu prompt extendido ⬆️ \n\nAhora puedes generar una imagen usando uno de los procesadores (Mystic/Flux/Gemini/Imagen)"
       image_generated_prefix: "Aquí está tu %{processor_name} 🖼️"
       image_generated_postfix: "Ahora puedes generar un video usando uno de los procesadores (Kling)"
       video_generated_prefix: "Aquí está tu %{processor_name} 🎥"
@@ -106,7 +106,7 @@ es:
 
         🔹 extender el prompt
           
-        🔹 generar una imagen usando uno de los procesadores (Mystic/Gemini/Imagen)
+        🔹 generar una imagen usando uno de los procesadores (Mystic/Flux/Gemini/Imagen)
       provide_prompt: "Por favor, proporciona la descripción (opcional)"
       buttons:
         prompt:
@@ -117,6 +117,9 @@ es:
           mystic_image:
             one: "Mystic (%{count} crédito)"
             other: "Mystic (%{count} créditos)"
+          flux_image:
+            one: "Flux (%{count} crédito)"
+            other: "Flux (%{count} créditos)"
           gemini_image:
             one: "Gemini (%{count} crédito)"
             other: "Gemini (%{count} créditos)"
@@ -171,6 +174,7 @@ es:
           seedance_1_5_pro_image_to_video: "video de Seedance Pro"
         image:
           mystic_image: "imagen de Mystic"
+          flux_image: "imagen de Flux"
           gemini_image: "imagen de Gemini"
           imagen_image: "imagen de Imagen"
 

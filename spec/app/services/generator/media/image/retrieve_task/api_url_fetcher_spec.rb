@@ -22,6 +22,15 @@ describe Generator::Media::Image::RetrieveTask::ApiUrlFetcher do
       end
     end
 
+    context "when processor is flux_image" do
+      let(:processor) { "flux_image" }
+
+      it "returns flux api url" do
+        expect(api_url)
+          .to eq("https://api.freepik.com/v1/ai/text-to-image/flux-2-pro")
+      end
+    end
+
     context "when processor is imagen_image" do
       let(:processor) { "imagen_image" }
 

@@ -27,6 +27,19 @@ describe Generator::Media::Image::CreateTask::StrategySelector do
       end
     end
 
+    context "when processor is flux_image" do
+      let(:processor) { "flux_image" }
+
+      it "returns FluxPayloadStrategy initialized with parent_prompt" do
+        strategy = selector.strategy
+
+        expect(strategy)
+          .to be_a(Generator::Media::Image::CreateTask::FluxPayloadStrategy)
+
+        expect(strategy.prompt).to eq(parent_prompt)
+      end
+    end
+
     context "when processor is gemini_image" do
       let(:processor) { "gemini_image" }
 

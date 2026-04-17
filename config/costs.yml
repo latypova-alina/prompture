@@ -1,6 +1,7 @@
 default: &default
   generate_image:
     mystic_image: 2
+    flux_image: 1
     gemini_image: 1
     imagen_image: 1
   generate_video:
@@ -16,6 +17,7 @@ test:
   <<: *default
   generate_image:
     mystic_image: 2
+    flux_image: 1
     gemini_image: 1
     imagen_image: 0
   generate_video:
