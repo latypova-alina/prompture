@@ -29,8 +29,12 @@ describe MediaGenerator::ButtonRequestPresenters::ImageProcessedMessage::ForProm
     subject { super().inline_keyboard }
 
     let(:expected_buttons) do
-      [[{ callback_data: "kling_2_1_pro_image_to_video",
-          text: "Kling Pro 2.1 (10 credits)" }]]
+      [
+        [{ callback_data: "kling_2_1_pro_image_to_video",
+           text: "Kling Pro 2.1 (10 credits)" }],
+        [{ callback_data: "seedance_1_5_pro_image_to_video",
+           text: "Seedance Pro 1.5 (6 credits)" }]
+      ]
     end
 
     it { is_expected.to eq(expected_buttons) }

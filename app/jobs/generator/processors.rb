@@ -10,6 +10,7 @@ module Generator
 
     VIDEO = %w[
       kling_2_1_pro_image_to_video
+      seedance_1_5_pro_image_to_video
     ].freeze
   end
 end
