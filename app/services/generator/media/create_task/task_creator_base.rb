@@ -11,7 +11,11 @@ module Generator
         end
 
         def call
-          raise Freepik::ResponseError unless response.success?
+          return if response.success?
+
+          raise Freepik::DailyLimitExceeded if response.status == 429
+
+          raise Freepik::ResponseError
         end
 
         private

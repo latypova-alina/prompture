@@ -3,8 +3,9 @@ module Generator
     class ErrorNotifierBaseJob < ApplicationJob
       include Memery
 
-      def perform(button_request_id)
+      def perform(button_request_id, error_reason = nil)
         @button_request_id = button_request_id
+        @error_reason = error_reason
 
         with_locale(locale) do
           Telegram.bot.send_message(**message_data)
@@ -15,11 +16,17 @@ module Generator
 
       private
 
-      attr_reader :button_request_id
+      attr_reader :button_request_id, :error_reason
 
       delegate :chat_id, :locale, :parent_request, to: :request
       delegate :bot_telegram_message, to: :parent_request, prefix: true, allow_nil: true
       delegate :tg_message_id, to: :parent_request_bot_telegram_message, prefix: true, allow_nil: true
+
+      def custom_error_text
+        return if error_reason.blank?
+
+        I18n.t("errors.#{error_reason}")
+      end
 
       def error_text
         raise NotImplementedError
@@ -32,7 +39,7 @@ module Generator
       def message_data
         {
           chat_id:,
-          text: error_text,
+          text: custom_error_text || error_text,
           reply_to_message_id: original_prompt_message_id
         }.compact
       end

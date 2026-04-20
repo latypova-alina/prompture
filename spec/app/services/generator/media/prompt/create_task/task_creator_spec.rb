@@ -12,9 +12,10 @@ describe Generator::Media::Prompt::CreateTask::TaskCreator do
   let(:final_payload) { { foo: "bar" } }
 
   let(:api_client_instance) { instance_double(Generator::Media::Prompt::CreateTask::ApiClient) }
-  let(:response) { instance_double("Response", success?: success) }
+  let(:response) { instance_double("Response", success?: success, status:) }
 
   let(:api_url) { "https://api.example.com" }
+  let(:status) { 200 }
 
   before do
     allow(Generator::Media::Prompt::CreateTask::StrategySelector)
@@ -56,10 +57,21 @@ describe Generator::Media::Prompt::CreateTask::TaskCreator do
 
     context "when response is not successful" do
       let(:success) { false }
+      let(:status) { 500 }
 
       it "raises Freepik::ResponseError" do
         expect { call_service }
           .to raise_error(Freepik::ResponseError)
+      end
+    end
+
+    context "when response status is 429" do
+      let(:success) { false }
+      let(:status) { 429 }
+
+      it "raises Freepik::DailyLimitExceeded" do
+        expect { call_service }
+          .to raise_error(Freepik::DailyLimitExceeded)
       end
     end
   end

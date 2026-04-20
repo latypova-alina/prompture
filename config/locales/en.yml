@@ -168,6 +168,7 @@ en:
     token_expired: "Sorry, the token you provided has expired."
     insufficient_credits: "Sorry, it looks like you don't have enough credits to perform this action 💰"
     moderation: "Your message cannot be processed because it violates our content policy. See the rules: /prompt_policy"
+    daily_limit_exceeded: "Sorry, the daily limit for this processor has been exceeded. Please try again tomorrow or choose another processor."
   telegram:
     generation:
       processing: Generating %{process_name}, please wait…

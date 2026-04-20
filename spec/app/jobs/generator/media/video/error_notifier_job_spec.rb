@@ -46,5 +46,18 @@ describe Generator::Media::Video::ErrorNotifierJob do
         .from("PENDING")
         .to("FAILED")
     end
+
+    context "when custom error reason is provided" do
+      subject(:perform_job) { described_class.new.perform(button_request.id, "daily_limit_exceeded") }
+
+      it "uses custom translated error text" do
+        expect(telegram_bot).to receive(:send_message).with(
+          chat_id: button_request.chat_id,
+          text: I18n.t("errors.daily_limit_exceeded")
+        )
+
+        perform_job
+      end
+    end
   end
 end

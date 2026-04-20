@@ -7,8 +7,8 @@ module Generator
         @button_request_id = button_request_id
 
         task_creator_class.call(request)
-      rescue Freepik::ResponseError
-        failure_handler_class.call(request)
+      rescue Freepik::ResponseError => e
+        failure_handler_class.call(request, error: e)
       end
 
       private
