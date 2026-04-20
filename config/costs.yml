@@ -7,6 +7,7 @@ default: &default
   generate_video:
     kling_2_1_pro_image_to_video: 10
     seedance_1_5_pro_image_to_video: 6
+    wan_2_2_image_to_video: 6
   prompt:
     extend_prompt: 1
 
@@ -23,6 +24,7 @@ test:
   generate_video:
     kling_2_1_pro_image_to_video: 10
     seedance_1_5_pro_image_to_video: 6
+    wan_2_2_image_to_video: 6
   prompt:
     extend_prompt: 1
 

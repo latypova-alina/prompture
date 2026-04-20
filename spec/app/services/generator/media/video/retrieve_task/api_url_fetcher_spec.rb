@@ -22,6 +22,15 @@ describe Generator::Media::Video::RetrieveTask::ApiUrlFetcher do
       end
     end
 
+    context "when processor is wan" do
+      let(:processor) { "wan_2_2_image_to_video" }
+
+      it "returns wan api url" do
+        expect(api_url)
+          .to eq("https://api.freepik.com/v1/ai/image-to-video/wan-v2-2-720p")
+      end
+    end
+
     context "when processor is unknown" do
       let(:processor) { "unknown_processor" }
 

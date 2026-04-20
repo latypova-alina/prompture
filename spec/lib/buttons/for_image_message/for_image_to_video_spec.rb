@@ -5,8 +5,12 @@ describe Buttons::ForImageMessage::ForImageToVideo do
 
   it "builds processor buttons as separate rows" do
     expect(result).to eq(
-      [[{ callback_data: "kling_2_1_pro_image_to_video",
-          text: "Kling Pro 2.1 (10 credits)" }]]
+      [
+        [{ callback_data: "kling_2_1_pro_image_to_video",
+           text: "Kling Pro 2.1 (10 credits)" }],
+        [{ callback_data: "wan_2_2_image_to_video",
+           text: "Wan 2.2 (6 credits)" }]
+      ]
     )
   end
 
@@ -15,8 +19,12 @@ describe Buttons::ForImageMessage::ForImageToVideo do
 
     it "builds processor buttons with russian pluralization" do
       expect(result).to eq(
-        [[{ callback_data: "kling_2_1_pro_image_to_video",
-            text: "Kling Pro 2.1 (10 кредитов)" }]]
+        [
+          [{ callback_data: "kling_2_1_pro_image_to_video",
+             text: "Kling Pro 2.1 (10 кредитов)" }],
+          [{ callback_data: "wan_2_2_image_to_video",
+             text: "Wan 2.2 (6 кредитов)" }]
+        ]
       )
     end
   end
