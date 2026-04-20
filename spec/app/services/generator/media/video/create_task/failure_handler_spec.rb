@@ -28,5 +28,19 @@ describe Generator::Media::Video::CreateTask::FailureHandler do
 
       call_handler
     end
+
+    context "when error is daily limit exceeded" do
+      subject(:call_handler) { described_class.call(request, error:) }
+
+      let(:error) { Freepik::DailyLimitExceeded.new }
+
+      it "enqueues ErrorNotifierJob with daily limit reason" do
+        expect(Generator::Media::Video::ErrorNotifierJob)
+          .to receive(:perform_async)
+          .with(request.id, "daily_limit_exceeded")
+
+        call_handler
+      end
+    end
   end
 end

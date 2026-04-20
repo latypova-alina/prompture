@@ -31,17 +31,19 @@ describe Generator::Media::Video::TaskCreatorJob do
     end
 
     context "when Freepik::ResponseError is raised" do
+      let(:error) { Freepik::ResponseError.new }
+
       before do
         allow(
           Generator::Media::Video::CreateTask::TaskCreator
         ).to receive(:call)
-          .and_raise(Freepik::ResponseError)
+          .and_raise(error)
       end
 
       it "calls FailureHandler with request" do
         expect(
           Generator::Media::Video::CreateTask::FailureHandler
-        ).to receive(:call).with(button_request)
+        ).to receive(:call).with(button_request, error:)
 
         perform_job
       end
