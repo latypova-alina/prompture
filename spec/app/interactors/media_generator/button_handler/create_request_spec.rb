@@ -68,6 +68,25 @@ describe MediaGenerator::ButtonHandler::CreateRequest do
     end
   end
 
+  context "when button_request is wan_2_2_image_to_video" do
+    let(:button_request) { "wan_2_2_image_to_video" }
+    let(:record_creator_class) { RecordCreators::ButtonRequests::Videos::Wan }
+    let(:record) { create(:button_video_processing_request, processor: button_request) }
+    let(:parent_request) { create(:button_image_processing_request, image_url: "https://example.com/image.png") }
+    let(:command_request) { create(:command_prompt_to_video_request) }
+
+    it "uses the wan video record creator" do
+      result = subject
+
+      expect(result).to be_success
+      expect(result.button_request_record).to eq(record)
+
+      expect(record_creator_class)
+        .to have_received(:new)
+        .with(parent_request, command_request)
+    end
+  end
+
   context "when button_request is flux_image" do
     let(:button_request) { "flux_image" }
     let(:record_creator_class) { RecordCreators::ButtonRequests::Images::Flux }

@@ -105,6 +105,28 @@ describe TelegramIntegration::CallbackQueryDispatcher do
       end
     end
 
+    context "when handled interactor fails with image not ready for wan" do
+      let(:button_request) { "wan_2_2_image_to_video" }
+      let(:failure_result) do
+        double("Interactor::Context", failure?: true, error: ImageNotReadyError)
+      end
+
+      before do
+        allow(MediaGenerator::ButtonHandler::HandleButton)
+          .to receive(:call)
+          .and_return(failure_result)
+        allow(TelegramIntegration::SendAlertCallbackQuery).to receive(:call)
+      end
+
+      it "shows callback alert and does not raise" do
+        expect { dispatch }.not_to raise_error
+        expect(TelegramIntegration::SendAlertCallbackQuery).to have_received(:call).with(
+          callback_query_id:,
+          text: I18n.t("errors.image_not_ready")
+        )
+      end
+    end
+
     context "when handled interactor returns failure" do
       let(:button_request) { "set_locale:es" }
 

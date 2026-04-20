@@ -148,6 +148,11 @@ ru:
             few: "Seedance Pro 1.5 (%{count} кредита)"
             many: "Seedance Pro 1.5 (%{count} кредитов)"
             other: "Seedance Pro 1.5 (%{count} кредитов)"
+          wan_2_2_image_to_video:
+            one: "Wan 2.2 (%{count} кредит)"
+            few: "Wan 2.2 (%{count} кредита)"
+            many: "Wan 2.2 (%{count} кредитов)"
+            other: "Wan 2.2 (%{count} кредитов)"
         set_locale:
           en: "English"
           ru: "Русский"
@@ -187,6 +192,7 @@ ru:
         video:
           kling_2_1_pro_image_to_video: "видео Kling Pro"
           seedance_1_5_pro_image_to_video: "видео Seedance Pro"
+          wan_2_2_image_to_video: "видео Wan 2.2"
         image:
           mystic_image: "изображение Mystic"
           flux_image: "изображение Flux"

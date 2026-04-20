@@ -216,6 +216,13 @@ describe TelegramWebhooksController, telegram_bot: :rails do
                     job_class: ::Generator::Media::Video::TaskCreatorJob
   end
 
+  describe "#wan_video_callback_query", :callback_query do
+    it_behaves_like "a video callback",
+                    processor: "wan_2_2",
+                    record_creator: RecordCreators::ButtonRequests::Videos::Wan,
+                    job_class: ::Generator::Media::Video::TaskCreatorJob
+  end
+
   describe "#set_locale_callback_query", :callback_query do
     it_behaves_like "set_locale callback"
   end

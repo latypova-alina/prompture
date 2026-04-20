@@ -134,6 +134,9 @@ en:
           seedance_1_5_pro_image_to_video:
             one: "Seedance Pro 1.5 (%{count} credit)"
             other: "Seedance Pro 1.5 (%{count} credits)"
+          wan_2_2_image_to_video:
+            one: "Wan 2.2 (%{count} credit)"
+            other: "Wan 2.2 (%{count} credits)"
         set_locale:
           en: "English"
           ru: "Русский"
@@ -173,6 +176,7 @@ en:
         video:
           kling_2_1_pro_image_to_video: "Kling Pro video"
           seedance_1_5_pro_image_to_video: "Seedance Pro video"
+          wan_2_2_image_to_video: "Wan 2.2 video"
         image:
           mystic_image: "Mystic image"
           flux_image: "Flux image"
