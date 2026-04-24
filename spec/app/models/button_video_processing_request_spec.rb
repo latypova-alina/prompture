@@ -72,4 +72,17 @@ describe ButtonVideoProcessingRequest, type: :model do
       end
     end
   end
+
+  describe "#resolved_image_url" do
+    context "when parent has resolved image url" do
+      let(:image_parent_request) do
+        create(:button_image_processing_request, image_url: "https://example.com/source-image.jpg")
+      end
+      let(:record) { create(:button_video_processing_request, parent_request: image_parent_request) }
+
+      it "returns origin image url from lineage" do
+        expect(record.resolved_image_url).to eq("https://example.com/source-image.jpg")
+      end
+    end
+  end
 end

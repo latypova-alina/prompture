@@ -1,11 +1,12 @@
 require "rails_helper"
 
 describe MediaGenerator::ButtonRequestPresenters::VideoProcessedMessagePresenter do
-  subject { described_class.new(message:, balance:, processor_name:) }
+  subject { described_class.new(message:, balance:, processor_name:, processor:) }
 
   let(:message) { "https://example.com/video.mp4" }
   let(:balance) { 12 }
   let(:processor_name) { "Kling Pro video" }
+  let(:processor) { "kling_2_1_pro_image_to_video" }
 
   describe "#formatted_text" do
     it "returns an HTML link to the video" do
@@ -26,6 +27,10 @@ describe MediaGenerator::ButtonRequestPresenters::VideoProcessedMessagePresenter
   describe "#inline_keyboard" do
     subject { super().inline_keyboard }
 
-    it { is_expected.to eq([]) }
+    it do
+      is_expected.to eq(
+        [[{ callback_data: "kling_2_1_pro_image_to_video", text: "Regenerate (10 credits)" }]]
+      )
+    end
   end
 end

@@ -6,13 +6,15 @@ describe MediaGenerator::ButtonRequestPresenters::ImageProcessedMessage::Present
     let(:locale) { :ru }
     let(:balance) { 4 }
     let(:processor_name) { "Mystic image" }
+    let(:processor) { "mystic_image" }
     let(:context) do
       MediaGenerator::ButtonRequestPresenters::ImageProcessedMessage::Context.new(
         image_url:,
         command_request_classname:,
         locale:,
         balance:,
-        processor_name:
+        processor_name:,
+        processor:
       )
     end
 
@@ -28,7 +30,7 @@ describe MediaGenerator::ButtonRequestPresenters::ImageProcessedMessage::Present
       before do
         allow(MediaGenerator::ButtonRequestPresenters::ImageProcessedMessage::ForPromptToImage)
           .to receive(:new)
-          .with(message: image_url, locale:, balance:, processor_name:)
+          .with(message: image_url, locale:, balance:, processor_name:, processor:)
           .and_return(presenter_instance)
       end
 
@@ -49,7 +51,7 @@ describe MediaGenerator::ButtonRequestPresenters::ImageProcessedMessage::Present
       before do
         allow(MediaGenerator::ButtonRequestPresenters::ImageProcessedMessage::ForPromptToVideo)
           .to receive(:new)
-          .with(message: image_url, locale:, balance:, processor_name:)
+          .with(message: image_url, locale:, balance:, processor_name:, processor:)
           .and_return(presenter_instance)
       end
 
