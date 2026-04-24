@@ -13,7 +13,10 @@ module Generator::Media::Video::NotifySuccess
 
     def call
       with_locale(locale) do
-        ::Telegram.bot.send_message(chat_id:, **reply_data_with_reply_reference)
+        ::TelegramIntegration::SendMessageWithButtons.call(
+          reply_data: reply_data_with_reply_reference,
+          request:
+        )
       end
     end
 
@@ -21,7 +24,7 @@ module Generator::Media::Video::NotifySuccess
 
     attr_reader :reply_data, :request
 
-    delegate :locale, :chat_id, :parent_request, to: :request
+    delegate :locale, :parent_request, to: :request
     delegate :bot_telegram_message, to: :parent_request, prefix: true, allow_nil: true
     delegate :tg_message_id, to: :parent_request_bot_telegram_message, prefix: true, allow_nil: true
 

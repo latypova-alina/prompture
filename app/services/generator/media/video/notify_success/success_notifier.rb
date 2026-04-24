@@ -23,7 +23,7 @@ module Generator::Media::Video::NotifySuccess
     delegate :user, to: :request
     delegate :balance, to: :user
     delegate :credits, to: :balance, prefix: true
-    delegate :locale, :humanized_process_name, to: :request
+    delegate :locale, :humanized_process_name, :processor, to: :request
     attr_reader :video_url, :button_request_id
 
     def send_telegram_message
@@ -39,7 +39,8 @@ module Generator::Media::Video::NotifySuccess
         message: video_url,
         balance: balance_credits,
         locale:,
-        processor_name: humanized_process_name
+        processor_name: humanized_process_name,
+        processor:
       )
     end
 

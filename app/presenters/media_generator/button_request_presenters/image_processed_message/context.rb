@@ -7,6 +7,7 @@ module MediaGenerator
         :locale,
         :balance,
         :processor_name,
+        :processor,
         keyword_init: true
       )
     end

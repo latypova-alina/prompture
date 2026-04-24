@@ -25,6 +25,17 @@ module Buttons
       }
     end
 
+    def regenerate_button_for(scope, processor)
+      {
+        text: I18n.t(
+          "telegram_webhooks.message.buttons.regenerate",
+          count: cost_for(scope, processor),
+          locale:
+        ),
+        callback_data: processor.to_s
+      }
+    end
+
     def cost_for(scope, type)
       COSTS[scope.to_sym][type.to_sym]
     end

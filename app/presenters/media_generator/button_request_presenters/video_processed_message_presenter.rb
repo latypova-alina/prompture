@@ -2,10 +2,11 @@ module MediaGenerator
   module ButtonRequestPresenters
     class VideoProcessedMessagePresenter < BasePresenter
       include MessageInterface
-      def initialize(balance:, processor_name:, **kwargs)
+      def initialize(balance:, processor_name:, processor:, **kwargs)
         super(**kwargs)
         @balance = balance
         @processor_name = processor_name
+        @processor = processor
       end
 
       def formatted_text
@@ -20,12 +21,12 @@ module MediaGenerator
       end
 
       def inline_keyboard
-        Buttons::ForVideoMessage.build(locale:)
+        Buttons::ForVideoMessage.build(locale:, processor:)
       end
 
       private
 
-      attr_reader :balance, :processor_name
+      attr_reader :balance, :processor_name, :processor
     end
   end
 end

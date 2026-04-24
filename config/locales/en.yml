@@ -137,6 +137,9 @@ en:
           wan_2_2_image_to_video:
             one: "Wan 2.2 (%{count} credit)"
             other: "Wan 2.2 (%{count} credits)"
+        regenerate:
+          one: "Regenerate (%{count} credit)"
+          other: "Regenerate (%{count} credits)"
         set_locale:
           en: "English"
           ru: "Русский"
