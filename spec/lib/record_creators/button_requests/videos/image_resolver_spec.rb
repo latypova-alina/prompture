@@ -19,5 +19,16 @@ describe RecordCreators::ButtonRequests::Videos::ImageResolver do
         expect(resolver.image_url).to be_nil
       end
     end
+
+    context "when parent request is video processing request" do
+      let(:image_parent_request) do
+        create(:button_image_processing_request, image_url: "https://example.com/source-image.jpg")
+      end
+      let(:parent_request) { create(:button_video_processing_request, parent_request: image_parent_request) }
+
+      it "returns resolved image url from parent of video request" do
+        expect(resolver.image_url).to eq("https://example.com/source-image.jpg")
+      end
+    end
   end
 end

@@ -9,6 +9,7 @@ describe Generator::Media::Video::NotifySuccess::SuccessNotifier do
   let(:balance) { 11 }
   let(:user) { create(:user, :with_custom_balance, credits: balance) }
   let(:processor_name) { button_request.humanized_process_name }
+  let(:processor) { button_request.processor }
   let(:locale) { user.locale }
 
   let(:button_request) do
@@ -21,7 +22,7 @@ describe Generator::Media::Video::NotifySuccess::SuccessNotifier do
   before do
     allow(MediaGenerator::ButtonRequestPresenters::VideoProcessedMessagePresenter)
       .to receive(:new)
-      .with(message: video_url, balance: balance, locale:, processor_name:)
+      .with(message: video_url, balance: balance, locale:, processor_name:, processor:)
       .and_return(presenter_instance)
 
     allow(presenter_instance)
@@ -38,7 +39,7 @@ describe Generator::Media::Video::NotifySuccess::SuccessNotifier do
 
       expect(MediaGenerator::ButtonRequestPresenters::VideoProcessedMessagePresenter)
         .to have_received(:new)
-        .with(message: video_url, balance: balance, locale:, processor_name:)
+        .with(message: video_url, balance: balance, locale:, processor_name:, processor:)
 
       expect(Generator::Media::Video::NotifySuccess::SendTelegramMessage)
         .to have_received(:call)

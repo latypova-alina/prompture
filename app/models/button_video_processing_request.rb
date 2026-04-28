@@ -1,5 +1,6 @@
 class ButtonVideoProcessingRequest < ApplicationRecord
   include HasOriginPrompt
+  include HasOriginImage
 
   PROCESSOR_TYPES = %w[
     kling_2_1_pro_image_to_video
@@ -23,5 +24,9 @@ class ButtonVideoProcessingRequest < ApplicationRecord
 
   def humanized_process_name
     I18n.t("telegram.generation.humanized_process_names.video.#{processor}", locale:)
+  end
+
+  def resolved_image_url
+    origin_image_url
   end
 end

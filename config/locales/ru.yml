@@ -153,6 +153,11 @@ ru:
             few: "Wan 2.2 (%{count} кредита)"
             many: "Wan 2.2 (%{count} кредитов)"
             other: "Wan 2.2 (%{count} кредитов)"
+        regenerate:
+          one: "Сгенерировать снова (%{count} кредит)"
+          few: "Сгенерировать снова (%{count} кредита)"
+          many: "Сгенерировать снова (%{count} кредитов)"
+          other: "Сгенерировать снова (%{count} кредитов)"
         set_locale:
           en: "English"
           ru: "Русский"

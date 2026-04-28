@@ -10,6 +10,7 @@ describe Generator::Media::Image::NotifySuccess::PresenterFactory do
   let(:image_url) { "http://example.com/image.png" }
   let(:balance) { 5 }
   let(:processor_name) { request.humanized_process_name }
+  let(:processor) { request.processor }
   let(:context_class) { MediaGenerator::ButtonRequestPresenters::ImageProcessedMessage::Context }
 
   let(:command_request) { create(:command_prompt_to_image_request) }
@@ -43,7 +44,8 @@ describe Generator::Media::Image::NotifySuccess::PresenterFactory do
             command_request_classname: "CommandPromptToImageRequest",
             locale: "en",
             balance:,
-            processor_name:
+            processor_name:,
+            processor:
           )
         )
     end

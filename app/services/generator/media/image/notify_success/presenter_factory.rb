@@ -12,7 +12,7 @@ module Generator::Media::Image::NotifySuccess
 
     attr_reader :image_url, :request, :balance
 
-    delegate :locale, :humanized_process_name, to: :request
+    delegate :locale, :humanized_process_name, :processor, to: :request
 
     def presenter_selector
       MediaGenerator::ButtonRequestPresenters::ImageProcessedMessage::PresenterSelector.new(
@@ -26,7 +26,8 @@ module Generator::Media::Image::NotifySuccess
         command_request_classname:,
         locale:,
         balance:,
-        processor_name: humanized_process_name
+        processor_name: humanized_process_name,
+        processor:
       )
     end
 

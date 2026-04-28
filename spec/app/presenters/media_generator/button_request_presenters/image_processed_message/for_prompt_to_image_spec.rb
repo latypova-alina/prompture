@@ -1,11 +1,12 @@
 require "rails_helper"
 
 describe MediaGenerator::ButtonRequestPresenters::ImageProcessedMessage::ForPromptToImage do
-  subject { described_class.new(message:, balance:, processor_name:) }
+  subject { described_class.new(message:, balance:, processor_name:, processor:) }
 
   let(:message) { "https://example.com/image.png" }
   let(:balance) { 8 }
   let(:processor_name) { "Mystic image" }
+  let(:processor) { "mystic_image" }
 
   describe "#formatted_text" do
     it "returns an HTML link to the image" do
@@ -26,6 +27,10 @@ describe MediaGenerator::ButtonRequestPresenters::ImageProcessedMessage::ForProm
   describe "#inline_keyboard" do
     subject { super().inline_keyboard }
 
-    it { is_expected.to eq([]) }
+    it do
+      is_expected.to eq(
+        [[{ callback_data: "mystic_image", text: "Regenerate (2 credits)" }]]
+      )
+    end
   end
 end
