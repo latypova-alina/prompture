@@ -96,7 +96,9 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
   end
 
   def random_script!(*)
-    ScriptGenerator::GenerateRandomScript.call(chat_id: chat["id"])
+    ScriptGenerator::GenerateRandomScriptJob.perform_async(chat["id"])
+
+    respond_with :message, text: "Started script generation."
   end
 
   private
