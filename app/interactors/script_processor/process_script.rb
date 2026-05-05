@@ -2,6 +2,6 @@ module ScriptProcessor
   class ProcessScript
     include Interactor::Organizer
 
-    organize CreatePromptMessage, CreateBotTelegramMessage, HandleFluxButton
+    organize CreatePromptMessage, MediaGenerator::MessageHandler::NotifyUser, HandleFluxButton
   end
 end

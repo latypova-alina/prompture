@@ -21,12 +21,6 @@ module TgChatAuthorization
   end
 
   def admin_chat?
-    admin_chat_ids.include?(chat["id"].to_s)
-  end
-
-  def admin_chat_ids
-    ENV.fetch("ADMIN_TG_CHATS", "")
-       .split(",")
-       .map(&:strip)
+    user&.admin?
   end
 end

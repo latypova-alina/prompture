@@ -21,7 +21,7 @@ module ScriptGenerator
     attr_reader :chat_id
 
     memoize def command_request
-      CommandPromptToImageRequest.create!(chat_id:, user:)
+      CommandPromptToVideoRequest.create!(chat_id:, user:)
     end
 
     memoize def user

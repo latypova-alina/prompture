@@ -11,7 +11,7 @@ module ScriptGenerator
     end
 
     def call
-      script_array.each { |script| process_script(script) }
+      scripts.each { |script| process_script(script) }
     end
 
     private
@@ -30,6 +30,10 @@ module ScriptGenerator
 
     def process_script(script)
       script_processor.call(script:)
+    end
+
+    def scripts
+      script_array.split("\n\n").map(&:strip).reject(&:blank?)
     end
   end
 end

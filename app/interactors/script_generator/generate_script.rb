@@ -1,6 +1,7 @@
 module ScriptGenerator
   class GenerateScript
     include Interactor
+    include Memery
 
     def call
       response.success? ? handle_success : handle_error(response_error_message)
