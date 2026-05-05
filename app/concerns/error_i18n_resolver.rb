@@ -8,11 +8,13 @@ module ErrorI18nResolver
     "ParentNotFoundError" => "errors.parent_not_found",
     "TokenNotFoundError" => "errors.token_not_found",
     "UnauthorizedError" => "errors.unauthorized",
+    "AdminOnlyCommandError" => "errors.admin_only_command",
     "TokenUsedError" => "errors.token_used",
     "TokenExpiredError" => "errors.token_expired",
     "InsufficientCreditsError" => "errors.insufficient_credits",
     "ModerationError" => "errors.moderation",
-    "ImageResolutionError" => "errors.image_resolution"
+    "ImageResolutionError" => "errors.image_resolution",
+    "ScriptGeneratorRequestError" => "errors.script_generator_request_failed"
   }.freeze
 
   DEFAULT_ERROR_I18N_KEY = "errors.unknown".freeze

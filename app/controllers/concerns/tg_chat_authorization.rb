@@ -12,8 +12,16 @@ module TgChatAuthorization
     raise UnauthorizedError
   end
 
+  def authorize_admin
+    raise AdminOnlyCommandError unless admin_chat?
+  end
+
   def allowed_chat?
-    admin_chat_ids.include?(chat["id"].to_s) || user.present?
+    admin_chat? || user.present?
+  end
+
+  def admin_chat?
+    admin_chat_ids.include?(chat["id"].to_s)
   end
 
   def admin_chat_ids

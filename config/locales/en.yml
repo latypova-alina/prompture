@@ -166,11 +166,13 @@ en:
     image_url_invalid: "The image link is invalid, or the URL may not contain an image ⚠️ \n\nPlease make sure the image at the URL is in JPEG, JPG, or PNG format, and send a valid direct image URL. Alternatively, you can send an image as a file 📁 or picture 🖼️"
     command_request_forgotten: "It seems like your previous command request is missing. Please start over and provide the necessary information."
     unauthorized: "Seems you need to activate a token first 🔑"
+    admin_only_command: "This command is available only for admins."
     token_not_found: "Sorry, the token you provided is invalid. You can ask administrator for a valid token."
     token_used: "Sorry, the token you provided has already been used."
     token_expired: "Sorry, the token you provided has expired."
     insufficient_credits: "Sorry, it looks like you don't have enough credits to perform this action 💰"
     moderation: "Your message cannot be processed because it violates our content policy. See the rules: /prompt_policy"
+    script_generator_request_failed: "Script generator API request failed."
     daily_limit_exceeded: "Sorry, the daily limit for this processor has been exceeded. Please try again tomorrow or choose another processor."
   telegram:
     generation:
