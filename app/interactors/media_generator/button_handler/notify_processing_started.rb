@@ -7,6 +7,8 @@ module MediaGenerator
       delegate :callback_query_id, :button_request_record, to: :context
 
       def call
+        return if callback_query_id.blank?
+
         TelegramIntegration::SendAnswerCallbackQuery.call(
           callback_query_id:,
           button_request: button_request_record

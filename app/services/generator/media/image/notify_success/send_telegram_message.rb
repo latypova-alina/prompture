@@ -29,7 +29,9 @@ module Generator::Media::Image::NotifySuccess
     delegate :tg_message_id, to: :parent_request_bot_telegram_message, prefix: true, allow_nil: true
 
     def reply_data_with_reply_reference
-      reply_data.merge(reply_to_message_id: original_prompt_message_id).compact
+      return reply_data unless original_prompt_message_id.present?
+
+      reply_data.merge(reply_to_message_id: original_prompt_message_id)
     end
 
     def original_prompt_message_id

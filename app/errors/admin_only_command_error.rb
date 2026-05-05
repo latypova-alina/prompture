@@ -1,0 +1,1 @@
+class AdminOnlyCommandError < StandardError; end
