@@ -42,6 +42,12 @@ describe Generator::Media::Prompt::NotifySuccess::SendTelegramMessage do
             request:
           )
       end
+
+      it "does not mutate original reply_data hash" do
+        call_service
+
+        expect(reply_data).to eq(text: "Prompt ready")
+      end
     end
 
     context "when current request telegram message exists but parent message does not" do

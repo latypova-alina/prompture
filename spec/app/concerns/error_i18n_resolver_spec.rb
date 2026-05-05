@@ -18,6 +18,14 @@ describe ErrorI18nResolver do
       expect(resolver.resolve("ImageResolutionError")).to eq("errors.image_resolution")
     end
 
+    it "returns mapped i18n key for admin-only command error class" do
+      expect(resolver.resolve("AdminOnlyCommandError")).to eq("errors.admin_only_command")
+    end
+
+    it "returns mapped i18n key for script generator request error class" do
+      expect(resolver.resolve("ScriptGeneratorRequestError")).to eq("errors.script_generator_request_failed")
+    end
+
     it "returns fallback key for unknown error class" do
       expect(resolver.resolve("SomeUnknownError")).to eq("errors.unknown")
     end

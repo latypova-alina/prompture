@@ -78,6 +78,7 @@ describe TelegramWebhooksController, telegram_bot: :rails do
 
   describe "#help!" do
     subject { -> { dispatch_command(:help) } }
+    let!(:user) { create(:user, :with_balance, chat_id: 456) }
 
     let(:expected_text) do
       I18n.t("telegram_webhooks.commands.help")
@@ -133,6 +134,31 @@ describe TelegramWebhooksController, telegram_bot: :rails do
 
     it_behaves_like "command handling",
                     command: :image_to_video
+  end
+
+  describe "#random_script!" do
+    subject { -> { dispatch_command(:random_script) } }
+
+    let!(:user) { create(:user, chat_id: 456, admin:) }
+    let(:admin) { true }
+
+    before do
+      allow(ScriptGenerator::GenerateRandomScriptJob).to receive(:perform_async)
+    end
+
+    it "enqueues random script generation job" do
+      subject.call
+
+      expect(ScriptGenerator::GenerateRandomScriptJob).to have_received(:perform_async).with(456)
+    end
+
+    it { should respond_with_message("Started script generation.") }
+
+    context "when user is not admin" do
+      let(:admin) { false }
+
+      it { should respond_with_message(I18n.t("errors.admin_only_command")) }
+    end
   end
 
   describe "#message" do

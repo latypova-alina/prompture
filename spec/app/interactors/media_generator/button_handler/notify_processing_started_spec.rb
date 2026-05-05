@@ -25,5 +25,15 @@ describe MediaGenerator::ButtonHandler::NotifyProcessingStarted do
 
       expect(result).to be_success
     end
+
+    context "when callback_query_id is blank" do
+      let(:callback_query_id) { nil }
+
+      it "does not call TelegramIntegration::SendAnswerCallbackQuery" do
+        expect(TelegramIntegration::SendAnswerCallbackQuery).not_to receive(:call)
+
+        result
+      end
+    end
   end
 end
