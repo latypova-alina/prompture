@@ -5,7 +5,7 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
   include ErrorHandler
   include TgChatAuthorization
 
-  before_action :authorize_admin, only: :random_script!
+  before_action :authorize_admin, only: %i[random_script! script_templates!]
 
   def start!(token_code = nil)
     handled_token = TokenHandler::HandleToken.call(
@@ -99,6 +99,12 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
     ScriptGenerator::GenerateRandomScriptJob.perform_async(chat["id"])
 
     respond_with :message, text: "Started script generation."
+  end
+
+  def script_templates!(*)
+    ScriptGenerator::SendScriptTemplatesJob.perform_async(chat["id"])
+
+    respond_with :message, text: "Fetching script templates."
   end
 
   private
