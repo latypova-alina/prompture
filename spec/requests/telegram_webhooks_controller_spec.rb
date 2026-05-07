@@ -186,6 +186,21 @@ describe TelegramWebhooksController, telegram_bot: :rails do
     end
   end
 
+  describe "#admin!" do
+    subject { -> { dispatch_command(:admin) } }
+
+    let!(:user) { create(:user, chat_id: 456, admin:) }
+    let(:admin) { true }
+
+    it { is_expected.to respond_with_message(I18n.t("telegram_webhooks.commands.admin")) }
+
+    context "when user is not admin" do
+      let(:admin) { false }
+
+      it { is_expected.to respond_with_message(I18n.t("errors.admin_only_command")) }
+    end
+  end
+
   describe "#message" do
     let(:user_message) { dispatch_message(prompt) }
 

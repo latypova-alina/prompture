@@ -62,6 +62,12 @@ es:
         Para recargar tu saldo, usa /activate_token e introduce un token válido.
 
         Los tokens son proporcionados por el administrador.
+      admin: |
+        Aquí están los comandos disponibles para administradores:
+
+        🔹 /random_script - genera un script aleatorio
+
+        🔹 /script_templates - muestra las plantillas de scripts disponibles
       prompt_to_video: "¡Genial! Ahora, por favor, proporciona un prompt para el video. Más adelante podrás ampliarlo con la ayuda del bot."
       prompt_to_image: "¡Genial! Ahora, por favor, proporciona un prompt para la imagen. Más adelante podrás ampliarlo con la ayuda del bot."
       image_to_video: |

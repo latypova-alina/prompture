@@ -63,6 +63,12 @@ en:
         To top up your balance, use /activate_token and enter a valid token.
 
         Tokens are provided by the administrator.
+      admin: |
+        Here are the possible commands for admin:
+
+        🔹 /random_script - will generate random script
+
+        🔹 /script_templates - see possible script templates
       prompt_to_video: "Great! Now please provide a prompt for the video. It can later be extended with the help of the bot."
       prompt_to_image: "Great! Now please provide a prompt for the image. It can later be extended with the help of the bot."
       image_to_video: |
