@@ -28,13 +28,7 @@ module ScriptGenerator
     end
 
     def connection
-      Faraday.new(
-        url: ENV.fetch("SCRIPT_GENERATOR_API_URL"),
-        headers: {
-          "Content-Type" => "application/json",
-          "Authorization" => "Bearer #{ENV.fetch('SCRIPT_GENERATOR_API_KEY')}"
-        }
-      )
+      ScriptGenerator::Connection.call
     end
   end
 end
