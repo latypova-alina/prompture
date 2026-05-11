@@ -1,14 +1,15 @@
 require "rails_helper"
 
-describe ScriptGenerator::GenerateRandomScript do
-  subject(:service_call) { described_class.call(chat_id: 456) }
+describe ScriptGenerator::ProcessGeneratedScripts do
+  subject(:service_call) { described_class.call(chat_id: 456, template_name:) }
 
+  let(:template_name) { nil }
   let(:script_context) { instance_double(ScriptGenerator::ScriptContext, script_array:) }
   let(:script_processor) { instance_double(ScriptGenerator::ProcessScript) }
   let(:script_array) { "first scene\n\n second scene \n\n\nthird scene" }
 
   before do
-    allow(ScriptGenerator::ScriptContext).to receive(:new).with(chat_id: 456).and_return(script_context)
+    allow(ScriptGenerator::ScriptContext).to receive(:new).with(chat_id: 456, template_name:).and_return(script_context)
     allow(ScriptGenerator::ProcessScript).to receive(:new).with(chat_id: 456).and_return(script_processor)
     allow(script_processor).to receive(:call)
   end

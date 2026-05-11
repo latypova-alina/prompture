@@ -26,6 +26,10 @@ describe ErrorI18nResolver do
       expect(resolver.resolve("ScriptGeneratorRequestError")).to eq("errors.script_generator_request_failed")
     end
 
+    it "returns mapped i18n key for template name error class" do
+      expect(resolver.resolve("TemplateNameError")).to eq("errors.template_name_missing")
+    end
+
     it "returns fallback key for unknown error class" do
       expect(resolver.resolve("SomeUnknownError")).to eq("errors.unknown")
     end

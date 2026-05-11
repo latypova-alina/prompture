@@ -1,39 +1,26 @@
 require "rails_helper"
 
 describe ScriptGenerator::GenerateScript do
-  subject(:result) { described_class.call }
+  describe ".call" do
+    let(:message_body) { { "message" => { "text" => "/generate_script daily_news" } } }
 
-  let(:connection) { instance_double(Faraday::Connection) }
-  let(:response) { instance_double(Faraday::Response, success?: true, body: "script body", status: 200) }
-
-  before do
-    allow(Faraday).to receive(:new).and_return(connection)
-    allow(connection).to receive(:get).with("/generate").and_return(response)
-  end
-
-  it "stores response body as script_array when request succeeds" do
-    expect(result).to be_success
-    expect(result.script_array).to eq("script body")
-  end
-
-  context "when request fails with non-success status" do
-    let(:response) { instance_double(Faraday::Response, success?: false, body: "error", status: 500) }
-
-    it "fails with ScriptGeneratorRequestError" do
-      expect(result).to be_failure
-      expect(result.error).to be_a(ScriptGeneratorRequestError)
-    end
-  end
-
-  context "when Faraday raises an error" do
     before do
-      allow(connection).to receive(:get).with("/generate").and_raise(Faraday::TimeoutError.new("timeout"))
+      allow(ScriptGenerator::GenerateScriptJob).to receive(:perform_async)
     end
 
-    it "fails with ScriptGeneratorRequestError" do
+    it "extracts template name and enqueues job" do
+      result = described_class.call(chat_id: 456, message_body:)
+
+      expect(result).to be_success
+      expect(ScriptGenerator::GenerateScriptJob).to have_received(:perform_async).with(456, "daily_news")
+    end
+
+    it "fails when template name is missing" do
+      result = described_class.call(chat_id: 456, message_body: { "message" => { "text" => "/generate_script" } })
+
       expect(result).to be_failure
-      expect(result.error).to be_a(ScriptGeneratorRequestError)
-      expect(result.error.message).to include("timeout")
+      expect(result.error).to eq(TemplateNameError)
+      expect(ScriptGenerator::GenerateScriptJob).not_to have_received(:perform_async)
     end
   end
 end

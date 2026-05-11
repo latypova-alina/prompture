@@ -143,13 +143,41 @@ describe TelegramWebhooksController, telegram_bot: :rails do
     let(:admin) { true }
 
     before do
-      allow(ScriptGenerator::GenerateRandomScriptJob).to receive(:perform_async)
+      allow(ScriptGenerator::GenerateScriptJob).to receive(:perform_async)
     end
 
     it "enqueues random script generation job" do
       subject.call
 
-      expect(ScriptGenerator::GenerateRandomScriptJob).to have_received(:perform_async).with(456)
+      expect(ScriptGenerator::GenerateScriptJob).to have_received(:perform_async).with(456, nil)
+    end
+
+    it { should respond_with_message("Started script generation.") }
+
+    context "when user is not admin" do
+      let(:admin) { false }
+
+      it { should respond_with_message(I18n.t("errors.admin_only_command")) }
+    end
+  end
+
+  describe "#generate_script!" do
+    subject { -> { dispatch_command(:generate_script, "daily_news") } }
+
+    let!(:user) { create(:user, chat_id: 456, admin:) }
+    let(:admin) { true }
+
+    before do
+      allow(ScriptGenerator::GenerateScript).to receive(:call).and_return(double(failure?: false))
+    end
+
+    it "calls script generation flow" do
+      subject.call
+
+      expect(ScriptGenerator::GenerateScript).to have_received(:call).with(
+        chat_id: 456,
+        message_body: hash_including("message" => hash_including("text" => "/generate_script daily_news"))
+      )
     end
 
     it { should respond_with_message("Started script generation.") }
