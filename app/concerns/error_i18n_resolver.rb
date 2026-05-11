@@ -14,7 +14,8 @@ module ErrorI18nResolver
     "InsufficientCreditsError" => "errors.insufficient_credits",
     "ModerationError" => "errors.moderation",
     "ImageResolutionError" => "errors.image_resolution",
-    "ScriptGeneratorRequestError" => "errors.script_generator_request_failed"
+    "ScriptGeneratorRequestError" => "errors.script_generator_request_failed",
+    "TemplateNameError" => "errors.template_name_missing"
   }.freeze
 
   DEFAULT_ERROR_I18N_KEY = "errors.unknown".freeze

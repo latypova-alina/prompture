@@ -1,0 +1,1 @@
+class TemplateNameError < StandardError; end

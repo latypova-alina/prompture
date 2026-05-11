@@ -1,13 +1,14 @@
 module ScriptGenerator
   class SendScriptTemplatesJob < ApplicationJob
     include Memery
+    include JobErrorHandler
 
     def perform(chat_id)
       @chat_id = chat_id
 
-      response.success? ? handle_success : notify_error
-    rescue Faraday::Error
-      notify_error
+      response.success? ? handle_success : notify_script_generator_error(chat_id:)
+    rescue Faraday::Error => e
+      notify_script_generator_error(chat_id:, error: e)
     end
 
     private
@@ -26,10 +27,6 @@ module ScriptGenerator
       payload = response.body.is_a?(String) ? JSON.parse(response.body) : response.body
 
       payload["file_names"] || []
-    end
-
-    def notify_error
-      Telegram.bot.send_message(chat_id:, text: I18n.t("errors.script_generator_request_failed"))
     end
 
     def script_generator_connection
