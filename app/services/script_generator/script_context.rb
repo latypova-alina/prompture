@@ -1,21 +1,30 @@
 module ScriptGenerator
   class ScriptContext
-    def initialize(chat_id:)
+    include Memery
+
+    def initialize(chat_id:, template_name: nil)
       @chat_id = chat_id
+      @template_name = template_name
     end
 
-    delegate :script_array, to: :script_context
+    def script_array
+      raise ScriptGeneratorRequestError, response.body unless response.success?
+
+      response.body
+    rescue Faraday::Error => e
+      raise ScriptGeneratorRequestError, e.message
+    end
 
     private
 
-    def script_context
-      result = ScriptGenerator::GenerateScript.call(chat_id:)
-
-      raise result.error if result.failure?
-
-      result
+    memoize def response
+      connection.get("/generate", { template_name: })
     end
 
-    attr_reader :chat_id
+    def connection
+      ScriptGenerator::Connection.call
+    end
+
+    attr_reader :chat_id, :template_name
   end
 end

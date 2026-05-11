@@ -68,6 +68,8 @@ en:
 
         🔹 /random_script - will generate random script
 
+        🔹 /generate_script %template_name% - will generate script from template_name param
+
         🔹 /script_templates - see possible script templates
       prompt_to_video: "Great! Now please provide a prompt for the video. It can later be extended with the help of the bot."
       prompt_to_image: "Great! Now please provide a prompt for the image. It can later be extended with the help of the bot."
@@ -179,6 +181,7 @@ en:
     insufficient_credits: "Sorry, it looks like you don't have enough credits to perform this action 💰"
     moderation: "Your message cannot be processed because it violates our content policy. See the rules: /prompt_policy"
     script_generator_request_failed: "Script generator API request failed."
+    template_name_missing: "Please provide a template name. Example: /generate_script my_template."
     daily_limit_exceeded: "Sorry, the daily limit for this processor has been exceeded. Please try again tomorrow or choose another processor."
   telegram:
     generation:

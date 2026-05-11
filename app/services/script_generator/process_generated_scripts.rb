@@ -1,13 +1,14 @@
 module ScriptGenerator
-  class GenerateRandomScript
+  class ProcessGeneratedScripts
     include Memery
 
     def self.call(...)
       new(...).call
     end
 
-    def initialize(chat_id:)
+    def initialize(chat_id:, template_name: nil)
       @chat_id = chat_id
+      @template_name = template_name
     end
 
     def call
@@ -16,12 +17,12 @@ module ScriptGenerator
 
     private
 
-    attr_reader :chat_id
+    attr_reader :chat_id, :template_name
 
     delegate :script_array, to: :script_context
 
     memoize def script_context
-      ScriptGenerator::ScriptContext.new(chat_id:)
+      ScriptGenerator::ScriptContext.new(chat_id:, template_name:)
     end
 
     memoize def script_processor

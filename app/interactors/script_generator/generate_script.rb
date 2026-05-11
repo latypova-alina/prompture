@@ -1,34 +1,7 @@
 module ScriptGenerator
   class GenerateScript
-    include Interactor
-    include Memery
+    include Interactor::Organizer
 
-    def call
-      response.success? ? handle_success : handle_error(response_error_message)
-    rescue Faraday::Error => e
-      handle_error(e.message)
-    end
-
-    private
-
-    def handle_success
-      context.script_array = response.body
-    end
-
-    def handle_error(message)
-      context.fail!(error: ScriptGeneratorRequestError.new(message))
-    end
-
-    def response_error_message
-      "Script generator API request failed with status #{response.status}."
-    end
-
-    memoize def response
-      connection.get("/generate")
-    end
-
-    def connection
-      ScriptGenerator::Connection.call
-    end
+    organize ExtractTemplateName, PerformJob
   end
 end
