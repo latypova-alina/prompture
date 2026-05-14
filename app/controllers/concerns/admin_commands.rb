@@ -2,7 +2,13 @@ module AdminCommands
   extend ActiveSupport::Concern
 
   included do
-    before_action :authorize_admin, only: %i[random_script! script_templates! admin! generate_script!]
+    before_action :authorize_admin, only: %i[
+      random_script!
+      random_character!
+      script_templates!
+      admin!
+      generate_script!
+    ]
   end
 
   def random_script!(*)
@@ -23,6 +29,12 @@ module AdminCommands
     ScriptGenerator::SendScriptTemplatesJob.perform_async(chat["id"])
 
     respond_with :message, text: "Fetching script templates."
+  end
+
+  def random_character!(*)
+    ScriptGenerator::SendRandomCharacterJob.perform_async(chat["id"])
+
+    respond_with :message, text: I18n.t("telegram_webhooks.commands.random_character")
   end
 
   def admin!(*)
