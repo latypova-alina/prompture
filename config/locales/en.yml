@@ -71,6 +71,9 @@ en:
         🔹 /generate_script %template_name% - will generate script from template_name param
 
         🔹 /script_templates - see possible script templates
+
+        🔹 /random_character - fetch a random character description from the script generator API
+      random_character: "Fetching random character description."
       prompt_to_video: "Great! Now please provide a prompt for the video. It can later be extended with the help of the bot."
       prompt_to_image: "Great! Now please provide a prompt for the image. It can later be extended with the help of the bot."
       image_to_video: |

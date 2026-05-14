@@ -70,6 +70,9 @@ es:
         🔹 /generate_script %template_name% - genera un script desde el parametro template_name
 
         🔹 /script_templates - muestra las plantillas de scripts disponibles
+
+        🔹 /random_character - obtiene una descripción de personaje aleatoria desde el API del generador de scripts
+      random_character: "Obteniendo descripción de personaje aleatoria."
       prompt_to_video: "¡Genial! Ahora, por favor, proporciona un prompt para el video. Más adelante podrás ampliarlo con la ayuda del bot."
       prompt_to_image: "¡Genial! Ahora, por favor, proporciona un prompt para la imagen. Más adelante podrás ampliarlo con la ayuda del bot."
       image_to_video: |
