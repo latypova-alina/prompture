@@ -32,7 +32,7 @@ module AdminCommands
   end
 
   def random_character!(*)
-    ScriptGenerator::SendRandomCharacterJob.perform_async(chat["id"])
+    ScriptGenerator::ProcessRandomCharacterJob.perform_async(chat["id"])
 
     respond_with :message, text: I18n.t("telegram_webhooks.commands.random_character")
   end

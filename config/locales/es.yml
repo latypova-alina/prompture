@@ -71,8 +71,8 @@ es:
 
         🔹 /script_templates - muestra las plantillas de scripts disponibles
 
-        🔹 /random_character - obtiene una descripción de personaje aleatoria desde el API del generador de scripts
-      random_character: "Obteniendo descripción de personaje aleatoria."
+        🔹 /random_character - genera una imagen de personaje aleatorio
+      random_character: "Generación de personaje aleatorio iniciada."
       prompt_to_video: "¡Genial! Ahora, por favor, proporciona un prompt para el video. Más adelante podrás ampliarlo con la ayuda del bot."
       prompt_to_image: "¡Genial! Ahora, por favor, proporciona un prompt para la imagen. Más adelante podrás ampliarlo con la ayuda del bot."
       image_to_video: |
