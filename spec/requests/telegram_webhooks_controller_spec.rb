@@ -221,7 +221,7 @@ describe TelegramWebhooksController, telegram_bot: :rails do
     let(:admin) { true }
 
     before do
-      allow(ScriptGenerator::SendRandomCharacterJob).to receive(:perform_async)
+      allow(ScriptGenerator::ProcessRandomCharacterJob).to receive(:perform_async)
     end
 
     it { is_expected.to respond_with_message(I18n.t("telegram_webhooks.commands.random_character")) }
@@ -229,7 +229,7 @@ describe TelegramWebhooksController, telegram_bot: :rails do
     it "enqueues random character job" do
       subject.call
 
-      expect(ScriptGenerator::SendRandomCharacterJob).to have_received(:perform_async).with(456)
+      expect(ScriptGenerator::ProcessRandomCharacterJob).to have_received(:perform_async).with(456)
     end
 
     context "when user is not admin" do
