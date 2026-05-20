@@ -1,0 +1,1 @@
+class FeatureUnderDevelopmentError < StandardError; end

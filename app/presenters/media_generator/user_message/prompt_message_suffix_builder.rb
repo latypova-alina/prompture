@@ -5,7 +5,7 @@ module MediaGenerator
         CommandPromptToAudioRequest => "telegram_webhooks.message.prompt_suffix_audio"
       }.freeze
 
-      DEFAULT_SUFFIX_KEY = "telegram_webhooks.message.prompt_suffix"
+      DEFAULT_SUFFIX_KEY = "telegram_webhooks.message.prompt_suffix".freeze
 
       def initialize(command_request:)
         @command_request = command_request

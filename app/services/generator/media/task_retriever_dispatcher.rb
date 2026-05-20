@@ -1,6 +1,13 @@
 module Generator
   module Media
     class TaskRetrieverDispatcher
+      TASK_RETRIEVER_JOBS_BY_PROCESSOR = [
+        [Generator::Processors::PROMPT_EXTENSION, Prompt::TaskRetrieverJob],
+        *Generator::Processors::IMAGE.product([Image::TaskRetrieverJob]),
+        *Generator::Processors::VIDEO.product([Video::TaskRetrieverJob]),
+        *Generator::Processors::AUDIO.product([Audio::TaskRetrieverJob])
+      ].to_h.freeze
+
       def self.call(...)
         new(...).call
       end
@@ -12,21 +19,16 @@ module Generator
       end
 
       def call
-        case processor
-        when Generator::Processors::PROMPT_EXTENSION
-          Prompt::TaskRetrieverJob.perform_async(task_id, button_request_id, processor)
-        when *Generator::Processors::IMAGE
-          Image::TaskRetrieverJob.perform_async(task_id, button_request_id, processor)
-        when *Generator::Processors::VIDEO
-          Video::TaskRetrieverJob.perform_async(task_id, button_request_id, processor)
-        when *Generator::Processors::AUDIO
-          Audio::TaskRetrieverJob.perform_async(task_id, button_request_id, processor)
-        end
+        task_retriever_job&.perform_async(task_id, button_request_id, processor)
       end
 
       private
 
       attr_reader :task_id, :button_request_id, :processor
+
+      def task_retriever_job
+        TASK_RETRIEVER_JOBS_BY_PROCESSOR[processor]
+      end
     end
   end
 end
