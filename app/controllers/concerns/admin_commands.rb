@@ -4,6 +4,8 @@ module AdminCommands
   included do
     before_action :authorize_admin, only: %i[
       random_script!
+      motivation_prompt!
+      motivation_script!
       random_character!
       script_templates!
       admin!
@@ -15,6 +17,20 @@ module AdminCommands
     ScriptGenerator::GenerateScriptJob.perform_async(chat["id"], nil)
 
     respond_with :message, text: "Started script generation."
+  end
+
+  def motivation_prompt!(*)
+    ScriptGenerator::GenerateMotivationPromptJob.perform_async(chat["id"])
+
+    respond_with :message, text: I18n.t("telegram_webhooks.commands.motivation_prompt")
+  end
+
+  def motivation_script!(*language_args)
+    language = language_args.first.presence || "en"
+
+    ScriptGenerator::GenerateMotivationScriptJob.perform_async(chat["id"], language)
+
+    respond_with :message, text: I18n.t("telegram_webhooks.commands.motivation_script")
   end
 
   def generate_script!(*)
