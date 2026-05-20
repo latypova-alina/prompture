@@ -1,4 +1,4 @@
-module StoreImage
+module StoreMedia
   module Upload
     class StoredUrlBuilder
       include Memery

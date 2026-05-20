@@ -8,23 +8,23 @@ describe StoreImage::Upload::Facade do
   let(:object_key) { "images/20260409/uuid-image.jpg" }
   let(:content_type) { "image/jpeg" }
   let(:stored_url) { "https://internal.example/#{object_key}" }
-  let(:object_uploader) { instance_double(StoreImage::Upload::S3ObjectUploader, upload: true) }
-  let(:url_builder) { instance_double(StoreImage::Upload::StoredUrlBuilder, stored_url:) }
+  let(:object_uploader) { instance_double(StoreMedia::Upload::S3ObjectUploader, upload: true) }
+  let(:url_builder) { instance_double(StoreMedia::Upload::StoredUrlBuilder, stored_url:) }
   let(:dimensions_validator) { instance_double(StoreImage::Upload::ImageDimensionsValidator, validate!: true) }
 
   before do
-    allow(StoreImage::Upload::ObjectKeyBuilder).to receive(:new).with(filename:).and_return(
-      instance_double(StoreImage::Upload::ObjectKeyBuilder, object_key:)
+    allow(StoreMedia::Upload::ObjectKeyBuilder).to receive(:new).with(filename:).and_return(
+      instance_double(StoreMedia::Upload::ObjectKeyBuilder, object_key:)
     )
-    allow(StoreImage::Upload::ContentTypeResolver).to receive(:new).with(filename:).and_return(
-      instance_double(StoreImage::Upload::ContentTypeResolver, content_type:)
+    allow(StoreMedia::Upload::ContentTypeResolver).to receive(:new).with(filename:).and_return(
+      instance_double(StoreMedia::Upload::ContentTypeResolver, content_type:)
     )
-    allow(StoreImage::Upload::S3ObjectUploader)
+    allow(StoreMedia::Upload::S3ObjectUploader)
       .to receive(:new)
       .with(bytes:, object_key:, content_type:)
       .and_return(object_uploader)
     allow(StoreImage::Upload::ImageDimensionsValidator).to receive(:new).with(bytes:).and_return(dimensions_validator)
-    allow(StoreImage::Upload::StoredUrlBuilder).to receive(:new).with(object_key:).and_return(url_builder)
+    allow(StoreMedia::Upload::StoredUrlBuilder).to receive(:new).with(object_key:).and_return(url_builder)
   end
 
   describe "#upload_image" do

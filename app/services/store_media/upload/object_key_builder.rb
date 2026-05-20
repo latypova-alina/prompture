@@ -1,6 +1,6 @@
 require "securerandom"
 
-module StoreImage
+module StoreMedia
   module Upload
     class ObjectKeyBuilder
       include Memery

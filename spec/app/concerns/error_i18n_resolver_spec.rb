@@ -22,6 +22,10 @@ describe ErrorI18nResolver do
       expect(resolver.resolve("AdminOnlyCommandError")).to eq("errors.admin_only_command")
     end
 
+    it "returns mapped i18n key for feature under development error class" do
+      expect(resolver.resolve("FeatureUnderDevelopmentError")).to eq("errors.feature_under_development")
+    end
+
     it "returns mapped i18n key for script generator request error class" do
       expect(resolver.resolve("ScriptGeneratorRequestError")).to eq("errors.script_generator_request_failed")
     end

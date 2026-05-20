@@ -4,6 +4,9 @@ module StoreMedia
       include Memery
 
       CONTENT_TYPES = {
+        ".png" => "image/png",
+        ".jpg" => "image/jpeg",
+        ".jpeg" => "image/jpeg",
         ".mp3" => "audio/mpeg",
         ".wav" => "audio/wav",
         ".ogg" => "audio/ogg",
@@ -16,7 +19,9 @@ module StoreMedia
       end
 
       memoize def content_type
-        CONTENT_TYPES.fetch(extension, "application/octet-stream")
+        CONTENT_TYPES.fetch(extension) do
+          raise ArgumentError, "Unsupported media extension: #{extension}"
+        end
       end
 
       private

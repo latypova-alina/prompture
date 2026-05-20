@@ -25,15 +25,15 @@ module StoreMedia
       delegate :content_type, to: :content_type_resolver
 
       memoize def object_uploader
-        StoreImage::Upload::S3ObjectUploader.new(bytes:, object_key:, content_type:)
+        S3ObjectUploader.new(bytes:, object_key:, content_type:)
       end
 
       memoize def stored_url_builder
-        StoreImage::Upload::StoredUrlBuilder.new(object_key:)
+        StoredUrlBuilder.new(object_key:)
       end
 
       memoize def object_key_builder
-        StoreImage::Upload::ObjectKeyBuilder.new(filename:, folder:)
+        ObjectKeyBuilder.new(filename:, folder:)
       end
 
       memoize def content_type_resolver

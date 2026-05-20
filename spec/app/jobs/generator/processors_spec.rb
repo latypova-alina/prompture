@@ -17,5 +17,11 @@ describe Generator::Processors do
         %w[kling_2_1_pro_image_to_video seedance_1_5_pro_image_to_video wan_2_2_image_to_video]
       )
     end
+
+    it "defines audio processors" do
+      expect(described_class::AUDIO).to eq(
+        %w[elevenlabs_turbo_v2_5_audio]
+      )
+    end
   end
 end
