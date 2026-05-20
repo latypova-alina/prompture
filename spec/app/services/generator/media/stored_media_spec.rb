@@ -24,15 +24,37 @@ describe Generator::Media::StoredMedia::Retriever do
 
         expect(service.internal_media_url).to eq(uploaded_url)
         expect(uploader).to have_received(:call)
+        expect(Generator::Media::StoredMedia::Uploader).to have_received(:new).once
       end
     end
 
-    context "when processor is not image" do
+    context "when processor is not image or audio" do
       let(:processor) { Generator::Processors::PROMPT_EXTENSION }
 
       it "returns original media_url without creating stored image" do
         expect(service.internal_media_url).to eq(media_url)
         expect(Generator::Media::StoredMedia::Uploader).not_to have_received(:new)
+      end
+    end
+
+    context "when processor is audio" do
+      let(:processor) { "elevenlabs_turbo_v2_5_audio" }
+      let!(:button_request) { create(:button_audio_processing_request) }
+      let(:uploader) { instance_double(Generator::Media::StoredMedia::AudioUploader, stored_url: uploaded_url) }
+
+      before do
+        allow(Generator::Media::StoredMedia::AudioUploader)
+          .to receive(:new)
+          .with(media_url:, record: button_request)
+          .and_return(uploader)
+      end
+
+      it "uses audio uploader and returns internal media url" do
+        allow(uploader).to receive(:call)
+
+        expect(service.internal_media_url).to eq(uploaded_url)
+        expect(uploader).to have_received(:call)
+        expect(Generator::Media::StoredMedia::AudioUploader).to have_received(:new).once
       end
     end
   end

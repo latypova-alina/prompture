@@ -35,4 +35,26 @@ describe MediaGenerator::UserMessage::PromptMessagePresenter do
       expect(subject.inline_keyboard).to eq(expected_buttons)
     end
   end
+
+  context "when command is prompt_to_audio" do
+    let(:prompt_message) do
+      create(:prompt_message, prompt:, command_request: create(:command_prompt_to_audio_request))
+    end
+
+    describe "#formatted_text" do
+      it "returns audio prompt suffix" do
+        expect(subject.formatted_text).to include(
+          I18n.t("telegram_webhooks.message.prompt_suffix_audio")
+        )
+      end
+    end
+
+    describe "#inline_keyboard" do
+      it "returns audio processor buttons" do
+        expect(subject.inline_keyboard).to eq(
+          [[{ callback_data: "elevenlabs_turbo_v2_5_audio", text: "ElevenLabs Turbo (2 credits)" }]]
+        )
+      end
+    end
+  end
 end

@@ -1,6 +1,6 @@
 require "rails_helper"
 
-describe StoreImage::Upload::ObjectKeyBuilder do
+describe StoreMedia::Upload::ObjectKeyBuilder do
   subject(:object_key) { described_class.new(filename:).object_key }
 
   let(:filename) { "image.jpg" }
@@ -12,5 +12,13 @@ describe StoreImage::Upload::ObjectKeyBuilder do
 
   it "builds object key with date, uuid, and filename" do
     expect(object_key).to eq("images/20260409/uuid-123-image.jpg")
+  end
+
+  context "when folder is audio" do
+    subject(:object_key) { described_class.new(filename:, folder: "audio").object_key }
+
+    it "uses the given folder" do
+      expect(object_key).to eq("audio/20260409/uuid-123-image.jpg")
+    end
   end
 end

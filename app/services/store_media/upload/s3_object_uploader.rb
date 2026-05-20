@@ -1,7 +1,6 @@
-require "securerandom"
 require "aws-sdk-s3"
 
-module StoreImage
+module StoreMedia
   module Upload
     class S3ObjectUploader
       include Memery
@@ -13,7 +12,7 @@ module StoreImage
       end
 
       def upload
-        raise ArgumentError, "Image bytes are missing" if bytes.blank?
+        raise ArgumentError, "Media bytes are missing" if bytes.blank?
 
         s3_client.put_object(
           bucket: bucket_name,

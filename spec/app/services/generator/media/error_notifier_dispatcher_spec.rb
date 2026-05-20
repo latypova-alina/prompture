@@ -16,6 +16,9 @@ describe Generator::Media::ErrorNotifierDispatcher do
 
     allow(Generator::Media::Video::ErrorNotifierJob)
       .to receive(:perform_async)
+
+    allow(Generator::Media::Audio::ErrorNotifierJob)
+      .to receive(:perform_async)
   end
 
   describe ".call" do
@@ -66,6 +69,27 @@ describe Generator::Media::ErrorNotifierDispatcher do
           .with(button_request_id)
 
         expect(Generator::Media::Image::ErrorNotifierJob)
+          .not_to have_received(:perform_async)
+
+        expect(Generator::Media::Prompt::ErrorNotifierJob)
+          .not_to have_received(:perform_async)
+      end
+    end
+
+    context "when processor is an audio processor" do
+      let(:processor) { Generator::Processors::AUDIO.first }
+
+      it "dispatches audio error notifier job" do
+        call_service
+
+        expect(Generator::Media::Audio::ErrorNotifierJob)
+          .to have_received(:perform_async)
+          .with(button_request_id)
+
+        expect(Generator::Media::Image::ErrorNotifierJob)
+          .not_to have_received(:perform_async)
+
+        expect(Generator::Media::Video::ErrorNotifierJob)
           .not_to have_received(:perform_async)
 
         expect(Generator::Media::Prompt::ErrorNotifierJob)

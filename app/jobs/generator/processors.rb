@@ -14,5 +14,9 @@ module Generator
       seedance_1_5_pro_image_to_video
       wan_2_2_image_to_video
     ].freeze
+
+    AUDIO = %w[
+      elevenlabs_turbo_v2_5_audio
+    ].freeze
   end
 end

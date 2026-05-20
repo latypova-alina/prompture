@@ -11,6 +11,14 @@ describe MediaGenerator::CommandHandler::HandleCommand do
     expect { subject }.to change(CommandPromptToImageRequest, :count).from(0).to(1)
   end
 
+  context "when command is prompt_to_audio" do
+    let(:command) { "prompt_to_audio" }
+
+    it "creates a command request" do
+      expect { subject }.to change(CommandPromptToAudioRequest, :count).from(0).to(1)
+    end
+  end
+
   context "when command is unknown" do
     let(:command) { "unknown_command" }
 

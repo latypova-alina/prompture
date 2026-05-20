@@ -8,16 +8,21 @@ es:
         activate_token: "🔑 Activa un token"
         prompt_to_video: "🎬 Prompt → imagen → video"
         prompt_to_image: "🖼 Prompt → imagen"
+        prompt_to_audio: "🔊 Prompt → audio"
         prompt_policy: "🛡 Ver reglas de prompts"
         set_locale: "🌐 Cambiar idioma"
+        image_to_video: "🖼🎬 Imagen → video"
       start:
         no_token: |
           👋 ¡Hola! Me alegra verte por aquí.
 
-          🤖 Con este bot puedes generar imágenes y videos usando diferentes modelos de IA.
+          🤖 Con este bot puedes generar imágenes, videos y audio usando diferentes modelos de IA.
 
           🎨 Para generar una imagen, escribe:
           /prompt_to_image
+
+          🔊 Para generar audio, escribe:
+          /prompt_to_audio
 
           🎬 Para generar un video, escribe:
           /prompt_to_video
@@ -33,10 +38,13 @@ es:
 
           Los tokens son proporcionados por el administrador.
         with_valid_token: |
-          🤖 Con este bot puedes generar imágenes y videos usando diferentes modelos de IA.
+          🤖 Con este bot puedes generar imágenes, videos y audio usando diferentes modelos de IA.
 
           🎨 Para generar una imagen:
           /prompt_to_image
+
+          🔊 Para generar audio:
+          /prompt_to_audio
 
           🎬 Para generar un video:
           /prompt_to_video
@@ -44,10 +52,13 @@ es:
           💰 Para consultar tu saldo:
           /balance
       help: |
-        🤖 Con este bot puedes generar imágenes y videos usando diferentes modelos de IA.
+        🤖 Con este bot puedes generar imágenes, videos y audio usando diferentes modelos de IA.
 
         🎨 Para generar una imagen, escribe:
         /prompt_to_image
+
+        🔊 Para generar audio, escribe:
+        /prompt_to_audio
 
         🎬 Para generar un video, escribe:
         /prompt_to_video
@@ -75,6 +86,7 @@ es:
       random_character: "Generación de personaje aleatorio iniciada."
       prompt_to_video: "¡Genial! Ahora, por favor, proporciona un prompt para el video. Más adelante podrás ampliarlo con la ayuda del bot."
       prompt_to_image: "¡Genial! Ahora, por favor, proporciona un prompt para la imagen. Más adelante podrás ampliarlo con la ayuda del bot."
+      prompt_to_audio: "¡Genial! Ahora, por favor, proporciona un prompt para el audio."
       image_to_video: |
         ¡Genial! Ahora, por favor, envíame la imagen que quieres convertir en un video.
         Puedes enviarla como:
@@ -112,12 +124,17 @@ es:
       image_generated_prefix: "Aquí está tu %{processor_name} 🖼️"
       image_generated_postfix: "Ahora puedes generar un video usando uno de los procesadores (Kling)"
       video_generated_prefix: "Aquí está tu %{processor_name} 🎥"
+      audio_generated_prefix: "Aquí está tu %{processor_name} 🔊"
       prompt_suffix: |
         ¿Qué quieres hacer a continuación? Puedes:
 
         🔹 extender el prompt
           
         🔹 generar una imagen usando uno de los procesadores (Mystic/Flux/Gemini/Imagen)
+      prompt_suffix_audio: |
+        ¿Qué quieres hacer a continuación? Puedes:
+
+        🔹 generar audio usando ElevenLabs Turbo
       provide_prompt: "Por favor, proporciona la descripción (opcional)"
       buttons:
         prompt:
@@ -137,6 +154,10 @@ es:
           imagen_image:
             one: "Imagen (%{count} crédito)"
             other: "Imagen (%{count} créditos)"
+        generate_audio:
+          elevenlabs_turbo_v2_5_audio:
+            one: "ElevenLabs Turbo (%{count} crédito)"
+            other: "ElevenLabs Turbo (%{count} créditos)"
         generate_video:
           kling_2_1_pro_image_to_video:
             one: "Kling Pro 2.1 (%{count} crédito)"
@@ -156,6 +177,7 @@ es:
           es: "Español"
         image_processed: "Abrir imagen"
         video_processed: "Abrir video"
+        audio_processed: "Abrir audio"
   errors:
     prompt_forgotten: "Por favor, proporciona el prompt nuevamente"
     extend_prompt_error: "Lo siento, no pude procesar tu solicitud. Por favor, inténtalo de nuevo más tarde."
@@ -163,9 +185,11 @@ es:
     empty_generation_our_fault_prompt: "Lo siento, no pudimos generar el prompt. El problema es nuestro. Se te reembolsará."
     empty_generation_our_fault_image: "Lo siento, no pudimos generar la imagen. El problema es nuestro. Se te reembolsará."
     empty_generation_our_fault_video: "Lo siento, no pudimos generar el video. El problema es nuestro. Se te reembolsará."
+    empty_generation_our_fault_audio: "Lo siento, no pudimos generar el audio. El problema es nuestro. Se te reembolsará."
     image_generating_error: "Lo siento, no pude generar la imagen. Por favor, inténtalo de nuevo más tarde."
     image_generating_timeout_error: "Lo siento, la generación de la imagen está tardando demasiado. Por favor, inténtalo de nuevo más tarde."
     video_generating_error: "Lo siento, no pude generar el video. Por favor, inténtalo de nuevo más tarde."
+    audio_generating_error: "Lo siento, no pude generar el audio. Por favor, inténtalo de nuevo más tarde."
     video_generating_timeout_error: "Lo siento, la generación del video está tardando demasiado. Por favor, inténtalo de nuevo más tarde."
     command_unknown: "¡Ups! Parece que aún no has seleccionado un comando. Por favor, elige uno y sigue las instrucciones."
     unknown: "¡Ups! Algo salió mal. Por favor, inténtalo de nuevo más tarde."
@@ -177,6 +201,7 @@ es:
     command_request_forgotten: "Parece que falta tu solicitud de comando anterior. Por favor, comienza de nuevo y proporciona la información necesaria."
     unauthorized: "Parece que primero necesitas activar un token 🔑"
     admin_only_command: "Este comando solo está disponible para administradores."
+    feature_under_development: "Esta función aún está en desarrollo."
     token_not_found: "Lo siento, el token que proporcionaste no es válido. Puedes pedirle al administrador un token válido."
     token_used: "Lo siento, el token que proporcionaste ya ha sido utilizado."
     token_expired: "Lo siento, el token que proporcionaste ha expirado."
@@ -199,6 +224,8 @@ es:
           flux_image: "imagen de Flux"
           gemini_image: "imagen de Gemini"
           imagen_image: "imagen de Imagen"
+        audio:
+          elevenlabs_turbo_v2_5_audio: "audio ElevenLabs Turbo"
 
 
 

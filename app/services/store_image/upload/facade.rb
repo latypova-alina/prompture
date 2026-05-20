@@ -26,7 +26,7 @@ module StoreImage
       delegate :content_type, to: :content_type_resolver
 
       memoize def object_uploader
-        S3ObjectUploader.new(bytes:, object_key:, content_type:)
+        StoreMedia::Upload::S3ObjectUploader.new(bytes:, object_key:, content_type:)
       end
 
       memoize def dimensions_validator
@@ -34,15 +34,15 @@ module StoreImage
       end
 
       memoize def stored_url_builder
-        StoredUrlBuilder.new(object_key:)
+        StoreMedia::Upload::StoredUrlBuilder.new(object_key:)
       end
 
       memoize def object_key_builder
-        ObjectKeyBuilder.new(filename:)
+        StoreMedia::Upload::ObjectKeyBuilder.new(filename:)
       end
 
       memoize def content_type_resolver
-        ContentTypeResolver.new(filename:)
+        StoreMedia::Upload::ContentTypeResolver.new(filename:)
       end
     end
   end

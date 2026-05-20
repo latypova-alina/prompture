@@ -2,6 +2,21 @@ module TelegramIntegration
   class CommandSync
     include Memery
 
+    COMMAND_NAMES = %w[
+      prompt_to_video
+      prompt_to_image
+      prompt_to_audio
+      image_to_video
+      set_locale
+      balance
+      activate_token
+      start
+      help
+      prompt_policy
+    ].freeze
+
+    DESCRIPTION_I18N_SCOPE = "telegram_webhooks.commands.description".freeze
+
     def self.call
       new.call
     end
@@ -44,22 +59,14 @@ module TelegramIntegration
     end
 
     def build_commands
-      [
-        { command: "prompt_to_video",
-          description: I18n.t("telegram_webhooks.commands.description.prompt_to_video") },
-        { command: "prompt_to_image",
-          description: I18n.t("telegram_webhooks.commands.description.prompt_to_image") },
-        { command: "image_to_video",
-          description: I18n.t("telegram_webhooks.commands.description.image_to_video") },
-        { command: "set_locale",
-          description: I18n.t("telegram_webhooks.commands.description.set_locale") },
-        { command: "balance", description: I18n.t("telegram_webhooks.commands.description.balance") },
-        { command: "activate_token", description: I18n.t("telegram_webhooks.commands.description.activate_token") },
-        { command: "start", description: I18n.t("telegram_webhooks.commands.description.start") },
-        { command: "help", description: I18n.t("telegram_webhooks.commands.description.help") },
-        { command: "prompt_policy",
-          description: I18n.t("telegram_webhooks.commands.description.prompt_policy") }
-      ]
+      COMMAND_NAMES.map { |command| command_entry(command) }
+    end
+
+    def command_entry(command)
+      {
+        command:,
+        description: I18n.t("#{DESCRIPTION_I18N_SCOPE}.#{command}")
+      }
     end
   end
 end

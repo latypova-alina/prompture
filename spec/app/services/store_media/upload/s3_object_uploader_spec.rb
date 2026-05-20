@@ -1,9 +1,9 @@
 require "rails_helper"
 
-describe StoreImage::Upload::S3ObjectUploader do
+describe StoreMedia::Upload::S3ObjectUploader do
   subject(:uploader) { described_class.new(bytes:, object_key:, content_type:) }
 
-  let(:bytes) { "image-bytes" }
+  let(:bytes) { "media-bytes" }
   let(:object_key) { "images/20260409/uuid-image.jpg" }
   let(:content_type) { "image/jpeg" }
   let(:s3_client) { instance_double(Aws::S3::Client) }
@@ -29,7 +29,7 @@ describe StoreImage::Upload::S3ObjectUploader do
       let(:bytes) { "" }
 
       it "raises argument error" do
-        expect { uploader.upload }.to raise_error(ArgumentError, "Image bytes are missing")
+        expect { uploader.upload }.to raise_error(ArgumentError, "Media bytes are missing")
       end
     end
   end
