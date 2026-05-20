@@ -1,5 +1,5 @@
 module Buttons
-  class ForInitialPromptMessage
+  module ForInitialPromptMessage
     class ForMedia < Base
       def build
         [

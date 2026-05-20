@@ -70,6 +70,8 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
   end
 
   def prompt_to_audio!(*)
+    raise FeatureUnderDevelopmentError unless Flipper[:prompt_to_audio].enabled?(user)
+
     session[:command] = "prompt_to_audio"
 
     MediaGenerator::CommandHandler::HandleCommand.call(command: session[:command], chat_id: chat["id"])

@@ -1,5 +1,5 @@
 module Buttons
-  class ForInitialPromptMessage
+  module ForInitialPromptMessage
     class ForAudio < Base
       def build
         processor_rows

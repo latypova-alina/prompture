@@ -201,6 +201,7 @@ es:
     command_request_forgotten: "Parece que falta tu solicitud de comando anterior. Por favor, comienza de nuevo y proporciona la información necesaria."
     unauthorized: "Parece que primero necesitas activar un token 🔑"
     admin_only_command: "Este comando solo está disponible para administradores."
+    feature_under_development: "Esta función aún está en desarrollo."
     token_not_found: "Lo siento, el token que proporcionaste no es válido. Puedes pedirle al administrador un token válido."
     token_used: "Lo siento, el token que proporcionaste ya ha sido utilizado."
     token_expired: "Lo siento, el token que proporcionaste ha expirado."

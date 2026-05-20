@@ -12,6 +12,7 @@ module ErrorHandler
     rescue_from TokenNotFoundError, with: :handle_error
     rescue_from UnauthorizedError, with: :handle_error
     rescue_from AdminOnlyCommandError, with: :handle_error
+    rescue_from FeatureUnderDevelopmentError, with: :handle_error
     rescue_from TokenUsedError, with: :handle_error
     rescue_from TokenExpiredError, with: :handle_error
     rescue_from InsufficientCreditsError, with: :handle_error
