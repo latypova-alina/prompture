@@ -19,7 +19,9 @@ module ScriptGenerator
     attr_reader :chat_id
 
     def handle_error
-      return if response.success? && parsed_prompts.is_a?(Array) && parsed_prompts.all? { |prompt| prompt.is_a?(String) }
+      return if response.success? && parsed_prompts.is_a?(Array) && parsed_prompts.all? do |prompt|
+        prompt.is_a?(String)
+      end
 
       raise ScriptGeneratorRequestError, response.body.to_s
     end
