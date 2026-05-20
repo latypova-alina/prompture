@@ -78,12 +78,18 @@ en:
 
         🔹 /random_script - will generate random script
 
+        🔹 /motivation_prompt - will generate motivational video prompts
+
+        🔹 /motivation_script - will generate motivational voiceover script and audio
+
         🔹 /generate_script %template_name% - will generate script from template_name param
 
         🔹 /script_templates - see possible script templates
 
         🔹 /random_character - generate a random character image
       random_character: "Started random character generation."
+      motivation_prompt: "Started motivation prompt generation."
+      motivation_script: "Started motivation script and audio generation."
       prompt_to_video: "Great! Now please provide a prompt for the video. It can later be extended with the help of the bot."
       prompt_to_image: "Great! Now please provide a prompt for the image. It can later be extended with the help of the bot."
       prompt_to_audio: "Great! Now please provide a prompt for the audio."

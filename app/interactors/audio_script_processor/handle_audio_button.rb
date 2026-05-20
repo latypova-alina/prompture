@@ -1,9 +1,9 @@
-module ScriptProcessor
-  class HandleFluxButton
+module AudioScriptProcessor
+  class HandleAudioButton
     include Interactor
     include Memery
 
-    FLUX_BUTTON = "flux_image".freeze
+    AUDIO_BUTTON = "elevenlabs_turbo_v2_5_audio".freeze
 
     delegate :chat_id, :prompt_message, to: :context
 
@@ -17,7 +17,7 @@ module ScriptProcessor
 
     memoize def handled_button
       MediaGenerator::ButtonHandler::HandleButton.call(
-        button_request: FLUX_BUTTON,
+        button_request: AUDIO_BUTTON,
         chat_id:,
         tg_message_id: bot_message.tg_message_id,
         callback_query_id: nil
