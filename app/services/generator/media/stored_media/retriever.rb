@@ -21,7 +21,9 @@ module Generator
 
         attr_reader :media_url, :button_request_id, :processor
 
-        delegate :uploader, to: :stored_media_type, private: true
+        memoize def uploader
+          stored_media_type.uploader
+        end
 
         memoize def stored_media_type
           StoredMediaType.new(processor:, media_url:, button_request_id:)
