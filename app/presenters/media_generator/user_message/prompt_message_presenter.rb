@@ -12,19 +12,26 @@ module MediaGenerator
         <<~HTML
           <blockquote>#{prompt}</blockquote>
 
-          #{I18n.t('telegram_webhooks.message.prompt_suffix')}
+          #{I18n.t(suffix_key)}
         HTML
       end
 
-      def inline_keyboard
-        Buttons::ForInitialPromptMessage.build(locale:)
-      end
+      delegate :inline_keyboard, to: :button_builder
 
       private
 
       attr_reader :prompt_message
 
-      delegate :prompt, to: :prompt_message
+      delegate :prompt, :command_request, to: :prompt_message
+      delegate :suffix_key, to: :suffix_builder
+
+      def suffix_builder
+        PromptMessageSuffixBuilder.new(command_request:)
+      end
+
+      def button_builder
+        PromptMessageButtonBuilder.new(command_request:, locale:)
+      end
     end
   end
 end

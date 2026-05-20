@@ -8,6 +8,7 @@ module MediaGenerator
 
       HANDLERS = {
         "prompt_to_image" => CommandPromptToImageRequest,
+        "prompt_to_audio" => CommandPromptToAudioRequest,
         "prompt_to_video" => CommandPromptToVideoRequest,
         "image_to_video" => CommandImageToVideoRequest,
         "image_from_reference" => CommandImageFromReferenceRequest

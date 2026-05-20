@@ -8,6 +8,8 @@ default: &default
     kling_2_1_pro_image_to_video: 10
     seedance_1_5_pro_image_to_video: 6
     wan_2_2_image_to_video: 8
+  generate_audio:
+    elevenlabs_turbo_v2_5_audio: 2
   prompt:
     extend_prompt: 1
 
@@ -25,6 +27,8 @@ test:
     kling_2_1_pro_image_to_video: 10
     seedance_1_5_pro_image_to_video: 6
     wan_2_2_image_to_video: 8
+  generate_audio:
+    elevenlabs_turbo_v2_5_audio: 2
   prompt:
     extend_prompt: 1
 

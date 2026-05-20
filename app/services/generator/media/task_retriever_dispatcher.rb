@@ -19,6 +19,8 @@ module Generator
           Image::TaskRetrieverJob.perform_async(task_id, button_request_id, processor)
         when *Generator::Processors::VIDEO
           Video::TaskRetrieverJob.perform_async(task_id, button_request_id, processor)
+        when *Generator::Processors::AUDIO
+          Audio::TaskRetrieverJob.perform_async(task_id, button_request_id, processor)
         end
       end
 

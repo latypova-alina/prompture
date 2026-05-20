@@ -14,7 +14,8 @@ module MediaGenerator
         "imagen_image" => RecordCreators::ButtonRequests::Images::Imagen,
         "kling_2_1_pro_image_to_video" => RecordCreators::ButtonRequests::Videos::Kling,
         "seedance_1_5_pro_image_to_video" => RecordCreators::ButtonRequests::Videos::Seedance,
-        "wan_2_2_image_to_video" => RecordCreators::ButtonRequests::Videos::Wan
+        "wan_2_2_image_to_video" => RecordCreators::ButtonRequests::Videos::Wan,
+        "elevenlabs_turbo_v2_5_audio" => RecordCreators::ButtonRequests::Audio::ElevenlabsTurbo
       }.freeze
 
       def call

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2026_04_13_170000) do
+ActiveRecord::Schema[8.0].define(version: 2026_05_20_120000) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -44,6 +44,20 @@ ActiveRecord::Schema[8.0].define(version: 2026_04_13_170000) do
     t.datetime "updated_at", null: false
     t.index ["chat_id", "tg_message_id"], name: "index_bot_telegram_messages_on_chat_and_message", unique: true
     t.index ["request_type", "request_id"], name: "index_telegram_messages_on_request"
+  end
+
+  create_table "button_audio_processing_requests", force: :cascade do |t|
+    t.string "audio_url"
+    t.string "status", default: "pending", null: false
+    t.string "processor", null: false
+    t.string "parent_request_type", null: false
+    t.bigint "parent_request_id", null: false
+    t.string "command_request_type", null: false
+    t.bigint "command_request_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["command_request_type", "command_request_id"], name: "index_button_audio_processing_requests_on_command_request"
+    t.index ["parent_request_type", "parent_request_id"], name: "index_button_audio_processing_requests_on_parent_request"
   end
 
   create_table "button_extend_prompt_requests", force: :cascade do |t|
@@ -108,6 +122,14 @@ ActiveRecord::Schema[8.0].define(version: 2026_04_13_170000) do
     t.datetime "updated_at", null: false
     t.bigint "user_id"
     t.index ["user_id"], name: "index_command_image_to_video_requests_on_user_id"
+  end
+
+  create_table "command_prompt_to_audio_requests", force: :cascade do |t|
+    t.bigint "chat_id", null: false
+    t.bigint "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_command_prompt_to_audio_requests_on_user_id"
   end
 
   create_table "command_prompt_to_image_requests", force: :cascade do |t|
@@ -234,6 +256,7 @@ ActiveRecord::Schema[8.0].define(version: 2026_04_13_170000) do
   add_foreign_key "balances", "users"
   add_foreign_key "command_image_from_reference_requests", "users"
   add_foreign_key "command_image_to_video_requests", "users"
+  add_foreign_key "command_prompt_to_audio_requests", "users"
   add_foreign_key "command_prompt_to_image_requests", "users"
   add_foreign_key "command_prompt_to_video_requests", "users"
   add_foreign_key "tokens", "users"

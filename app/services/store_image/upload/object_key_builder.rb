@@ -5,17 +5,20 @@ module StoreImage
     class ObjectKeyBuilder
       include Memery
 
-      def initialize(filename:)
+      DEFAULT_FOLDER = "images".freeze
+
+      def initialize(filename:, folder: DEFAULT_FOLDER)
         @filename = filename
+        @folder = folder
       end
 
       memoize def object_key
-        "images/#{Time.now.utc.strftime('%Y%m%d')}/#{SecureRandom.uuid}-#{filename}"
+        "#{folder}/#{Time.now.utc.strftime('%Y%m%d')}/#{SecureRandom.uuid}-#{filename}"
       end
 
       private
 
-      attr_reader :filename
+      attr_reader :filename, :folder
     end
   end
 end

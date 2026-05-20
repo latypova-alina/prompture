@@ -69,6 +69,14 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
     respond_with :message, text: t("telegram_webhooks.commands.prompt_to_image")
   end
 
+  def prompt_to_audio!(*)
+    session[:command] = "prompt_to_audio"
+
+    MediaGenerator::CommandHandler::HandleCommand.call(command: session[:command], chat_id: chat["id"])
+
+    respond_with :message, text: t("telegram_webhooks.commands.prompt_to_audio")
+  end
+
   def image_to_video!(*)
     session[:command] = "image_to_video"
 

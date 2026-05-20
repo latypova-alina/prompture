@@ -22,6 +22,8 @@ module Generator
           Generator::Media::Image::FreepikEmptyAlertJob.perform_async(button_request_id)
         when *Generator::Processors::VIDEO
           Generator::Media::Video::FreepikEmptyAlertJob.perform_async(button_request_id)
+        when *Generator::Processors::AUDIO
+          Generator::Media::Audio::FreepikEmptyAlertJob.perform_async(button_request_id)
         end
       end
     end

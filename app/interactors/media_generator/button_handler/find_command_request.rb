@@ -8,6 +8,7 @@ module MediaGenerator
 
       COMMAND_REQUEST_CLASSES = [
         CommandPromptToImageRequest,
+        CommandPromptToAudioRequest,
         CommandPromptToVideoRequest,
         CommandImageToVideoRequest,
         CommandImageFromReferenceRequest

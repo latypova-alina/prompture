@@ -11,7 +11,7 @@ module Generator
         end
 
         def internal_media_url
-          return media_url unless image_processor?
+          return media_url unless stored_media_type.needs_to_be_stored?
 
           uploader.call
           uploader.stored_url
@@ -21,16 +21,10 @@ module Generator
 
         attr_reader :media_url, :button_request_id, :processor
 
-        memoize def image_request
-          ButtonImageProcessingRequest.find(button_request_id)
-        end
+        delegate :uploader, to: :stored_media_type, private: true
 
-        def image_processor?
-          Generator::Processors::IMAGE.include?(processor)
-        end
-
-        memoize def uploader
-          Uploader.new(media_url:, record: image_request)
+        memoize def stored_media_type
+          StoredMediaType.new(processor:, media_url:, button_request_id:)
         end
       end
     end

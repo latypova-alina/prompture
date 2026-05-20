@@ -8,6 +8,7 @@ en:
         activate_token: "🔑 Activate a token"
         prompt_to_video: "🎬 Prompt → picture → video"
         prompt_to_image: "🖼 Prompt → image"
+        prompt_to_audio: "🔊 Prompt → audio"
         prompt_policy: "🛡 View prompt policy rules"
         set_locale: "🌐 Set language"
         image_to_video: "🖼🎬 Picture → video"
@@ -15,10 +16,13 @@ en:
         no_token: |
           👋 Hi! Great to see you here.
 
-          🤖 With this bot, you can generate images and videos using different AI models.
+          🤖 With this bot, you can generate images, videos, and audio using different AI models.
 
           🎨 To generate an image, type:
           /prompt_to_image
+
+          🔊 To generate audio, type:
+          /prompt_to_audio
 
           🎬 To generate a video, type:
           /prompt_to_video
@@ -34,10 +38,13 @@ en:
 
           Tokens are provided by the administrator.
         with_valid_token: |
-          🤖 With this bot, you can generate images and videos using different AI models.
+          🤖 With this bot, you can generate images, videos, and audio using different AI models.
 
           🎨 To generate an image:
           /prompt_to_image
+
+          🔊 To generate audio:
+          /prompt_to_audio
 
           🎬 To generate a video:
           /prompt_to_video
@@ -45,10 +52,13 @@ en:
           💰 To check your balance:
           /balance
       help: |
-        🤖 With this bot, you can generate images and videos using different AI models.
+        🤖 With this bot, you can generate images, videos, and audio using different AI models.
 
         🎨 To generate an image, type:
         /prompt_to_image
+
+        🔊 To generate audio, type:
+        /prompt_to_audio
 
         🎬 To generate a video, type:
         /prompt_to_video
@@ -76,6 +86,7 @@ en:
       random_character: "Started random character generation."
       prompt_to_video: "Great! Now please provide a prompt for the video. It can later be extended with the help of the bot."
       prompt_to_image: "Great! Now please provide a prompt for the image. It can later be extended with the help of the bot."
+      prompt_to_audio: "Great! Now please provide a prompt for the audio."
       image_to_video: |
         Great! Now please send me the image you want to turn into a video.
         It can be sent as:
@@ -113,12 +124,17 @@ en:
       image_generated_prefix: "Here is your %{processor_name} 🖼️"
       image_generated_postfix: "You can now generate a video using one of the processors (Kling)"
       video_generated_prefix: "Here is your %{processor_name} 🎥"
+      audio_generated_prefix: "Here is your %{processor_name} 🔊"
       prompt_suffix: |
         What do you want to do next? You can: 
         
         🔹 extend the prompt
           
         🔹 generate an image using one of the processors (Mystic/Flux/Gemini/Imagen)
+      prompt_suffix_audio: |
+        What do you want to do next? You can:
+
+        🔹 generate audio using ElevenLabs Turbo
       provide_prompt: "Please provide the description (optional)"
       buttons:
         prompt:
@@ -138,6 +154,10 @@ en:
           imagen_image:
             one: "Imagen (%{count} credit)"
             other: "Imagen (%{count} credits)"
+        generate_audio:
+          elevenlabs_turbo_v2_5_audio:
+            one: "ElevenLabs Turbo (%{count} credit)"
+            other: "ElevenLabs Turbo (%{count} credits)"
         generate_video:
           kling_2_1_pro_image_to_video:
             one: "Kling Pro 2.1 (%{count} credit)"
@@ -157,6 +177,7 @@ en:
           es: "Español"
       image_processed: "Open image"
       video_processed: "Open video"
+      audio_processed: "Open audio"
   errors:
     prompt_forgotten: "Please provide the prompt again"
     extend_prompt_error: "Sorry, I couldn't process your request. Please try again later."
@@ -164,9 +185,11 @@ en:
     empty_generation_our_fault_prompt: "I'm sorry we couldn't generate the prompt. The problem is on our side. You will be refunded."
     empty_generation_our_fault_image: "I'm sorry we couldn't generate the image. The problem is on our side. You will be refunded."
     empty_generation_our_fault_video: "I'm sorry we couldn't generate the video. The problem is on our side. You will be refunded."
+    empty_generation_our_fault_audio: "I'm sorry we couldn't generate the audio. The problem is on our side. You will be refunded."
     image_generating_error: "Sorry, I couldn't generate the image. Please try again later."
     image_generating_timeout_error: "Sorry, the image generation is taking too long. Please try again later."
     video_generating_error: "Sorry, I couldn't generate the video. Please try again later."
+    audio_generating_error: "Sorry, I couldn't generate the audio. Please try again later."
     video_generating_timeout_error: "Sorry, the video generation is taking too long. Please try again later."
     command_unknown: "Oops! It looks like you haven’t selected a command yet. Please choose one and follow the instructions."
     unknown: "Oops! Something went wrong. Please try again later."
@@ -200,4 +223,6 @@ en:
           flux_image: "Flux image"
           gemini_image: "Gemini image"
           imagen_image: "Imagen image"
+        audio:
+          elevenlabs_turbo_v2_5_audio: "ElevenLabs Turbo audio"
 

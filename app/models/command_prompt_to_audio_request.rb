@@ -1,0 +1,13 @@
+class CommandPromptToAudioRequest < ApplicationRecord
+  include HasOriginPrompt
+
+  belongs_to :user
+
+  has_many :button_audio_processing_requests, as: :command_request, dependent: :destroy
+  has_many :prompt_messages, as: :command_request, dependent: :destroy
+
+  has_many :direct_button_audio_processing_requests,
+           as: :parent_request,
+           class_name: "ButtonAudioProcessingRequest",
+           dependent: :destroy
+end
