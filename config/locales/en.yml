@@ -161,9 +161,22 @@ en:
             one: "Imagen (%{count} credit)"
             other: "Imagen (%{count} credits)"
         generate_audio:
-          elevenlabs_turbo_v2_5_audio:
-            one: "ElevenLabs Turbo (%{count} credit)"
-            other: "ElevenLabs Turbo (%{count} credits)"
+          adam:
+            one: "Adam (%{count} credit)"
+            other: "Adam (%{count} credits)"
+          victoria:
+            one: "Victoria (%{count} credit)"
+            other: "Victoria (%{count} credits)"
+          knox_dark:
+            one: "Knox Dark (%{count} credit)"
+            other: "Knox Dark (%{count} credits)"
+          milo:
+            one: "Milo (%{count} credit)"
+            other: "Milo (%{count} credits)"
+          hope:
+            one: "Hope (%{count} credit)"
+            other: "Hope (%{count} credits)"
+        get_audio_samples: "Get samples"
         generate_video:
           kling_2_1_pro_image_to_video:
             one: "Kling Pro 2.1 (%{count} credit)"
@@ -184,6 +197,16 @@ en:
       image_processed: "Open image"
       video_processed: "Open video"
       audio_processed: "Open audio"
+      audio_samples:
+        intro: "Here are the voice samples 🔊"
+        listen: "Listen"
+        voice_line: "%{name}: <a href=\"%{url}\">%{link_label}</a>"
+        voices:
+          adam: "Adam"
+          victoria: "Victoria"
+          knox_dark: "Knox Dark"
+          milo: "Milo"
+          hope: "Hope"
   errors:
     prompt_forgotten: "Please provide the prompt again"
     extend_prompt_error: "Sorry, I couldn't process your request. Please try again later."
@@ -231,5 +254,10 @@ en:
           gemini_image: "Gemini image"
           imagen_image: "Imagen image"
         audio:
-          elevenlabs_turbo_v2_5_audio: "ElevenLabs Turbo audio"
+          voices:
+            adam: "Adam audio"
+            victoria: "Victoria audio"
+            knox_dark: "Knox Dark audio"
+            milo: "Milo audio"
+            hope: "Hope audio"
 

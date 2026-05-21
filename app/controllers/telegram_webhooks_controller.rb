@@ -96,7 +96,7 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
   end
 
   def callback_query(button_request)
-    TelegramIntegration::CallbackQueryDispatcher.call(
+    TelegramIntegration::CallbackQuery::CallbackQueryDispatcher.call(
       button_request:,
       chat_id: chat["id"],
       tg_message_id:,

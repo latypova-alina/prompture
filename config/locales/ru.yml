@@ -172,11 +172,32 @@ ru:
             many: "Imagen (%{count} кредитов)"
             other: "Imagen (%{count} кредитов)"
         generate_audio:
-          elevenlabs_turbo_v2_5_audio:
-            one: "ElevenLabs Turbo (%{count} кредит)"
-            few: "ElevenLabs Turbo (%{count} кредита)"
-            many: "ElevenLabs Turbo (%{count} кредитов)"
-            other: "ElevenLabs Turbo (%{count} кредитов)"
+          adam:
+            one: "Adam (%{count} кредит)"
+            few: "Adam (%{count} кредита)"
+            many: "Adam (%{count} кредитов)"
+            other: "Adam (%{count} кредитов)"
+          victoria:
+            one: "Victoria (%{count} кредит)"
+            few: "Victoria (%{count} кредита)"
+            many: "Victoria (%{count} кредитов)"
+            other: "Victoria (%{count} кредитов)"
+          knox_dark:
+            one: "Knox Dark (%{count} кредит)"
+            few: "Knox Dark (%{count} кредита)"
+            many: "Knox Dark (%{count} кредитов)"
+            other: "Knox Dark (%{count} кредитов)"
+          milo:
+            one: "Milo (%{count} кредит)"
+            few: "Milo (%{count} кредита)"
+            many: "Milo (%{count} кредитов)"
+            other: "Milo (%{count} кредитов)"
+          hope:
+            one: "Hope (%{count} кредит)"
+            few: "Hope (%{count} кредита)"
+            many: "Hope (%{count} кредитов)"
+            other: "Hope (%{count} кредитов)"
+        get_audio_samples: "Примеры голосов"
         generate_video:
           kling_2_1_pro_image_to_video:
             one: "Kling Pro 2.1 (%{count} кредит)"
@@ -205,6 +226,16 @@ ru:
       image_processed: "Открыть изображение"
       video_processed: "Открыть видео"
       audio_processed: "Открыть аудио"
+      audio_samples:
+        intro: "Вот примеры голосов 🔊"
+        listen: "Слушать"
+        voice_line: "%{name}: <a href=\"%{url}\">%{link_label}</a>"
+        voices:
+          adam: "Adam"
+          victoria: "Victoria"
+          knox_dark: "Knox Dark"
+          milo: "Milo"
+          hope: "Hope"
   errors:
     prompt_forgotten: "Пожалуйста, введи промпт ещё раз."
     extend_prompt_error: "К сожалению, не удалось обработать запрос. Попробуй позже."
@@ -252,4 +283,9 @@ ru:
           gemini_image: "изображение Gemini"
           imagen_image: "изображение Imagen"
         audio:
-          elevenlabs_turbo_v2_5_audio: "аудио ElevenLabs Turbo"
+          voices:
+            adam: "аудио Adam"
+            victoria: "аудио Victoria"
+            knox_dark: "аудио Knox Dark"
+            milo: "аудио Milo"
+            hope: "аудио Hope"

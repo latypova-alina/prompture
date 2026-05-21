@@ -1,16 +1,17 @@
 require "rails_helper"
 
 describe Generator::Media::Audio::CreateTask::ElevenlabsTurboPayloadStrategy do
-  subject(:strategy) { described_class.new(prompt) }
+  subject(:strategy) { described_class.new(prompt, voice_id) }
 
   let(:prompt) { "Hello, world!" }
+  let(:voice_id) { "hIssydxXZ1WuDorjx6Ic" }
 
   describe "#payload" do
-    it "returns text and empty voice_id" do
+    it "returns text and voice_id" do
       expect(strategy.payload).to eq(
         {
           text: prompt,
-          voice_id: "IRHApOXLvnW57QJPQH2P"
+          voice_id:
         }
       )
     end

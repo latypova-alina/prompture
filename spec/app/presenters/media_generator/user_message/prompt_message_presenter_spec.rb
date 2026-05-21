@@ -50,9 +50,16 @@ describe MediaGenerator::UserMessage::PromptMessagePresenter do
     end
 
     describe "#inline_keyboard" do
-      it "returns audio processor buttons" do
+      it "returns audio voice buttons" do
         expect(subject.inline_keyboard).to eq(
-          [[{ callback_data: "elevenlabs_turbo_v2_5_audio", text: "ElevenLabs Turbo (2 credits)" }]]
+          [
+            [{ callback_data: "adam", text: "Adam (2 credits)" }],
+            [{ callback_data: "victoria", text: "Victoria (2 credits)" }],
+            [{ callback_data: "knox_dark", text: "Knox Dark (2 credits)" }],
+            [{ callback_data: "milo", text: "Milo (2 credits)" }],
+            [{ callback_data: "hope", text: "Hope (2 credits)" }],
+            [{ callback_data: "get_audio_samples", text: "Get samples" }]
+          ]
         )
       end
     end

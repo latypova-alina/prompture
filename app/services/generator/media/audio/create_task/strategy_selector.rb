@@ -7,6 +7,10 @@ module Generator
             "elevenlabs_turbo_v2_5_audio" => ElevenlabsTurboPayloadStrategy
           }.freeze
 
+          def strategy
+            strategies.fetch(processor).new(prompt, request.voice_id)
+          end
+
           def strategies
             STRATEGIES
           end
