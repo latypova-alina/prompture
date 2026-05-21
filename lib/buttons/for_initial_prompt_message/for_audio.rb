@@ -8,11 +8,22 @@ module Buttons
       private
 
       def processor_rows
-        media_processors.map { |processor| [button_for(:generate_audio, processor)] }
+        Audio::VoiceCatalog.slugs.map { |slug| [audio_voice_button_for(slug)] }
       end
 
-      def media_processors
-        COSTS[:generate_audio].keys
+      def audio_voice_button_for(voice_slug)
+        {
+          text: I18n.t(
+            "telegram_webhooks.message.buttons.generate_audio.#{voice_slug}",
+            count: audio_generation_cost,
+            locale:
+          ),
+          callback_data: voice_slug.to_s
+        }
+      end
+
+      def audio_generation_cost
+        COSTS[:generate_audio][Audio::VoiceCatalog::DEFAULT_PROCESSOR]
       end
     end
   end

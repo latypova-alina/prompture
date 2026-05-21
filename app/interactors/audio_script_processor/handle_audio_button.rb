@@ -3,7 +3,7 @@ module AudioScriptProcessor
     include Interactor
     include Memery
 
-    AUDIO_BUTTON = "elevenlabs_turbo_v2_5_audio".freeze
+    AUDIO_BUTTON = Audio::VoiceCatalog::DEFAULT_VOICE_SLUG.to_s.freeze
 
     delegate :chat_id, :prompt_message, to: :context
 

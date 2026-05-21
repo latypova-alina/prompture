@@ -1,0 +1,21 @@
+default: &default
+  elevenlabs_turbo_v2_5_audio:
+    adam:
+      voice_id: hIssydxXZ1WuDorjx6Ic
+    victoria:
+      voice_id: qSeXEcewz7tA0Q0qk9fH
+    knox_dark:
+      voice_id: dPah2VEoifKnZT37774q
+    milo:
+      voice_id: GUDYcgRAONiI1nXDcNQQ
+    hope:
+      voice_id: tnSpp4vdxKPjI9w0GnoV
+
+development:
+  <<: *default
+
+test:
+  <<: *default
+
+production:
+  <<: *default

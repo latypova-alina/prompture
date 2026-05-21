@@ -161,9 +161,21 @@ en:
             one: "Imagen (%{count} credit)"
             other: "Imagen (%{count} credits)"
         generate_audio:
-          elevenlabs_turbo_v2_5_audio:
-            one: "ElevenLabs Turbo (%{count} credit)"
-            other: "ElevenLabs Turbo (%{count} credits)"
+          adam:
+            one: "Adam (%{count} credit)"
+            other: "Adam (%{count} credits)"
+          victoria:
+            one: "Victoria (%{count} credit)"
+            other: "Victoria (%{count} credits)"
+          knox_dark:
+            one: "Knox Dark (%{count} credit)"
+            other: "Knox Dark (%{count} credits)"
+          milo:
+            one: "Milo (%{count} credit)"
+            other: "Milo (%{count} credits)"
+          hope:
+            one: "Hope (%{count} credit)"
+            other: "Hope (%{count} credits)"
         generate_video:
           kling_2_1_pro_image_to_video:
             one: "Kling Pro 2.1 (%{count} credit)"
@@ -231,5 +243,10 @@ en:
           gemini_image: "Gemini image"
           imagen_image: "Imagen image"
         audio:
-          elevenlabs_turbo_v2_5_audio: "ElevenLabs Turbo audio"
+          voices:
+            adam: "Adam audio"
+            victoria: "Victoria audio"
+            knox_dark: "Knox Dark audio"
+            milo: "Milo audio"
+            hope: "Hope audio"
 

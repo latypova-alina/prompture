@@ -14,9 +14,10 @@ module MediaGenerator
         "imagen_image" => RecordCreators::ButtonRequests::Images::Imagen,
         "kling_2_1_pro_image_to_video" => RecordCreators::ButtonRequests::Videos::Kling,
         "seedance_1_5_pro_image_to_video" => RecordCreators::ButtonRequests::Videos::Seedance,
-        "wan_2_2_image_to_video" => RecordCreators::ButtonRequests::Videos::Wan,
-        "elevenlabs_turbo_v2_5_audio" => RecordCreators::ButtonRequests::Audio::ElevenlabsTurbo
+        "wan_2_2_image_to_video" => RecordCreators::ButtonRequests::Videos::Wan
       }.freeze
+
+      AUDIO_VOICE_HANDLER = RecordCreators::ButtonRequests::Audio::ElevenlabsTurbo
 
       def call
         context.button_request_record = record
@@ -29,7 +30,15 @@ module MediaGenerator
       delegate :record, to: :record_creator
 
       def record_creator
-        HANDLERS[button_request].new(parent_request, command_request)
+        if audio_voice_slug?
+          AUDIO_VOICE_HANDLER.new(parent_request, command_request, voice: button_request)
+        else
+          HANDLERS.fetch(button_request).new(parent_request, command_request)
+        end
+      end
+
+      def audio_voice_slug?
+        Audio::VoiceCatalog.valid_slug?(slug: button_request)
       end
     end
   end
