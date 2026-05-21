@@ -11,6 +11,10 @@ module Generator
           store_image? || store_audio? || store_video?
         end
 
+        private
+
+        attr_reader :processor, :command_request
+
         def store_image?
           Generator::Processors::IMAGE.include?(processor)
         end
@@ -20,13 +24,8 @@ module Generator
         end
 
         def store_video?
-          video_processor? && command_request.is_a?(CommandPromptToVideoRequest) &&
-            ContentCategory.store_video?(command_request.category)
+          video_processor? && ContentCategory.store_video?(command_request.try(:category))
         end
-
-        private
-
-        attr_reader :processor, :command_request
 
         def video_processor?
           Generator::Processors::VIDEO.include?(processor)

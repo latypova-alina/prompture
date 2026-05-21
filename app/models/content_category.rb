@@ -1,7 +1,7 @@
 class ContentCategory
-  MOTIVATION = "motivation"
-  RANDOM_CHARACTER = "random_character"
-  TEMPLATE = "template"
+  MOTIVATION = "motivation".freeze
+  RANDOM_CHARACTER = "random_character".freeze
+  TEMPLATE = "template".freeze
 
   CATEGORY_FORMAT = /\A[a-z0-9_]+\z/
 

@@ -10,11 +10,9 @@ module Generator
           @button_request_id = button_request_id
         end
 
-        def needs_to_be_stored?
-          store_policy.needs_to_be_stored?
-        end
+        delegate :needs_to_be_stored?, to: :store_policy
 
-        def uploader
+        memoize def uploader
           uploader_class.new(media_url:, record: media_request)
         end
 

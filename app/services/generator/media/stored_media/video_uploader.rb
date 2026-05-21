@@ -9,14 +9,12 @@ module Generator
           @record = record
         end
 
+        delegate :stored_url, to: :upload_facade
+
         def call
           upload_facade.upload
 
           record.update!(video_url: stored_url)
-        end
-
-        def stored_url
-          upload_facade.stored_url
         end
 
         private
