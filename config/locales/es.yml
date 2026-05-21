@@ -176,6 +176,7 @@ es:
           hope:
             one: "Hope (%{count} crédito)"
             other: "Hope (%{count} créditos)"
+        get_audio_samples: "Escuchar muestras"
         generate_video:
           kling_2_1_pro_image_to_video:
             one: "Kling Pro 2.1 (%{count} crédito)"
@@ -196,6 +197,16 @@ es:
         image_processed: "Abrir imagen"
         video_processed: "Abrir video"
         audio_processed: "Abrir audio"
+      audio_samples:
+        intro: "Aquí están las muestras de voz 🔊"
+        listen: "Escuchar"
+        voice_line: "%{name}: <a href=\"%{url}\">%{link_label}</a>"
+        voices:
+          adam: "Adam"
+          victoria: "Victoria"
+          knox_dark: "Knox Dark"
+          milo: "Milo"
+          hope: "Hope"
   errors:
     prompt_forgotten: "Por favor, proporciona el prompt nuevamente"
     extend_prompt_error: "Lo siento, no pude procesar tu solicitud. Por favor, inténtalo de nuevo más tarde."

@@ -197,6 +197,7 @@ ru:
             few: "Hope (%{count} кредита)"
             many: "Hope (%{count} кредитов)"
             other: "Hope (%{count} кредитов)"
+        get_audio_samples: "Примеры голосов"
         generate_video:
           kling_2_1_pro_image_to_video:
             one: "Kling Pro 2.1 (%{count} кредит)"
@@ -225,6 +226,16 @@ ru:
       image_processed: "Открыть изображение"
       video_processed: "Открыть видео"
       audio_processed: "Открыть аудио"
+      audio_samples:
+        intro: "Вот примеры голосов 🔊"
+        listen: "Слушать"
+        voice_line: "%{name}: <a href=\"%{url}\">%{link_label}</a>"
+        voices:
+          adam: "Adam"
+          victoria: "Victoria"
+          knox_dark: "Knox Dark"
+          milo: "Milo"
+          hope: "Hope"
   errors:
     prompt_forgotten: "Пожалуйста, введи промпт ещё раз."
     extend_prompt_error: "К сожалению, не удалось обработать запрос. Попробуй позже."

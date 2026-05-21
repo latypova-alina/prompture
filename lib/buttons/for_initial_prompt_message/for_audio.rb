@@ -1,14 +1,23 @@
 module Buttons
   module ForInitialPromptMessage
     class ForAudio < Base
+      GET_AUDIO_SAMPLES = Audio::SendVoiceSamples::GET_AUDIO_SAMPLES_CALLBACK
+
       def build
-        processor_rows
+        processor_rows + [[samples_button]]
       end
 
       private
 
       def processor_rows
         Audio::VoiceCatalog.slugs.map { |slug| [audio_voice_button_for(slug)] }
+      end
+
+      def samples_button
+        {
+          text: I18n.t("telegram_webhooks.message.buttons.get_audio_samples", locale:),
+          callback_data: GET_AUDIO_SAMPLES
+        }
       end
 
       def audio_voice_button_for(voice_slug)
