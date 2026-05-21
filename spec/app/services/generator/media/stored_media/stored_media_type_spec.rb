@@ -27,6 +27,25 @@ describe Generator::Media::StoredMedia::StoredMediaType do
 
       it { is_expected.not_to be_needs_to_be_stored }
     end
+
+    context "when processor is video with storable category" do
+      let(:processor) { Generator::Processors::VIDEO.first }
+      let(:button_request) do
+        create(
+          :button_video_processing_request,
+          command_request: create(:command_prompt_to_video_request, :motivation)
+        )
+      end
+
+      it { is_expected.to be_needs_to_be_stored }
+    end
+
+    context "when processor is video without category" do
+      let(:processor) { Generator::Processors::VIDEO.first }
+      let(:button_request) { create(:button_video_processing_request) }
+
+      it { is_expected.not_to be_needs_to_be_stored }
+    end
   end
 
   describe "#uploader" do
@@ -47,6 +66,20 @@ describe Generator::Media::StoredMedia::StoredMediaType do
 
       it "returns audio uploader" do
         expect(stored_media_type.uploader).to be_a(Generator::Media::StoredMedia::AudioUploader)
+      end
+    end
+
+    context "when processor is video with storable category" do
+      let(:processor) { Generator::Processors::VIDEO.first }
+      let(:button_request) do
+        create(
+          :button_video_processing_request,
+          command_request: create(:command_prompt_to_video_request, :motivation)
+        )
+      end
+
+      it "returns video uploader" do
+        expect(stored_media_type.uploader).to be_a(Generator::Media::StoredMedia::VideoUploader)
       end
     end
   end

@@ -25,7 +25,7 @@ module ScriptGenerator
     end
 
     memoize def script_processor
-      ScriptGenerator::ProcessScript.new(chat_id:)
+      ScriptGenerator::ProcessScript.new(chat_id:, category: ContentCategory::RANDOM_CHARACTER)
     end
   end
 end

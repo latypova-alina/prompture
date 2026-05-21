@@ -1,6 +1,34 @@
 require "rails_helper"
 
 describe CommandPromptToVideoRequest, type: :model do
+  describe "validations" do
+    it "allows nil category" do
+      expect(build(:command_prompt_to_video_request, category: nil)).to be_valid
+    end
+
+    it "allows normalized category values" do
+      expect(build(:command_prompt_to_video_request, category: "motivation")).to be_valid
+    end
+
+    it "rejects invalid category format" do
+      expect(build(:command_prompt_to_video_request, category: "Bad Category")).not_to be_valid
+    end
+  end
+
+  describe "#admin_generated?" do
+    it "returns true when category is present" do
+      request = build(:command_prompt_to_video_request, category: ContentCategory::MOTIVATION)
+
+      expect(request.admin_generated?).to be(true)
+    end
+
+    it "returns false when category is nil" do
+      request = build(:command_prompt_to_video_request, category: nil)
+
+      expect(request.admin_generated?).to be(false)
+    end
+  end
+
   describe "associations (command_request side)" do
     it do
       is_expected

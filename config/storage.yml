@@ -1,0 +1,12 @@
+default: &default
+  store_video_categories:
+    - motivation
+
+development:
+  <<: *default
+
+test:
+  <<: *default
+
+production:
+  <<: *default

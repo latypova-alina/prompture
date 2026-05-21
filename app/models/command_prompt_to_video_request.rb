@@ -3,6 +3,12 @@ class CommandPromptToVideoRequest < ApplicationRecord
 
   belongs_to :user
 
+  validates :category, format: { with: ContentCategory::CATEGORY_FORMAT }, allow_nil: true
+
+  def admin_generated?
+    category.present?
+  end
+
   has_many :button_extend_prompt_requests, as: :command_request, dependent: :destroy
   has_many :button_image_processing_requests, as: :command_request, dependent: :destroy
   has_many :button_video_processing_requests, as: :command_request, dependent: :destroy

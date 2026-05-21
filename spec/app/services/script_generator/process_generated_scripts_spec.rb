@@ -10,7 +10,10 @@ describe ScriptGenerator::ProcessGeneratedScripts do
 
   before do
     allow(ScriptGenerator::ScriptContext).to receive(:new).with(chat_id: 456, template_name:).and_return(script_context)
-    allow(ScriptGenerator::ProcessScript).to receive(:new).with(chat_id: 456).and_return(script_processor)
+    allow(ScriptGenerator::ProcessScript)
+      .to receive(:new)
+      .with(chat_id: 456, category: ContentCategory::TEMPLATE)
+      .and_return(script_processor)
     allow(script_processor).to receive(:call)
   end
 
@@ -21,5 +24,22 @@ describe ScriptGenerator::ProcessGeneratedScripts do
     expect(script_processor).to have_received(:call).with(script: "second scene")
     expect(script_processor).to have_received(:call).with(script: "third scene")
     expect(script_processor).to have_received(:call).exactly(3).times
+  end
+
+  context "when template_name is provided" do
+    let(:template_name) { "Horror Story" }
+
+    before do
+      allow(ScriptGenerator::ProcessScript)
+        .to receive(:new)
+        .with(chat_id: 456, category: "horror_story")
+        .and_return(script_processor)
+    end
+
+    it "uses normalized template name as category" do
+      service_call
+
+      expect(ScriptGenerator::ProcessScript).to have_received(:new).with(chat_id: 456, category: "horror_story")
+    end
   end
 end

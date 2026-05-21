@@ -26,7 +26,11 @@ module ScriptGenerator
     end
 
     memoize def script_processor
-      ScriptGenerator::ProcessScript.new(chat_id:)
+      ScriptGenerator::ProcessScript.new(chat_id:, category: script_category)
+    end
+
+    def script_category
+      ContentCategory.normalize(template_name) || ContentCategory::TEMPLATE
     end
 
     def process_script(script)

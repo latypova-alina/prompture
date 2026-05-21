@@ -10,36 +10,30 @@ module Generator
           @button_request_id = button_request_id
         end
 
-        def needs_to_be_stored?
-          image_processor? || audio?
-        end
+        delegate :needs_to_be_stored?, to: :store_policy
 
-        def uploader
-          if audio?
-            AudioUploader.new(media_url:, record: audio_request)
-          else
-            Uploader.new(media_url:, record: image_request)
-          end
+        memoize def uploader
+          uploader_class.new(media_url:, record: media_request)
         end
 
         private
 
         attr_reader :processor, :media_url, :button_request_id
 
-        def audio?
-          Generator::Processors::AUDIO.include?(processor)
+        delegate :command_request, to: :media_request
+        delegate :media_request, to: :media_request_resolver
+        delegate :uploader_class, to: :uploader_resolver
+
+        memoize def store_policy
+          StorePolicy.new(processor:, command_request:)
         end
 
-        def image_processor?
-          Generator::Processors::IMAGE.include?(processor)
+        memoize def media_request_resolver
+          MediaRequestResolver.new(processor:, button_request_id:)
         end
 
-        memoize def image_request
-          ButtonImageProcessingRequest.find(button_request_id)
-        end
-
-        memoize def audio_request
-          ButtonAudioProcessingRequest.find(button_request_id)
+        memoize def uploader_resolver
+          UploaderResolver.new(processor:)
         end
       end
     end

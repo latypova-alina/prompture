@@ -37,6 +37,33 @@ describe Generator::Media::StoredMedia::Retriever do
       end
     end
 
+    context "when processor is video with storable category" do
+      let(:processor) { Generator::Processors::VIDEO.first }
+      let(:media_url) { "https://ai-statics.freepik.com/generated.mp4" }
+      let!(:button_request) do
+        create(
+          :button_video_processing_request,
+          command_request: create(:command_prompt_to_video_request, :motivation)
+        )
+      end
+      let(:uploader) { instance_double(Generator::Media::StoredMedia::VideoUploader, stored_url: uploaded_url) }
+
+      before do
+        allow(Generator::Media::StoredMedia::VideoUploader)
+          .to receive(:new)
+          .with(media_url:, record: button_request)
+          .and_return(uploader)
+      end
+
+      it "uses video uploader and returns internal media url" do
+        allow(uploader).to receive(:call)
+
+        expect(service.internal_media_url).to eq(uploaded_url)
+        expect(uploader).to have_received(:call)
+        expect(Generator::Media::StoredMedia::VideoUploader).to have_received(:new).once
+      end
+    end
+
     context "when processor is audio" do
       let(:processor) { "elevenlabs_turbo_v2_5_audio" }
       let!(:button_request) { create(:button_audio_processing_request) }

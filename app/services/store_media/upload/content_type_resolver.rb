@@ -11,7 +11,8 @@ module StoreMedia
         ".wav" => "audio/wav",
         ".ogg" => "audio/ogg",
         ".m4a" => "audio/mp4",
-        ".aac" => "audio/aac"
+        ".aac" => "audio/aac",
+        ".mp4" => "video/mp4"
       }.freeze
 
       def initialize(filename:)
