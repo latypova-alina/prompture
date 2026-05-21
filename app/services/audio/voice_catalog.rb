@@ -8,11 +8,11 @@ module Audio
         voices_for(processor).keys
       end
 
-      def voice_id(processor: DEFAULT_PROCESSOR, slug:)
+      def voice_id(slug:, processor: DEFAULT_PROCESSOR)
         voices_for(processor).fetch(slug.to_sym).fetch(:voice_id)
       end
 
-      def valid_slug?(processor: DEFAULT_PROCESSOR, slug:)
+      def valid_slug?(slug:, processor: DEFAULT_PROCESSOR)
         voices_for(processor).key?(slug.to_sym)
       end
 

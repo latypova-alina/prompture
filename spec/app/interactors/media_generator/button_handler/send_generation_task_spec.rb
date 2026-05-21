@@ -15,6 +15,7 @@ describe MediaGenerator::ButtonHandler::SendGenerationTask do
     allow(Generator::Media::Prompt::TaskCreatorJob).to receive(:perform_async)
     allow(Generator::Media::Image::TaskCreatorJob).to receive(:perform_async)
     allow(Generator::Media::Video::TaskCreatorJob).to receive(:perform_async)
+    allow(Generator::Media::Audio::TaskCreatorJob).to receive(:perform_async)
   end
 
   context "when button_request is extend_prompt" do
@@ -102,6 +103,19 @@ describe MediaGenerator::ButtonHandler::SendGenerationTask do
       subject
 
       expect(Generator::Media::Video::TaskCreatorJob)
+        .to have_received(:perform_async)
+        .with(button_request_record.id)
+    end
+  end
+
+  context "when button_request is an audio voice slug" do
+    let(:button_request) { "adam" }
+    let(:button_request_record) { create(:button_audio_processing_request, voice: button_request, parent_request:) }
+
+    it "enqueues audio generator job" do
+      subject
+
+      expect(Generator::Media::Audio::TaskCreatorJob)
         .to have_received(:perform_async)
         .with(button_request_record.id)
     end

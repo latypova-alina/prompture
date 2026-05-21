@@ -19,10 +19,7 @@ describe MediaGenerator::ButtonHandler::CreateRequest do
   let(:record) { create(:button_image_processing_request) }
 
   before do
-    allow(record_creator_class)
-      .to receive(:new)
-      .with(parent_request, command_request)
-      .and_return(record_creator)
+    allow(record_creator_class).to receive(:new).and_return(record_creator)
   end
 
   it "uses the correct handler" do
@@ -100,6 +97,24 @@ describe MediaGenerator::ButtonHandler::CreateRequest do
       expect(record_creator_class)
         .to have_received(:new)
         .with(parent_request, command_request)
+    end
+  end
+
+  context "when button_request is an audio voice slug" do
+    let(:button_request) { "milo" }
+    let(:record_creator_class) { RecordCreators::ButtonRequests::Audio::ElevenlabsTurbo }
+    let(:record) { create(:button_audio_processing_request, voice: button_request) }
+    let(:command_request) { create(:command_prompt_to_audio_request) }
+
+    it "uses the elevenlabs record creator with the voice" do
+      result = subject
+
+      expect(result).to be_success
+      expect(result.button_request_record).to eq(record)
+
+      expect(record_creator_class)
+        .to have_received(:new)
+        .with(parent_request, command_request, voice: button_request)
     end
   end
 end

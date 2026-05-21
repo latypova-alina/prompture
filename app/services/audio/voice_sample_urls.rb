@@ -1,7 +1,7 @@
 module Audio
   class VoiceSampleUrls
-    SAMPLES_PREFIX = "audio/samples"
-    DEFAULT_EXTENSION = ".mp3"
+    SAMPLES_PREFIX = "audio/samples".freeze
+    DEFAULT_EXTENSION = ".mp3".freeze
 
     class << self
       def url_for(slug)

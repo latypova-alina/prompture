@@ -21,7 +21,7 @@ describe AudioScriptProcessor::HandleAudioButton do
         result
 
         expect(MediaGenerator::ButtonHandler::HandleButton).to have_received(:call).with(
-          button_request: "elevenlabs_turbo_v2_5_audio",
+          button_request: "adam",
           chat_id:,
           tg_message_id: bot_message.tg_message_id,
           callback_query_id: nil

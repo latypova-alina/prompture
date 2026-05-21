@@ -3,6 +3,7 @@ FactoryBot.define do
     status { "PENDING" }
     audio_url { nil }
     processor { "elevenlabs_turbo_v2_5_audio" }
+    voice { "adam" }
 
     transient { user { create(:user, :with_balance) } }
 

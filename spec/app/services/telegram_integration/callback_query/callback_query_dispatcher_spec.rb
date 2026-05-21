@@ -1,6 +1,6 @@
 require "rails_helper"
 
-describe TelegramIntegration::CallbackQueryDispatcher do
+describe TelegramIntegration::CallbackQuery::CallbackQueryDispatcher do
   subject(:dispatch) do
     described_class.call(
       button_request:,
@@ -35,6 +35,22 @@ describe TelegramIntegration::CallbackQueryDispatcher do
         expect(SetLocale::ButtonHandler::HandleButton)
           .to have_received(:call)
           .with(selected_locale: "es", chat_id:)
+      end
+    end
+
+    context "when button_request is get_audio_samples" do
+      let(:button_request) { "get_audio_samples" }
+
+      before do
+        allow(Audio::SendVoiceSamples).to receive(:call).and_return(success_result)
+        allow(MediaGenerator::ButtonHandler::HandleButton).to receive(:call)
+      end
+
+      it "calls Audio::SendVoiceSamples without going through media generation" do
+        dispatch
+
+        expect(Audio::SendVoiceSamples).to have_received(:call).with(chat_id:)
+        expect(MediaGenerator::ButtonHandler::HandleButton).not_to have_received(:call)
       end
     end
 
