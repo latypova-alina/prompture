@@ -2,8 +2,9 @@ module ScriptGenerator
   class ProcessScript
     include Memery
 
-    def initialize(chat_id:)
+    def initialize(chat_id:, category: nil)
       @chat_id = chat_id
+      @category = category
     end
 
     def call(script:)
@@ -18,10 +19,10 @@ module ScriptGenerator
 
     private
 
-    attr_reader :chat_id
+    attr_reader :chat_id, :category
 
     memoize def command_request
-      CommandPromptToVideoRequest.create!(chat_id:, user:)
+      CommandPromptToVideoRequest.create!(chat_id:, user:, category:)
     end
 
     memoize def user
