@@ -132,26 +132,8 @@ describe TelegramWebhooksController, telegram_bot: :rails do
       "Great! Now please provide a prompt for the audio."
     end
 
-    context "when prompt_to_audio is enabled for user" do
-      before do
-        allow(Flipper[:prompt_to_audio]).to receive(:enabled?).and_return(true)
-      end
-
-      it_behaves_like "command handling",
-                      command: :prompt_to_audio
-    end
-
-    context "when prompt_to_audio is disabled for user" do
-      before do
-        allow(Flipper[:prompt_to_audio]).to receive(:enabled?).and_return(false)
-      end
-
-      subject { -> { dispatch_command(:prompt_to_audio) } }
-
-      let!(:user) { create(:user, :with_balance, chat_id: 456) }
-
-      it { is_expected.to respond_with_message(I18n.t("errors.feature_under_development")) }
-    end
+    it_behaves_like "command handling",
+                    command: :prompt_to_audio
   end
 
   describe "#image_to_video!" do
