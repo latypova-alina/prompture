@@ -13,7 +13,10 @@ describe ScriptGenerator::ProcessMotivationPrompts do
     allow(ScriptGenerator::MotivationPromptContext).to receive(:new)
       .with(chat_id: 456)
       .and_return(motivation_prompt_context)
-    allow(ScriptGenerator::ProcessScript).to receive(:new).with(chat_id: 456).and_return(script_processor)
+    allow(ScriptGenerator::ProcessScript)
+      .to receive(:new)
+      .with(chat_id: 456, category: ContentCategory::MOTIVATION)
+      .and_return(script_processor)
     allow(script_processor).to receive(:call)
   end
 

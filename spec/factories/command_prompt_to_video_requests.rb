@@ -1,6 +1,11 @@
 FactoryBot.define do
   factory :command_prompt_to_video_request do
     chat_id { 456 }
+    category { nil }
     association :user, factory: %i[user with_balance]
+
+    trait :motivation do
+      category { ContentCategory::MOTIVATION }
+    end
   end
 end

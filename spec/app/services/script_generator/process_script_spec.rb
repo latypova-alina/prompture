@@ -1,17 +1,18 @@
 require "rails_helper"
 
 describe ScriptGenerator::ProcessScript do
-  subject(:service) { described_class.new(chat_id:) }
+  subject(:service) { described_class.new(chat_id:, category:) }
 
   let(:chat_id) { 456 }
+  let(:category) { ContentCategory::MOTIVATION }
   let(:script) { "A dramatic city sunset shot." }
   let(:user) { create(:user, chat_id:) }
-  let(:command_request) { create(:command_prompt_to_video_request, chat_id:, user:) }
+  let(:command_request) { create(:command_prompt_to_video_request, chat_id:, user:, category:) }
   let(:result_context) { double("Interactor::Context", failure?: false) }
 
   before do
     allow(User).to receive(:find_by!).with(chat_id:).and_return(user)
-    allow(CommandPromptToVideoRequest).to receive(:create!).with(chat_id:, user:).and_return(command_request)
+    allow(CommandPromptToVideoRequest).to receive(:create!).with(chat_id:, user:, category:).and_return(command_request)
     allow(ScriptProcessor::ProcessScript).to receive(:call).and_return(result_context)
   end
 

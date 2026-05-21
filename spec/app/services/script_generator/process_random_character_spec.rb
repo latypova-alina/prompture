@@ -8,7 +8,10 @@ describe ScriptGenerator::ProcessRandomCharacter do
 
   before do
     allow(ScriptGenerator::CharacterContext).to receive(:new).with(chat_id: 456).and_return(character_context)
-    allow(ScriptGenerator::ProcessScript).to receive(:new).with(chat_id: 456).and_return(script_processor)
+    allow(ScriptGenerator::ProcessScript)
+      .to receive(:new)
+      .with(chat_id: 456, category: ContentCategory::RANDOM_CHARACTER)
+      .and_return(script_processor)
     allow(script_processor).to receive(:call)
   end
 

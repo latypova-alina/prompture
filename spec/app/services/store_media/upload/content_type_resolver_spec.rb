@@ -15,6 +15,12 @@ describe StoreMedia::Upload::ContentTypeResolver do
     it { is_expected.to eq("audio/mpeg") }
   end
 
+  context "when filename is an mp4" do
+    let(:filename) { "clip.mp4" }
+
+    it { is_expected.to eq("video/mp4") }
+  end
+
   context "when extension is unsupported" do
     let(:filename) { "file.xyz" }
 
