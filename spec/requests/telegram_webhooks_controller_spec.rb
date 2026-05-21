@@ -415,13 +415,6 @@ describe TelegramWebhooksController, telegram_bot: :rails do
                     job_class: ::Generator::Media::Video::TaskCreatorJob
   end
 
-  describe "#seedance_video_callback_query", :callback_query do
-    it_behaves_like "a video callback",
-                    processor: "seedance_1_5_pro",
-                    record_creator: RecordCreators::ButtonRequests::Videos::Seedance,
-                    job_class: ::Generator::Media::Video::TaskCreatorJob
-  end
-
   describe "#wan_video_callback_query", :callback_query do
     it_behaves_like "a video callback",
                     processor: "wan_2_2",

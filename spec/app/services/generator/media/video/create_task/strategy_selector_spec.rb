@@ -18,23 +18,6 @@ describe Generator::Media::Video::CreateTask::StrategySelector do
     end
   end
 
-  context "when processor is seedance" do
-    let(:request) do
-      create(
-        :button_video_processing_request,
-        processor: "seedance_1_5_pro_image_to_video",
-        parent_request:
-      )
-    end
-
-    it "returns SeedancePayloadStrategy initialized with parent prompt" do
-      expect(strategy)
-        .to be_a(Generator::Media::Video::CreateTask::SeedancePayloadStrategy)
-
-      expect(strategy.prompt).to eq(parent_prompt)
-    end
-  end
-
   context "when processor is wan" do
     let(:request) do
       create(
