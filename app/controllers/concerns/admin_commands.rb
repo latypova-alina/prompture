@@ -22,7 +22,7 @@ module AdminCommands
   end
 
   def motivation_prompt!(*)
-    ScriptGenerator::GenerateMotivationPromptJob.perform_async(chat["id"])
+    ScriptGenerator::ForMotivation::GenerateMotivationPromptJob.perform_async(chat["id"])
 
     respond_with :message, text: I18n.t("telegram_webhooks.commands.motivation_prompt")
   end
@@ -66,7 +66,7 @@ module AdminCommands
   private
 
   def enqueue_motivation_script!(language)
-    ScriptGenerator::GenerateMotivationScriptJob.perform_async(chat["id"], language)
+    ScriptGenerator::ForMotivation::GenerateMotivationScriptJob.perform_async(chat["id"], language)
 
     respond_with :message, text: I18n.t("telegram_webhooks.commands.motivation_script")
   end
