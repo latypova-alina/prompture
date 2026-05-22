@@ -6,11 +6,12 @@ module ScriptGenerator
       @chat_id = chat_id
     end
 
-    def call(script:)
+    def call(script:, voice: nil)
       result = AudioScriptProcessor::ProcessScript.call(
         script:,
         command_request:,
-        chat_id:
+        chat_id:,
+        voice:
       )
 
       raise result.error if result.failure?

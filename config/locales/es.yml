@@ -80,7 +80,11 @@ es:
 
         🔹 /motivation_prompt - genera prompts de video motivacionales
 
-        🔹 /motivation_script - genera guion motivacional y audio
+        🔹 /motivation_script_en - genera guion motivacional y audio (inglés)
+
+        🔹 /motivation_script_pl - genera guion motivacional y audio (polaco)
+
+        🔹 /motivation_script_ru - genera guion motivacional y audio (ruso)
 
         🔹 /generate_script %template_name% - genera un script desde el parametro template_name
 

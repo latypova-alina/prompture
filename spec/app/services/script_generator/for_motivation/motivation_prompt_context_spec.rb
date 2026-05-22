@@ -1,6 +1,6 @@
 require "rails_helper"
 
-describe ScriptGenerator::MotivationPromptContext do
+describe ScriptGenerator::ForMotivation::MotivationPromptContext do
   subject(:motivation_prompt_context) { described_class.new(chat_id:) }
 
   let(:chat_id) { 456 }

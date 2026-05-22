@@ -1,16 +1,16 @@
 require "rails_helper"
 
-describe ScriptGenerator::ProcessMotivationPrompts do
+describe ScriptGenerator::ForMotivation::ProcessMotivationPrompts do
   subject(:service_call) { described_class.call(chat_id: 456) }
 
   let(:motivation_prompt_context) do
-    instance_double(ScriptGenerator::MotivationPromptContext, prompts:)
+    instance_double(ScriptGenerator::ForMotivation::MotivationPromptContext, prompts:)
   end
   let(:script_processor) { instance_double(ScriptGenerator::ProcessScript) }
   let(:prompts) { ["Cinematic forest scene", "Rainy city rooftop"] }
 
   before do
-    allow(ScriptGenerator::MotivationPromptContext).to receive(:new)
+    allow(ScriptGenerator::ForMotivation::MotivationPromptContext).to receive(:new)
       .with(chat_id: 456)
       .and_return(motivation_prompt_context)
     allow(ScriptGenerator::ProcessScript)

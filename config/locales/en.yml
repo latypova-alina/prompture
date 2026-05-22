@@ -80,7 +80,11 @@ en:
 
         🔹 /motivation_prompt - will generate motivational video prompts
 
-        🔹 /motivation_script - will generate motivational voiceover script and audio
+        🔹 /motivation_script_en - will generate motivational voiceover script and audio (English)
+
+        🔹 /motivation_script_pl - will generate motivational voiceover script and audio (Polish)
+
+        🔹 /motivation_script_ru - will generate motivational voiceover script and audio (Russian)
 
         🔹 /generate_script %template_name% - will generate script from template_name param
 
