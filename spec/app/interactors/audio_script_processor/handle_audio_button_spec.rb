@@ -1,7 +1,9 @@
 require "rails_helper"
 
 describe AudioScriptProcessor::HandleAudioButton do
-  subject(:result) { described_class.call(chat_id:, prompt_message:) }
+  subject(:result) { described_class.call(chat_id:, prompt_message:, voice:) }
+
+  let(:voice) { nil }
 
   let(:chat_id) { 456 }
   let(:prompt_message) { create(:prompt_message, command_request:) }
@@ -17,7 +19,7 @@ describe AudioScriptProcessor::HandleAudioButton do
           .and_return(instance_double(Interactor::Context, failure?: false))
       end
 
-      it "calls media button handler with audio processing button and tg_message_id" do
+      it "calls media button handler with default voice and tg_message_id" do
         result
 
         expect(MediaGenerator::ButtonHandler::HandleButton).to have_received(:call).with(
@@ -26,6 +28,21 @@ describe AudioScriptProcessor::HandleAudioButton do
           tg_message_id: bot_message.tg_message_id,
           callback_query_id: nil
         )
+      end
+
+      context "when voice is provided" do
+        let(:voice) { "knox_dark" }
+
+        it "calls media button handler with the given voice" do
+          result
+
+          expect(MediaGenerator::ButtonHandler::HandleButton).to have_received(:call).with(
+            button_request: "knox_dark",
+            chat_id:,
+            tg_message_id: bot_message.tg_message_id,
+            callback_query_id: nil
+          )
+        end
       end
     end
 

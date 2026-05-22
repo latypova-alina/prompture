@@ -177,13 +177,13 @@ describe TelegramWebhooksController, telegram_bot: :rails do
     let(:admin) { true }
 
     before do
-      allow(ScriptGenerator::GenerateMotivationPromptJob).to receive(:perform_async)
+      allow(ScriptGenerator::ForMotivation::GenerateMotivationPromptJob).to receive(:perform_async)
     end
 
     it "enqueues motivation prompt generation job" do
       subject.call
 
-      expect(ScriptGenerator::GenerateMotivationPromptJob).to have_received(:perform_async).with(456)
+      expect(ScriptGenerator::ForMotivation::GenerateMotivationPromptJob).to have_received(:perform_async).with(456)
     end
 
     it { should respond_with_message(I18n.t("telegram_webhooks.commands.motivation_prompt")) }
@@ -203,13 +203,14 @@ describe TelegramWebhooksController, telegram_bot: :rails do
       let(:admin) { true }
 
       before do
-        allow(ScriptGenerator::GenerateMotivationScriptJob).to receive(:perform_async)
+        allow(ScriptGenerator::ForMotivation::GenerateMotivationScriptJob).to receive(:perform_async)
       end
 
       it "enqueues motivation script generation job with language" do
         subject.call
 
-        expect(ScriptGenerator::GenerateMotivationScriptJob).to have_received(:perform_async).with(456, language)
+        expect(ScriptGenerator::ForMotivation::GenerateMotivationScriptJob)
+          .to have_received(:perform_async).with(456, language)
       end
 
       it { should respond_with_message(I18n.t("telegram_webhooks.commands.motivation_script")) }

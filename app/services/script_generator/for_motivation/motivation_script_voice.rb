@@ -7,7 +7,7 @@ module ScriptGenerator
         "ru" => "knox_dark"
       }.freeze
 
-      DEFAULT_LANGUAGE = "en"
+      DEFAULT_LANGUAGE = "en".freeze
 
       class << self
         def for(language:)

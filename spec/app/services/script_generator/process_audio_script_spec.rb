@@ -22,7 +22,19 @@ describe ScriptGenerator::ProcessAudioScript do
       expect(AudioScriptProcessor::ProcessScript).to have_received(:call).with(
         script:,
         command_request:,
-        chat_id:
+        chat_id:,
+        voice: nil
+      )
+    end
+
+    it "forwards voice when provided" do
+      service.call(script:, voice: "knox_dark")
+
+      expect(AudioScriptProcessor::ProcessScript).to have_received(:call).with(
+        script:,
+        command_request:,
+        chat_id:,
+        voice: "knox_dark"
       )
     end
 

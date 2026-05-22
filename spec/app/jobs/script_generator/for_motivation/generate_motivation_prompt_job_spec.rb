@@ -1,20 +1,20 @@
 require "rails_helper"
 
-describe ScriptGenerator::GenerateMotivationPromptJob do
+describe ScriptGenerator::ForMotivation::GenerateMotivationPromptJob do
   describe "#perform" do
     before do
       allow(Telegram).to receive_message_chain(:bot, :send_message)
     end
 
-    it "delegates to ScriptGenerator::ProcessMotivationPrompts service" do
-      expect(ScriptGenerator::ProcessMotivationPrompts).to receive(:call).with(chat_id: 456)
+    it "delegates to ScriptGenerator::ForMotivation::ProcessMotivationPrompts service" do
+      expect(ScriptGenerator::ForMotivation::ProcessMotivationPrompts).to receive(:call).with(chat_id: 456)
 
       described_class.new.perform(456)
     end
 
     context "when script generator request fails" do
       before do
-        allow(ScriptGenerator::ProcessMotivationPrompts).to receive(:call)
+        allow(ScriptGenerator::ForMotivation::ProcessMotivationPrompts).to receive(:call)
           .and_raise(ScriptGeneratorRequestError, "invalid response")
       end
 
@@ -27,7 +27,8 @@ describe ScriptGenerator::GenerateMotivationPromptJob do
 
     context "when unexpected error occurs" do
       before do
-        allow(ScriptGenerator::ProcessMotivationPrompts).to receive(:call).and_raise(StandardError, "boom")
+        allow(ScriptGenerator::ForMotivation::ProcessMotivationPrompts).to receive(:call).and_raise(StandardError,
+                                                                                                    "boom")
       end
 
       it "sends default error message to user" do
