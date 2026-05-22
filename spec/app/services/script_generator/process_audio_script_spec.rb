@@ -28,13 +28,13 @@ describe ScriptGenerator::ProcessAudioScript do
     end
 
     it "forwards voice when provided" do
-      service.call(script:, voice: "knox_dark")
+      service.call(script:, voice: "knox")
 
       expect(AudioScriptProcessor::ProcessScript).to have_received(:call).with(
         script:,
         command_request:,
         chat_id:,
-        voice: "knox_dark"
+        voice: "knox"
       )
     end
 

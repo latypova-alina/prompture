@@ -4,7 +4,7 @@ module ScriptGenerator
       VOICES_BY_LANGUAGE = {
         "en" => "adam",
         "pl" => "adam",
-        "ru" => "knox_dark"
+        "ru" => "knox"
       }.freeze
 
       DEFAULT_LANGUAGE = "en".freeze

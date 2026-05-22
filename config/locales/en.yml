@@ -171,7 +171,7 @@ en:
           victoria:
             one: "Victoria (%{count} credit)"
             other: "Victoria (%{count} credits)"
-          knox_dark:
+          knox:
             one: "Knox Dark (%{count} credit)"
             other: "Knox Dark (%{count} credits)"
           milo:
@@ -205,7 +205,7 @@ en:
         voices:
           adam: "Adam"
           victoria: "Victoria"
-          knox_dark: "Knox Dark"
+          knox: "Knox Dark"
           milo: "Milo"
           hope: "Hope"
   errors:
@@ -257,7 +257,7 @@ en:
           voices:
             adam: "Adam audio"
             victoria: "Victoria audio"
-            knox_dark: "Knox Dark audio"
+            knox: "Knox Dark audio"
             milo: "Milo audio"
             hope: "Hope audio"
 
