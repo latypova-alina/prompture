@@ -170,31 +170,6 @@ describe TelegramWebhooksController, telegram_bot: :rails do
     end
   end
 
-  describe "#motivation_prompt!" do
-    subject { -> { dispatch_command(:motivation_prompt) } }
-
-    let!(:user) { create(:user, chat_id: 456, admin:) }
-    let(:admin) { true }
-
-    before do
-      allow(ScriptGenerator::ForMotivation::GenerateMotivationPromptJob).to receive(:perform_async)
-    end
-
-    it "enqueues motivation prompt generation job" do
-      subject.call
-
-      expect(ScriptGenerator::ForMotivation::GenerateMotivationPromptJob).to have_received(:perform_async).with(456)
-    end
-
-    it { should respond_with_message(I18n.t("telegram_webhooks.commands.motivation_prompt")) }
-
-    context "when user is not admin" do
-      let(:admin) { false }
-
-      it { should respond_with_message(I18n.t("errors.admin_only_command")) }
-    end
-  end
-
   %w[en pl ru].each do |language|
     describe "#motivation_workflow_#{language}!" do
       subject { -> { dispatch_command(:"motivation_workflow_#{language}") } }
@@ -214,32 +189,6 @@ describe TelegramWebhooksController, telegram_bot: :rails do
       end
 
       it { should respond_with_message(I18n.t("telegram_webhooks.commands.motivation_workflow")) }
-
-      context "when user is not admin" do
-        let(:admin) { false }
-
-        it { should respond_with_message(I18n.t("errors.admin_only_command")) }
-      end
-    end
-
-    describe "#motivation_script_#{language}!" do
-      subject { -> { dispatch_command(:"motivation_script_#{language}") } }
-
-      let!(:user) { create(:user, chat_id: 456, admin:) }
-      let(:admin) { true }
-
-      before do
-        allow(ScriptGenerator::ForMotivation::GenerateMotivationScriptJob).to receive(:perform_async)
-      end
-
-      it "enqueues motivation script generation job with language" do
-        subject.call
-
-        expect(ScriptGenerator::ForMotivation::GenerateMotivationScriptJob)
-          .to have_received(:perform_async).with(456, language)
-      end
-
-      it { should respond_with_message(I18n.t("telegram_webhooks.commands.motivation_script")) }
 
       context "when user is not admin" do
         let(:admin) { false }

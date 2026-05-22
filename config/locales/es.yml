@@ -78,19 +78,11 @@ es:
 
         🔹 /random_script - genera un script aleatorio
 
-        🔹 /motivation_prompt - genera prompts de video motivacionales
-
         🔹 /motivation_workflow_en - guion motivacional, audio y prompts de video cinematográficos (inglés)
 
         🔹 /motivation_workflow_pl - guion motivacional, audio y prompts de video cinematográficos (polaco)
 
         🔹 /motivation_workflow_ru - guion motivacional, audio y prompts de video cinematográficos (ruso)
-
-        🔹 /motivation_script_en - genera guion motivacional y audio (inglés)
-
-        🔹 /motivation_script_pl - genera guion motivacional y audio (polaco)
-
-        🔹 /motivation_script_ru - genera guion motivacional y audio (ruso)
 
         🔹 /generate_script %template_name% - genera un script desde el parametro template_name
 
@@ -98,8 +90,6 @@ es:
 
         🔹 /random_character - genera una imagen de personaje aleatorio
       random_character: "Generación de personaje aleatorio iniciada."
-      motivation_prompt: "Generación de prompts motivacionales iniciada."
-      motivation_script: "Generación de guion motivacional y audio iniciada."
       motivation_workflow: "Workflow motivacional iniciado: guion, audio y prompts de video."
       prompt_to_video: "¡Genial! Ahora, por favor, proporciona un prompt para el video. Más adelante podrás ampliarlo con la ayuda del bot."
       prompt_to_image: "¡Genial! Ahora, por favor, proporciona un prompt para la imagen. Más adelante podrás ampliarlo con la ayuda del bot."
