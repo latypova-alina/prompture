@@ -80,6 +80,12 @@ en:
 
         🔹 /motivation_prompt - will generate motivational video prompts
 
+        🔹 /motivation_workflow_en - motivation script, audio, and cinematic video prompts (English)
+
+        🔹 /motivation_workflow_pl - motivation script, audio, and cinematic video prompts (Polish)
+
+        🔹 /motivation_workflow_ru - motivation script, audio, and cinematic video prompts (Russian)
+
         🔹 /motivation_script_en - will generate motivational voiceover script and audio (English)
 
         🔹 /motivation_script_pl - will generate motivational voiceover script and audio (Polish)
@@ -94,6 +100,7 @@ en:
       random_character: "Started random character generation."
       motivation_prompt: "Started motivation prompt generation."
       motivation_script: "Started motivation script and audio generation."
+      motivation_workflow: "Started motivation workflow: script, audio, and video prompts."
       prompt_to_video: "Great! Now please provide a prompt for the video. It can later be extended with the help of the bot."
       prompt_to_image: "Great! Now please provide a prompt for the image. It can later be extended with the help of the bot."
       prompt_to_audio: "Great! Now please provide a prompt for the audio."

@@ -8,6 +8,9 @@ module AdminCommands
       motivation_script_en!
       motivation_script_pl!
       motivation_script_ru!
+      motivation_workflow_en!
+      motivation_workflow_pl!
+      motivation_workflow_ru!
       random_character!
       script_templates!
       admin!
@@ -25,6 +28,18 @@ module AdminCommands
     ScriptGenerator::ForMotivation::GenerateMotivationPromptJob.perform_async(chat["id"])
 
     respond_with :message, text: I18n.t("telegram_webhooks.commands.motivation_prompt")
+  end
+
+  def motivation_workflow_en!(*)
+    enqueue_motivation_workflow!("en")
+  end
+
+  def motivation_workflow_pl!(*)
+    enqueue_motivation_workflow!("pl")
+  end
+
+  def motivation_workflow_ru!(*)
+    enqueue_motivation_workflow!("ru")
   end
 
   def motivation_script_en!(*)
@@ -69,5 +84,11 @@ module AdminCommands
     ScriptGenerator::ForMotivation::GenerateMotivationScriptJob.perform_async(chat["id"], language)
 
     respond_with :message, text: I18n.t("telegram_webhooks.commands.motivation_script")
+  end
+
+  def enqueue_motivation_workflow!(language)
+    ScriptGenerator::ForMotivation::GenerateMotivationWorkflowJob.perform_async(chat["id"], language)
+
+    respond_with :message, text: I18n.t("telegram_webhooks.commands.motivation_workflow")
   end
 end

@@ -22,7 +22,7 @@ module ScriptGenerator
       delegate :prompts, to: :motivation_prompt_context
 
       memoize def motivation_prompt_context
-        MotivationPromptContext.new(chat_id:)
+        MotivationPromptContext.new
       end
 
       memoize def script_processor
