@@ -186,11 +186,11 @@ ru:
             few: "Victoria (%{count} кредита)"
             many: "Victoria (%{count} кредитов)"
             other: "Victoria (%{count} кредитов)"
-          knox_dark:
-            one: "Knox Dark (%{count} кредит)"
-            few: "Knox Dark (%{count} кредита)"
-            many: "Knox Dark (%{count} кредитов)"
-            other: "Knox Dark (%{count} кредитов)"
+          knox:
+            one: "Knox (%{count} кредит)"
+            few: "Knox (%{count} кредита)"
+            many: "Knox (%{count} кредитов)"
+            other: "Knox (%{count} кредитов)"
           milo:
             one: "Milo (%{count} кредит)"
             few: "Milo (%{count} кредита)"
@@ -232,7 +232,7 @@ ru:
         voices:
           adam: "Adam"
           victoria: "Victoria"
-          knox_dark: "Knox Dark"
+          knox: "Knox"
           milo: "Milo"
           hope: "Hope"
   errors:
@@ -284,6 +284,6 @@ ru:
           voices:
             adam: "аудио Adam"
             victoria: "аудио Victoria"
-            knox_dark: "аудио Knox Dark"
+            knox: "аудио Knox"
             milo: "аудио Milo"
             hope: "аудио Hope"

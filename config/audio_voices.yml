@@ -4,8 +4,8 @@ default: &default
       voice_id: hIssydxXZ1WuDorjx6Ic
     victoria:
       voice_id: qSeXEcewz7tA0Q0qk9fH
-    knox_dark:
-      voice_id: dPah2VEoifKnZT37774q
+    knox:
+      voice_id: cgLpYGyXZhkyalKZ0xeZ
     milo:
       voice_id: GUDYcgRAONiI1nXDcNQQ
     hope:

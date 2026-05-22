@@ -8,7 +8,7 @@ describe Buttons::ForInitialPromptMessage::ForAudio do
       [
         [{ callback_data: "adam", text: "Adam (1 credit)" }],
         [{ callback_data: "victoria", text: "Victoria (1 credit)" }],
-        [{ callback_data: "knox_dark", text: "Knox Dark (1 credit)" }],
+        [{ callback_data: "knox", text: "Knox (1 credit)" }],
         [{ callback_data: "milo", text: "Milo (1 credit)" }],
         [{ callback_data: "hope", text: "Hope (1 credit)" }],
         [{ callback_data: "get_audio_samples", text: "Get samples" }]

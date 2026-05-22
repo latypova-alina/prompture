@@ -34,12 +34,12 @@ describe ScriptGenerator::ForMotivation::ProcessMotivationScript do
         .and_return(motivation_script_context)
     end
 
-    it "uses knox_dark voice" do
+    it "uses knox voice" do
       service_call
 
       expect(audio_script_processor).to have_received(:call).with(
         script: "Here's the brutal truth.",
-        voice: "knox_dark"
+        voice: "knox"
       )
     end
   end

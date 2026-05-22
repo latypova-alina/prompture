@@ -31,13 +31,13 @@ describe AudioScriptProcessor::HandleAudioButton do
       end
 
       context "when voice is provided" do
-        let(:voice) { "knox_dark" }
+        let(:voice) { "knox" }
 
         it "calls media button handler with the given voice" do
           result
 
           expect(MediaGenerator::ButtonHandler::HandleButton).to have_received(:call).with(
-            button_request: "knox_dark",
+            button_request: "knox",
             chat_id:,
             tg_message_id: bot_message.tg_message_id,
             callback_query_id: nil

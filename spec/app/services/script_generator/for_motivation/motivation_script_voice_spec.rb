@@ -10,8 +10,8 @@ describe ScriptGenerator::ForMotivation::MotivationScriptVoice do
       expect(described_class.for(language: "pl")).to eq("adam")
     end
 
-    it "returns knox_dark for Russian" do
-      expect(described_class.for(language: "ru")).to eq("knox_dark")
+    it "returns knox for Russian" do
+      expect(described_class.for(language: "ru")).to eq("knox")
     end
 
     it "defaults to adam when language is blank" do
