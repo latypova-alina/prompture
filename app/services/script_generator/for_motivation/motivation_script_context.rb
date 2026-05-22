@@ -20,6 +20,8 @@ module ScriptGenerator
 
       attr_reader :chat_id, :language
 
+      delegate :body, to: :response, prefix: true
+
       def handle_error
         raise ScriptGeneratorRequestError if !response.success? || parsed_script_text.blank?
       end
@@ -29,9 +31,7 @@ module ScriptGenerator
       end
 
       def response_payload
-        body = response.body
-
-        body.is_a?(String) ? JSON.parse(body) : body
+        response_body.is_a?(String) ? JSON.parse(response_body) : response_body
       rescue JSON::ParserError
         {}
       end
