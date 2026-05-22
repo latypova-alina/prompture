@@ -1,6 +1,6 @@
 module ScriptGenerator
   module ForMotivation
-    class ProcessMotivationScript
+    class ProcessMotivationWorkflow
       include Memery
 
       def self.call(...)
@@ -14,6 +14,7 @@ module ScriptGenerator
 
       def call
         audio_script_processor.call(script: script_text, voice: motivation_script_voice)
+        ProcessScriptVideoPrompts.call(chat_id:, script: script_text)
       end
 
       private

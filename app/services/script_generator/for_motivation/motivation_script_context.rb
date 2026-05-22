@@ -1,10 +1,9 @@
 module ScriptGenerator
   module ForMotivation
     class MotivationScriptContext
-      include Memery
+      include BaseContext
 
-      def initialize(chat_id:, language: "en")
-        @chat_id = chat_id
+      def initialize(language: "en")
         @language = language
       end
 
@@ -18,9 +17,7 @@ module ScriptGenerator
 
       private
 
-      attr_reader :chat_id, :language
-
-      delegate :body, to: :response, prefix: true
+      attr_reader :language
 
       def handle_error
         raise ScriptGeneratorRequestError if !response.success? || parsed_script_text.blank?
@@ -31,17 +28,11 @@ module ScriptGenerator
       end
 
       def response_payload
-        response_body.is_a?(String) ? JSON.parse(response_body) : response_body
-      rescue JSON::ParserError
-        {}
+        parsed_json_body || {}
       end
 
       memoize def response
         connection.get("/motivation_script", { language: })
-      end
-
-      def connection
-        ScriptGenerator::Connection.call
       end
     end
   end
