@@ -19,10 +19,12 @@ module ScriptGenerator
 
       attr_reader :chat_id
 
+      delegate :body, to: :response, prefix: true
+
       def handle_error
         return if valid_response?
 
-        raise ScriptGeneratorRequestError, response.body.to_s
+        raise ScriptGeneratorRequestError, response_body.to_s
       end
 
       def valid_response?
@@ -30,13 +32,7 @@ module ScriptGenerator
       end
 
       memoize def parsed_prompts
-        response_payload
-      end
-
-      def response_payload
-        body = response.body
-
-        body.is_a?(String) ? JSON.parse(body) : body
+        response_body.is_a?(String) ? JSON.parse(response_body) : response_body
       rescue JSON::ParserError
         nil
       end
