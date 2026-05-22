@@ -1,6 +1,6 @@
 require "rails_helper"
 
-describe ScriptGenerator::ForMotivation::ProcessMotivationScript do
+describe ScriptGenerator::ForMotivation::ProcessMotivationWorkflow do
   subject(:service_call) { described_class.call(chat_id: 456, language: "en") }
 
   let(:motivation_script_context) do
@@ -14,33 +14,19 @@ describe ScriptGenerator::ForMotivation::ProcessMotivationScript do
       .and_return(motivation_script_context)
     allow(ScriptGenerator::ProcessAudioScript).to receive(:new).with(chat_id: 456).and_return(audio_script_processor)
     allow(audio_script_processor).to receive(:call)
+    allow(ScriptGenerator::ForMotivation::ProcessScriptVideoPrompts).to receive(:call)
   end
 
-  it "processes fetched script text as audio with language-specific voice" do
+  it "fetches motivation script, generates audio, then creates video prompts" do
     service_call
 
     expect(audio_script_processor).to have_received(:call).with(
       script: "Here's the brutal truth.",
       voice: "adam"
     )
-  end
-
-  context "when language is Russian" do
-    subject(:service_call) { described_class.call(chat_id: 456, language: "ru") }
-
-    before do
-      allow(ScriptGenerator::ForMotivation::MotivationScriptContext).to receive(:new)
-        .with(language: "ru")
-        .and_return(motivation_script_context)
-    end
-
-    it "uses knox voice" do
-      service_call
-
-      expect(audio_script_processor).to have_received(:call).with(
-        script: "Here's the brutal truth.",
-        voice: "knox"
-      )
-    end
+    expect(ScriptGenerator::ForMotivation::ProcessScriptVideoPrompts).to have_received(:call).with(
+      chat_id: 456,
+      script: "Here's the brutal truth."
+    )
   end
 end

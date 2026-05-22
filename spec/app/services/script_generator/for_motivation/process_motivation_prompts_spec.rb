@@ -11,7 +11,7 @@ describe ScriptGenerator::ForMotivation::ProcessMotivationPrompts do
 
   before do
     allow(ScriptGenerator::ForMotivation::MotivationPromptContext).to receive(:new)
-      .with(chat_id: 456)
+      .with(no_args)
       .and_return(motivation_prompt_context)
     allow(ScriptGenerator::ProcessScript)
       .to receive(:new)

@@ -1,9 +1,8 @@
 require "rails_helper"
 
 describe ScriptGenerator::ForMotivation::MotivationScriptContext do
-  subject(:motivation_script_context) { described_class.new(chat_id:, language:) }
+  subject(:motivation_script_context) { described_class.new(language:) }
 
-  let(:chat_id) { 456 }
   let(:language) { "en" }
   let(:connection) { instance_double(Faraday::Connection) }
   let(:response) do
