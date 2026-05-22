@@ -16,16 +16,18 @@ describe CommandPromptToVideoRequest, type: :model do
   end
 
   describe "#admin_generated?" do
-    it "returns true when category is present" do
-      request = build(:command_prompt_to_video_request, category: ContentCategory::MOTIVATION)
+    subject(:admin_generated?) { request.admin_generated? }
 
-      expect(request.admin_generated?).to be(true)
+    context "when category is present" do
+      let(:request) { build(:command_prompt_to_video_request, category: ContentCategory::MOTIVATION) }
+
+      it { is_expected.to be(true) }
     end
 
-    it "returns false when category is nil" do
-      request = build(:command_prompt_to_video_request, category: nil)
+    context "when category is nil" do
+      let(:request) { build(:command_prompt_to_video_request, category: nil) }
 
-      expect(request.admin_generated?).to be(false)
+      it { is_expected.to be(false) }
     end
   end
 
