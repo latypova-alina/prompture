@@ -18,13 +18,13 @@ module ScriptGenerator
 
       private
 
+      delegate :scenes, to: :motivation_prompt_context
+
       attr_reader :chat_id, :script
 
       def process_scene(scene)
         script_processor.call(script: scene.prompt, subcategory: scene.subcategory)
       end
-
-      delegate :scenes, to: :motivation_prompt_context
 
       memoize def motivation_prompt_context
         MotivationPromptContext.new(script:)
