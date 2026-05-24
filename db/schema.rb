@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2026_05_21_130000) do
+ActiveRecord::Schema[8.0].define(version: 2026_05_22_120100) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -175,8 +175,10 @@ ActiveRecord::Schema[8.0].define(version: 2026_05_21_130000) do
     t.bigint "command_request_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "subcategory"
     t.index ["command_request_type", "command_request_id"], name: "index_prompt_messages_on_command_request"
     t.index ["parent_request_type", "parent_request_id"], name: "index_prompt_messages_on_parent_request"
+    t.index ["subcategory"], name: "index_prompt_messages_on_subcategory"
   end
 
   create_table "stored_images", force: :cascade do |t|
@@ -187,6 +189,20 @@ ActiveRecord::Schema[8.0].define(version: 2026_05_21_130000) do
     t.datetime "updated_at", null: false
     t.index ["source_message_type", "source_message_id"], name: "idx_on_source_message_type_source_message_id_b22a70b9b7", unique: true
     t.index ["source_message_type", "source_message_id"], name: "index_stored_images_on_source_message"
+  end
+
+  create_table "stored_videos", force: :cascade do |t|
+    t.string "video_url", null: false
+    t.string "category", null: false
+    t.string "subcategory", null: false
+    t.text "prompt"
+    t.string "source_type", null: false
+    t.bigint "source_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["category", "subcategory"], name: "index_stored_videos_on_category_and_subcategory"
+    t.index ["source_type", "source_id"], name: "index_stored_videos_on_source"
+    t.index ["source_type", "source_id"], name: "index_stored_videos_on_source_type_and_source_id", unique: true
   end
 
   create_table "tokens", force: :cascade do |t|
