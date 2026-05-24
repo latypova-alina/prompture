@@ -36,7 +36,7 @@ module Generator
         end
 
         memoize def folder_resolver
-          FolderResolver.new(record:)
+          Video::FolderResolver.new(record:)
         end
 
         memoize def remote_url_downloader
