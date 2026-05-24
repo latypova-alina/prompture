@@ -2,7 +2,7 @@ require "open-uri"
 
 module StoreImage
   module Download
-    class UrlImageDownloader
+    class RemoteUrlDownloader
       BROWSER_USER_AGENT = [
         "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7)",
         "AppleWebKit/537.36 (KHTML, like Gecko)",
@@ -10,18 +10,14 @@ module StoreImage
       ].join(" ").freeze
       BROWSER_REFERER = "https://www.freepik.com/".freeze
 
-      def self.call(...)
-        new(...).call
-      end
-
       def initialize(url)
         @url = url
       end
 
-      def call
+      def downloaded_bytes
         file.read
       rescue OpenURI::HTTPError => e
-        raise "Image download failed: #{e.io.status.first}"
+        raise "Download failed: #{e.io.status.first}"
       end
 
       private

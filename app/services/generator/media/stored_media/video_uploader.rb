@@ -15,18 +15,22 @@ module Generator
           upload_facade.upload
 
           record.update!(video_url: stored_url)
+
+          register_stored_video
         end
 
         private
 
         attr_reader :media_url, :record
 
-        delegate :filename, to: :filename_resolver
-        delegate :category, to: :command_request
-
-        memoize def command_request
-          record.command_request
+        def register_stored_video
+          StoreVideo::Registrar.call(record:, video_url: stored_url)
         end
+
+        delegate :filename, to: :filename_resolver
+        delegate :downloaded_bytes, to: :remote_url_downloader
+        delegate :command_request, to: :record
+        delegate :category, to: :command_request
 
         memoize def upload_facade
           StoreMedia::Upload::Facade.new(bytes: downloaded_bytes, filename:, folder:)
@@ -36,8 +40,8 @@ module Generator
           "videos/#{ContentCategory.bucket_folder(category)}"
         end
 
-        def downloaded_bytes
-          StoreImage::Download::UrlImageDownloader.call(media_url)
+        memoize def remote_url_downloader
+          StoreImage::Download::RemoteUrlDownloader.new(media_url)
         end
 
         memoize def filename_resolver

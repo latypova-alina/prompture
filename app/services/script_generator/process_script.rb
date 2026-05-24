@@ -7,11 +7,12 @@ module ScriptGenerator
       @category = category
     end
 
-    def call(script:)
+    def call(script:, subcategory: nil)
       result = ScriptProcessor::ProcessScript.call(
         script:,
         command_request:,
-        chat_id:
+        chat_id:,
+        subcategory:
       )
 
       raise result.error if result.failure?

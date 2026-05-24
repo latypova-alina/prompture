@@ -13,17 +13,21 @@ module ScriptGenerator
       end
 
       def call
-        prompts.each { |prompt| script_processor.call(script: prompt) }
+        scenes.each { |scene| process_scene(scene) }
       end
 
       private
 
+      delegate :scenes, to: :motivation_prompt_context
+
       attr_reader :chat_id, :script
 
-      delegate :prompts, to: :narration_video_prompts_context
+      def process_scene(scene)
+        script_processor.call(script: scene.prompt, subcategory: scene.subcategory)
+      end
 
-      memoize def narration_video_prompts_context
-        NarrationVideoPromptsContext.new(script:)
+      memoize def motivation_prompt_context
+        MotivationPromptContext.new(script:)
       end
 
       memoize def script_processor

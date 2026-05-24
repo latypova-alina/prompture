@@ -5,6 +5,14 @@ module HasOriginPrompt
     respond_to?(:prompt) ? prompt : origin_prompt
   end
 
+  def origin_subcategory
+    each_parent_request do |req|
+      return req.subcategory if subcategory_present?(req)
+    end
+
+    nil
+  end
+
   private
 
   def origin_prompt
@@ -31,5 +39,9 @@ module HasOriginPrompt
 
   def prompt_present?(req)
     req.respond_to?(:prompt) && req.prompt.present?
+  end
+
+  def subcategory_present?(req)
+    req.is_a?(PromptMessage) && req.subcategory.present?
   end
 end

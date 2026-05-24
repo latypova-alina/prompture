@@ -8,13 +8,13 @@ describe StoreImage::Download::Facade do
       subject(:facade) { described_class.new(record) }
 
       before do
-        allow(StoreImage::Download::UrlImageDownloader)
-          .to receive(:call)
+        allow(StoreImage::Download::RemoteUrlDownloader)
+          .to receive(:new)
           .with(record.image_url)
-          .and_return(downloaded_bytes)
+          .and_return(instance_double(StoreImage::Download::RemoteUrlDownloader, downloaded_bytes:))
       end
 
-      it "returns bytes from UrlImageDownloader" do
+      it "returns bytes from RemoteUrlDownloader" do
         expect(facade.bytes).to eq(downloaded_bytes)
       end
 

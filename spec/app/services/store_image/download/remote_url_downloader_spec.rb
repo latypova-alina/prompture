@@ -1,7 +1,7 @@
 require "rails_helper"
 
-describe StoreImage::Download::UrlImageDownloader do
-  subject(:call_downloader) { described_class.call(url) }
+describe StoreImage::Download::RemoteUrlDownloader do
+  subject(:downloaded_bytes) { described_class.new(url).downloaded_bytes }
 
   let(:url) { "https://example.com/image.jpg" }
   let(:downloaded_file) { StringIO.new("image-bytes") }
@@ -11,11 +11,11 @@ describe StoreImage::Download::UrlImageDownloader do
   end
 
   it "returns file bytes when request succeeds" do
-    expect(call_downloader).to eq("image-bytes")
+    expect(downloaded_bytes).to eq("image-bytes")
   end
 
   it "downloads with browser-like headers" do
-    call_downloader
+    downloaded_bytes
 
     expect(URI).to have_received(:open).with(
       url,
@@ -35,7 +35,7 @@ describe StoreImage::Download::UrlImageDownloader do
     end
 
     it "raises descriptive error" do
-      expect { call_downloader }.to raise_error("Image download failed: 404")
+      expect { downloaded_bytes }.to raise_error("Download failed: 404")
     end
   end
 end
