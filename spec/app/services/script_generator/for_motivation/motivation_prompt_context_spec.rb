@@ -29,15 +29,19 @@ describe ScriptGenerator::ForMotivation::MotivationPromptContext do
       )
     end
 
-    it "posts script to motivation prompt endpoint" do
-      request = instance_double(Faraday::Request, body: nil)
-      allow(request).to receive(:body=)
+    context "when posting to motivation prompt endpoint" do
+      let(:request) { instance_double(Faraday::Request, body: nil) }
 
-      allow(connection).to receive(:post).with("/motivation_prompt").and_yield(request).and_return(response)
+      before do
+        allow(request).to receive(:body=)
+        allow(connection).to receive(:post).with("/motivation_prompt").and_yield(request).and_return(response)
+      end
 
-      context.scenes
+      it "posts script in request body" do
+        context.scenes
 
-      expect(request).to have_received(:body=).with({ script: }.to_json)
+        expect(request).to have_received(:body=).with({ script: }.to_json)
+      end
     end
 
     context "when response is a string array" do
