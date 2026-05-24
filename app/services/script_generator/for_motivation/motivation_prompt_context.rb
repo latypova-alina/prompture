@@ -1,9 +1,8 @@
 module ScriptGenerator
   module ForMotivation
-    class MotivationPromptContext
-      include BaseContext
-
+    class MotivationPromptContext < BaseContext
       def initialize(script:)
+        super()
         @script = script
       end
 

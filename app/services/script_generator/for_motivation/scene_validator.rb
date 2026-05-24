@@ -14,15 +14,7 @@ module ScriptGenerator
       attr_reader :parsed_response_body
 
       def valid_item?(item)
-        item.is_a?(Hash) && prompt_for(item).present? && subcategory_for(item).present?
-      end
-
-      def prompt_for(item)
-        item["prompt"].presence || item["text"].presence
-      end
-
-      def subcategory_for(item)
-        item["subcategory"].to_s.strip.presence
+        VideoScene.new(item).valid?
       end
     end
   end
