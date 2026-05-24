@@ -7,8 +7,8 @@ describe ScriptGenerator::ForMotivation::SceneValidator do
     context "when value is a valid scene array" do
       let(:value) do
         [
-          { "subcategory" => "cry", "prompt" => "A crying person sitting alone in the rain" },
-          { "subcategory" => "Hope", "prompt" => "Person on a mountain at sunrise" }
+          { "subcategory" => "cry", "text" => "A crying person sitting alone in the rain" },
+          { "subcategory" => "Hope", "text" => "Person on a mountain at sunrise" }
         ]
       end
 
@@ -22,19 +22,19 @@ describe ScriptGenerator::ForMotivation::SceneValidator do
     end
 
     context "when scene object is missing subcategory" do
-      let(:value) { [{ "prompt" => "A crying person sitting alone in the rain" }] }
+      let(:value) { [{ "text" => "A crying person sitting alone in the rain" }] }
 
       it { is_expected.not_to be_valid }
     end
 
-    context "when scene object is missing prompt" do
+    context "when scene object is missing text" do
       let(:value) { [{ "subcategory" => "cry" }] }
 
       it { is_expected.not_to be_valid }
     end
 
     context "when value is not an array" do
-      let(:value) { { "subcategory" => "cry", "prompt" => "Rain scene" } }
+      let(:value) { { "subcategory" => "cry", "text" => "Rain scene" } }
 
       it { is_expected.not_to be_valid }
     end

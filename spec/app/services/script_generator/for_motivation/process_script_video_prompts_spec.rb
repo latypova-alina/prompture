@@ -3,27 +3,27 @@ require "rails_helper"
 describe ScriptGenerator::ForMotivation::ProcessScriptVideoPrompts do
   subject(:service_call) { described_class.call(chat_id: 456, script: "Narration text") }
 
-  let(:narration_video_prompts_context) do
-    instance_double(ScriptGenerator::ForMotivation::NarrationVideoPromptsContext, scenes:)
+  let(:motivation_prompt_context) do
+    instance_double(ScriptGenerator::ForMotivation::MotivationPromptContext, scenes:)
   end
   let(:script_processor) { instance_double(ScriptGenerator::ProcessScript) }
   let(:scenes) do
     [
       ScriptGenerator::ForMotivation::VideoScene.new(
-        prompt: "A crying person sitting alone in the rain",
-        subcategory: "cry"
+        "text" => "A crying person sitting alone in the rain",
+        "subcategory" => "cry"
       ),
       ScriptGenerator::ForMotivation::VideoScene.new(
-        prompt: "Close-up of tears falling",
-        subcategory: "sadness"
+        "text" => "Close-up of tears falling",
+        "subcategory" => "sadness"
       )
     ]
   end
 
   before do
-    allow(ScriptGenerator::ForMotivation::NarrationVideoPromptsContext).to receive(:new)
+    allow(ScriptGenerator::ForMotivation::MotivationPromptContext).to receive(:new)
       .with(script: "Narration text")
-      .and_return(narration_video_prompts_context)
+      .and_return(motivation_prompt_context)
     allow(ScriptGenerator::ProcessScript)
       .to receive(:new)
       .with(chat_id: 456, category: ContentCategory::MOTIVATION)
