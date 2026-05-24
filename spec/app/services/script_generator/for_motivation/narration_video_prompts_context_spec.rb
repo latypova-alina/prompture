@@ -6,16 +6,25 @@ describe ScriptGenerator::ForMotivation::NarrationVideoPromptsContext do
   let(:script) { "You feel alone in the dark." }
   let(:connection) { instance_double(Faraday::Connection) }
   let(:response) { instance_double(Faraday::Response, success?: true, body:) }
-  let(:body) { '["A crying person sitting alone in the rain", "Close-up of tears falling"]' }
+  let(:body) do
+    [
+      { "subcategory" => "cry", "prompt" => "A crying person sitting alone in the rain" },
+      { "subcategory" => "hope", "prompt" => "Close-up of tears falling" }
+    ].to_json
+  end
 
   before do
     allow(ScriptGenerator::Connection).to receive(:call).and_return(connection)
     allow(connection).to receive(:post).and_return(response)
   end
 
-  describe "#prompts" do
-    it "returns parsed prompts from script generator API" do
-      expect(context.prompts).to eq(
+  describe "#scenes" do
+    it "returns parsed scenes with normalized subcategories" do
+      scenes = context.scenes
+
+      expect(scenes.size).to eq(2)
+      expect(scenes.map(&:subcategory)).to eq(%w[cry hope])
+      expect(scenes.map(&:prompt)).to eq(
         ["A crying person sitting alone in the rain", "Close-up of tears falling"]
       )
     end
@@ -26,16 +35,34 @@ describe ScriptGenerator::ForMotivation::NarrationVideoPromptsContext do
 
       allow(connection).to receive(:post).with("/narration_video_prompts").and_yield(request).and_return(response)
 
-      context.prompts
+      context.scenes
 
       expect(request).to have_received(:body=).with({ script: }.to_json)
+    end
+
+    context "when response is a string array" do
+      let(:body) { '["A crying person sitting alone in the rain"]' }
+
+      it "raises ScriptGeneratorRequestError" do
+        expect { context.scenes }.to raise_error(ScriptGeneratorRequestError)
+      end
+    end
+
+    context "when scene object is missing subcategory" do
+      let(:body) do
+        [{ "prompt" => "A crying person sitting alone in the rain" }].to_json
+      end
+
+      it "raises ScriptGeneratorRequestError" do
+        expect { context.scenes }.to raise_error(ScriptGeneratorRequestError)
+      end
     end
 
     context "when response is not successful" do
       let(:response) { instance_double(Faraday::Response, success?: false, body: "error") }
 
       it "raises ScriptGeneratorRequestError" do
-        expect { context.prompts }.to raise_error(ScriptGeneratorRequestError)
+        expect { context.scenes }.to raise_error(ScriptGeneratorRequestError)
       end
     end
   end

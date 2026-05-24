@@ -9,7 +9,10 @@ describe Generator::Media::StoredMedia::Uploader do
   let(:upload_facade) { instance_double(StoreImage::Upload::Facade, stored_url: uploaded_url) }
 
   before do
-    allow(StoreImage::Download::UrlImageDownloader).to receive(:call).with(media_url).and_return("image-bytes")
+    allow(StoreImage::Download::RemoteUrlDownloader)
+      .to receive(:new)
+      .with(media_url)
+      .and_return(instance_double(StoreImage::Download::RemoteUrlDownloader, downloaded_bytes: "image-bytes"))
     allow(StoreImage::Upload::Facade).to receive(:new).and_return(upload_facade)
     allow(upload_facade).to receive(:upload_image)
     allow(StoreImage::StoredImageUpdater).to receive(:call).and_call_original

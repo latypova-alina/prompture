@@ -9,10 +9,10 @@ describe Generator::Media::StoredMedia::AudioUploader do
   let(:upload_facade) { instance_double(StoreMedia::Upload::Facade, stored_url: uploaded_url) }
 
   before do
-    allow(StoreImage::Download::UrlImageDownloader)
-      .to receive(:call)
+    allow(StoreImage::Download::RemoteUrlDownloader)
+      .to receive(:new)
       .with(media_url)
-      .and_return("audio-bytes")
+      .and_return(instance_double(StoreImage::Download::RemoteUrlDownloader, downloaded_bytes: "audio-bytes"))
 
     allow(StoreMedia::Upload::Facade)
       .to receive(:new)

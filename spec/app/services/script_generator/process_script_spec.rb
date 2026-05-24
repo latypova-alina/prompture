@@ -23,7 +23,8 @@ describe ScriptGenerator::ProcessScript do
       expect(ScriptProcessor::ProcessScript).to have_received(:call).with(
         script:,
         command_request:,
-        chat_id:
+        chat_id:,
+        subcategory: nil
       )
     end
 
