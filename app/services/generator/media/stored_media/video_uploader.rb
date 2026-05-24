@@ -28,15 +28,15 @@ module Generator
         end
 
         delegate :filename, to: :filename_resolver
-        delegate :folder, to: :folder_resolver
         delegate :downloaded_bytes, to: :remote_url_downloader
+        delegate :command_request, to: :record
 
         memoize def upload_facade
           StoreMedia::Upload::Facade.new(bytes: downloaded_bytes, filename:, folder:)
         end
 
-        memoize def folder_resolver
-          Video::FolderResolver.new(record:)
+        def folder
+          "videos/#{ContentCategory.bucket_folder(command_request.category)}"
         end
 
         memoize def remote_url_downloader

@@ -22,16 +22,19 @@ module ScriptGenerator
       end
 
       def scenes_from_objects
-        parsed_response_body.map do |item|
-          VideoScene.new(
-            prompt: item["prompt"],
-            subcategory: normalized_subcategory(item["subcategory"])
-          )
-        end
+        parsed_response_body.map { |item| scene_from_item(item) }
       end
 
-      def normalized_subcategory(subcategory)
-        ContentCategory.normalize(subcategory).presence
+      def scene_from_item(item)
+        VideoScene.new(prompt: prompt_for(item), subcategory: subcategory_for(item))
+      end
+
+      def prompt_for(item)
+        item["prompt"].presence || item["text"].presence
+      end
+
+      def subcategory_for(item)
+        item["subcategory"].to_s.strip.presence
       end
     end
   end

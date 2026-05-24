@@ -24,10 +24,10 @@ module ScriptGenerator
         script_processor.call(script: scene.prompt, subcategory: scene.subcategory)
       end
 
-      delegate :scenes, to: :narration_video_prompts_context
+      delegate :scenes, to: :motivation_prompt_context
 
-      memoize def narration_video_prompts_context
-        NarrationVideoPromptsContext.new(script:)
+      memoize def motivation_prompt_context
+        MotivationPromptContext.new(script:)
       end
 
       memoize def script_processor

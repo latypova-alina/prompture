@@ -1,24 +1,28 @@
 module ScriptGenerator
   module ForMotivation
     class SceneValidator
-      def initialize(value)
-        @value = value
+      def initialize(parsed_response_body)
+        @parsed_response_body = parsed_response_body
       end
 
       def valid?
-        value.is_a?(Array) && value.all? { |item| valid_scene_object?(item) }
+        parsed_response_body.is_a?(Array) && parsed_response_body.all? { |item| valid_item?(item) }
       end
 
       private
 
-      attr_reader :value
+      attr_reader :parsed_response_body
 
-      def valid_scene_object?(item)
-        item.is_a?(Hash) && item["prompt"].present? && normalized_subcategory(item["subcategory"]).present?
+      def valid_item?(item)
+        item.is_a?(Hash) && prompt_for(item).present? && subcategory_for(item).present?
       end
 
-      def normalized_subcategory(subcategory)
-        ContentCategory.normalize(subcategory).presence
+      def prompt_for(item)
+        item["prompt"].presence || item["text"].presence
+      end
+
+      def subcategory_for(item)
+        item["subcategory"].to_s.strip.presence
       end
     end
   end
