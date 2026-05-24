@@ -18,6 +18,10 @@ module ScriptGenerator
       rescue JSON::ParserError
         nil
       end
+
+      def response
+        raise NotImplementedError
+      end
     end
   end
 end

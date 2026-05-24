@@ -7,5 +7,4 @@ class PromptMessage < ApplicationRecord
   delegate :chat_id, to: :command_request
 
   has_one :bot_telegram_message, as: :request, dependent: :destroy
-
 end
