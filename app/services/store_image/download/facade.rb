@@ -31,7 +31,7 @@ module StoreImage
       end
 
       def download_from_url(url)
-        UrlImageDownloader.call(url)
+        RemoteUrlDownloader.new(url).downloaded_bytes
       end
 
       def download_picture_bytes(picture_id)

@@ -13,14 +13,18 @@ module ScriptGenerator
       end
 
       def call
-        prompts.each { |prompt| script_processor.call(script: prompt) }
+        scenes.each { |scene| process_scene(scene) }
       end
 
       private
 
       attr_reader :chat_id, :script
 
-      delegate :prompts, to: :narration_video_prompts_context
+      def process_scene(scene)
+        script_processor.call(script: scene.prompt, subcategory: scene.subcategory)
+      end
+
+      delegate :scenes, to: :narration_video_prompts_context
 
       memoize def narration_video_prompts_context
         NarrationVideoPromptsContext.new(script:)

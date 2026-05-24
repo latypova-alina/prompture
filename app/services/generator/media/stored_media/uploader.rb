@@ -24,13 +24,14 @@ module Generator
         attr_reader :media_url, :record
 
         delegate :filename, to: :filename_resolver
+        delegate :downloaded_bytes, to: :remote_url_downloader
 
         memoize def upload_facade
           StoreImage::Upload::Facade.new(bytes: downloaded_bytes, filename:)
         end
 
-        def downloaded_bytes
-          StoreImage::Download::UrlImageDownloader.call(media_url)
+        memoize def remote_url_downloader
+          StoreImage::Download::RemoteUrlDownloader.new(media_url)
         end
 
         memoize def filename_resolver

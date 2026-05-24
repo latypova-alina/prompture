@@ -11,6 +11,7 @@ class ButtonVideoProcessingRequest < ApplicationRecord
   belongs_to :command_request, polymorphic: true
 
   has_one :bot_telegram_message, as: :request, dependent: :destroy
+  has_one :stored_video, as: :source, dependent: :destroy
 
   validates :processor, presence: true, inclusion: { in: PROCESSOR_TYPES }
 
