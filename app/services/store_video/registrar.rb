@@ -21,7 +21,7 @@ module StoreVideo
 
     attr_reader :record, :video_url
 
-    delegate :command_request, :origin_subcategory, :parent_prompt, to: :record
+    delegate :command_request, :origin_subcategory, to: :record
     delegate :category, to: :command_request
 
     def registerable?
@@ -36,8 +36,7 @@ module StoreVideo
       {
         video_url:,
         category:,
-        subcategory: origin_subcategory,
-        prompt: parent_prompt
+        subcategory: origin_subcategory
       }
     end
   end

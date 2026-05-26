@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2026_05_22_120100) do
+ActiveRecord::Schema[8.0].define(version: 2026_05_22_120200) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -195,7 +195,6 @@ ActiveRecord::Schema[8.0].define(version: 2026_05_22_120100) do
     t.string "video_url", null: false
     t.string "category", null: false
     t.string "subcategory", null: false
-    t.text "prompt"
     t.string "source_type", null: false
     t.bigint "source_id", null: false
     t.datetime "created_at", null: false
