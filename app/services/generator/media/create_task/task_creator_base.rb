@@ -2,6 +2,8 @@ module Generator
   module Media
     module CreateTask
       class TaskCreatorBase
+        include Memery
+
         def self.call(...)
           new(...).call
         end
@@ -23,7 +25,6 @@ module Generator
         attr_reader :request
 
         delegate :strategy, to: :strategy_selector
-        delegate :response, to: :api_client
         delegate :api_url, to: :strategy
         delegate :final_payload, to: :payload_composer
 
@@ -37,6 +38,10 @@ module Generator
 
         def strategy_selector
           strategy_selector_class.new(request)
+        end
+
+        memoize def response
+          api_client.response
         end
 
         def api_client_class
