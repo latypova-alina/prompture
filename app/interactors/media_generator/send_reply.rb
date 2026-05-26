@@ -20,7 +20,7 @@ module MediaGenerator
     delegate :processor, :status, :button_request_id, :task_id, :generated, to: :task_retriever_context
 
     memoize def task_retriever_context
-      Generator::Media::TaskRetrieverContext.new(params:)
+      Generator::Media::TaskRetrieverContext.for(params:)
     end
 
     def handle_completed_status

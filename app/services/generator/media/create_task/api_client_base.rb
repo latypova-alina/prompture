@@ -18,7 +18,7 @@ module Generator
         delegate :connection, to: :faraday_connection
 
         def faraday_connection
-          ::Clients::Generator::Connection.new(api_url)
+          ::Clients::Generator::Connection::Freepik.new(api_url)
         end
 
         attr_reader :api_url, :payload
