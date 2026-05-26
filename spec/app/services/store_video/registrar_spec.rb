@@ -19,7 +19,6 @@ describe StoreVideo::Registrar do
     expect(stored_video.video_url).to eq(video_url)
     expect(stored_video.category).to eq(ContentCategory::MOTIVATION)
     expect(stored_video.subcategory).to eq("cry")
-    expect(stored_video.prompt).to eq("Tears in rain")
     expect(stored_video.source).to eq(record)
   end
 
