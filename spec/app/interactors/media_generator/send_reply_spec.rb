@@ -17,7 +17,7 @@ describe MediaGenerator::SendReply do
     )
   end
 
-  let(:processor) { "flux_image" }
+  let(:processor) { "gemini_image" }
   let(:button_request_id) { 123 }
   let(:task_id) { "abc-123" }
 

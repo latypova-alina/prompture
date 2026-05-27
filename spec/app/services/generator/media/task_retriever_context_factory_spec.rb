@@ -12,7 +12,7 @@ describe Generator::Media::TaskRetrieverContext do
     end
 
     context "when processor is not flux_image" do
-      let(:params) { ActionController::Parameters.new(processor: "flux_image") }
+      let(:params) { ActionController::Parameters.new(processor: "gemini_image") }
 
       it "returns FreepikTaskRetrieverContext" do
         expect(described_class.for(params:))

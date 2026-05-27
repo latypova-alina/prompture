@@ -16,9 +16,8 @@ describe Generator::Media::Image::RetrieveTask::ApiUrlFetcher do
     context "when processor is flux_image" do
       let(:processor) { "flux_image" }
 
-      it "returns mystic api url" do
-        expect(api_url)
-          .to eq("https://api.freepik.com/v1/ai/mystic")
+      it "returns nil" do
+        expect(api_url).to be_nil
       end
     end
 
