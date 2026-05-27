@@ -330,13 +330,6 @@ describe TelegramWebhooksController, telegram_bot: :rails do
     end
   end
 
-  describe "#mystic_image_callback_query", :callback_query do
-    it_behaves_like "an image callback",
-                    processor: "mystic",
-                    record_creator: RecordCreators::ButtonRequests::Images::Mystic,
-                    job_class: ::Generator::Media::Image::TaskCreatorJob
-  end
-
   describe "#flux_image_callback_query", :callback_query do
     it_behaves_like "an image callback",
                     processor: "flux",

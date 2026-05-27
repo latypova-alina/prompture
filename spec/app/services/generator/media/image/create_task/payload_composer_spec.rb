@@ -9,7 +9,7 @@ describe Generator::Media::Image::CreateTask::PayloadComposer do
     instance_double(
       ButtonImageProcessingRequest,
       id: 42,
-      processor: "mystic_image"
+      processor: "flux_image"
     )
   end
 
@@ -17,7 +17,7 @@ describe Generator::Media::Image::CreateTask::PayloadComposer do
 
   let(:strategy) do
     instance_double(
-      Generator::Media::Image::CreateTask::MysticPayloadStrategy,
+      Generator::Media::Image::CreateTask::FluxPayloadStrategy,
       payload: strategy_payload
     )
   end
@@ -27,7 +27,7 @@ describe Generator::Media::Image::CreateTask::PayloadComposer do
   before do
     allow(Generator::Media::WebhookUrlBuilder)
       .to receive(:new)
-      .with(processor: "mystic_image", button_request_id: 42)
+      .with(processor: "flux_image", button_request_id: 42)
       .and_return(double(webhook_url: webhook_url))
   end
 

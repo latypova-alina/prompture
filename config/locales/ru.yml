@@ -128,7 +128,7 @@ ru:
     message:
       image_message_url: "Вот твое изображение"
       image_message_reply: "Отлично! Теперь ты можешь сгенерировать видео с помощью одного из процессоров (Kling)"
-      extended_prompt_postfix: "Вот твой расширенный промпт ⬆️ \n\nТеперь ты можешь сгенерировать изображение с помощью одного из процессоров (Mystic/Flux/Gemini/Imagen)"
+      extended_prompt_postfix: "Вот твой расширенный промпт ⬆️ \n\nТеперь ты можешь сгенерировать изображение с помощью одного из процессоров (Flux/Gemini/Imagen)"
       image_generated_prefix: "Вот твое %{processor_name} 🖼️"
       image_generated_postfix: "Теперь ты можешь сгенерировать видео с помощью одного из процессоров (Kling)"
       video_generated_prefix: "Вот твое %{processor_name} 🎥"
@@ -138,7 +138,7 @@ ru:
           
         🔹 расширить промпт (👉 ⚠️ результат будет на английском языке для улучшения качества генерации)
           
-        🔹 сгенерировать изображение с помощью одного из процессоров (Mystic/Flux/Gemini/Imagen)
+        🔹 сгенерировать изображение с помощью одного из процессоров (Flux/Gemini/Imagen)
       prompt_suffix_audio: |
         Что ты хочешь сделать дальше? Ты можешь:
 
@@ -152,11 +152,6 @@ ru:
             many: "Расширить промпт (%{count} кредитов)"
             other: "Расширить промпт (%{count} кредитов)"
         generate_image:
-          mystic_image: 
-            one: "Mystic (%{count} кредит)"
-            few: "Mystic (%{count} кредита)"
-            many: "Mystic (%{count} кредитов)"
-            other: "Mystic (%{count} кредитов)"
           flux_image:
             one: "Flux (%{count} кредит)"
             few: "Flux (%{count} кредита)"
@@ -273,7 +268,6 @@ ru:
           kling_2_1_pro_image_to_video: "видео Kling Pro"
           wan_2_2_image_to_video: "видео Wan 2.2"
         image:
-          mystic_image: "изображение Mystic"
           flux_image: "изображение Flux"
           gemini_image: "изображение Gemini"
           imagen_image: "изображение Imagen"

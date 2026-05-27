@@ -9,12 +9,12 @@ describe MediaGenerator::ButtonHandler::CreateRequest do
     )
   end
 
-  let(:button_request) { "mystic_image" }
+  let(:button_request) { "flux_image" }
 
   let(:parent_request) { create(:prompt_message) }
   let(:command_request) { create(:command_prompt_to_image_request) }
 
-  let(:record_creator_class) { RecordCreators::ButtonRequests::Images::Mystic }
+  let(:record_creator_class) { RecordCreators::ButtonRequests::Images::Flux }
   let(:record_creator) { instance_double(record_creator_class, record:) }
   let(:record) { create(:button_image_processing_request) }
 

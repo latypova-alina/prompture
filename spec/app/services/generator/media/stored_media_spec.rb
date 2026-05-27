@@ -6,7 +6,7 @@ describe Generator::Media::StoredMedia::Retriever do
   let(:media_url) { "https://ai-statics.freepik.com/generated.png" }
   let!(:button_request) { create(:button_image_processing_request) }
   let(:button_request_id) { button_request.id }
-  let(:processor) { "mystic_image" }
+  let(:processor) { "flux_image" }
   let(:uploaded_url) { "https://internal.example/images/generated.png" }
   let(:uploader) { instance_double(Generator::Media::StoredMedia::Uploader, stored_url: uploaded_url) }
 
