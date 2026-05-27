@@ -8,19 +8,19 @@ describe MediaGenerator::ButtonRequestPresenters::ImageProcessedMessage::Context
         command_request_classname: "CommandPromptToImageRequest",
         locale: "ru",
         balance: 7,
-        processor_name: "Mystic image"
+        processor_name: "Flux image"
       )
 
       expect(context.image_url).to eq("https://example.com/image.png")
       expect(context.command_request_classname).to eq("CommandPromptToImageRequest")
       expect(context.locale).to eq("ru")
       expect(context.balance).to eq(7)
-      expect(context.processor_name).to eq("Mystic image")
+      expect(context.processor_name).to eq("Flux image")
     end
 
     it "does not accept positional arguments" do
       expect do
-        described_class.new("url", "CommandPromptToImageRequest", "en", 5, "Mystic image")
+        described_class.new("url", "CommandPromptToImageRequest", "en", 5, "Flux image")
       end.to raise_error(ArgumentError)
     end
   end

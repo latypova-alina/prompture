@@ -2,7 +2,7 @@ FactoryBot.define do
   factory :button_image_processing_request do
     status { "PENDING" }
     image_url { nil }
-    processor { "mystic_image" }
+    processor { "flux_image" }
 
     transient { user { create(:user, :with_balance) } }
 

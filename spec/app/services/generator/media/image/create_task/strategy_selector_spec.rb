@@ -14,14 +14,14 @@ describe Generator::Media::Image::CreateTask::StrategySelector do
   end
 
   describe "#strategy" do
-    context "when processor is mystic_image" do
-      let(:processor) { "mystic_image" }
+    context "when processor is flux_image" do
+      let(:processor) { "flux_image" }
 
-      it "returns MysticPayloadStrategy initialized with parent_prompt" do
+      it "returns FluxPayloadStrategy initialized with parent_prompt" do
         strategy = selector.strategy
 
         expect(strategy)
-          .to be_a(Generator::Media::Image::CreateTask::MysticPayloadStrategy)
+          .to be_a(Generator::Media::Image::CreateTask::FluxPayloadStrategy)
 
         expect(strategy.prompt).to eq(parent_prompt)
       end
@@ -67,7 +67,7 @@ describe Generator::Media::Image::CreateTask::StrategySelector do
     end
 
     context "when parent_request has no parent_prompt method" do
-      let(:processor) { "mystic_image" }
+      let(:processor) { "flux_image" }
       let(:parent_request) { create(:command_prompt_to_image_request) }
 
       it "initializes strategy with nil prompt" do

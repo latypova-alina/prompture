@@ -14,7 +14,7 @@ describe TelegramIntegration::SendAnswerCallbackQuery do
 
   it "calls Telegram.bot.answer_callback_query with correct arguments" do
     expected_text =
-      I18n.t("telegram.generation.processing", process_name: "Mystic image")
+      I18n.t("telegram.generation.processing", process_name: "Flux image")
 
     expect(bot).to receive(:answer_callback_query).with(
       callback_query_id:,

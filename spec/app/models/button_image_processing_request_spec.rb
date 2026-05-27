@@ -49,7 +49,7 @@ describe ButtonImageProcessingRequest, type: :model do
   end
 
   describe "#cost" do
-    let(:processor) { "mystic_image" }
+    let(:processor) { "flux_image" }
 
     subject do
       build(:button_image_processing_request, processor:)
@@ -63,7 +63,7 @@ describe ButtonImageProcessingRequest, type: :model do
   end
 
   describe "#humanized_process_name" do
-    let(:processor) { "mystic_image" }
+    let(:processor) { "flux_image" }
     let(:user) { create(:user, locale: "es") }
     let(:command_request) { create(:command_prompt_to_image_request, user:) }
 

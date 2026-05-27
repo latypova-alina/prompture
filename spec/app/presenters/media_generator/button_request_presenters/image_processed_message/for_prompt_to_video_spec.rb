@@ -5,8 +5,8 @@ describe MediaGenerator::ButtonRequestPresenters::ImageProcessedMessage::ForProm
 
   let(:message) { "https://example.com/image.png" }
   let(:balance) { 4 }
-  let(:processor_name) { "Mystic image" }
-  let(:processor) { "mystic_image" }
+  let(:processor_name) { "Flux image" }
+  let(:processor) { "flux_image" }
 
   describe "#formatted_text" do
     it "returns an HTML link to the image" do
@@ -31,8 +31,8 @@ describe MediaGenerator::ButtonRequestPresenters::ImageProcessedMessage::ForProm
 
     let(:expected_buttons) do
       [
-        [{ callback_data: "mystic_image",
-           text: "Regenerate (2 credits)" }],
+        [{ callback_data: "flux_image",
+           text: "Regenerate (1 credit)" }],
         [{ callback_data: "kling_2_1_pro_image_to_video",
            text: "Kling Pro 2.1 (10 credits)" }],
         [{ callback_data: "wan_2_2_image_to_video",

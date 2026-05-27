@@ -7,7 +7,7 @@ describe Generator::Media::Image::TaskRetrieverJob do
 
   let(:task_id) { "abc-123" }
   let(:button_request_id) { 42 }
-  let(:processor) { "mystic_image" }
+  let(:processor) { "flux_image" }
 
   let(:retriever_instance) { instance_double(Generator::Media::Image::RetrieveTask::TaskRetriever) }
   let(:stored_media) { instance_double(Generator::Media::StoredMedia::Retriever, internal_media_url: media_url) }

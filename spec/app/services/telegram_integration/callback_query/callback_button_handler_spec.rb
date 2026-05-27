@@ -48,7 +48,7 @@ describe TelegramIntegration::CallbackQuery::CallbackButtonHandler do
   end
 
   context "when button_request is media command" do
-    let(:button_request) { "mystic_image" }
+    let(:button_request) { "flux_image" }
 
     before do
       allow(MediaGenerator::ButtonHandler::HandleButton).to receive(:call).and_return(success_result)

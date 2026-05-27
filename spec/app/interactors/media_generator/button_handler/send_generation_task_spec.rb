@@ -60,8 +60,8 @@ describe MediaGenerator::ButtonHandler::SendGenerationTask do
     end
   end
 
-  context "when button_request is mystic_image" do
-    let(:button_request) { "mystic_image" }
+  context "when button_request is flux_image" do
+    let(:button_request) { "flux_image" }
 
     it "enqueues image generator job" do
       subject

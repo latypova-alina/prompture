@@ -5,8 +5,8 @@ describe MediaGenerator::ButtonRequestPresenters::ImageProcessedMessage::Present
     let(:image_url) { "http://example.com/image.png" }
     let(:locale) { :ru }
     let(:balance) { 4 }
-    let(:processor_name) { "Mystic image" }
-    let(:processor) { "mystic_image" }
+    let(:processor_name) { "Flux image" }
+    let(:processor) { "flux_image" }
     let(:context) do
       MediaGenerator::ButtonRequestPresenters::ImageProcessedMessage::Context.new(
         image_url:,
