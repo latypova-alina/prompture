@@ -26,6 +26,8 @@ module MediaGenerator
     def handle_completed_status
       if generated.empty?
         Generator::Media::FreepikEmptyGenerationAlert.call(processor:, button_request_id:)
+      elsif processor == "flux_image"
+        Generator::Media::Image::FluxTaskRetrieverJob.perform_async(generated.first, button_request_id, processor)
       else
         Generator::Media::TaskRetrieverDispatcher.call(task_id:, button_request_id:, processor:)
       end
