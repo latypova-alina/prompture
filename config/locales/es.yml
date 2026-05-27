@@ -89,7 +89,10 @@ es:
         🔹 /script_templates - muestra las plantillas de scripts disponibles
 
         🔹 /random_character - genera una imagen de personaje aleatorio
+
+        🔹 /brainrot_character - genera una imagen de personaje brainrot aleatorio
       random_character: "Generación de personaje aleatorio iniciada."
+      brainrot_character: "Generación de personaje brainrot iniciada."
       motivation_workflow: "Workflow motivacional iniciado: guion, audio y prompts de video."
       prompt_to_video: "¡Genial! Ahora, por favor, proporciona un prompt para el video. Más adelante podrás ampliarlo con la ayuda del bot."
       prompt_to_image: "¡Genial! Ahora, por favor, proporciona un prompt para la imagen. Más adelante podrás ampliarlo con la ayuda del bot."

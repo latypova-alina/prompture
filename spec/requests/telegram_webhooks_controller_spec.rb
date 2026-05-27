@@ -276,6 +276,31 @@ describe TelegramWebhooksController, telegram_bot: :rails do
     end
   end
 
+  describe "#brainrot_character!" do
+    subject { -> { dispatch_command(:brainrot_character) } }
+
+    let!(:user) { create(:user, chat_id: 456, admin:) }
+    let(:admin) { true }
+
+    before do
+      allow(ScriptGenerator::ProcessBrainrotCharacterJob).to receive(:perform_async)
+    end
+
+    it { is_expected.to respond_with_message(I18n.t("telegram_webhooks.commands.brainrot_character")) }
+
+    it "enqueues brainrot character job" do
+      subject.call
+
+      expect(ScriptGenerator::ProcessBrainrotCharacterJob).to have_received(:perform_async).with(456)
+    end
+
+    context "when user is not admin" do
+      let(:admin) { false }
+
+      it { is_expected.to respond_with_message(I18n.t("errors.admin_only_command")) }
+    end
+  end
+
   describe "#admin!" do
     subject { -> { dispatch_command(:admin) } }
 
