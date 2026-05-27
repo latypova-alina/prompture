@@ -3,7 +3,7 @@ module Generator
     module Image
       module CreateTask
         class FluxPayloadStrategy
-          API_URL = "https://queue.fal.run/fal-ai/flux/dev".freeze
+          API_URL = "https://queue.fal.run/fal-ai/flux-2-pro".freeze
 
           def initialize(prompt)
             @prompt = prompt

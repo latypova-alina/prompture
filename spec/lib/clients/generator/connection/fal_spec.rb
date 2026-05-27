@@ -1,7 +1,7 @@
 require "rails_helper"
 
 describe Clients::Generator::Connection::Fal do
-  let(:url) { "https://queue.fal.run/fal-ai/flux/dev" }
+  let(:url) { "https://queue.fal.run/fal-ai/flux-2-pro" }
 
   subject { described_class.new(url) }
 
