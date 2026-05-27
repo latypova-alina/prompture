@@ -127,7 +127,7 @@ en:
     message:
       image_message_url: "Here is your image"
       image_message_reply: "Great! You can now generate a video using one of the processors (Kling)"
-      extended_prompt_postfix: "Here is your extended prompt ⬆️ \n\nYou can now generate an image using one of the processors (Mystic/Flux/Gemini/Imagen)"
+      extended_prompt_postfix: "Here is your extended prompt ⬆️ \n\nYou can now generate an image using one of the processors (Flux/Gemini/Imagen)"
       image_generated_prefix: "Here is your %{processor_name} 🖼️"
       image_generated_postfix: "You can now generate a video using one of the processors (Kling)"
       video_generated_prefix: "Here is your %{processor_name} 🎥"
@@ -137,7 +137,7 @@ en:
         
         🔹 extend the prompt
           
-        🔹 generate an image using one of the processors (Mystic/Flux/Gemini/Imagen)
+        🔹 generate an image using one of the processors (Flux/Gemini/Imagen)
       prompt_suffix_audio: |
         What do you want to do next? You can:
 
@@ -149,9 +149,6 @@ en:
             one: "Extend prompt (%{count} credit)"
             other: "Extend prompt (%{count} credits)"
         generate_image:
-          mystic_image: 
-            one: "Mystic (%{count} credit)"
-            other: "Mystic (%{count} credits)"
           flux_image:
             one: "Flux (%{count} credit)"
             other: "Flux (%{count} credits)"
@@ -246,7 +243,6 @@ en:
           kling_2_1_pro_image_to_video: "Kling Pro video"
           wan_2_2_image_to_video: "Wan 2.2 video"
         image:
-          mystic_image: "Mystic image"
           flux_image: "Flux image"
           gemini_image: "Gemini image"
           imagen_image: "Imagen image"

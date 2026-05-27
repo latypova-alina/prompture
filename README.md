@@ -8,7 +8,7 @@
 
 - 💬 Extending prompt
 - 🖼️ Generate images from prompt using the following processors:
-  - **Mystic**
+  - **Flux**
   - **Gemini**
   - **Imagen**
 - 🎥 Generate videos from images using the following processors:
