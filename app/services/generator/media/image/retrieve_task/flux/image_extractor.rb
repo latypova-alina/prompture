@@ -12,10 +12,10 @@ module Generator
 
             def media_url
               raise ::Freepik::ResponseError unless response.success?
-              raise ::Freepik::ResponseError unless parsed_body["code"] == 200
-              raise ::Freepik::ResponseError unless parsed_body.dig("data", "successFlag") == 1
 
-              parsed_body.dig("data", "response", "resultImageUrl")
+              raise ::Freepik::ResponseError if image_url.blank?
+
+              image_url
             end
 
             private
@@ -24,6 +24,10 @@ module Generator
 
             memoize def parsed_body
               JSON.parse(response.body)
+            end
+
+            memoize def image_url
+              parsed_body.dig("images", 0, "url")
             end
           end
         end

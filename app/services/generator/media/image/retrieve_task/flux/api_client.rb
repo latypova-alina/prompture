@@ -10,7 +10,7 @@ module Generator
             end
 
             def api_response
-              connection.get(api_url, { taskId: task_id })
+              connection.get("#{api_url}/#{task_id}")
             end
 
             private
@@ -18,7 +18,7 @@ module Generator
             delegate :connection, to: :faraday_connection
 
             def faraday_connection
-              ::Clients::Generator::Connection::Flux.new(api_url)
+              ::Clients::Generator::Connection::Fal.new(api_url)
             end
 
             attr_reader :task_id, :api_url

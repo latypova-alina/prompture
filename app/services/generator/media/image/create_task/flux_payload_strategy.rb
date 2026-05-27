@@ -3,8 +3,7 @@ module Generator
     module Image
       module CreateTask
         class FluxPayloadStrategy
-          API_URL = "https://api.fluxapi.ai/api/v1/flux/kontext/generate".freeze
-          MODEL = "flux-kontext-pro".freeze
+          API_URL = "https://queue.fal.run/fal-ai/flux/dev".freeze
 
           def initialize(prompt)
             @prompt = prompt
@@ -13,17 +12,12 @@ module Generator
           def payload
             {
               prompt:,
-              enableTranslation: true,
-              aspectRatio: "9:16",
-              outputFormat: "jpeg",
-              promptUpsampling: false,
-              model: MODEL,
-              safetyTolerance: 2
+              image_size: "portrait_16_9"
             }
           end
 
           def webhook_param_name
-            :callBackUrl
+            :fal_webhook
           end
 
           def api_url

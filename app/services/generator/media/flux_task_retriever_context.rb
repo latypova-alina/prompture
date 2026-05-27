@@ -1,12 +1,14 @@
 module Generator
   module Media
     class FluxTaskRetrieverContext
+      include Memery
+
       def initialize(params:)
         @params = params
       end
 
       def task_id
-        data[:taskId]
+        params[:request_id]
       end
 
       def processor
@@ -14,7 +16,7 @@ module Generator
       end
 
       def status
-        return "COMPLETED" if callback_code == 200
+        return "COMPLETED" if params[:status] == "OK"
 
         "FAILED"
       end
@@ -24,7 +26,9 @@ module Generator
       end
 
       def generated
-        url = data.dig(:info, :resultImageUrl)
+        return urls if urls.any?
+
+        url = payload[:image]&.dig(:url)
         url.present? ? [url] : []
       end
 
@@ -32,12 +36,12 @@ module Generator
 
       attr_reader :params
 
-      def callback_code
-        params[:code].to_i
+      def payload
+        params.fetch(:payload, {}).permit!
       end
 
-      def data
-        params.fetch(:data, {}).permit!
+      memoize def urls
+        payload.fetch(:images, []).map { |image| image[:url] }.compact
       end
     end
   end

@@ -6,7 +6,7 @@ module Generator
           API_URLS = {
             "gemini_image" => "https://api.freepik.com/v1/ai/gemini-2-5-flash-image-preview".freeze,
             "mystic_image" => "https://api.freepik.com/v1/ai/mystic".freeze,
-            "flux_image" => "https://api.fluxapi.ai/api/v1/flux/kontext/record-info".freeze,
+            "flux_image" => "https://queue.fal.run/fal-ai/flux/dev/requests".freeze,
             "imagen_image" => "https://api.freepik.com/v1/ai/text-to-image/imagen3".freeze
           }.freeze
         end

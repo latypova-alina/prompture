@@ -1,13 +1,17 @@
 module Generator
   module Media
     class WebhookUrlBuilder
+      PROCESSOR_WEBHOOK_PATHS = {
+        "flux_image" => "/api/fal/webhook"
+      }.freeze
+
       def initialize(processor:, button_request_id:)
         @processor = processor
         @button_request_id = button_request_id
       end
 
       def webhook_url
-        "#{webhook_host}/freepik_webhook?request_id_token=#{request_id_token}&processor=#{processor}"
+        "#{webhook_host}#{webhook_path}?request_id_token=#{request_id_token}&processor=#{processor}"
       end
 
       private
@@ -22,6 +26,10 @@ module Generator
 
       def request_id_token
         RequestIdToken.encode(button_request_id)
+      end
+
+      def webhook_path
+        PROCESSOR_WEBHOOK_PATHS.fetch(processor, "/freepik_webhook")
       end
     end
   end

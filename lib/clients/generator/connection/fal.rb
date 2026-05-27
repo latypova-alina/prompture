@@ -1,7 +1,7 @@
 module Clients
   module Generator
     module Connection
-      class Flux
+      class Fal
         include Memery
 
         def initialize(url)
@@ -12,7 +12,7 @@ module Clients
           Faraday.new(url:) do |f|
             f.headers["Content-Type"] = "application/json"
             f.headers["Accept"] = "application/json"
-            f.headers["Authorization"] = "Bearer #{ENV.fetch('FLUX_API_KEY')}"
+            f.headers["Authorization"] = "Key #{ENV.fetch('FAL_API_KEY')}"
 
             f.request :url_encoded
             f.response :logger, nil, { bodies: true }
