@@ -3,7 +3,7 @@ require "rails_helper"
 describe Generator::Media::Image::CreateTask::FluxApiClient do
   subject(:client) { described_class.new(api_url, payload) }
 
-  let(:api_url) { "https://queue.fal.run/fal-ai/flux/dev" }
+  let(:api_url) { "https://queue.fal.run/fal-ai/flux-2-pro" }
   let(:payload) { { prompt: "hello", fal_webhook: webhook_url } }
   let(:webhook_url) { "https://example.com/api/fal/webhook?processor=flux_image" }
 
