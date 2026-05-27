@@ -27,7 +27,7 @@ describe Generator::Media::Image::RetrieveTask::TaskRetriever do
       .to receive(:api_url)
       .and_return(api_url)
 
-    allow(Generator::Media::Image::RetrieveTask::ApiClient)
+    allow(Generator::Media::Image::RetrieveTask::Freepik::ApiClient)
       .to receive(:new)
       .with(task_id, api_url)
       .and_return(api_client_instance)
@@ -36,7 +36,7 @@ describe Generator::Media::Image::RetrieveTask::TaskRetriever do
       .to receive(:api_response)
       .and_return(api_response)
 
-    allow(Generator::Media::Image::RetrieveTask::ImageExtractor)
+    allow(Generator::Media::Image::RetrieveTask::Freepik::ImageExtractor)
       .to receive(:new)
       .with(api_response)
       .and_return(extractor_instance)
@@ -54,11 +54,11 @@ describe Generator::Media::Image::RetrieveTask::TaskRetriever do
         .to have_received(:new)
         .with(processor)
 
-      expect(Generator::Media::Image::RetrieveTask::ApiClient)
+      expect(Generator::Media::Image::RetrieveTask::Freepik::ApiClient)
         .to have_received(:new)
         .with(task_id, api_url)
 
-      expect(Generator::Media::Image::RetrieveTask::ImageExtractor)
+      expect(Generator::Media::Image::RetrieveTask::Freepik::ImageExtractor)
         .to have_received(:new)
         .with(api_response)
     end

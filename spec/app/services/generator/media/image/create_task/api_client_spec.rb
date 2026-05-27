@@ -6,13 +6,13 @@ describe Generator::Media::Image::CreateTask::ApiClient do
   let(:api_url) { "https://example.com" }
   let(:payload) { { foo: "bar" } }
 
-  let(:connection_instance) { instance_double(Clients::Generator::Connection) }
+  let(:connection_instance) { instance_double(Clients::Generator::Connection::Freepik) }
   let(:faraday_connection) { double }
 
   let(:response_double) { double }
 
   before do
-    allow(Clients::Generator::Connection)
+    allow(Clients::Generator::Connection::Freepik)
       .to receive(:new)
       .with(api_url)
       .and_return(connection_instance)
@@ -31,7 +31,7 @@ describe Generator::Media::Image::CreateTask::ApiClient do
     it "creates a connection with api_url" do
       client.response
 
-      expect(Clients::Generator::Connection)
+      expect(Clients::Generator::Connection::Freepik)
         .to have_received(:new)
         .with(api_url)
     end

@@ -6,14 +6,19 @@ describe Generator::Media::Image::CreateTask::FluxPayloadStrategy do
   let(:prompt) { "little kitten" }
 
   describe "#payload" do
-    it "returns correct static payload" do
+    it "returns the FAL payload" do
       expect(strategy.payload).to eq(
         {
           prompt:,
-          width: 768,
-          height: 1440
+          image_size: "portrait_16_9"
         }
       )
+    end
+  end
+
+  describe "#webhook_param_name" do
+    it "uses fal_webhook for FAL callbacks" do
+      expect(strategy.webhook_param_name).to eq(:fal_webhook)
     end
   end
 

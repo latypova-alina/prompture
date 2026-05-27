@@ -8,7 +8,7 @@ describe MediaGenerator::SendReply do
 
   let(:context_double) do
     instance_double(
-      Generator::Media::TaskRetrieverContext,
+      Generator::Media::FreepikTaskRetrieverContext,
       status: status,
       processor: processor,
       button_request_id: button_request_id,
@@ -23,7 +23,7 @@ describe MediaGenerator::SendReply do
 
   before do
     allow(Generator::Media::TaskRetrieverContext)
-      .to receive(:new)
+      .to receive(:for)
       .with(params:)
       .and_return(context_double)
   end
@@ -51,6 +51,25 @@ describe MediaGenerator::SendReply do
             button_request_id:,
             processor:
           )
+
+        result
+      end
+    end
+
+    context "when status is COMPLETED for flux image" do
+      let(:status) { "COMPLETED" }
+      let(:processor) { "flux_image" }
+
+      it "enqueues FluxTaskRetrieverJob with webhook image url" do
+        expect(Generator::Media::Image::FluxTaskRetrieverJob)
+          .to receive(:perform_async)
+          .with(
+            "generated_media_url",
+            button_request_id,
+            processor
+          )
+
+        expect(Generator::Media::TaskRetrieverDispatcher).not_to receive(:call)
 
         result
       end
