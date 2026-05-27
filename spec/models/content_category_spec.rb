@@ -8,6 +8,7 @@ describe ContentCategory do
 
     it "returns false for unknown categories" do
       expect(described_class.store_video?("random_character")).to be(false)
+      expect(described_class.store_video?("brainrot_character")).to be(false)
     end
 
     it "returns false when category is blank" do
