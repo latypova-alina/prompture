@@ -20,12 +20,14 @@ module MediaGenerator
     delegate :processor, :status, :button_request_id, :task_id, :generated, to: :task_retriever_context
 
     memoize def task_retriever_context
-      Generator::Media::TaskRetrieverContext.new(params:)
+      Generator::Media::TaskRetrieverContext.for(params:)
     end
 
     def handle_completed_status
       if generated.empty?
         Generator::Media::FreepikEmptyGenerationAlert.call(processor:, button_request_id:)
+      elsif processor == "flux_image"
+        Generator::Media::Image::FluxTaskRetrieverJob.perform_async(generated.first, button_request_id, processor)
       else
         Generator::Media::TaskRetrieverDispatcher.call(task_id:, button_request_id:, processor:)
       end

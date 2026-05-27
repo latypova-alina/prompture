@@ -10,7 +10,7 @@ describe Generator::Media::Prompt::RetrieveTask::ApiClient do
   let(:faraday_client_instance) { double }
 
   before do
-    allow(::Clients::Generator::Connection)
+    allow(::Clients::Generator::Connection::Freepik)
       .to receive(:new)
       .with(api_url)
       .and_return(faraday_client_instance)

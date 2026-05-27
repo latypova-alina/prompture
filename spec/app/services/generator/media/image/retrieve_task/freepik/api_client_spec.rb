@@ -1,6 +1,6 @@
 require "rails_helper"
 
-describe Generator::Media::Image::RetrieveTask::ApiClient do
+describe Generator::Media::Image::RetrieveTask::Freepik::ApiClient do
   subject(:api_response) { described_class.new(task_id, api_url).api_response }
 
   let(:task_id) { "123" }
@@ -10,7 +10,7 @@ describe Generator::Media::Image::RetrieveTask::ApiClient do
   let(:faraday_client_instance) { double }
 
   before do
-    allow(::Clients::Generator::Connection)
+    allow(::Clients::Generator::Connection::Freepik)
       .to receive(:new)
       .with(api_url)
       .and_return(faraday_client_instance)

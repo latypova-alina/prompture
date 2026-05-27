@@ -6,11 +6,11 @@ module Generator
           private
 
           def extractor_class
-            ImageExtractor
+            Freepik::ImageExtractor
           end
 
           def api_client_class
-            ApiClient
+            Freepik::ApiClient
           end
 
           def api_url_fetcher_class

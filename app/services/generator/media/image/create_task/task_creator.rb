@@ -3,10 +3,14 @@ module Generator
     module Image
       module CreateTask
         class TaskCreator < Generator::Media::CreateTask::TaskCreatorBase
+          PROCESSOR_API_CLIENTS = {
+            "flux_image" => FluxApiClient
+          }.freeze
+
           private
 
           def api_client_class
-            ApiClient
+            PROCESSOR_API_CLIENTS.fetch(request.processor, ApiClient)
           end
 
           def payload_composer_class

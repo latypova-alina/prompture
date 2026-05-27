@@ -3,7 +3,7 @@ module Generator
     module Image
       module CreateTask
         class FluxPayloadStrategy
-          API_URL = "https://api.freepik.com/v1/ai/text-to-image/flux-2-pro".freeze
+          API_URL = "https://queue.fal.run/fal-ai/flux/dev".freeze
 
           def initialize(prompt)
             @prompt = prompt
@@ -12,9 +12,12 @@ module Generator
           def payload
             {
               prompt:,
-              "width": 768,
-              "height": 1440
+              image_size: "portrait_16_9"
             }
+          end
+
+          def webhook_param_name
+            :fal_webhook
           end
 
           def api_url

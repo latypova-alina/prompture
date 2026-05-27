@@ -1,6 +1,6 @@
 require "rails_helper"
 
-describe Generator::Media::Image::RetrieveTask::ImageExtractor do
+describe Generator::Media::Image::RetrieveTask::Freepik::ImageExtractor do
   subject(:media_url) { described_class.new(response).media_url }
 
   let(:response) { double(success?: success, body:) }

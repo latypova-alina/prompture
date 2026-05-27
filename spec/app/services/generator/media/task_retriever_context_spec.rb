@@ -2,8 +2,8 @@
 
 require "rails_helper"
 
-describe Generator::Media::TaskRetrieverContext do
-  subject(:context) { described_class.new(params) }
+describe Generator::Media::FreepikTaskRetrieverContext do
+  subject(:context) { described_class.new(params:) }
 
   let(:decoded_id) { 123 }
 

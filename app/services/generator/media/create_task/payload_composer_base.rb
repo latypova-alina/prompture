@@ -8,7 +8,7 @@ module Generator
         end
 
         def final_payload
-          strategy.payload.reverse_merge(webhook_url:)
+          strategy.payload.merge(webhook_param_name => webhook_url)
         end
 
         private
@@ -18,6 +18,12 @@ module Generator
         delegate :processor, to: :request
 
         delegate :webhook_url, to: :webhook_url_builder
+
+        def webhook_param_name
+          return strategy.webhook_param_name if strategy.respond_to?(:webhook_param_name)
+
+          :webhook_url
+        end
 
         def webhook_url_builder
           Generator::Media::WebhookUrlBuilder.new(processor:, button_request_id: request.id)
