@@ -30,11 +30,11 @@ describe Generator::Media::Prompt::CreateTask::PayloadComposer do
       )
     end
 
-    it "does not override strategy keys (reverse_merge behavior)" do
+    it "overrides strategy webhook key with computed webhook_url" do
       overlapping_strategy = double(payload: { webhook_url: "custom", foo: "bar" })
       composer_with_overlap = described_class.new(request, overlapping_strategy)
 
-      expect(composer_with_overlap.final_payload[:webhook_url]).to eq("custom")
+      expect(composer_with_overlap.final_payload[:webhook_url]).to eq(webhook_url)
     end
   end
 end

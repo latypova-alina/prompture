@@ -26,10 +26,7 @@ module Generator
       end
 
       def generated
-        return urls if urls.any?
-
-        url = payload[:image]&.dig(:url)
-        url.present? ? [url] : []
+        urls.present? ? urls : []
       end
 
       private
