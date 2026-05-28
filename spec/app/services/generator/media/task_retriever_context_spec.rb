@@ -9,7 +9,7 @@ describe Generator::Media::FreepikTaskRetrieverContext do
 
   let(:params) do
     ActionController::Parameters.new(
-      processor: "gemini_image",
+      processor: "imagen_image",
       request_id_token: "token123",
       freepik_webhook: {
         task_id: "task_1",
@@ -33,7 +33,7 @@ describe Generator::Media::FreepikTaskRetrieverContext do
 
   describe "#processor" do
     it "returns processor from params" do
-      expect(context.processor).to eq("gemini_image")
+      expect(context.processor).to eq("imagen_image")
     end
   end
 

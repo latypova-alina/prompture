@@ -362,13 +362,6 @@ describe TelegramWebhooksController, telegram_bot: :rails do
                     job_class: ::Generator::Media::Image::TaskCreatorJob
   end
 
-  describe "#gemini_image_callback_query", :callback_query do
-    it_behaves_like "an image callback",
-                    processor: "gemini",
-                    record_creator: RecordCreators::ButtonRequests::Images::Gemini,
-                    job_class: ::Generator::Media::Image::TaskCreatorJob
-  end
-
   describe "#imagen_image_callback_query", :callback_query do
     it_behaves_like "an image callback",
                     processor: "imagen",

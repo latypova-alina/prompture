@@ -4,15 +4,6 @@ describe Generator::Media::Image::RetrieveTask::ApiUrlFetcher do
   subject(:api_url) { described_class.new(processor).api_url }
 
   describe "#api_url" do
-    context "when processor is gemini_image" do
-      let(:processor) { "gemini_image" }
-
-      it "returns gemini api url" do
-        expect(api_url)
-          .to eq("https://api.freepik.com/v1/ai/gemini-2-5-flash-image-preview")
-      end
-    end
-
     context "when processor is flux_image" do
       let(:processor) { "flux_image" }
 

@@ -130,7 +130,7 @@ es:
     message:
       image_message_url: "Aquí está tu imagen"
       image_message_reply: "¡Genial! Ahora puedes generar un video usando uno de los procesadores (Kling)"
-      extended_prompt_postfix: "Aquí está tu prompt extendido ⬆️ \n\nAhora puedes generar una imagen usando uno de los procesadores (Flux/Gemini/Imagen)"
+      extended_prompt_postfix: "Aquí está tu prompt extendido ⬆️ \n\nAhora puedes generar una imagen usando uno de los procesadores (Flux/Imagen)"
       image_generated_prefix: "Aquí está tu %{processor_name} 🖼️"
       image_generated_postfix: "Ahora puedes generar un video usando uno de los procesadores (Kling)"
       video_generated_prefix: "Aquí está tu %{processor_name} 🎥"
@@ -140,7 +140,7 @@ es:
 
         🔹 extender el prompt
           
-        🔹 generar una imagen usando uno de los procesadores (Flux/Gemini/Imagen)
+        🔹 generar una imagen usando uno de los procesadores (Flux/Imagen)
       prompt_suffix_audio: |
         ¿Qué quieres hacer a continuación? Puedes:
 
@@ -155,9 +155,6 @@ es:
           flux_image:
             one: "Flux (%{count} crédito)"
             other: "Flux (%{count} créditos)"
-          gemini_image:
-            one: "Gemini (%{count} crédito)"
-            other: "Gemini (%{count} créditos)"
           imagen_image:
             one: "Imagen (%{count} crédito)"
             other: "Imagen (%{count} créditos)"
@@ -247,7 +244,6 @@ es:
           wan_2_2_image_to_video: "video de Wan 2.2"
         image:
           flux_image: "imagen de Flux"
-          gemini_image: "imagen de Gemini"
           imagen_image: "imagen de Imagen"
         audio:
           voices:

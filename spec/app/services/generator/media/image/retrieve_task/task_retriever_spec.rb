@@ -6,7 +6,7 @@ describe Generator::Media::Image::RetrieveTask::TaskRetriever do
   subject(:media_url) { described_class.new(task_id, processor).media_url }
 
   let(:task_id) { "123" }
-  let(:processor) { "gemini_image" }
+  let(:processor) { "imagen_image" }
 
   let(:api_url_fetcher_instance) { double }
   let(:api_url) { "https://api.example.com/tasks" }

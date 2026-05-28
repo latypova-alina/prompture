@@ -5,7 +5,7 @@ describe Generator::Media::WebhookUrlBuilder do
     described_class.new(processor:, button_request_id:).webhook_url
   end
 
-  let(:processor) { "gemini_image" }
+  let(:processor) { "imagen_image" }
   let(:button_request_id) { 123 }
   let(:encoded_token) { "encoded_token" }
 
