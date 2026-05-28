@@ -131,7 +131,7 @@ ru:
     message:
       image_message_url: "Вот твое изображение"
       image_message_reply: "Отлично! Теперь ты можешь сгенерировать видео с помощью одного из процессоров (Kling)"
-      extended_prompt_postfix: "Вот твой расширенный промпт ⬆️ \n\nТеперь ты можешь сгенерировать изображение с помощью одного из процессоров (Flux/Imagen)"
+      extended_prompt_postfix: "Вот твой расширенный промпт ⬆️ \n\nТеперь ты можешь сгенерировать изображение с помощью одного из процессоров (Flux/NanoBanana/Imagen)"
       image_generated_prefix: "Вот твое %{processor_name} 🖼️"
       image_generated_postfix: "Теперь ты можешь сгенерировать видео с помощью одного из процессоров (Kling)"
       video_generated_prefix: "Вот твое %{processor_name} 🎥"
@@ -141,7 +141,7 @@ ru:
           
         🔹 расширить промпт (👉 ⚠️ результат будет на английском языке для улучшения качества генерации)
           
-        🔹 сгенерировать изображение с помощью одного из процессоров (Flux/Imagen)
+        🔹 сгенерировать изображение с помощью одного из процессоров (Flux/NanoBanana/Imagen)
       prompt_suffix_audio: |
         Что ты хочешь сделать дальше? Ты можешь:
 
@@ -160,6 +160,11 @@ ru:
             few: "Flux (%{count} кредита)"
             many: "Flux (%{count} кредитов)"
             other: "Flux (%{count} кредитов)"
+          nano_banana_image:
+            one: "NanoBanana (%{count} кредит)"
+            few: "NanoBanana (%{count} кредита)"
+            many: "NanoBanana (%{count} кредитов)"
+            other: "NanoBanana (%{count} кредитов)"
           imagen_image:
             one: "Imagen (%{count} кредит)"
             few: "Imagen (%{count} кредита)"
@@ -267,6 +272,7 @@ ru:
           wan_2_2_image_to_video: "видео Wan 2.2"
         image:
           flux_image: "изображение Flux"
+          nano_banana_image: "изображение NanoBanana"
           imagen_image: "изображение Imagen"
         audio:
           voices:

@@ -2,9 +2,14 @@ module Generator
   module Processors
     PROMPT_EXTENSION = "extend_prompt".freeze
 
-    IMAGE = %w[
+    FAL_IMAGE = %w[
       flux_image
-      imagen_image
+      nano_banana_image
+    ].freeze
+
+    IMAGE = [
+      *FAL_IMAGE,
+      "imagen_image"
     ].freeze
 
     VIDEO = %w[
