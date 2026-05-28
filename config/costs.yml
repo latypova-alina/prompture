@@ -1,7 +1,6 @@
 default: &default
   generate_image:
     flux_image: 1
-    gemini_image: 1
     imagen_image: 1
   generate_video:
     kling_2_1_pro_image_to_video: 10
@@ -18,7 +17,6 @@ test:
   <<: *default
   generate_image:
     flux_image: 1
-    gemini_image: 1
     imagen_image: 0
   generate_video:
     kling_2_1_pro_image_to_video: 10

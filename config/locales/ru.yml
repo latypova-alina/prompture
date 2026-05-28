@@ -131,7 +131,7 @@ ru:
     message:
       image_message_url: "Вот твое изображение"
       image_message_reply: "Отлично! Теперь ты можешь сгенерировать видео с помощью одного из процессоров (Kling)"
-      extended_prompt_postfix: "Вот твой расширенный промпт ⬆️ \n\nТеперь ты можешь сгенерировать изображение с помощью одного из процессоров (Flux/Gemini/Imagen)"
+      extended_prompt_postfix: "Вот твой расширенный промпт ⬆️ \n\nТеперь ты можешь сгенерировать изображение с помощью одного из процессоров (Flux/Imagen)"
       image_generated_prefix: "Вот твое %{processor_name} 🖼️"
       image_generated_postfix: "Теперь ты можешь сгенерировать видео с помощью одного из процессоров (Kling)"
       video_generated_prefix: "Вот твое %{processor_name} 🎥"
@@ -141,7 +141,7 @@ ru:
           
         🔹 расширить промпт (👉 ⚠️ результат будет на английском языке для улучшения качества генерации)
           
-        🔹 сгенерировать изображение с помощью одного из процессоров (Flux/Gemini/Imagen)
+        🔹 сгенерировать изображение с помощью одного из процессоров (Flux/Imagen)
       prompt_suffix_audio: |
         Что ты хочешь сделать дальше? Ты можешь:
 
@@ -160,11 +160,6 @@ ru:
             few: "Flux (%{count} кредита)"
             many: "Flux (%{count} кредитов)"
             other: "Flux (%{count} кредитов)"
-          gemini_image:
-            one: "Gemini (%{count} кредит)"
-            few: "Gemini (%{count} кредита)"
-            many: "Gemini (%{count} кредитов)"
-            other: "Gemini (%{count} кредитов)"
           imagen_image:
             one: "Imagen (%{count} кредит)"
             few: "Imagen (%{count} кредита)"
@@ -272,7 +267,6 @@ ru:
           wan_2_2_image_to_video: "видео Wan 2.2"
         image:
           flux_image: "изображение Flux"
-          gemini_image: "изображение Gemini"
           imagen_image: "изображение Imagen"
         audio:
           voices:

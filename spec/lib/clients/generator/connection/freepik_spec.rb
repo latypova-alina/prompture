@@ -1,7 +1,7 @@
 require "rails_helper"
 
 describe Clients::Generator::Connection::Freepik do
-  let(:url) { "https://api.freepik.com/v1/ai/gemini-2-5-flash-image-preview" }
+  let(:url) { "https://api.freepik.com/v1/ai/text-to-image/imagen3" }
 
   subject { described_class.new(url) }
 

@@ -4,7 +4,6 @@ module Generator
       module RetrieveTask
         class ApiUrlFetcher < Generator::Media::RetrieveTask::ApiUrlFetcherBase
           API_URLS = {
-            "gemini_image" => "https://api.freepik.com/v1/ai/gemini-2-5-flash-image-preview".freeze,
             "imagen_image" => "https://api.freepik.com/v1/ai/text-to-image/imagen3".freeze
           }.freeze
         end

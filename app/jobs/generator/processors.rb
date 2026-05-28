@@ -4,7 +4,6 @@ module Generator
 
     IMAGE = %w[
       flux_image
-      gemini_image
       imagen_image
     ].freeze
 

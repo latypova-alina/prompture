@@ -9,7 +9,6 @@
 - 💬 Extending prompt
 - 🖼️ Generate images from prompt using the following processors:
   - **Flux**
-  - **Gemini**
   - **Imagen**
 - 🎥 Generate videos from images using the following processors:
   - **Kling**
