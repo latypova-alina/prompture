@@ -1,9 +1,7 @@
 module Generator
   module Media
     class WebhookUrlBuilder
-      PROCESSOR_WEBHOOK_PATHS = {
-        "flux_image" => "/api/fal/webhook"
-      }.freeze
+      FAL_WEBHOOK_PATH = "/api/fal/webhook".freeze
 
       def initialize(processor:, button_request_id:)
         @processor = processor
@@ -29,7 +27,9 @@ module Generator
       end
 
       def webhook_path
-        PROCESSOR_WEBHOOK_PATHS.fetch(processor, "/freepik_webhook")
+        return FAL_WEBHOOK_PATH if Generator::Processors::FAL_IMAGE.include?(processor)
+
+        "/freepik_webhook"
       end
     end
   end

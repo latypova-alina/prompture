@@ -5,6 +5,7 @@ module Generator
         class StrategySelector < Generator::Media::CreateTask::StrategySelectorBase
           STRATEGIES = {
             "flux_image" => FluxPayloadStrategy,
+            "nano_banana_image" => NanoBananaPayloadStrategy,
             "imagen_image" => ImagenPayloadStrategy
           }.freeze
 

@@ -362,6 +362,13 @@ describe TelegramWebhooksController, telegram_bot: :rails do
                     job_class: ::Generator::Media::Image::TaskCreatorJob
   end
 
+  describe "#nano_banana_image_callback_query", :callback_query do
+    it_behaves_like "an image callback",
+                    processor: "nano_banana",
+                    record_creator: RecordCreators::ButtonRequests::Images::NanoBanana,
+                    job_class: ::Generator::Media::Image::TaskCreatorJob
+  end
+
   describe "#imagen_image_callback_query", :callback_query do
     it_behaves_like "an image callback",
                     processor: "imagen",

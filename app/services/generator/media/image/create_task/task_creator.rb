@@ -3,9 +3,9 @@ module Generator
     module Image
       module CreateTask
         class TaskCreator < Generator::Media::CreateTask::TaskCreatorBase
-          PROCESSOR_API_CLIENTS = {
-            "flux_image" => FluxApiClient
-          }.freeze
+          FAL_API_CLIENT = FluxApiClient
+
+          PROCESSOR_API_CLIENTS = Generator::Processors::FAL_IMAGE.index_with { FAL_API_CLIENT }.freeze
 
           private
 
