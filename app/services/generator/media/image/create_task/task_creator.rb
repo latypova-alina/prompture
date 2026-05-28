@@ -5,7 +5,7 @@ module Generator
         class TaskCreator < Generator::Media::CreateTask::TaskCreatorBase
           FAL_API_CLIENT = FluxApiClient
 
-          PROCESSOR_API_CLIENTS = Generator::Processors::FAL_IMAGE.index_with { FAL_API_CLIENT }.freeze
+          PROCESSOR_API_CLIENTS = Generator::Processors::IMAGE.index_with { FAL_API_CLIENT }.freeze
 
           private
 

@@ -3,7 +3,7 @@ module Generator
     module Image
       module CreateTask
         class ImagenPayloadStrategy
-          API_URL = "https://api.freepik.com/v1/ai/text-to-image/imagen3".freeze
+          API_URL = "https://queue.fal.run/fal-ai/imagen4/preview/fast".freeze
 
           def initialize(prompt)
             @prompt = prompt
@@ -12,18 +12,19 @@ module Generator
           def payload
             {
               prompt:,
-              "aspect_ratio": "social_story_9_16",
-              "styling": {
-                "style": "3d"
-              }
+              aspect_ratio: "9:16"
             }
           end
 
-          attr_reader :prompt
+          def webhook_param_name
+            :fal_webhook
+          end
 
           def api_url
             API_URL
           end
+
+          attr_reader :prompt
         end
       end
     end

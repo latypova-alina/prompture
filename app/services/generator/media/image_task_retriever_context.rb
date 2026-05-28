@@ -1,6 +1,6 @@
 module Generator
   module Media
-    class FluxTaskRetrieverContext
+    class ImageTaskRetrieverContext
       include Memery
 
       def initialize(params:)

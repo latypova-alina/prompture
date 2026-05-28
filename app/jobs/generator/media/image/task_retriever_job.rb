@@ -1,19 +1,29 @@
 module Generator
   module Media
     module Image
-      class TaskRetrieverJob < Generator::Media::TaskRetrieverBaseJob
+      class TaskRetrieverJob < ApplicationJob
+        def perform(generated_media_url, button_request_id, processor)
+          @generated_media_url = generated_media_url
+          @button_request_id = button_request_id
+          @processor = processor
+
+          SuccessNotifierJob.perform_async(final_media_url, button_request_id)
+        rescue Freepik::ResponseError
+          ErrorNotifierJob.perform_async(button_request_id)
+        end
+
         private
 
-        def task_retriever_class
-          RetrieveTask::TaskRetriever
-        end
+        attr_reader :generated_media_url, :button_request_id, :processor
 
-        def success_notifier_job_class
-          SuccessNotifierJob
-        end
+        delegate :media_url, to: :image_retriever, prefix: :final
 
-        def error_notifier_job_class
-          ErrorNotifierJob
+        def image_retriever
+          RetrieveTask::FluxImageRetriever.new(
+            media_url: generated_media_url,
+            button_request_id:,
+            processor:
+          )
         end
       end
     end
