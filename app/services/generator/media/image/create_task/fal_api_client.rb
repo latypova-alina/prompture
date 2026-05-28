@@ -6,8 +6,8 @@ module Generator
       module CreateTask
         class FalApiClient < Generator::Media::CreateTask::ApiClientBase
           def initialize(api_url, payload, webhook_url)
-            @api_url = api_url
-            @payload = payload
+            super(api_url, payload)
+
             @webhook_url = webhook_url
           end
 

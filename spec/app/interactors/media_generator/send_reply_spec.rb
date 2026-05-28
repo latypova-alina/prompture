@@ -17,7 +17,7 @@ describe MediaGenerator::SendReply do
     )
   end
 
-  let(:processor) { "imagen_image" }
+  let(:processor) { "kling_2_1_pro_image_to_video" }
   let(:button_request_id) { 123 }
   let(:task_id) { "abc-123" }
 
@@ -56,13 +56,13 @@ describe MediaGenerator::SendReply do
       end
     end
 
-    %w[flux_image nano_banana_image].each do |fal_processor|
-      context "when status is COMPLETED for #{fal_processor}" do
+    Generator::Processors::IMAGE.each do |image_processor|
+      context "when status is COMPLETED for #{image_processor}" do
         let(:status) { "COMPLETED" }
-        let(:processor) { fal_processor }
+        let(:processor) { image_processor }
 
-        it "enqueues FluxTaskRetrieverJob with webhook image url" do
-          expect(Generator::Media::Image::FluxTaskRetrieverJob)
+        it "enqueues TaskRetrieverJob with webhook image url" do
+          expect(Generator::Media::Image::TaskRetrieverJob)
             .to receive(:perform_async)
             .with(
               "generated_media_url",

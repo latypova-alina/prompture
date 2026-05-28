@@ -44,12 +44,11 @@ describe Generator::Media::TaskRetrieverDispatcher do
     context "when processor is an image processor" do
       let(:processor) { Generator::Processors::IMAGE.first }
 
-      it "dispatches image task retriever job" do
+      it "does not enqueue any job" do
         call_service
 
         expect(Generator::Media::Image::TaskRetrieverJob)
-          .to have_received(:perform_async)
-          .with(task_id, button_request_id, processor)
+          .not_to have_received(:perform_async)
 
         expect(Generator::Media::Video::TaskRetrieverJob)
           .not_to have_received(:perform_async)

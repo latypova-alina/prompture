@@ -16,12 +16,6 @@ describe Generator::Media::Image::CreateTask::NanoBananaPayloadStrategy do
     end
   end
 
-  describe "#webhook_param_name" do
-    it "uses fal_webhook for FAL callbacks" do
-      expect(strategy.webhook_param_name).to eq(:fal_webhook)
-    end
-  end
-
   describe "#api_url" do
     it "returns the API_URL constant" do
       expect(strategy.api_url)

@@ -1,5 +1,3 @@
-# spec/services/generator/media/image/create_task/payload_composer_spec.rb
-
 require "rails_helper"
 
 describe Generator::Media::Image::CreateTask::PayloadComposer do
@@ -13,7 +11,7 @@ describe Generator::Media::Image::CreateTask::PayloadComposer do
     )
   end
 
-  let(:strategy_payload) { { foo: "bar" } }
+  let(:strategy_payload) { { prompt: "hello", image_size: "portrait_16_9" } }
 
   let(:strategy) do
     instance_double(
@@ -22,7 +20,7 @@ describe Generator::Media::Image::CreateTask::PayloadComposer do
     )
   end
 
-  let(:webhook_url) { "https://example.com/webhook" }
+  let(:webhook_url) { "https://example.com/api/fal/webhook" }
 
   before do
     allow(Generator::Media::WebhookUrlBuilder)
@@ -32,19 +30,14 @@ describe Generator::Media::Image::CreateTask::PayloadComposer do
   end
 
   describe "#final_payload" do
-    it "merges strategy payload with webhook_url" do
-      expect(composer.final_payload).to eq(
-        foo: "bar",
-        webhook_url:
-      )
+    it "returns strategy payload without webhook" do
+      expect(composer.final_payload).to eq(strategy_payload)
     end
+  end
 
-    it "overrides strategy webhook key with computed webhook_url" do
-      overlapping_strategy = double(payload: { webhook_url: "custom", foo: "bar" })
-
-      composer_with_overlap = described_class.new(request, overlapping_strategy)
-
-      expect(composer_with_overlap.final_payload[:webhook_url]).to eq(webhook_url)
+  describe "#webhook_url" do
+    it "returns webhook url from WebhookUrlBuilder" do
+      expect(composer.webhook_url).to eq(webhook_url)
     end
   end
 end
