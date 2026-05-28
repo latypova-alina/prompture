@@ -6,20 +6,13 @@ describe Generator::Media::Image::CreateTask::ImagenPayloadStrategy do
   let(:prompt) { "Little kitten" }
 
   describe "#payload" do
-    it "returns correct payload structure" do
+    it "returns the FAL payload" do
       expect(strategy.payload).to eq(
         {
-          prompt: prompt,
-          aspect_ratio: "social_story_9_16",
-          styling: {
-            style: "3d"
-          }
+          prompt:,
+          aspect_ratio: "9:16"
         }
       )
-    end
-
-    it "keeps the original prompt unchanged" do
-      expect(strategy.payload[:prompt]).to eq(prompt)
     end
   end
 

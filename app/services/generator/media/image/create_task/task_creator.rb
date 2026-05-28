@@ -3,14 +3,12 @@ module Generator
     module Image
       module CreateTask
         class TaskCreator < Generator::Media::CreateTask::TaskCreatorBase
-          FAL_API_CLIENT = FluxApiClient
-
-          PROCESSOR_API_CLIENTS = Generator::Processors::FAL_IMAGE.index_with { FAL_API_CLIENT }.freeze
-
           private
 
-          def api_client_class
-            PROCESSOR_API_CLIENTS.fetch(request.processor, ApiClient)
+          delegate :webhook_url, to: :payload_composer
+
+          def api_client
+            FalApiClient.new(api_url, final_payload, webhook_url)
           end
 
           def payload_composer_class

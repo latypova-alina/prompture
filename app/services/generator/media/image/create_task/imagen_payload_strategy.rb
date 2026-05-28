@@ -2,27 +2,13 @@ module Generator
   module Media
     module Image
       module CreateTask
-        class ImagenPayloadStrategy
-          API_URL = "https://api.freepik.com/v1/ai/text-to-image/imagen3".freeze
+        class ImagenPayloadStrategy < PayloadStrategyBase
+          API_URL = "https://queue.fal.run/fal-ai/imagen4/preview/fast".freeze
 
-          def initialize(prompt)
-            @prompt = prompt
-          end
+          private
 
-          def payload
-            {
-              prompt:,
-              "aspect_ratio": "social_story_9_16",
-              "styling": {
-                "style": "3d"
-              }
-            }
-          end
-
-          attr_reader :prompt
-
-          def api_url
-            API_URL
+          def payload_params
+            { aspect_ratio: "9:16" }
           end
         end
       end

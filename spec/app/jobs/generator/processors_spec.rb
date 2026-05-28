@@ -6,12 +6,6 @@ describe Generator::Processors do
       expect(described_class::PROMPT_EXTENSION).to eq("extend_prompt")
     end
 
-    it "defines FAL image processors" do
-      expect(described_class::FAL_IMAGE).to eq(
-        %w[flux_image nano_banana_image]
-      )
-    end
-
     it "defines image processors" do
       expect(described_class::IMAGE).to eq(
         %w[flux_image nano_banana_image imagen_image]

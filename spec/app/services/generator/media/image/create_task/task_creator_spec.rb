@@ -12,8 +12,9 @@ describe Generator::Media::Image::CreateTask::TaskCreator do
 
   let(:payload_composer_instance) { instance_double(Generator::Media::Image::CreateTask::PayloadComposer) }
   let(:final_payload) { { foo: "bar" } }
+  let(:webhook_url) { "https://example.com/webhook" }
 
-  let(:api_client_instance) { instance_double(Generator::Media::Image::CreateTask::ApiClient) }
+  let(:api_client_instance) { instance_double(Generator::Media::Image::CreateTask::FalApiClient) }
   let(:response) { instance_double("Response", success?: success, status:) }
 
   let(:api_url) { "https://api.example.com" }
@@ -38,9 +39,13 @@ describe Generator::Media::Image::CreateTask::TaskCreator do
       .to receive(:final_payload)
       .and_return(final_payload)
 
-    allow(Generator::Media::Image::CreateTask::ApiClient)
+    allow(payload_composer_instance)
+      .to receive(:webhook_url)
+      .and_return(webhook_url)
+
+    allow(Generator::Media::Image::CreateTask::FalApiClient)
       .to receive(:new)
-      .with(api_url, final_payload)
+      .with(api_url, final_payload, webhook_url)
       .and_return(api_client_instance)
 
     allow(api_client_instance)

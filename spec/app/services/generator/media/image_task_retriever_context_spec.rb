@@ -1,6 +1,6 @@
 require "rails_helper"
 
-describe Generator::Media::FluxTaskRetrieverContext do
+describe Generator::Media::ImageTaskRetrieverContext do
   subject(:context) { described_class.new(params:) }
 
   let(:decoded_id) { 123 }

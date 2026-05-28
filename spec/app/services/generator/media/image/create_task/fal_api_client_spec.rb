@@ -1,10 +1,10 @@
 require "rails_helper"
 
-describe Generator::Media::Image::CreateTask::FluxApiClient do
-  subject(:client) { described_class.new(api_url, payload) }
+describe Generator::Media::Image::CreateTask::FalApiClient do
+  subject(:client) { described_class.new(api_url, payload, webhook_url) }
 
   let(:api_url) { "https://queue.fal.run/fal-ai/flux-2-pro" }
-  let(:payload) { { prompt: "hello", fal_webhook: webhook_url } }
+  let(:payload) { { prompt: "hello", image_size: "portrait_16_9" } }
   let(:webhook_url) { "https://example.com/api/fal/webhook?processor=flux_image" }
 
   let(:connection_instance) { instance_double(Clients::Generator::Connection::Fal) }
@@ -31,7 +31,7 @@ describe Generator::Media::Image::CreateTask::FluxApiClient do
     request_double = double
     expect(request_double).to receive(:url)
       .with("#{api_url}?fal_webhook=#{CGI.escape(webhook_url)}")
-    expect(request_double).to receive(:body=).with({ prompt: "hello" }.to_json)
+    expect(request_double).to receive(:body=).with(payload.to_json)
 
     allow(faraday_connection)
       .to receive(:post)
