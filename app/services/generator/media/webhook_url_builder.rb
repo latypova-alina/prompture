@@ -1,7 +1,7 @@
 module Generator
   module Media
     class WebhookUrlBuilder
-      FAL_WEBHOOK_PATH = "/api/fal/webhook"
+      FAL_WEBHOOK_PATH = "/api/fal/webhook".freeze
 
       def initialize(processor:, button_request_id:)
         @processor = processor

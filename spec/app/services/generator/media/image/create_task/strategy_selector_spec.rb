@@ -27,6 +27,19 @@ describe Generator::Media::Image::CreateTask::StrategySelector do
       end
     end
 
+    context "when processor is nano_banana_image" do
+      let(:processor) { "nano_banana_image" }
+
+      it "returns NanoBananaPayloadStrategy initialized with parent_prompt" do
+        strategy = selector.strategy
+
+        expect(strategy)
+          .to be_a(Generator::Media::Image::CreateTask::NanoBananaPayloadStrategy)
+
+        expect(strategy.prompt).to eq(parent_prompt)
+      end
+    end
+
     context "when processor is imagen_image" do
       let(:processor) { "imagen_image" }
 

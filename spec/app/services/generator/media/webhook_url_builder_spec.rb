@@ -30,18 +30,20 @@ describe Generator::Media::WebhookUrlBuilder do
       end
     end
 
-    context "when processor is flux_image" do
-      let(:processor) { "flux_image" }
+    %w[flux_image nano_banana_image].each do |fal_processor|
+      context "when processor is #{fal_processor}" do
+        let(:processor) { fal_processor }
 
-      before do
-        allow(Rails.env).to receive(:production?).and_return(false)
-        stub_const("ENV", ENV.to_hash.merge("GENERATOR_WEBHOOK_BASE_URL" => "http://localhost:3000"))
-      end
+        before do
+          allow(Rails.env).to receive(:production?).and_return(false)
+          stub_const("ENV", ENV.to_hash.merge("GENERATOR_WEBHOOK_BASE_URL" => "http://localhost:3000"))
+        end
 
-      it "builds webhook url using fal webhook path" do
-        expect(webhook_url).to eq(
-          "http://localhost:3000/api/fal/webhook?request_id_token=#{encoded_token}&processor=#{processor}"
-        )
+        it "builds webhook url using fal webhook path" do
+          expect(webhook_url).to eq(
+            "http://localhost:3000/api/fal/webhook?request_id_token=#{encoded_token}&processor=#{processor}"
+          )
+        end
       end
     end
 

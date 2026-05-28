@@ -2,16 +2,18 @@ require "rails_helper"
 
 describe Generator::Media::TaskRetrieverContext do
   describe ".for" do
-    context "when processor is flux_image" do
-      let(:params) { ActionController::Parameters.new(processor: "flux_image") }
+    %w[flux_image nano_banana_image].each do |fal_processor|
+      context "when processor is #{fal_processor}" do
+        let(:params) { ActionController::Parameters.new(processor: fal_processor) }
 
-      it "returns FluxTaskRetrieverContext" do
-        expect(described_class.for(params:))
-          .to be_a(Generator::Media::FluxTaskRetrieverContext)
+        it "returns FluxTaskRetrieverContext" do
+          expect(described_class.for(params:))
+            .to be_a(Generator::Media::FluxTaskRetrieverContext)
+        end
       end
     end
 
-    context "when processor is not flux_image" do
+    context "when processor is not a FAL image processor" do
       let(:params) { ActionController::Parameters.new(processor: "imagen_image") }
 
       it "returns FreepikTaskRetrieverContext" do

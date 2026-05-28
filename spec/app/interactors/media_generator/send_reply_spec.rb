@@ -56,22 +56,24 @@ describe MediaGenerator::SendReply do
       end
     end
 
-    context "when status is COMPLETED for flux image" do
-      let(:status) { "COMPLETED" }
-      let(:processor) { "flux_image" }
+    %w[flux_image nano_banana_image].each do |fal_processor|
+      context "when status is COMPLETED for #{fal_processor}" do
+        let(:status) { "COMPLETED" }
+        let(:processor) { fal_processor }
 
-      it "enqueues FluxTaskRetrieverJob with webhook image url" do
-        expect(Generator::Media::Image::FluxTaskRetrieverJob)
-          .to receive(:perform_async)
-          .with(
-            "generated_media_url",
-            button_request_id,
-            processor
-          )
+        it "enqueues FluxTaskRetrieverJob with webhook image url" do
+          expect(Generator::Media::Image::FluxTaskRetrieverJob)
+            .to receive(:perform_async)
+            .with(
+              "generated_media_url",
+              button_request_id,
+              processor
+            )
 
-        expect(Generator::Media::TaskRetrieverDispatcher).not_to receive(:call)
+          expect(Generator::Media::TaskRetrieverDispatcher).not_to receive(:call)
 
-        result
+          result
+        end
       end
     end
 

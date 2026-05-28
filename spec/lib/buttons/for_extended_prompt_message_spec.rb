@@ -6,6 +6,7 @@ describe Buttons::ForExtendedPromptMessage do
   it "builds processor buttons as separate rows" do
     expect(result).to eq(
       [[{ callback_data: "flux_image", text: "Flux (1 credit)" }],
+       [{ callback_data: "nano_banana_image", text: "NanoBanana (1 credit)" }],
        [{ callback_data: "imagen_image", text: "Imagen (0 credits)" }]]
     )
   end
@@ -16,6 +17,7 @@ describe Buttons::ForExtendedPromptMessage do
     it "builds buttons with russian pluralization" do
       expect(result).to eq(
         [[{ callback_data: "flux_image", text: "Flux (1 кредит)" }],
+         [{ callback_data: "nano_banana_image", text: "NanoBanana (1 кредит)" }],
          [{ callback_data: "imagen_image", text: "Imagen (0 кредитов)" }]]
       )
     end
