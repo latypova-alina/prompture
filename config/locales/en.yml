@@ -91,8 +91,11 @@ en:
         🔹 /random_character - generate a random character image
 
         🔹 /brainrot_character - generate a random brainrot character image
+
+        🔹 /cartoon_character - generate a random preschool cartoon character image
       random_character: "Started random character generation."
       brainrot_character: "Started brainrot character generation."
+      cartoon_character: "Started cartoon character generation."
       motivation_workflow: "Started motivation workflow: script, audio, and video prompts."
       prompt_to_video: "Great! Now please provide a prompt for the video. It can later be extended with the help of the bot."
       prompt_to_image: "Great! Now please provide a prompt for the image. It can later be extended with the help of the bot."

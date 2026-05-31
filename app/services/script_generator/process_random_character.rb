@@ -1,31 +1,13 @@
 module ScriptGenerator
-  class ProcessRandomCharacter
-    include Memery
-
-    def self.call(...)
-      new(...).call
-    end
-
-    def initialize(chat_id:)
-      @chat_id = chat_id
-    end
-
-    def call
-      script_processor.call(script: character_description)
-    end
-
+  class ProcessRandomCharacter < ProcessCharacterBase
     private
 
-    attr_reader :chat_id
-
-    delegate :character_description, to: :character_context
-
-    memoize def character_context
-      ScriptGenerator::CharacterContext.new(chat_id:)
+    def character_context_class
+      ScriptGenerator::CharacterContext
     end
 
-    memoize def script_processor
-      ScriptGenerator::ProcessScript.new(chat_id:, category: ContentCategory::RANDOM_CHARACTER)
+    def script_category
+      ContentCategory::RANDOM_CHARACTER
     end
   end
 end
