@@ -7,7 +7,7 @@ describe ScriptProcessor::ProcessScript do
         [
           ScriptProcessor::CreatePromptMessage,
           MediaGenerator::MessageHandler::NotifyUser,
-          ScriptProcessor::HandleFluxButton
+          ScriptProcessor::HandleImageGenerationButton
         ]
       )
     end
