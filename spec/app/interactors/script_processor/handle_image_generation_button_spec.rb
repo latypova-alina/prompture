@@ -5,7 +5,7 @@ describe ScriptProcessor::HandleImageGenerationButton do
 
   let(:chat_id) { 456 }
   let(:prompt_message) { create(:prompt_message, command_request:) }
-  let(:command_request) { create(:command_prompt_to_image_request, chat_id:) }
+  let(:command_request) { create(:command_prompt_to_video_request, chat_id:) }
 
   describe "#call" do
     context "when bot message exists" do
