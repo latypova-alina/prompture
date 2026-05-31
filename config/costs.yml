@@ -3,6 +3,8 @@ default: &default
     flux_image: 1
     nano_banana_image: 1
     imagen_image: 1
+  edit_image:
+    nano_banana_edit_image: 1
   generate_video:
     kling_2_1_pro_image_to_video: 10
     wan_2_2_image_to_video: 8
@@ -20,6 +22,8 @@ test:
     flux_image: 1
     nano_banana_image: 1
     imagen_image: 0
+  edit_image:
+    nano_banana_edit_image: 1
   generate_video:
     kling_2_1_pro_image_to_video: 10
     wan_2_2_image_to_video: 8

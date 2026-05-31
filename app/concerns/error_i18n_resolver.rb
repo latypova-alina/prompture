@@ -15,6 +15,7 @@ module ErrorI18nResolver
     "InsufficientCreditsError" => "errors.insufficient_credits",
     "ModerationError" => "errors.moderation",
     "ImageResolutionError" => "errors.image_resolution",
+    "ImageNotReadyError" => "errors.image_not_ready",
     "ScriptGeneratorRequestError" => "errors.script_generator_request_failed",
     "TemplateNameError" => "errors.template_name_missing"
   }.freeze

@@ -85,12 +85,12 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
     respond_with :message, text: t("telegram_webhooks.commands.image_to_video")
   end
 
-  def image_from_reference!(*)
-    session[:command] = "image_from_reference"
+  def edit_image!(*)
+    session[:command] = "edit_image"
 
     MediaGenerator::CommandHandler::HandleCommand.call(command: session[:command], chat_id: chat["id"])
 
-    respond_with :message, text: t("telegram_webhooks.commands.image_from_reference")
+    respond_with :message, text: t("telegram_webhooks.commands.edit_image")
   end
 
   def callback_query(button_request)

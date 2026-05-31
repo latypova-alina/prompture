@@ -27,7 +27,7 @@ module Generator
       end
 
       def webhook_path
-        return FAL_WEBHOOK_PATH if Generator::Processors::IMAGE.include?(processor)
+        return FAL_WEBHOOK_PATH if Generator::Processors::ALL_IMAGE.include?(processor)
 
         "/freepik_webhook"
       end

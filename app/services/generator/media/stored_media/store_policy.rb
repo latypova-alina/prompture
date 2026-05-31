@@ -16,7 +16,7 @@ module Generator
         attr_reader :processor, :command_request
 
         def store_image?
-          Generator::Processors::IMAGE.include?(processor)
+          Generator::Processors::ALL_IMAGE.include?(processor)
         end
 
         def store_audio?

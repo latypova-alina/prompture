@@ -7,9 +7,11 @@ module MediaGenerator
         end
 
         def presenter
+          return EditImagePromptRequestPresenter.new if edit_image_command?
+
           case request
           when UserImageUrlMessage
-            ImageUrlMessagePresenter.new(message: request.image_url)
+            ImageUrlMessagePresenter.new
           when UserPictureMessage
             PictureMessagePresenter.new
           else
@@ -20,6 +22,10 @@ module MediaGenerator
         private
 
         attr_reader :request
+
+        def edit_image_command?
+          request.command_request.is_a?(CommandEditImageRequest)
+        end
       end
     end
   end

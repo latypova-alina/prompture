@@ -17,6 +17,7 @@ module ErrorHandler
     rescue_from TokenExpiredError, with: :handle_error
     rescue_from InsufficientCreditsError, with: :handle_error
     rescue_from ModerationError, with: :handle_error
+    rescue_from ImageNotReadyError, with: :handle_error
     rescue_from ScriptGeneratorRequestError, with: :handle_error
     rescue_from TemplateNameError, with: :handle_error
   end

@@ -12,6 +12,7 @@ ru:
         prompt_policy: "🛡 Правила промптов"
         set_locale: "🌐 Выбрать язык"
         image_to_video: "🖼🎬 Изображение → видео"
+        edit_image: "🖼✏️ Редактировать изображение"
       start:
         no_token: |
           👋 Привет!
@@ -108,7 +109,15 @@ ru:
         🔹 файл 📁
 
         Обрати внимание: изображение должно быть не менее 300x300 пикселей и меньше 10 МБ.
-      image_from_reference: "Отлично! Теперь отправь референсное изображение, которое ты хочешь использовать для генерации нового изображения."
+      edit_image: |
+        Отлично! Отправь изображение, которое хочешь отредактировать.
+        Его можно отправить как:
+
+        🔹 URL 🔗
+        🔹 картинку 🖼
+        🔹 файл 📁
+
+        Обрати внимание: изображение должно быть не менее 300x300 пикселей и меньше 10 МБ.
       prompt_policy: |
         Правила промптов 🛡
 
@@ -134,6 +143,7 @@ ru:
     message:
       image_message_url: "Вот твое изображение"
       image_message_reply: "Отлично! Теперь ты можешь сгенерировать видео с помощью одного из процессоров (Kling)"
+      edit_image_prompt_reply: "Отлично! Теперь отправь промпт для редактирования."
       extended_prompt_postfix: "Вот твой расширенный промпт ⬆️ \n\nТеперь ты можешь сгенерировать изображение с помощью одного из процессоров (Flux/NanoBanana/Imagen)"
       image_generated_prefix: "Вот твое %{processor_name} 🖼️"
       image_generated_postfix: "Теперь ты можешь сгенерировать видео с помощью одного из процессоров (Kling)"
@@ -168,6 +178,11 @@ ru:
             few: "NanoBanana (%{count} кредита)"
             many: "NanoBanana (%{count} кредитов)"
             other: "NanoBanana (%{count} кредитов)"
+          nano_banana_edit_image:
+            one: "NanoBanana Edit (%{count} кредит)"
+            few: "NanoBanana Edit (%{count} кредита)"
+            many: "NanoBanana Edit (%{count} кредитов)"
+            other: "NanoBanana Edit (%{count} кредитов)"
           imagen_image:
             one: "Imagen (%{count} кредит)"
             few: "Imagen (%{count} кредита)"
@@ -276,6 +291,7 @@ ru:
         image:
           flux_image: "изображение Flux"
           nano_banana_image: "изображение NanoBanana"
+          nano_banana_edit_image: "редактирование NanoBanana"
           imagen_image: "изображение Imagen"
         audio:
           voices:

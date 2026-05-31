@@ -1,7 +1,7 @@
 class ButtonImageProcessingRequest < ApplicationRecord
   include HasOriginPrompt
 
-  PROCESSOR_TYPES = Generator::Processors::IMAGE.freeze
+  PROCESSOR_TYPES = Generator::Processors::ALL_IMAGE.freeze
 
   belongs_to :parent_request, polymorphic: true
   belongs_to :command_request, polymorphic: true
@@ -16,7 +16,11 @@ class ButtonImageProcessingRequest < ApplicationRecord
   delegate :image_url, to: :stored_image, prefix: true, allow_nil: true
 
   def cost
-    COSTS[:generate_image][processor.to_sym]
+    if Generator::Processors::EDIT_IMAGE.include?(processor)
+      COSTS[:edit_image][processor.to_sym]
+    else
+      COSTS[:generate_image][processor.to_sym]
+    end
   end
 
   def humanized_process_name

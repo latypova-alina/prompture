@@ -6,6 +6,7 @@ module Generator
           STRATEGIES = {
             "flux_image" => FluxPayloadStrategy,
             "nano_banana_image" => NanoBananaPayloadStrategy,
+            "nano_banana_edit_image" => NanoBananaEditPayloadStrategy,
             "imagen_image" => ImagenPayloadStrategy
           }.freeze
 
