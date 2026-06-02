@@ -5,7 +5,6 @@ module ScriptGenerator
     private
 
     def notify_script_generator_error(chat_id:, error: nil)
-      TelegramIntegration::DeleteAdminProcessingMessage.call(chat_id:)
       Telegram.bot.send_message(chat_id:, text: error_message(error))
     end
 

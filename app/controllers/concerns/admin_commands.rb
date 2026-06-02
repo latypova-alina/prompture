@@ -80,6 +80,8 @@ module AdminCommands
 
   def respond_with_admin_processing_message(text)
     response = respond_with(:message, text:)
-    TelegramIntegration::RecordAdminProcessingMessage.call(response:, user:)
+
+    TelegramIntegration::DeleteBotTelegramMessage.call(request: user)
+    TelegramIntegration::RecordBotTelegramMessage.call(response:, request: user)
   end
 end

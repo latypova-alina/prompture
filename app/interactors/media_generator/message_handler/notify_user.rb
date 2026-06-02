@@ -3,10 +3,8 @@ module MediaGenerator
     class NotifyUser
       include Interactor
 
-      delegate :prompt_message, to: :context
-
       def call
-        TelegramIntegration::DeleteAdminProcessingMessage.call(user: prompt_message.command_request.user)
+        TelegramIntegration::DeleteBotTelegramMessage.call(request: user)
         TelegramIntegration::SendMessageWithButtons.call(
           reply_data:,
           request: prompt_message
@@ -15,6 +13,9 @@ module MediaGenerator
 
       private
 
+      delegate :prompt_message, to: :context
+      delegate :command_request, to: :prompt_message
+      delegate :user, to: :command_request
       delegate :reply_data, to: :presenter
 
       def presenter

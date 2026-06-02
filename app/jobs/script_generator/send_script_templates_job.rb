@@ -17,7 +17,12 @@ module ScriptGenerator
 
     def handle_success
       Telegram.bot.send_message(chat_id:, text: template_names.join("\n"))
-      TelegramIntegration::DeleteAdminProcessingMessage.call(chat_id:)
+
+      delete_processing_message
+    end
+
+    def delete_processing_message
+      TelegramIntegration::DeleteBotTelegramMessage.call(request: User.find_by(chat_id:))
     end
 
     memoize def response

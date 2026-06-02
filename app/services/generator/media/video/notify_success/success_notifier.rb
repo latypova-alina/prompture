@@ -27,7 +27,7 @@ module Generator::Media::Video::NotifySuccess
     attr_reader :video_url, :button_request_id
 
     def send_telegram_message
-      TelegramIntegration::DeleteAdminProcessingMessage.call(user:)
+      TelegramIntegration::DeleteBotTelegramMessage.call(request: user)
       SendTelegramMessage.call(reply_data:, request:)
     end
 

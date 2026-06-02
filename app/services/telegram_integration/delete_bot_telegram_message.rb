@@ -1,25 +1,31 @@
 module TelegramIntegration
   class DeleteBotTelegramMessage
     def self.call(request:)
-      message = request.bot_telegram_message
-      return if message.blank?
-
-      new(message).call
+      new(request:).call
     end
 
-    def initialize(message)
-      @message = message
+    def initialize(request:)
+      @request = request
     end
 
     def call
-      Telegram.bot.delete_message(chat_id: message.chat_id, message_id: message.tg_message_id)
-      message.destroy!
+      return if request.blank? || bot_telegram_message.blank?
+
+      delete_telegram_message
+      bot_telegram_message.destroy!
     rescue StandardError
-      message.destroy! if message.persisted?
+      bot_telegram_message.destroy! if bot_telegram_message.persisted?
     end
 
     private
 
-    attr_reader :message
+    attr_reader :request
+
+    delegate :bot_telegram_message, to: :request
+    delegate :chat_id, :tg_message_id, to: :bot_telegram_message
+
+    def delete_telegram_message
+      Telegram.bot.delete_message(chat_id:, message_id: tg_message_id)
+    end
   end
 end
