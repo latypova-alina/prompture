@@ -31,13 +31,18 @@ describe Generator::Media::Image::NotifySuccess::SuccessNotifier do
       .to receive(:reply_data)
       .and_return(reply_data)
 
+    allow(TelegramIntegration::DeleteBotTelegramMessage).to receive(:call)
     allow(Generator::Media::Image::NotifySuccess::SendTelegramMessage)
       .to receive(:call)
   end
 
   describe ".call" do
-    it "sends telegram message and updates request status" do
+    it "deletes processing message, sends telegram message, and updates request status" do
       call_service
+
+      expect(TelegramIntegration::DeleteBotTelegramMessage)
+        .to have_received(:call)
+        .with(request: button_request)
 
       expect(Generator::Media::Image::NotifySuccess::SendTelegramMessage)
         .to have_received(:call)

@@ -7,6 +7,15 @@ module MediaGenerator
         delegate :button_request_record, :command_request, to: :context
 
         def call
+          TelegramIntegration::RecordBotTelegramMessage.call(
+            response: send_processing_message,
+            request: button_request_record
+          )
+        end
+
+        private
+
+        def send_processing_message
           Telegram.bot.send_message(
             chat_id: command_request.chat_id,
             text: I18n.t(

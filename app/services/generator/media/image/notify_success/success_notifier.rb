@@ -28,6 +28,8 @@ module Generator::Media::Image::NotifySuccess
     delegate :credits, to: :balance, prefix: true
 
     def send_telegram_message
+      TelegramIntegration::DeleteBotTelegramMessage.call(request:)
+
       SendTelegramMessage.call(reply_data:, request:)
     end
 

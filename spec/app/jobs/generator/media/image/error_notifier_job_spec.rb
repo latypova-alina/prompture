@@ -10,9 +10,27 @@ describe Generator::Media::Image::ErrorNotifierJob do
   before do
     allow(Telegram).to receive(:bot).and_return(telegram_bot)
     allow(telegram_bot).to receive(:send_message)
+    allow(telegram_bot).to receive(:delete_message)
   end
 
   describe "#perform" do
+    context "when button request has a processing bot telegram message" do
+      let!(:processing_message) do
+        create(:bot_telegram_message, request: button_request, tg_message_id: 999)
+      end
+
+      it "deletes the processing message before sending the error" do
+        perform_job
+
+        expect(telegram_bot)
+          .to have_received(:delete_message)
+          .with(chat_id: button_request.chat_id, message_id: 999)
+
+        expect { processing_message.reload }
+          .to raise_error(ActiveRecord::RecordNotFound)
+      end
+    end
+
     context "when parent request has bot telegram message" do
       before do
         create(:bot_telegram_message, request: button_request.parent_request, tg_message_id: 123_456)
