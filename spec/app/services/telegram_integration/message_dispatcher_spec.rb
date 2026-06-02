@@ -55,12 +55,48 @@ describe TelegramIntegration::MessageDispatcher do
       end
     end
 
-    context "when command is IMAGE_TO_VIDEO_COMMAND" do
-      let(:command) { TelegramIntegration::MessageDispatcher::IMAGE_TO_VIDEO_COMMAND }
+    context "when command is image_to_video" do
+      let(:command) { "image_to_video" }
       let(:result) { double(failure?: false) }
 
       it "calls MediaGenerator::MessageHandler::ImageMessageHandler::HandleImageMessage" do
         expect(MediaGenerator::MessageHandler::ImageMessageHandler::HandleImageMessage)
+          .to receive(:call)
+          .with(command:, user_message:)
+          .and_return(result)
+
+        subject
+      end
+    end
+
+    context "when command is edit_image and message contains an image" do
+      let(:command) { "edit_image" }
+      let(:user_message) do
+        {
+          "photo" => [
+            { "file_id" => "large", "width" => 1280, "height" => 720, "file_size" => 5000 }
+          ]
+        }
+      end
+      let(:result) { double(failure?: false) }
+
+      it "calls EditImageMessageHandler::HandleImageMessage" do
+        expect(MediaGenerator::MessageHandler::EditImageMessageHandler::HandleImageMessage)
+          .to receive(:call)
+          .with(command:, user_message:)
+          .and_return(result)
+
+        subject
+      end
+    end
+
+    context "when command is edit_image and message is a prompt" do
+      let(:command) { "edit_image" }
+      let(:user_message) { { "text" => "make it brighter" } }
+      let(:result) { double(failure?: false) }
+
+      it "calls EditImageMessageHandler::HandlePromptMessage" do
+        expect(MediaGenerator::MessageHandler::EditImageMessageHandler::HandlePromptMessage)
           .to receive(:call)
           .with(command:, user_message:)
           .and_return(result)

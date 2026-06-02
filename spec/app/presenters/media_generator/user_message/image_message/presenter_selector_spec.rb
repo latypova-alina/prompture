@@ -14,6 +14,19 @@ describe MediaGenerator::UserMessage::ImageMessage::PresenterSelector do
       end
     end
 
+    context "when request belongs to edit_image command" do
+      let(:command_request) { create(:command_edit_image_request) }
+      let(:request) { create(:user_picture_message, command_request:, parent_request: command_request) }
+
+      it "returns EditImagePromptRequestPresenter" do
+        presenter = described_class.new(request:).presenter
+
+        expect(presenter).to be_a(
+          MediaGenerator::UserMessage::ImageMessage::EditImagePromptRequestPresenter
+        )
+      end
+    end
+
     context "when request is UserPictureMessage" do
       let(:request) { build(:user_picture_message) }
 

@@ -17,9 +17,10 @@ describe RecordValidators::CommandRequests::ImageToVideo do
   let(:height) { nil }
   let(:size_bytes) { nil }
   let(:image_url_validator) do
-    instance_double(described_class::ImageUrlValidator, valid?: image_url_valid, invalid?: image_url_invalid)
+    instance_double(RecordValidators::CommandRequests::ImageUrlValidator, valid?: image_url_valid,
+                                                                          invalid?: image_url_invalid)
   end
-  let(:picture_validator) { instance_double(described_class::PictureValidator, valid?: picture_valid) }
+  let(:picture_validator) { instance_double(RecordValidators::CommandRequests::PictureValidator, valid?: picture_valid) }
   let(:file_validator) { instance_double(described_class::FileValidator, valid?: file_valid) }
   let(:image_url_valid) { false }
   let(:image_url_invalid) { false }
@@ -27,12 +28,12 @@ describe RecordValidators::CommandRequests::ImageToVideo do
   let(:file_valid) { false }
 
   before do
-    allow(described_class::ImageUrlValidator)
+    allow(RecordValidators::CommandRequests::ImageUrlValidator)
       .to receive(:new)
       .with(image_url:)
       .and_return(image_url_validator)
 
-    allow(described_class::PictureValidator)
+    allow(RecordValidators::CommandRequests::PictureValidator)
       .to receive(:new)
       .with(
         context: an_instance_of(described_class::PictureValidationContext).and(

@@ -1,6 +1,6 @@
 require "rails_helper"
 
-describe RecordValidators::CommandRequests::ImageToVideo::ImageUrlValidator do
+describe RecordValidators::CommandRequests::ImageUrlValidator do
   subject(:validator) { described_class.new(image_url:) }
 
   describe "#valid?" do

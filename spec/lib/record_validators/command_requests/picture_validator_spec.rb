@@ -1,6 +1,6 @@
 require "rails_helper"
 
-describe RecordValidators::CommandRequests::ImageToVideo::PictureValidator do
+describe RecordValidators::CommandRequests::PictureValidator do
   subject(:validator) { described_class.new(context:) }
 
   let(:context) do
