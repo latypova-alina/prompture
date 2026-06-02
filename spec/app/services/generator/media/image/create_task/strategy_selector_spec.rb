@@ -53,6 +53,25 @@ describe Generator::Media::Image::CreateTask::StrategySelector do
       end
     end
 
+    context "when processor is nano_banana_edit_image" do
+      let(:processor) { "nano_banana_edit_image" }
+      let(:command_request) { create(:command_edit_image_request, prompt: "edit this image") }
+      let(:parent_request) do
+        create(:user_picture_message, command_request:, parent_request: command_request)
+      end
+      let(:request) do
+        create(:button_image_processing_request, parent_request:, command_request:, processor:)
+      end
+
+      it "initializes strategy with command request prompt" do
+        strategy = selector.strategy
+
+        expect(strategy)
+          .to be_a(Generator::Media::Image::CreateTask::NanoBananaEditPayloadStrategy)
+        expect(strategy.prompt).to eq("edit this image")
+      end
+    end
+
     context "when parent_request has no parent_prompt method" do
       let(:processor) { "flux_image" }
       let(:parent_request) { create(:command_prompt_to_image_request) }

@@ -21,5 +21,6 @@ describe Buttons::ForImageMessage::ForPromptToImage do
         )
       end
     end
+
   end
 end

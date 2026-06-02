@@ -4,7 +4,8 @@ module MediaGenerator
       class PresenterSelector
         PRESENTERS = {
           "CommandPromptToImageRequest" => ForPromptToImage,
-          "CommandPromptToVideoRequest" => ForPromptToVideo
+          "CommandPromptToVideoRequest" => ForPromptToVideo,
+          "CommandEditImageRequest" => ForEditImage
         }.freeze
 
         def initialize(context:)

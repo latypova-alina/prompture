@@ -9,7 +9,7 @@ module MediaGenerator
         end
 
         def inline_keyboard
-          nil
+          []
         end
       end
     end
