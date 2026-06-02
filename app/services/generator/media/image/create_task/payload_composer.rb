@@ -3,12 +3,28 @@ module Generator
     module Image
       module CreateTask
         class PayloadComposer < Generator::Media::CreateTask::PayloadComposerBase
+          EDIT_PROCESSORS = %w[nano_banana_edit_image].freeze
+
           def final_payload
-            strategy.payload
+            return payload.merge(image_urls: [input_image_url]) if edit_processor?
+
+            payload
           end
 
           def webhook_url
             webhook_url_builder.webhook_url
+          end
+
+          private
+
+          delegate :payload, to: :strategy
+
+          def edit_processor?
+            EDIT_PROCESSORS.include?(request.processor)
+          end
+
+          def input_image_url
+            request.parent_request.resolved_image_url
           end
         end
       end

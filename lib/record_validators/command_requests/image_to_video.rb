@@ -27,11 +27,11 @@ module RecordValidators
       end
 
       memoize def image_url_check
-        ImageUrlValidator.new(image_url:)
+        CommandRequests::ImageUrlValidator.new(image_url:)
       end
 
       memoize def picture_check
-        PictureValidator.new(context: picture_validation_context)
+        CommandRequests::PictureValidator.new(context: picture_validation_context)
       end
 
       memoize def file_check

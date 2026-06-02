@@ -59,5 +59,26 @@ describe MediaGenerator::ButtonRequestPresenters::ImageProcessedMessage::Present
         expect(selector.presenter).to eq(presenter_instance)
       end
     end
+
+    context "when command request is edit image" do
+      let(:command_request_classname) { "CommandEditImageRequest" }
+
+      subject(:selector) do
+        described_class.new(context:)
+      end
+
+      let(:presenter_instance) { double }
+
+      before do
+        allow(MediaGenerator::ButtonRequestPresenters::ImageProcessedMessage::ForEditImage)
+          .to receive(:new)
+          .with(message: image_url, locale:, balance:, processor_name:, processor:)
+          .and_return(presenter_instance)
+      end
+
+      it "returns ForEditImage presenter" do
+        expect(selector.presenter).to eq(presenter_instance)
+      end
+    end
   end
 end

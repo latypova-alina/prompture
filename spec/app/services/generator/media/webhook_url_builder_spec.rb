@@ -30,7 +30,7 @@ describe Generator::Media::WebhookUrlBuilder do
       end
     end
 
-    Generator::Processors::IMAGE.each do |image_processor|
+    Generator::Processors::ALL_IMAGE.each do |image_processor|
       context "when processor is #{image_processor}" do
         let(:processor) { image_processor }
 

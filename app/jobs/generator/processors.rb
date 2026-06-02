@@ -8,6 +8,12 @@ module Generator
       imagen_image
     ].freeze
 
+    EDIT_IMAGE = %w[
+      nano_banana_edit_image
+    ].freeze
+
+    ALL_IMAGE = (IMAGE + EDIT_IMAGE).freeze
+
     VIDEO = %w[
       kling_2_1_pro_image_to_video
       wan_2_2_image_to_video

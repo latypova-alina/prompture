@@ -18,7 +18,7 @@ module Generator
         case processor
         when Generator::Processors::PROMPT_EXTENSION
           Generator::Media::Prompt::ErrorNotifierJob.perform_async(button_request_id)
-        when *Generator::Processors::IMAGE
+        when *Generator::Processors::ALL_IMAGE
           Generator::Media::Image::ErrorNotifierJob.perform_async(button_request_id)
         when *Generator::Processors::VIDEO
           Generator::Media::Video::ErrorNotifierJob.perform_async(button_request_id)

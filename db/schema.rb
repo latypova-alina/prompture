@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2026_05_22_120200) do
+ActiveRecord::Schema[8.0].define(version: 2026_05_31_120000) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -103,15 +103,13 @@ ActiveRecord::Schema[8.0].define(version: 2026_05_22_120200) do
     t.index ["parent_request_type", "parent_request_id"], name: "index_button_video_processing_requests_on_parent_request"
   end
 
-  create_table "command_image_from_reference_requests", force: :cascade do |t|
-    t.string "reference_picture_id"
-    t.string "reference_image_url"
+  create_table "command_edit_image_requests", force: :cascade do |t|
     t.text "prompt"
     t.bigint "chat_id", null: false
+    t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "user_id"
-    t.index ["user_id"], name: "index_command_image_from_reference_requests_on_user_id"
+    t.index ["user_id"], name: "index_command_edit_image_requests_on_user_id"
   end
 
   create_table "command_image_to_video_requests", force: :cascade do |t|
@@ -272,7 +270,7 @@ ActiveRecord::Schema[8.0].define(version: 2026_05_22_120200) do
 
   add_foreign_key "balance_transactions", "users"
   add_foreign_key "balances", "users"
-  add_foreign_key "command_image_from_reference_requests", "users"
+  add_foreign_key "command_edit_image_requests", "users"
   add_foreign_key "command_image_to_video_requests", "users"
   add_foreign_key "command_prompt_to_audio_requests", "users"
   add_foreign_key "command_prompt_to_image_requests", "users"

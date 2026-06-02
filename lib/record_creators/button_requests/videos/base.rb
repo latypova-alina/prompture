@@ -19,7 +19,7 @@ module RecordCreators
         delegate :image_url, to: :image_resolver
 
         def image_resolver
-          ImageResolver.new(parent_request)
+          ButtonRequests::ImageResolver.new(parent_request)
         end
 
         def processor

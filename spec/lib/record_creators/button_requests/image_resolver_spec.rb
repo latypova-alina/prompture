@@ -1,6 +1,6 @@
 require "rails_helper"
 
-describe RecordCreators::ButtonRequests::Videos::ImageResolver do
+describe RecordCreators::ButtonRequests::ImageResolver do
   subject(:resolver) { described_class.new(parent_request) }
 
   describe "#image_url" do

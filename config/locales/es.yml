@@ -12,6 +12,7 @@ es:
         prompt_policy: "🛡 Ver reglas de prompts"
         set_locale: "🌐 Cambiar idioma"
         image_to_video: "🖼🎬 Imagen → video"
+        edit_image: "🖼✏️ Editar imagen"
       start:
         no_token: |
           👋 ¡Hola! Me alegra verte por aquí.
@@ -109,7 +110,15 @@ es:
         🔹 un archivo 📁
 
         Ten en cuenta que la imagen debe tener al menos 300x300 píxeles y ser menor de 10 MB.
-      image_from_reference: "¡Genial! Ahora, por favor, envíame la imagen de referencia que quieres usar para generar una nueva imagen."
+      edit_image: |
+        ¡Genial! Envía la imagen que quieres editar.
+        Puedes enviarla como:
+
+        🔹 una URL 🔗
+        🔹 una imagen 🖼
+        🔹 un archivo 📁
+
+        Ten en cuenta que la imagen debe tener al menos 300x300 píxeles y ser menor de 10 MB.
       prompt_policy: |
         Politica de prompts 🛡
 
@@ -133,6 +142,7 @@ es:
     message:
       image_message_url: "Aquí está tu imagen"
       image_message_reply: "¡Genial! Ahora puedes generar un video usando uno de los procesadores (Kling)"
+      edit_image_prompt_reply: "¡Genial! Ahora envía tu prompt de edición."
       extended_prompt_postfix: "Aquí está tu prompt extendido ⬆️ \n\nAhora puedes generar una imagen usando uno de los procesadores (Flux/NanoBanana/Imagen)"
       image_generated_prefix: "Aquí está tu %{processor_name} 🖼️"
       image_generated_postfix: "Ahora puedes generar un video usando uno de los procesadores (Kling)"
@@ -161,6 +171,9 @@ es:
           nano_banana_image:
             one: "NanoBanana (%{count} crédito)"
             other: "NanoBanana (%{count} créditos)"
+          nano_banana_edit_image:
+            one: "NanoBanana Edit (%{count} crédito)"
+            other: "NanoBanana Edit (%{count} créditos)"
           imagen_image:
             one: "Imagen (%{count} crédito)"
             other: "Imagen (%{count} créditos)"
@@ -251,6 +264,7 @@ es:
         image:
           flux_image: "imagen de Flux"
           nano_banana_image: "imagen de NanoBanana"
+          nano_banana_edit_image: "edición de NanoBanana"
           imagen_image: "imagen de Imagen"
         audio:
           voices:

@@ -12,6 +12,7 @@ en:
         prompt_policy: "🛡 View prompt policy rules"
         set_locale: "🌐 Set language"
         image_to_video: "🖼🎬 Picture → video"
+        edit_image: "🖼✏️ Edit image"
       start: 
         no_token: |
           👋 Hi! Great to see you here.
@@ -109,7 +110,15 @@ en:
         🔹 a file 📁
 
         Please note that the image must be at least 300x300 pixels and smaller than 10 MB.
-      image_from_reference: "Great! Now please send me the reference image you want to use to generate a new image."
+      edit_image: |
+        Great! Send the image you want to edit.
+        It can be sent as:
+
+        🔹 a URL 🔗
+        🔹 a picture 🖼
+        🔹 a file 📁
+
+        Please note that the image must be at least 300x300 pixels and smaller than 10 MB.
       prompt_policy: |
         Prompt policy 🛡
 
@@ -133,6 +142,7 @@ en:
     message:
       image_message_url: "Here is your image"
       image_message_reply: "Great! You can now generate a video using one of the processors (Kling)"
+      edit_image_prompt_reply: "Great! Now send your edit prompt."
       extended_prompt_postfix: "Here is your extended prompt ⬆️ \n\nYou can now generate an image using one of the processors (Flux/NanoBanana/Imagen)"
       image_generated_prefix: "Here is your %{processor_name} 🖼️"
       image_generated_postfix: "You can now generate a video using one of the processors (Kling)"
@@ -161,6 +171,9 @@ en:
           nano_banana_image:
             one: "NanoBanana (%{count} credit)"
             other: "NanoBanana (%{count} credits)"
+          nano_banana_edit_image:
+            one: "NanoBanana Edit (%{count} credit)"
+            other: "NanoBanana Edit (%{count} credits)"
           imagen_image:
             one: "Imagen (%{count} credit)"
             other: "Imagen (%{count} credits)"
@@ -251,6 +264,7 @@ en:
         image:
           flux_image: "Flux image"
           nano_banana_image: "NanoBanana image"
+          nano_banana_edit_image: "NanoBanana edit"
           imagen_image: "Imagen image"
         audio:
           voices:

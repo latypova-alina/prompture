@@ -12,7 +12,7 @@ module MediaGenerator
         case button_request
         when Generator::Processors::PROMPT_EXTENSION
           perform_prompt_extension_job
-        when *Generator::Processors::IMAGE
+        when *Generator::Processors::ALL_IMAGE
           perform_image_generator_job
         when *Generator::Processors::VIDEO
           perform_video_generator_job

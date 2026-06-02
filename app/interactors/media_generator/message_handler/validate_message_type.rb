@@ -9,20 +9,29 @@ module MediaGenerator
       VALIDATORS = {
         "prompt_to_image" => ::RecordValidators::CommandRequests::PromptToImage,
         "prompt_to_audio" => ::RecordValidators::CommandRequests::PromptToAudio,
-        "prompt_to_video" => ::RecordValidators::CommandRequests::PromptToVideo,
-        "image_from_reference" => ::RecordValidators::CommandRequests::ImageFromReference
+        "prompt_to_video" => ::RecordValidators::CommandRequests::PromptToVideo
       }.freeze
 
       def call
         validator.validate
-      rescue MessageTypeError => e
+      rescue MessageTypeError, ImageNotReadyError => e
         context.fail!(error: e.class)
       end
 
       private
 
       memoize def validator
-        VALIDATORS[command].new(message_text:, picture_id:)
+        return edit_image_validator if command == "edit_image"
+
+        VALIDATORS.fetch(command).new(message_text:, picture_id:)
+      end
+
+      def edit_image_validator
+        ::RecordValidators::CommandRequests::EditImage.new(
+          command_request: context.command_request,
+          message_text:,
+          picture_id:
+        )
       end
     end
   end
