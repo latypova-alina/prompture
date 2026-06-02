@@ -9,6 +9,7 @@ module Generator
 
         with_locale(locale) do
           TelegramIntegration::DeleteBotTelegramMessage.call(request:)
+          TelegramIntegration::DeleteAdminProcessingMessage.call(user: request.user)
 
           Telegram.bot.send_message(**message_data)
         end

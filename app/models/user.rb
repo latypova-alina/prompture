@@ -1,4 +1,5 @@
 class User < ApplicationRecord
+  has_one :bot_telegram_message, as: :request, dependent: :destroy
   has_one :balance, dependent: :destroy
   has_many :tokens, dependent: :destroy
   has_many :balance_transactions, dependent: :destroy

@@ -19,12 +19,17 @@ describe MediaGenerator::MessageHandler::NotifyUser do
       .to receive(:reply_data)
       .and_return(reply_data)
 
+    allow(TelegramIntegration::DeleteAdminProcessingMessage).to receive(:call)
     allow(TelegramIntegration::SendMessageWithButtons)
       .to receive(:call)
   end
 
-  it "sends a telegram message with buttons using presenter data" do
+  it "deletes admin processing message and sends a telegram message with buttons" do
     subject
+
+    expect(TelegramIntegration::DeleteAdminProcessingMessage)
+      .to have_received(:call)
+      .with(user: prompt_message.command_request.user)
 
     expect(presenter_class)
       .to have_received(:new)

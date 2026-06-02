@@ -6,6 +6,7 @@ module MediaGenerator
       delegate :prompt_message, to: :context
 
       def call
+        TelegramIntegration::DeleteAdminProcessingMessage.call(user: prompt_message.command_request.user)
         TelegramIntegration::SendMessageWithButtons.call(
           reply_data:,
           request: prompt_message

@@ -13,6 +13,7 @@ module ScriptGenerator
 
     def call
       scripts.each { |script| process_script(script) }
+      TelegramIntegration::DeleteAdminProcessingMessage.call(chat_id:)
     end
 
     private

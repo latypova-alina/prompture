@@ -29,6 +29,7 @@ module Generator::Media::Image::NotifySuccess
 
     def send_telegram_message
       TelegramIntegration::DeleteBotTelegramMessage.call(request:)
+      TelegramIntegration::DeleteAdminProcessingMessage.call(user:)
 
       SendTelegramMessage.call(reply_data:, request:)
     end

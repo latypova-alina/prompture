@@ -28,6 +28,7 @@ module Generator::Media::Audio::NotifySuccess
     delegate :locale, :humanized_process_name, :processor, to: :request
 
     def send_telegram_message
+      TelegramIntegration::DeleteAdminProcessingMessage.call(user:)
       SendTelegramMessage.call(reply_data:, request:)
     end
 

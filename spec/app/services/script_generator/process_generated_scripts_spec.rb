@@ -15,10 +15,15 @@ describe ScriptGenerator::ProcessGeneratedScripts do
       .with(chat_id: 456, category: ContentCategory::TEMPLATE)
       .and_return(script_processor)
     allow(script_processor).to receive(:call)
+    allow(TelegramIntegration::DeleteAdminProcessingMessage).to receive(:call)
   end
 
   it "splits scripts by paragraph and processes each non-blank script" do
     service_call
+
+    expect(TelegramIntegration::DeleteAdminProcessingMessage)
+      .to have_received(:call)
+      .with(chat_id: 456)
 
     expect(script_processor).to have_received(:call).with(script: "first scene")
     expect(script_processor).to have_received(:call).with(script: "second scene")

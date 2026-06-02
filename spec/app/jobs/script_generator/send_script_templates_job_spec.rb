@@ -7,6 +7,7 @@ describe ScriptGenerator::SendScriptTemplatesJob do
     before do
       allow(Faraday).to receive(:new).and_return(connection)
       allow(Telegram.bot).to receive(:send_message)
+      allow(TelegramIntegration::DeleteAdminProcessingMessage).to receive(:call)
     end
 
     context "when API request succeeds" do
@@ -18,10 +19,11 @@ describe ScriptGenerator::SendScriptTemplatesJob do
         allow(connection).to receive(:get).with("/templates").and_return(response)
       end
 
-      it "sends script names line by line" do
+      it "sends script names line by line and deletes the processing message" do
         described_class.new.perform(456)
 
         expect(Telegram.bot).to have_received(:send_message).with(chat_id: 456, text: "bear_trap\nclown")
+        expect(TelegramIntegration::DeleteAdminProcessingMessage).to have_received(:call).with(chat_id: 456)
       end
     end
 

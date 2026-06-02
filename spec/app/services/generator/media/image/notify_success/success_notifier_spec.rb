@@ -32,6 +32,7 @@ describe Generator::Media::Image::NotifySuccess::SuccessNotifier do
       .and_return(reply_data)
 
     allow(TelegramIntegration::DeleteBotTelegramMessage).to receive(:call)
+    allow(TelegramIntegration::DeleteAdminProcessingMessage).to receive(:call)
     allow(Generator::Media::Image::NotifySuccess::SendTelegramMessage)
       .to receive(:call)
   end
@@ -43,6 +44,10 @@ describe Generator::Media::Image::NotifySuccess::SuccessNotifier do
       expect(TelegramIntegration::DeleteBotTelegramMessage)
         .to have_received(:call)
         .with(request: button_request)
+
+      expect(TelegramIntegration::DeleteAdminProcessingMessage)
+        .to have_received(:call)
+        .with(user: user)
 
       expect(Generator::Media::Image::NotifySuccess::SendTelegramMessage)
         .to have_received(:call)

@@ -19,7 +19,7 @@ module AdminCommands
   def random_script!(*)
     ScriptGenerator::GenerateScriptJob.perform_async(chat["id"], nil)
 
-    respond_with :message, text: "Started script generation."
+    respond_with_admin_processing_message("Started script generation.")
   end
 
   def motivation_workflow_en!(*)
@@ -39,31 +39,31 @@ module AdminCommands
 
     raise result.error if result.failure?
 
-    respond_with :message, text: "Started script generation."
+    respond_with_admin_processing_message("Started script generation.")
   end
 
   def script_templates!(*)
     ScriptGenerator::SendScriptTemplatesJob.perform_async(chat["id"])
 
-    respond_with :message, text: "Fetching script templates."
+    respond_with_admin_processing_message("Fetching script templates.")
   end
 
   def random_character!(*)
     ScriptGenerator::ProcessRandomCharacterJob.perform_async(chat["id"])
 
-    respond_with :message, text: I18n.t("telegram_webhooks.commands.random_character")
+    respond_with_admin_processing_message(I18n.t("telegram_webhooks.commands.random_character"))
   end
 
   def brainrot_character!(*)
     ScriptGenerator::ProcessBrainrotCharacterJob.perform_async(chat["id"])
 
-    respond_with :message, text: I18n.t("telegram_webhooks.commands.brainrot_character")
+    respond_with_admin_processing_message(I18n.t("telegram_webhooks.commands.brainrot_character"))
   end
 
   def cartoon_character!(*)
     ScriptGenerator::ProcessCartoonCharacterJob.perform_async(chat["id"])
 
-    respond_with :message, text: I18n.t("telegram_webhooks.commands.cartoon_character")
+    respond_with_admin_processing_message(I18n.t("telegram_webhooks.commands.cartoon_character"))
   end
 
   def admin!(*)
@@ -75,6 +75,11 @@ module AdminCommands
   def enqueue_motivation_workflow!(language)
     ScriptGenerator::ForMotivation::GenerateMotivationWorkflowJob.perform_async(chat["id"], language)
 
-    respond_with :message, text: I18n.t("telegram_webhooks.commands.motivation_workflow")
+    respond_with_admin_processing_message(I18n.t("telegram_webhooks.commands.motivation_workflow"))
+  end
+
+  def respond_with_admin_processing_message(text)
+    response = respond_with(:message, text:)
+    TelegramIntegration::RecordAdminProcessingMessage.call(response:, user:)
   end
 end
