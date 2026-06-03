@@ -7,8 +7,6 @@ module Generator
             strategy.payload.merge(image_url:)
           end
 
-          private
-
           delegate :image_url, to: :request
         end
       end

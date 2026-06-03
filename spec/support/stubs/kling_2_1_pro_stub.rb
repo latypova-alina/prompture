@@ -2,139 +2,50 @@ require "rails_helper"
 
 shared_context "stub create kling_2_1_pro task success request" do
   before do
-    stub_request(:post, "https://api.freepik.com/v1/ai/image-to-video/kling-v2-1-pro")
+    stub_request(:post, "https://queue.fal.run/fal-ai/kling-video/v2.1/pro/image-to-video")
+      .with(query: hash_including("fal_webhook" => /request_id_token=.*processor=kling_2_1_pro_image_to_video/))
       .with(
         headers: {
           "Content-Type" => "application/json",
-          "Accept" => "application/json"
+          "Accept" => "application/json",
+          "Authorization" => "Key FAL_API_KEY"
         },
         body: {
-          webhook_url: "https://example.com/freepik_webhook?token=#{token}&button_request=kling_2_1_pro_image_to_video&request_id=#{request_id}",
           prompt:,
-          image: image_url,
-          duration: "5",
-          cfg_scale: "0.9"
+          duration: 5,
+          image_url:
         }.to_json
       )
       .to_return(
         status: 200,
         body: {
-          data: {
-            task_id:
-          }
+          request_id: task_id
         }.to_json,
         headers: { "Content-Type" => "application/json" }
       )
   end
-end
-
-shared_context "stub retrieve kling_2_1_pro task success request" do
-  before do
-    stub_request(:get, "https://api.freepik.com/v1/ai/image-to-video/kling-v2-1/#{task_id}")
-      .to_return(
-        status: 200,
-        body: {
-          "data": {
-            "generated": [
-              "https://ai-statics.freepik.com/completed_task_video.mp4"
-            ],
-            "task_id": task_id,
-            "status": "COMPLETED",
-            "has_nsfw": [
-              false
-            ]
-          }
-        }.to_json,
-        headers: { "Content-Type" => "application/json" }
-      )
-  end
-end
-
-shared_context "stub kling_2_1_pro success request" do
-  include_context "stub create kling_2_1_pro task success request"
-  include_context "stub retrieve kling_2_1_pro task success request"
 end
 
 shared_context "stub create kling_2_1_pro task fail request" do
   before do
-    stub_request(:post, "https://api.freepik.com/v1/ai/image-to-video/kling-v2-1-pro")
+    stub_request(:post, "https://queue.fal.run/fal-ai/kling-video/v2.1/pro/image-to-video")
+      .with(query: hash_including("fal_webhook" => /request_id_token=.*processor=kling_2_1_pro_image_to_video/))
       .with(
         headers: {
           "Content-Type" => "application/json",
-          "Accept" => "application/json"
+          "Accept" => "application/json",
+          "Authorization" => "Key FAL_API_KEY"
         },
         body: {
-          webhook_url: "https://example.com/freepik_webhook?token=#{token}&button_request=kling_2_1_pro_image_to_video&request_id=#{request_id}",
           prompt:,
-          image: image_url,
-          duration: "5",
-          cfg_scale: "0.9"
+          duration: 5,
+          image_url:
         }.to_json
       )
       .to_return(
         status: 400,
         body: {
-          error: {
-            message: "Invalid prompt or bad request",
-            code: "bad_request"
-          }
-        }.to_json,
-        headers: { "Content-Type" => "application/json" }
-      )
-  end
-end
-
-shared_context "stub retrieve kling_2_1_pro task fail request" do
-  before do
-    stub_request(:get, "https://api.freepik.com/v1/ai/image-to-video/kling-v2-1/#{task_id}")
-      .to_return(
-        status: 500,
-        body: {
-          error: {
-            message: "Internal server error",
-            code: "internal_error"
-          }
-        }.to_json,
-        headers: { "Content-Type" => "application/json" }
-      )
-  end
-end
-
-shared_context "stub retrieve kling_2_1_pro task with FAILED status" do
-  before do
-    stub_request(:get, "https://api.freepik.com/v1/ai/image-to-video/kling-v2-1/#{task_id}")
-      .to_return(
-        status: 200,
-        body: {
-          "data": {
-            "generated": [
-              "https://ai-statics.freepik.com/completed_task_video.mp4"
-            ],
-            "task_id": task_id,
-            "status": "FAILED",
-            "has_nsfw": [
-              false
-            ]
-          }
-        }.to_json,
-        headers: { "Content-Type" => "application/json" }
-      )
-  end
-end
-
-shared_context "stub retrieve kling_2_1_pro task with IN_PROGRESS status" do
-  before do
-    stub_request(:get, "https://api.freepik.com/v1/ai/image-to-video/kling-v2-1/#{task_id}")
-      .to_return(
-        status: 200,
-        body: {
-          "data": {
-            "task_id": task_id,
-            "status": "IN_PROGRESS",
-            "has_nsfw": [
-              false
-            ]
-          }
+          detail: "Invalid prompt or bad request"
         }.to_json,
         headers: { "Content-Type" => "application/json" }
       )

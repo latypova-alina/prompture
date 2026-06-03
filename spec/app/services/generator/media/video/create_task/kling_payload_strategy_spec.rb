@@ -6,19 +6,18 @@ describe Generator::Media::Video::CreateTask::KlingPayloadStrategy do
   let(:prompt) { "little kitten" }
 
   describe "#payload" do
-    it "returns payload with duration, scale and prompt" do
+    it "returns payload with duration and prompt" do
       expect(strategy.payload).to eq(
-        duration: "5",
-        cfg_scale: "0.9",
-        prompt: prompt
+        prompt: prompt,
+        duration: 5
       )
     end
   end
 
   describe "#api_url" do
-    it "returns kling api url" do
+    it "returns kling fal api url" do
       expect(strategy.api_url)
-        .to eq("https://api.freepik.com/v1/ai/image-to-video/kling-v2-1-pro")
+        .to eq("https://queue.fal.run/fal-ai/kling-video/v2.1/pro/image-to-video")
     end
   end
 end

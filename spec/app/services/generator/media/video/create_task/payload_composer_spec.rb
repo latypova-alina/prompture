@@ -25,11 +25,10 @@ describe Generator::Media::Video::CreateTask::PayloadComposer do
   end
 
   describe "#final_payload" do
-    it "merges strategy payload with webhook_url and image_url" do
+    it "merges strategy payload with image_url" do
       expect(composer.final_payload).to eq(
         prompt: "hello",
-        webhook_url:,
-        image: image_url
+        image_url: image_url
       )
     end
   end

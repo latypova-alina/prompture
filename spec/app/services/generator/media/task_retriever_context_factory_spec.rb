@@ -6,15 +6,26 @@ describe Generator::Media::TaskRetrieverContext do
       context "when processor is #{image_processor}" do
         let(:params) { ActionController::Parameters.new(processor: image_processor) }
 
-        it "returns ImageTaskRetrieverContext" do
+        it "returns FalImageTaskRetrieverContext" do
           expect(described_class.for(params:))
-            .to be_a(Generator::Media::ImageTaskRetrieverContext)
+            .to be_a(Generator::Media::FalImageTaskRetrieverContext)
         end
       end
     end
 
-    context "when processor is not an image processor" do
-      let(:params) { ActionController::Parameters.new(processor: "kling_2_1_pro_image_to_video") }
+    Generator::Processors::VIDEO.each do |video_processor|
+      context "when processor is #{video_processor}" do
+        let(:params) { ActionController::Parameters.new(processor: video_processor) }
+
+        it "returns FalVideoTaskRetrieverContext" do
+          expect(described_class.for(params:))
+            .to be_a(Generator::Media::FalVideoTaskRetrieverContext)
+        end
+      end
+    end
+
+    context "when processor uses freepik webhook" do
+      let(:params) { ActionController::Parameters.new(processor: "extend_prompt") }
 
       it "returns FreepikTaskRetrieverContext" do
         expect(described_class.for(params:))

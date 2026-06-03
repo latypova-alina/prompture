@@ -23,9 +23,9 @@ describe Generator::Media::WebhookUrlBuilder do
         stub_const("ENV", ENV.to_hash.merge("GENERATOR_WEBHOOK_BASE_URL" => "http://localhost:3000"))
       end
 
-      it "builds webhook url using GENERATOR_WEBHOOK_BASE_URL" do
+      it "builds webhook url using fal webhook path for kling" do
         expect(webhook_url).to eq(
-          "http://localhost:3000/freepik_webhook?request_id_token=#{encoded_token}&processor=#{processor}"
+          "http://localhost:3000/api/fal/webhook?request_id_token=#{encoded_token}&processor=#{processor}"
         )
       end
     end
@@ -53,9 +53,9 @@ describe Generator::Media::WebhookUrlBuilder do
         stub_const("ENV", ENV.to_hash.merge("PRODUCTION_BASE_URL" => "https://app.example.com"))
       end
 
-      it "builds webhook url using PRODUCTION_BASE_URL" do
+      it "builds webhook url using fal webhook path for kling" do
         expect(webhook_url).to eq(
-          "https://app.example.com/freepik_webhook?request_id_token=#{encoded_token}&processor=#{processor}"
+          "https://app.example.com/api/fal/webhook?request_id_token=#{encoded_token}&processor=#{processor}"
         )
       end
     end

@@ -3,7 +3,7 @@ module Generator
     module Video
       module CreateTask
         class KlingPayloadStrategy
-          API_URL = "https://queue.fal.run/kling-video/v2.1/pro/image-to-video".freeze
+          API_URL = "https://queue.fal.run/fal-ai/kling-video/v2.1/pro/image-to-video".freeze
           DURATION = 5
 
           def initialize(prompt)
