@@ -12,6 +12,16 @@ describe TelegramIntegration::DeleteBotTelegramMessage do
   end
 
   describe ".call" do
+    context "when request is blank" do
+      let(:request) { nil }
+
+      it "does not call Telegram API" do
+        call_service
+
+        expect(bot).not_to have_received(:delete_message)
+      end
+    end
+
     context "when request has no bot telegram message" do
       it "does not call Telegram API" do
         call_service

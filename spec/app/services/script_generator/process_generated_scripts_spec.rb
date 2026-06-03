@@ -3,6 +3,7 @@ require "rails_helper"
 describe ScriptGenerator::ProcessGeneratedScripts do
   subject(:service_call) { described_class.call(chat_id: 456, template_name:) }
 
+  let!(:user) { create(:user, chat_id: 456) }
   let(:template_name) { nil }
   let(:script_context) { instance_double(ScriptGenerator::ScriptContext, script_array:) }
   let(:script_processor) { instance_double(ScriptGenerator::ProcessScript) }
@@ -15,15 +16,15 @@ describe ScriptGenerator::ProcessGeneratedScripts do
       .with(chat_id: 456, category: ContentCategory::TEMPLATE)
       .and_return(script_processor)
     allow(script_processor).to receive(:call)
-    allow(TelegramIntegration::DeleteAdminProcessingMessage).to receive(:call)
+    allow(TelegramIntegration::DeleteBotTelegramMessage).to receive(:call)
   end
 
   it "splits scripts by paragraph and processes each non-blank script" do
     service_call
 
-    expect(TelegramIntegration::DeleteAdminProcessingMessage)
+    expect(TelegramIntegration::DeleteBotTelegramMessage)
       .to have_received(:call)
-      .with(chat_id: 456)
+      .with(request: user)
 
     expect(script_processor).to have_received(:call).with(script: "first scene")
     expect(script_processor).to have_received(:call).with(script: "second scene")
