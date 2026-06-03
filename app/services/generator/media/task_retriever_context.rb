@@ -6,7 +6,8 @@ module Generator
       end
 
       def self.context_class(processor)
-        return ImageTaskRetrieverContext if Generator::Processors::ALL_IMAGE.include?(processor)
+        return FalImageTaskRetrieverContext if Generator::Processors::ALL_IMAGE.include?(processor)
+        return FalVideoTaskRetrieverContext if Generator::Processors::VIDEO.include?(processor)
 
         FreepikTaskRetrieverContext
       end

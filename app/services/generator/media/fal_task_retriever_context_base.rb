@@ -1,8 +1,6 @@
 module Generator
   module Media
-    class ImageTaskRetrieverContext
-      include Memery
-
+    class FalTaskRetrieverContextBase
       def initialize(params:)
         @params = params
       end
@@ -26,6 +24,7 @@ module Generator
       end
 
       def generated
+        urls = media_urls
         urls.present? ? urls : []
       end
 
@@ -37,8 +36,8 @@ module Generator
         params.fetch(:payload, {}).permit!
       end
 
-      memoize def urls
-        payload.fetch(:images, []).map { |image| image[:url] }.compact
+      def media_urls
+        raise NotImplementedError
       end
     end
   end

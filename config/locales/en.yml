@@ -198,9 +198,6 @@ en:
           kling_2_1_pro_image_to_video:
             one: "Kling Pro 2.1 (%{count} credit)"
             other: "Kling Pro 2.1 (%{count} credits)"
-          wan_2_2_image_to_video:
-            one: "Wan 2.2 (%{count} credit)"
-            other: "Wan 2.2 (%{count} credits)"
         regenerate:
           one: "Regenerate (%{count} credit)"
           other: "Regenerate (%{count} credits)"
@@ -260,7 +257,6 @@ en:
         extend_prompt: "prompt"
         video:
           kling_2_1_pro_image_to_video: "Kling Pro video"
-          wan_2_2_image_to_video: "Wan 2.2 video"
         image:
           flux_image: "Flux image"
           nano_banana_image: "NanoBanana image"

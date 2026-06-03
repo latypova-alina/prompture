@@ -24,13 +24,12 @@ module MediaGenerator
     end
 
     def handle_completed_status
-      if generated.empty?
-        Generator::Media::FreepikEmptyGenerationAlert.call(processor:, button_request_id:)
-      elsif Generator::Processors::ALL_IMAGE.include?(processor)
-        Generator::Media::Image::TaskRetrieverJob.perform_async(generated.first, button_request_id, processor)
-      else
-        Generator::Media::TaskRetrieverDispatcher.call(task_id:, button_request_id:, processor:)
-      end
+      Generator::Media::CompletedGenerationDispatcher.call(
+        processor:,
+        button_request_id:,
+        generated:,
+        task_id:
+      )
     end
   end
 end

@@ -3,7 +3,6 @@ module Generator
     class TaskRetrieverDispatcher
       TASK_RETRIEVER_JOBS_BY_PROCESSOR = [
         [Generator::Processors::PROMPT_EXTENSION, Prompt::TaskRetrieverJob],
-        *Generator::Processors::VIDEO.product([Video::TaskRetrieverJob]),
         *Generator::Processors::AUDIO.product([Audio::TaskRetrieverJob])
       ].to_h.freeze
 

@@ -3,9 +3,8 @@ module Generator
     module Video
       module CreateTask
         class KlingPayloadStrategy
-          API_URL = "https://api.freepik.com/v1/ai/image-to-video/kling-v2-1-pro".freeze
-          DURATION = "5".freeze
-          SCALE = "0.9".freeze
+          API_URL = "https://queue.fal.run/kling-video/v2.1/pro/image-to-video".freeze
+          DURATION = 5
 
           def initialize(prompt)
             @prompt = prompt
@@ -15,9 +14,8 @@ module Generator
 
           def payload
             {
-              duration: DURATION,
-              cfg_scale: SCALE,
-              prompt:
+              prompt:,
+              duration: DURATION
             }
           end
 
