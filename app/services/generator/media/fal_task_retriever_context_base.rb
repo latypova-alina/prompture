@@ -24,8 +24,7 @@ module Generator
       end
 
       def generated
-        urls = media_urls
-        urls.present? ? urls : []
+        media_urls.present? ? media_urls : []
       end
 
       private
