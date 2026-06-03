@@ -26,6 +26,8 @@ describe MediaGenerator::SendReply do
       .to receive(:for)
       .with(params:)
       .and_return(context_double)
+
+    allow(Generator::Media::CompletedGenerationDispatcher).to receive(:call)
   end
 
   describe "#call" do
@@ -43,37 +45,17 @@ describe MediaGenerator::SendReply do
     context "when status is COMPLETED" do
       let(:status) { "COMPLETED" }
 
-      it "calls TaskRetrieverDispatcher with correct arguments" do
-        expect(Generator::Media::TaskRetrieverDispatcher)
-          .to receive(:call)
-          .with(
-            task_id:,
-            button_request_id:,
-            processor:
-          )
-
+      it "delegates to CompletedGenerationDispatcher" do
         result
-      end
-    end
 
-    Generator::Processors::IMAGE.each do |image_processor|
-      context "when status is COMPLETED for #{image_processor}" do
-        let(:status) { "COMPLETED" }
-        let(:processor) { image_processor }
-
-        it "enqueues TaskRetrieverJob with webhook image url" do
-          expect(Generator::Media::Image::TaskRetrieverJob)
-            .to receive(:perform_async)
-            .with(
-              "generated_media_url",
-              button_request_id,
-              processor
-            )
-
-          expect(Generator::Media::TaskRetrieverDispatcher).not_to receive(:call)
-
-          result
-        end
+        expect(Generator::Media::CompletedGenerationDispatcher)
+          .to have_received(:call)
+          .with(
+            processor:,
+            button_request_id:,
+            generated:,
+            task_id:
+          )
       end
     end
 

@@ -11,10 +11,6 @@ module Generator
             payload
           end
 
-          def webhook_url
-            webhook_url_builder.webhook_url
-          end
-
           private
 
           delegate :payload, to: :strategy

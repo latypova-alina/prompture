@@ -11,12 +11,13 @@ module Generator
           strategy.payload.merge(webhook_url:)
         end
 
+        delegate :webhook_url, to: :webhook_url_builder
+
         private
 
         attr_reader :request, :strategy
 
         delegate :processor, to: :request
-        delegate :webhook_url, to: :webhook_url_builder
 
         def webhook_url_builder
           Generator::Media::WebhookUrlBuilder.new(processor:, button_request_id: request.id)

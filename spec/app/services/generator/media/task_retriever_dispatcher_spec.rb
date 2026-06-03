@@ -15,9 +15,6 @@ describe Generator::Media::TaskRetrieverDispatcher do
     allow(Generator::Media::Image::TaskRetrieverJob)
       .to receive(:perform_async)
 
-    allow(Generator::Media::Video::TaskRetrieverJob)
-      .to receive(:perform_async)
-
     allow(Generator::Media::Audio::TaskRetrieverJob)
       .to receive(:perform_async)
   end
@@ -35,9 +32,6 @@ describe Generator::Media::TaskRetrieverDispatcher do
 
         expect(Generator::Media::Image::TaskRetrieverJob)
           .not_to have_received(:perform_async)
-
-        expect(Generator::Media::Video::TaskRetrieverJob)
-          .not_to have_received(:perform_async)
       end
     end
 
@@ -50,9 +44,6 @@ describe Generator::Media::TaskRetrieverDispatcher do
         expect(Generator::Media::Image::TaskRetrieverJob)
           .not_to have_received(:perform_async)
 
-        expect(Generator::Media::Video::TaskRetrieverJob)
-          .not_to have_received(:perform_async)
-
         expect(Generator::Media::Prompt::TaskRetrieverJob)
           .not_to have_received(:perform_async)
       end
@@ -61,12 +52,8 @@ describe Generator::Media::TaskRetrieverDispatcher do
     context "when processor is a video processor" do
       let(:processor) { Generator::Processors::VIDEO.first }
 
-      it "dispatches video task retriever job" do
+      it "does not enqueue any job" do
         call_service
-
-        expect(Generator::Media::Video::TaskRetrieverJob)
-          .to have_received(:perform_async)
-          .with(task_id, button_request_id, processor)
 
         expect(Generator::Media::Image::TaskRetrieverJob)
           .not_to have_received(:perform_async)
@@ -89,9 +76,6 @@ describe Generator::Media::TaskRetrieverDispatcher do
         expect(Generator::Media::Image::TaskRetrieverJob)
           .not_to have_received(:perform_async)
 
-        expect(Generator::Media::Video::TaskRetrieverJob)
-          .not_to have_received(:perform_async)
-
         expect(Generator::Media::Prompt::TaskRetrieverJob)
           .not_to have_received(:perform_async)
       end
@@ -104,9 +88,6 @@ describe Generator::Media::TaskRetrieverDispatcher do
         call_service
 
         expect(Generator::Media::Image::TaskRetrieverJob)
-          .not_to have_received(:perform_async)
-
-        expect(Generator::Media::Video::TaskRetrieverJob)
           .not_to have_received(:perform_async)
 
         expect(Generator::Media::Prompt::TaskRetrieverJob)
