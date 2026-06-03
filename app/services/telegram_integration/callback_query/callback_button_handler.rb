@@ -30,9 +30,15 @@ module TelegramIntegration
         case splitted_button_request.first
         when SET_LOCALE_COMMAND
           handle_set_locale
+        when ButtonActions::PROVIDE_PROMPT
+          handle_provide_prompt_button
         else
           handle_media_button
         end
+      end
+
+      def handle_provide_prompt_button
+        MediaGenerator::ButtonHandler::HandleProvidePromptButton.call(**media_button_handler_params)
       end
 
       def handle_get_audio_samples

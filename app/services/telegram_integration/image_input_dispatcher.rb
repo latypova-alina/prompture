@@ -1,7 +1,10 @@
 module TelegramIntegration
   class ImageInputDispatcher
     HANDLERS = {
-      "image_to_video" => MediaGenerator::MessageHandler::ImageMessageHandler::HandleImageMessage,
+      "image_to_video" => {
+        image: MediaGenerator::MessageHandler::ImageMessageHandler::HandleImageMessage,
+        prompt: MediaGenerator::MessageHandler::ImageToVideoMessageHandler::HandlePromptMessage
+      },
       "edit_image" => {
         image: MediaGenerator::MessageHandler::EditImageMessageHandler::HandleImageMessage,
         prompt: MediaGenerator::MessageHandler::EditImageMessageHandler::HandlePromptMessage
@@ -26,9 +29,11 @@ module TelegramIntegration
     attr_reader :command, :user_message
 
     def handler
-      return HANDLERS[command] unless command == "edit_image"
+      HANDLERS.fetch(command).fetch(message_kind)
+    end
 
-      image_message? ? HANDLERS["edit_image"][:image] : HANDLERS["edit_image"][:prompt]
+    def message_kind
+      image_message? ? :image : :prompt
     end
 
     def image_message?
