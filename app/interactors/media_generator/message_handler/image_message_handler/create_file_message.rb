@@ -4,17 +4,17 @@ module MediaGenerator
       class CreateFileMessage
         include Interactor
 
-        delegate :picture_id, :size_bytes, :command_request, :tg_message_id, to: :context
+        delegate :file_id, :size_bytes, :command_request, :tg_message_id, to: :context
 
         def call
-          context.file_message = picture_id.nil? ? nil : create_file_message
+          context.file_message = file_id.blank? ? nil : create_file_message
         end
 
         private
 
         def create_file_message
           UserFileMessage.create!(
-            file_id: picture_id,
+            file_id:,
             tg_message_id:,
             size: size_bytes,
             parent_request: command_request,

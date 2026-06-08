@@ -95,7 +95,7 @@ RSpec.shared_examples "message handling" do
       let(:prompt) { image_url }
 
       let(:expected_text) do
-        "#{I18n.t('telegram_webhooks.message.image_message_reply')}\n"
+        "#{I18n.t('telegram_webhooks.message.image_to_video_image_reply')}\n"
       end
 
       let(:image_url_options) do

@@ -7,7 +7,7 @@ describe MediaGenerator::UserMessage::ImageMessage::ImageUrlMessagePresenter do
   let(:locale) { :en }
 
   describe "#formatted_text" do
-    let(:expected_text) { "#{I18n.t('telegram_webhooks.message.image_message_reply', locale:)}\n" }
+    let(:expected_text) { "#{I18n.t('telegram_webhooks.message.image_to_video_image_reply', locale:)}\n" }
 
     it "returns formatted image url text" do
       expect(presenter.formatted_text).to eq(expected_text)

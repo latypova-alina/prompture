@@ -142,6 +142,8 @@ es:
     message:
       image_message_url: "Aquí está tu imagen"
       image_message_reply: "¡Genial! Ahora puedes generar un video usando uno de los procesadores (Kling)"
+      image_to_video_image_reply: "¡Genial! Puedes generar un video con Kling o proporcionar un prompt primero."
+      image_to_video_prompt_reply: "¡Genial! Ahora, por favor, proporciona un prompt para el video."
       edit_image_prompt_reply: "¡Genial! Ahora envía tu prompt de edición."
       extended_prompt_postfix: "Aquí está tu prompt extendido ⬆️ \n\nAhora puedes generar una imagen usando uno de los procesadores (Flux/NanoBanana/Imagen)"
       image_generated_prefix: "Aquí está tu %{processor_name} 🖼️"
@@ -194,6 +196,8 @@ es:
             one: "Hope (%{count} crédito)"
             other: "Hope (%{count} créditos)"
         get_audio_samples: "Escuchar muestras"
+        image_to_video:
+          provide_prompt: "Proporcionar prompt"
         generate_video:
           kling_2_1_pro_image_to_video:
             one: "Kling Pro 2.1 (%{count} crédito)"

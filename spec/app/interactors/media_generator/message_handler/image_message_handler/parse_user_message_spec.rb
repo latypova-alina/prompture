@@ -18,8 +18,16 @@ describe MediaGenerator::MessageHandler::ImageMessageHandler::ParseUserMessage d
     ]
   end
   let(:message_parser) do
-    instance_double(MessageParser, message_text: "hello", picture_id: "large", chat_id: 12_345, tg_message_id: 999_111,
-                                   image_url: nil)
+    instance_double(
+      MessageParser,
+      message_text: "hello",
+      picture_id: "large",
+      photo_file_id: "large",
+      file_id: nil,
+      chat_id: 12_345,
+      tg_message_id: 999_111,
+      image_url: nil
+    )
   end
 
   before do
@@ -32,6 +40,8 @@ describe MediaGenerator::MessageHandler::ImageMessageHandler::ParseUserMessage d
       expect(result.chat_id).to eq(12_345)
       expect(result.tg_message_id).to eq(999_111)
       expect(result.picture_id).to eq("large")
+      expect(result.photo_file_id).to eq("large")
+      expect(result.file_id).to be_nil
       expect(result.image_url).to be_nil
     end
 

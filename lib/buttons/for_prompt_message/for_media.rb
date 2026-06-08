@@ -1,6 +1,6 @@
 module Buttons
-  module ForInitialPromptMessage
-    class ForMedia < Base
+  module ForPromptMessage
+    class ForMedia < Buttons::Base
       def build
         [
           [button_for(:prompt, :extend_prompt)],

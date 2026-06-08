@@ -1,6 +1,6 @@
 require "rails_helper"
 
-describe Buttons::ForInitialPromptMessage::ForAudio do
+describe Buttons::ForPromptMessage::ForAudio do
   subject(:result) { described_class.build }
 
   it "builds a button row for each configured voice" do

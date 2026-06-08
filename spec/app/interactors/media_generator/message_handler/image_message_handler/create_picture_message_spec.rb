@@ -3,7 +3,7 @@ require "rails_helper"
 describe MediaGenerator::MessageHandler::ImageMessageHandler::CreatePictureMessage do
   subject(:result) do
     described_class.call(
-      picture_id:,
+      photo_file_id:,
       tg_message_id:,
       width:,
       height:,
@@ -12,7 +12,7 @@ describe MediaGenerator::MessageHandler::ImageMessageHandler::CreatePictureMessa
     )
   end
 
-  let(:picture_id) { "AgACAgIAAxkBAAIB..." }
+  let(:photo_file_id) { "AgACAgIAAxkBAAIB..." }
   let(:tg_message_id) { 123_456 }
   let(:width) { 960 }
   let(:height) { 1280 }
@@ -32,7 +32,7 @@ describe MediaGenerator::MessageHandler::ImageMessageHandler::CreatePictureMessa
     it "sets correct attributes on UserPictureMessage" do
       picture_message = result.picture_message
 
-      expect(picture_message.picture_id).to eq(picture_id)
+      expect(picture_message.picture_id).to eq(photo_file_id)
       expect(picture_message.tg_message_id).to eq(tg_message_id)
       expect(picture_message.size).to eq(size_bytes)
       expect(picture_message.width).to eq(width)
@@ -41,8 +41,8 @@ describe MediaGenerator::MessageHandler::ImageMessageHandler::CreatePictureMessa
       expect(picture_message.command_request).to eq(command_request)
     end
 
-    context "when picture_id is nil" do
-      let(:picture_id) { nil }
+    context "when photo_file_id is nil" do
+      let(:photo_file_id) { nil }
 
       it "does not create a UserPictureMessage record" do
         expect { result }

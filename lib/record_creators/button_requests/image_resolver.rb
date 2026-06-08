@@ -23,7 +23,7 @@ module RecordCreators
       attr_reader :parent_request
 
       def resolved_image_url
-        parent_request.reload.resolved_image_url
+        OriginImageUrl.resolve(parent_request)
       end
     end
   end

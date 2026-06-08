@@ -8,7 +8,7 @@ describe MediaGenerator::UserMessage::ImageMessage::PictureMessagePresenter do
   describe "#formatted_text" do
     let(:expected_text) do
       <<~HTML
-        #{I18n.t('telegram_webhooks.message.image_message_reply', locale:)}
+        #{I18n.t('telegram_webhooks.message.image_to_video_image_reply', locale:)}
       HTML
     end
 
@@ -20,6 +20,7 @@ describe MediaGenerator::UserMessage::ImageMessage::PictureMessagePresenter do
   describe "#inline_keyboard" do
     let(:expected_buttons) do
       [
+        [{ callback_data: "provide_prompt", text: "Provide Prompt" }],
         [{ callback_data: "kling_2_1_pro_image_to_video",
            text: "Kling Pro 2.1 (10 credits)" }]
       ]

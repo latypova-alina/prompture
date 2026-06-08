@@ -29,6 +29,43 @@ describe MessageParser do
     end
   end
 
+  describe "#photo_file_id and #file_id" do
+    context "when message contains a photo" do
+      let(:message_hash) do
+        {
+          "photo" => [
+            { "file_id" => "small", "file_size" => 1000 },
+            { "file_id" => "large", "file_size" => 5000 }
+          ]
+        }
+      end
+
+      it "returns photo_file_id and leaves file_id nil" do
+        expect(parser.photo_file_id).to eq("large")
+        expect(parser.file_id).to be_nil
+        expect(parser.picture_id).to eq("large")
+      end
+    end
+
+    context "when message contains an image document" do
+      let(:message_hash) do
+        {
+          "document" => {
+            "file_id" => "doc_123",
+            "mime_type" => "image/png",
+            "file_size" => 5000
+          }
+        }
+      end
+
+      it "returns file_id and leaves photo_file_id nil" do
+        expect(parser.file_id).to eq("doc_123")
+        expect(parser.photo_file_id).to be_nil
+        expect(parser.picture_id).to eq("doc_123")
+      end
+    end
+  end
+
   describe "#image_url" do
     context "when message contains a url entity" do
       let(:message_hash) do

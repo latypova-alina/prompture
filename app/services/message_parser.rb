@@ -4,7 +4,15 @@ MessageParser = Struct.new(:message) do
   end
 
   def picture_id
-    image_as_document_id || image_id
+    file_id || photo_file_id
+  end
+
+  def photo_file_id
+    image_id
+  end
+
+  def file_id
+    image_as_document_id
   end
 
   def chat_id

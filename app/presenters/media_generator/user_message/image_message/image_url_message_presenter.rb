@@ -6,7 +6,7 @@ module MediaGenerator
 
         def formatted_text
           <<~HTML
-            #{I18n.t('telegram_webhooks.message.image_message_reply', locale:)}
+            #{I18n.t('telegram_webhooks.message.image_to_video_image_reply', locale:)}
           HTML
         end
 

@@ -55,12 +55,34 @@ describe TelegramIntegration::MessageDispatcher do
       end
     end
 
-    context "when command is image_to_video" do
+    context "when command is image_to_video and message contains an image" do
       let(:command) { "image_to_video" }
+      let(:user_message) do
+        {
+          "photo" => [
+            { "file_id" => "large", "width" => 1280, "height" => 720, "file_size" => 5000 }
+          ]
+        }
+      end
       let(:result) { double(failure?: false) }
 
-      it "calls MediaGenerator::MessageHandler::ImageMessageHandler::HandleImageMessage" do
+      it "calls ImageMessageHandler::HandleImageMessage" do
         expect(MediaGenerator::MessageHandler::ImageMessageHandler::HandleImageMessage)
+          .to receive(:call)
+          .with(command:, user_message:)
+          .and_return(result)
+
+        subject
+      end
+    end
+
+    context "when command is image_to_video and message is a prompt" do
+      let(:command) { "image_to_video" }
+      let(:user_message) { { "text" => "a cat walking in the rain" } }
+      let(:result) { double(failure?: false) }
+
+      it "calls ImageToVideoMessageHandler::HandlePromptMessage" do
+        expect(MediaGenerator::MessageHandler::ImageToVideoMessageHandler::HandlePromptMessage)
           .to receive(:call)
           .with(command:, user_message:)
           .and_return(result)

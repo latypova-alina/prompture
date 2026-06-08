@@ -143,6 +143,8 @@ ru:
     message:
       image_message_url: "Вот твое изображение"
       image_message_reply: "Отлично! Теперь ты можешь сгенерировать видео с помощью одного из процессоров (Kling)"
+      image_to_video_image_reply: "Отлично! Ты можешь сгенерировать видео с помощью Kling или сначала указать промпт."
+      image_to_video_prompt_reply: "Отлично! Теперь напиши промпт для видео."
       edit_image_prompt_reply: "Отлично! Теперь отправь промпт для редактирования."
       extended_prompt_postfix: "Вот твой расширенный промпт ⬆️ \n\nТеперь ты можешь сгенерировать изображение с помощью одного из процессоров (Flux/NanoBanana/Imagen)"
       image_generated_prefix: "Вот твое %{processor_name} 🖼️"
@@ -215,6 +217,8 @@ ru:
             many: "Hope (%{count} кредитов)"
             other: "Hope (%{count} кредитов)"
         get_audio_samples: "Примеры голосов"
+        image_to_video:
+          provide_prompt: "Указать промпт"
         generate_video:
           kling_2_1_pro_image_to_video:
             one: "Kling Pro 2.1 (%{count} кредит)"

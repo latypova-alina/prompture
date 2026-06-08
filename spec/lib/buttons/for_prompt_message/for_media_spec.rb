@@ -1,6 +1,6 @@
 require "rails_helper"
 
-describe Buttons::ForInitialPromptMessage::ForMedia do
+describe Buttons::ForPromptMessage::ForMedia do
   subject(:result) { described_class.build }
 
   it "builds processor buttons as separate rows" do
