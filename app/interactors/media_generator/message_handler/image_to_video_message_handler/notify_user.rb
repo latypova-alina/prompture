@@ -16,7 +16,8 @@ module MediaGenerator
         private
 
         delegate :reply_data, to: :presenter
-        delegate :user, to: :prompt_message
+        delegate :command_request, to: :prompt_message
+        delegate :user, to: :command_request
         delegate :locale, to: :user
 
         def presenter
