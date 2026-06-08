@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2026_06_03_162333) do
+ActiveRecord::Schema[8.0].define(version: 2026_06_08_132858) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -113,9 +113,6 @@ ActiveRecord::Schema[8.0].define(version: 2026_06_03_162333) do
   end
 
   create_table "command_image_to_video_requests", force: :cascade do |t|
-    t.string "reference_picture_id"
-    t.string "reference_image_url"
-    t.text "prompt"
     t.bigint "chat_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
