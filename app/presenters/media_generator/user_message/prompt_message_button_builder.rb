@@ -2,10 +2,10 @@ module MediaGenerator
   module UserMessage
     class PromptMessageButtonBuilder
       BUILDERS = {
-        CommandPromptToAudioRequest => Buttons::ForInitialPromptMessage::ForAudio
+        CommandPromptToAudioRequest => Buttons::ForPromptMessage::ForAudio
       }.freeze
 
-      DEFAULT_INLINE_KEYBOARD = Buttons::ForInitialPromptMessage::ForMedia
+      DEFAULT_INLINE_KEYBOARD = Buttons::ForPromptMessage::ForMedia
 
       def initialize(command_request:, locale:)
         @command_request = command_request

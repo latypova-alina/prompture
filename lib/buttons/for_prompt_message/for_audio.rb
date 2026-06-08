@@ -1,6 +1,6 @@
 module Buttons
-  module ForInitialPromptMessage
-    class ForAudio < Base
+  module ForPromptMessage
+    class ForAudio < Buttons::Base
       GET_AUDIO_SAMPLES = Audio::SendVoiceSamples::GET_AUDIO_SAMPLES_CALLBACK
 
       def build

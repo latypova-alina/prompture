@@ -8,7 +8,7 @@ describe MediaGenerator::UserMessage::ImageMessage::PictureMessagePresenter do
   describe "#formatted_text" do
     let(:expected_text) do
       <<~HTML
-        #{I18n.t('telegram_webhooks.message.image_message_reply', locale:)}
+        #{I18n.t('telegram_webhooks.message.image_to_video_image_reply', locale:)}
       HTML
     end
 

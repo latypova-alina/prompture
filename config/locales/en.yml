@@ -142,6 +142,7 @@ en:
     message:
       image_message_url: "Here is your image"
       image_message_reply: "Great! You can now generate a video using one of the processors (Kling)"
+      image_to_video_image_reply: "Great! You can either generate a video using Kling or provide a prompt first."
       image_to_video_prompt_reply: "Great! Now please provide a prompt for the video."
       edit_image_prompt_reply: "Great! Now send your edit prompt."
       extended_prompt_postfix: "Here is your extended prompt ⬆️ \n\nYou can now generate an image using one of the processors (Flux/NanoBanana/Imagen)"

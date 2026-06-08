@@ -9,7 +9,7 @@ module MediaGenerator
         end
 
         def inline_keyboard
-          Buttons::ForImageMessage::ForImageToVideo.build(locale:)
+          Buttons::ForPromptMessage::ForImageToVideo.build(locale:)
         end
       end
     end
