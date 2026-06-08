@@ -14,12 +14,10 @@ module MediaGenerator
 
       private
 
+      delegate :command_request, to: :parent_request
+
       def image_to_video_command?
         command_request.is_a?(CommandImageToVideoRequest)
-      end
-
-      def command_request
-        parent_request.command_request
       end
     end
   end

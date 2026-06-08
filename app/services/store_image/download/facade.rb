@@ -27,6 +27,8 @@ module StoreImage
           [download_from_url(record.image_url), "image_url_#{record.id}.jpg"]
         when UserPictureMessage
           [download_picture_bytes(record.picture_id), "picture_#{record.id}.jpg"]
+        when UserFileMessage
+          [download_picture_bytes(record.file_id), "file_#{record.id}.jpg"]
         end
       end
 
