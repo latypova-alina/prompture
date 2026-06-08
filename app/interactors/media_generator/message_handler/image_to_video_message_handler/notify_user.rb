@@ -16,13 +16,11 @@ module MediaGenerator
         private
 
         delegate :reply_data, to: :presenter
+        delegate :user, to: :prompt_message
+        delegate :locale, to: :user
 
         def presenter
           MediaGenerator::UserMessage::ImageToVideo::PromptMessagePresenter.new(locale:)
-        end
-
-        def locale
-          prompt_message.command_request.user.locale
         end
       end
     end
