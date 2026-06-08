@@ -2,7 +2,7 @@ module HasOriginImage
   extend ActiveSupport::Concern
 
   def origin_image_url
-    each_parent_request do |req|
+    each_image_parent_request do |req|
       return req.resolved_image_url if image_present?(req)
     end
 
@@ -11,7 +11,7 @@ module HasOriginImage
 
   private
 
-  def each_parent_request
+  def each_image_parent_request
     req = parent_request_of(self)
 
     while req
