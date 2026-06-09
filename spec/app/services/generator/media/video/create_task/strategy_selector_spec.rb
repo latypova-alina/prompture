@@ -10,11 +10,26 @@ describe Generator::Media::Video::CreateTask::StrategySelector do
   let(:request) { create(:button_video_processing_request, parent_request:) }
 
   describe "#strategy" do
-    it "returns KlingPayloadStrategy initialized with parent prompt" do
-      expect(strategy)
-        .to be_a(Generator::Media::Video::CreateTask::KlingPayloadStrategy)
+    context "when processor is kling" do
+      it "returns KlingPayloadStrategy initialized with parent prompt" do
+        expect(strategy)
+          .to be_a(Generator::Media::Video::CreateTask::KlingPayloadStrategy)
 
-      expect(strategy.prompt).to eq(parent_prompt)
+        expect(strategy.prompt).to eq(parent_prompt)
+      end
+    end
+
+    context "when processor is seedance" do
+      let(:request) do
+        create(:button_video_processing_request, parent_request:, processor: "seedance_2_0_image_to_video")
+      end
+
+      it "returns SeedancePayloadStrategy initialized with parent prompt" do
+        expect(strategy)
+          .to be_a(Generator::Media::Video::CreateTask::SeedancePayloadStrategy)
+
+        expect(strategy.prompt).to eq(parent_prompt)
+      end
     end
   end
 

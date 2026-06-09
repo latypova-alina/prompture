@@ -84,6 +84,18 @@ describe MediaGenerator::ButtonHandler::SendGenerationTask do
     end
   end
 
+  context "when button_request is seedance_2_0_image_to_video" do
+    let(:button_request) { "seedance_2_0_image_to_video" }
+
+    it "enqueues video generator job" do
+      subject
+
+      expect(Generator::Media::Video::TaskCreatorJob)
+        .to have_received(:perform_async)
+        .with(button_request_record.id)
+    end
+  end
+
   context "when button_request is an audio voice slug" do
     let(:button_request) { "adam" }
     let(:button_request_record) { create(:button_audio_processing_request, voice: button_request, parent_request:) }
