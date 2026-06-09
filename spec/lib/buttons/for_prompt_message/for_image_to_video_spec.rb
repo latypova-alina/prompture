@@ -8,8 +8,10 @@ describe Buttons::ForPromptMessage::ForImageToVideo do
       [
         [{ callback_data: "kling_2_1_pro_image_to_video",
            text: "Kling Pro 2.1 (10 credits)" }],
-        [{ callback_data: "seedance_2_0_image_to_video",
-           text: "Seedance 2.0 (6 credits)" }]
+        [{ callback_data: "hailuo_02_standard_image_to_video",
+           text: "Hailuo 02 Standard (6 credits)" }],
+        [{ callback_data: "veo3_1_lite_image_to_video",
+           text: "Veo 3.1 Lite (5 credits)" }]
       ]
     )
   end
@@ -22,8 +24,10 @@ describe Buttons::ForPromptMessage::ForImageToVideo do
         [
           [{ callback_data: "kling_2_1_pro_image_to_video",
              text: "Kling Pro 2.1 (10 кредитов)" }],
-          [{ callback_data: "seedance_2_0_image_to_video",
-             text: "Seedance 2.0 (6 кредитов)" }]
+          [{ callback_data: "hailuo_02_standard_image_to_video",
+             text: "Hailuo 02 Standard (6 кредитов)" }],
+          [{ callback_data: "veo3_1_lite_image_to_video",
+             text: "Veo 3.1 Lite (5 кредитов)" }]
         ]
       )
     end

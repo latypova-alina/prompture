@@ -408,10 +408,17 @@ describe TelegramWebhooksController, telegram_bot: :rails do
                     job_class: ::Generator::Media::Video::TaskCreatorJob
   end
 
-  describe "#seedance_video_callback_query", :callback_query do
+  describe "#hailuo_02_standard_video_callback_query", :callback_query do
     it_behaves_like "a video callback",
-                    processor: "seedance_2_0",
-                    record_creator: RecordCreators::ButtonRequests::Videos::Seedance,
+                    processor: "hailuo_02_standard",
+                    record_creator: RecordCreators::ButtonRequests::Videos::Hailuo02Standard,
+                    job_class: ::Generator::Media::Video::TaskCreatorJob
+  end
+
+  describe "#veo3_1_lite_video_callback_query", :callback_query do
+    it_behaves_like "a video callback",
+                    processor: "veo3_1_lite",
+                    record_creator: RecordCreators::ButtonRequests::Videos::Veo31Lite,
                     job_class: ::Generator::Media::Video::TaskCreatorJob
   end
 
