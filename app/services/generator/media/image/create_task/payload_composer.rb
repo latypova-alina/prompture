@@ -10,15 +10,20 @@ module Generator
           ].freeze
 
           def final_payload
-            enhancer_class.new(request:, payload:).enhance
+            applicable_enhancers.reduce(payload) do |current_payload, enhancer_class|
+              enhancer_class.new(request:, payload: current_payload).enhance
+            end
           end
 
           private
 
           delegate :payload, to: :strategy
 
-          def enhancer_class
-            ENHANCERS.find { |klass| klass.applies_to?(request) }
+          def applicable_enhancers
+            specific = ENHANCERS.without(PayloadEnhancers::Default).select { |klass| klass.applies_to?(request) }
+            return [PayloadEnhancers::Default] if specific.empty?
+
+            specific
           end
         end
       end

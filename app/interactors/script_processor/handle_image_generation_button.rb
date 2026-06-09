@@ -7,8 +7,7 @@ module ScriptProcessor
     NANO_BANANA_BUTTON = "nano_banana_image".freeze
 
     IMAGE_BUTTON_BY_CATEGORY = {
-      ContentCategory::CARTOON_CHARACTER => NANO_BANANA_BUTTON,
-      ContentCategory::CARTOON_SCRIPT => NANO_BANANA_BUTTON
+      ContentCategory::CARTOON_CHARACTER => NANO_BANANA_BUTTON
     }.freeze
 
     delegate :chat_id, :prompt_message, to: :context

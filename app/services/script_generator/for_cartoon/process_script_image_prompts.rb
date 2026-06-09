@@ -23,7 +23,7 @@ module ScriptGenerator
       attr_reader :chat_id, :scripts
 
       memoize def script_processor
-        ScriptGenerator::ProcessScript::ForImage.new(
+        ScriptGenerator::ProcessScript::ForEditImage.new(
           chat_id:,
           category: ContentCategory::CARTOON_SCRIPT
         )
