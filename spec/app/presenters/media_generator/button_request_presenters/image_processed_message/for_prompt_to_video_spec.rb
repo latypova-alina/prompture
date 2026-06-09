@@ -34,7 +34,9 @@ describe MediaGenerator::ButtonRequestPresenters::ImageProcessedMessage::ForProm
         [{ callback_data: "flux_image",
            text: "Regenerate (1 credit)" }],
         [{ callback_data: "kling_2_1_pro_image_to_video",
-           text: "Kling Pro 2.1 (10 credits)" }]
+           text: "Kling Pro 2.1 (10 credits)" }],
+        [{ callback_data: "seedance_2_0_image_to_video",
+           text: "Seedance 2.0 (6 credits)" }]
       ]
     end
 

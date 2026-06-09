@@ -202,6 +202,9 @@ en:
           kling_2_1_pro_image_to_video:
             one: "Kling Pro 2.1 (%{count} credit)"
             other: "Kling Pro 2.1 (%{count} credits)"
+          seedance_2_0_image_to_video:
+            one: "Seedance 2.0 (%{count} credit)"
+            other: "Seedance 2.0 (%{count} credits)"
         regenerate:
           one: "Regenerate (%{count} credit)"
           other: "Regenerate (%{count} credits)"
@@ -261,6 +264,7 @@ en:
         extend_prompt: "prompt"
         video:
           kling_2_1_pro_image_to_video: "Kling Pro video"
+          seedance_2_0_image_to_video: "Seedance video"
         image:
           flux_image: "Flux image"
           nano_banana_image: "NanoBanana image"

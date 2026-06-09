@@ -7,6 +7,7 @@ default: &default
     nano_banana_edit_image: 1
   generate_video:
     kling_2_1_pro_image_to_video: 10
+    seedance_2_0_image_to_video: 6
   generate_audio:
     elevenlabs_turbo_v2_5_audio: 1
   prompt:
@@ -25,6 +26,7 @@ test:
     nano_banana_edit_image: 1
   generate_video:
     kling_2_1_pro_image_to_video: 10
+    seedance_2_0_image_to_video: 6
   generate_audio:
     elevenlabs_turbo_v2_5_audio: 1
   prompt:
