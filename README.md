@@ -12,6 +12,7 @@
   - **Imagen**
 - 🎥 Generate videos from images using the following processors:
   - **Kling**
+  - **Seedance**
  
 ---
 
