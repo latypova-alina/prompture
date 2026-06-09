@@ -1,6 +1,6 @@
 module ScriptGenerator
   module ForMotivation
-    class MotivationPromptContext < BaseContext
+    class MotivationPromptContext < ScriptGenerator::BaseContext
       def initialize(script:)
         super()
         @script = script

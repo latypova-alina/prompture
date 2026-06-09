@@ -33,7 +33,7 @@ module ScriptGenerator
     end
 
     memoize def script_processor
-      ScriptGenerator::ProcessScript.new(chat_id:, category: script_category)
+      ScriptGenerator::ProcessScript::ForVideo.new(chat_id:, category: script_category)
     end
   end
 end

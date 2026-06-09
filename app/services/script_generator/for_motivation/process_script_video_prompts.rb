@@ -31,7 +31,7 @@ module ScriptGenerator
       end
 
       memoize def script_processor
-        ScriptGenerator::ProcessScript.new(chat_id:, category: ContentCategory::MOTIVATION)
+        ScriptGenerator::ProcessScript::ForVideo.new(chat_id:, category: ContentCategory::MOTIVATION)
       end
     end
   end
