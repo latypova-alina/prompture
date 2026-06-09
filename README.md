@@ -12,7 +12,8 @@
   - **Imagen**
 - 🎥 Generate videos from images using the following processors:
   - **Kling**
-  - **Seedance**
+  - **Hailuo 02 Standard**
+  - **Veo 3.1 Lite**
  
 ---
 
