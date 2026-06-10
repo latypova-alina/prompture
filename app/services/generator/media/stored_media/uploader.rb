@@ -25,9 +25,15 @@ module Generator
 
         delegate :filename, to: :filename_resolver
         delegate :downloaded_bytes, to: :remote_url_downloader
+        delegate :command_request, to: :record
+        delegate :category, to: :command_request
 
         memoize def upload_facade
-          StoreImage::Upload::Facade.new(bytes: downloaded_bytes, filename:)
+          StoreImage::Upload::Facade.new(bytes: downloaded_bytes, filename:, folder:)
+        end
+
+        def folder
+          ContentCategory.image_bucket_folder(category)
         end
 
         memoize def remote_url_downloader

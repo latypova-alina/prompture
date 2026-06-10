@@ -1,4 +1,6 @@
 class CommandEditImageRequest < ApplicationRecord
+  include CartoonScriptCheckable
+
   belongs_to :user
   belongs_to :image_prompt, optional: true
 

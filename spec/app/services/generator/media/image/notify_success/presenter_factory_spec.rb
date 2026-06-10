@@ -41,6 +41,7 @@ describe Generator::Media::Image::NotifySuccess::PresenterFactory do
         .with(
           context: have_attributes(
             image_url:,
+            command_request:,
             command_request_classname: "CommandPromptToImageRequest",
             locale: "en",
             balance:,

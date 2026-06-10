@@ -3,9 +3,10 @@ module StoreImage
     class Facade
       include Memery
 
-      def initialize(bytes:, filename:)
+      def initialize(bytes:, filename:, folder: StoreMedia::Upload::ObjectKeyBuilder::DEFAULT_FOLDER)
         @bytes = bytes
         @filename = filename
+        @folder = folder
       end
 
       def upload_image
@@ -20,7 +21,7 @@ module StoreImage
 
       private
 
-      attr_reader :bytes, :filename
+      attr_reader :bytes, :filename, :folder
 
       delegate :object_key, to: :object_key_builder
       delegate :content_type, to: :content_type_resolver
@@ -38,7 +39,7 @@ module StoreImage
       end
 
       memoize def object_key_builder
-        StoreMedia::Upload::ObjectKeyBuilder.new(filename:)
+        StoreMedia::Upload::ObjectKeyBuilder.new(filename:, folder:)
       end
 
       memoize def content_type_resolver

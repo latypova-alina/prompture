@@ -25,6 +25,15 @@ describe Generator::Media::StoredMedia::StorePolicy do
       it { is_expected.to be_needs_to_be_stored }
     end
 
+    context "when processor is video with cartoon script category" do
+      let(:processor) { Generator::Processors::VIDEO.first }
+      let(:command_request) do
+        create(:command_prompt_to_video_request, category: ContentCategory::CARTOON_SCRIPT)
+      end
+
+      it { is_expected.to be_needs_to_be_stored }
+    end
+
     context "when processor is video without category" do
       let(:processor) { Generator::Processors::VIDEO.first }
       let(:command_request) { create(:command_prompt_to_video_request) }

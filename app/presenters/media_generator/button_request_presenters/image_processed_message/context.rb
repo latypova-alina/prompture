@@ -3,6 +3,7 @@ module MediaGenerator
     module ImageProcessedMessage
       Context = Struct.new(
         :image_url,
+        :command_request,
         :command_request_classname,
         :locale,
         :balance,

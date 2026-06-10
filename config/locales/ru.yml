@@ -222,6 +222,11 @@ ru:
         get_audio_samples: "Примеры голосов"
         image_to_video:
           provide_prompt: "Указать промпт"
+        generate_cartoon_video:
+          one: "Сгенерировать видео (%{count} кредит)"
+          few: "Сгенерировать видео (%{count} кредита)"
+          many: "Сгенерировать видео (%{count} кредитов)"
+          other: "Сгенерировать видео (%{count} кредитов)"
         generate_video:
           kling_2_1_pro_image_to_video:
             one: "Kling Pro 2.1 (%{count} кредит)"

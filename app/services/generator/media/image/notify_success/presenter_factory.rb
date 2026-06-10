@@ -23,6 +23,7 @@ module Generator::Media::Image::NotifySuccess
     def context
       MediaGenerator::ButtonRequestPresenters::ImageProcessedMessage::Context.new(
         image_url:,
+        command_request: request.command_request,
         command_request_classname:,
         locale:,
         balance:,

@@ -1,10 +1,11 @@
 require "rails_helper"
 
 describe StoreImage::Upload::Facade do
-  subject(:facade) { described_class.new(bytes:, filename:) }
+  subject(:facade) { described_class.new(bytes:, filename:, folder:) }
 
   let(:bytes) { "image-bytes" }
   let(:filename) { "image.jpg" }
+  let(:folder) { StoreMedia::Upload::ObjectKeyBuilder::DEFAULT_FOLDER }
   let(:object_key) { "images/20260409/uuid-image.jpg" }
   let(:content_type) { "image/jpeg" }
   let(:stored_url) { "https://internal.example/#{object_key}" }
@@ -13,7 +14,7 @@ describe StoreImage::Upload::Facade do
   let(:dimensions_validator) { instance_double(StoreImage::Upload::ImageDimensionsValidator, validate!: true) }
 
   before do
-    allow(StoreMedia::Upload::ObjectKeyBuilder).to receive(:new).with(filename:).and_return(
+    allow(StoreMedia::Upload::ObjectKeyBuilder).to receive(:new).with(filename:, folder:).and_return(
       instance_double(StoreMedia::Upload::ObjectKeyBuilder, object_key:)
     )
     allow(StoreMedia::Upload::ContentTypeResolver).to receive(:new).with(filename:).and_return(
