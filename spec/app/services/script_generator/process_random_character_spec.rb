@@ -4,11 +4,11 @@ describe ScriptGenerator::ProcessRandomCharacter do
   subject(:service_call) { described_class.call(chat_id: 456) }
 
   let(:character_context) { instance_double(ScriptGenerator::CharacterContext, character_description: "A cheerful robot baker") }
-  let(:script_processor) { instance_double(ScriptGenerator::ProcessScript) }
+  let(:script_processor) { instance_double(ScriptGenerator::ProcessScript::ForVideo) }
 
   before do
     allow(ScriptGenerator::CharacterContext).to receive(:new).with(chat_id: 456).and_return(character_context)
-    allow(ScriptGenerator::ProcessScript)
+    allow(ScriptGenerator::ProcessScript::ForVideo)
       .to receive(:new)
       .with(chat_id: 456, category: ContentCategory::RANDOM_CHARACTER)
       .and_return(script_processor)

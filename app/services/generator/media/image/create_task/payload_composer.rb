@@ -3,24 +3,26 @@ module Generator
     module Image
       module CreateTask
         class PayloadComposer < Generator::Media::CreateTask::PayloadComposerBase
-          EDIT_PROCESSORS = %w[nano_banana_edit_image].freeze
+          SPECIFIC_ENHANCERS = [
+            PayloadEnhancers::EditImage,
+            PayloadEnhancers::CartoonScript
+          ].freeze
 
           def final_payload
-            return payload.merge(image_urls: [input_image_url]) if edit_processor?
-
-            payload
+            applicable_enhancers.reduce(payload) do |current_payload, enhancer_class|
+              enhancer_class.new(request:, payload: current_payload).enhance
+            end
           end
 
           private
 
           delegate :payload, to: :strategy
 
-          def edit_processor?
-            EDIT_PROCESSORS.include?(request.processor)
-          end
+          def applicable_enhancers
+            specific = SPECIFIC_ENHANCERS.select { |klass| klass.applies_to?(request) }
+            return [PayloadEnhancers::Default] if specific.empty?
 
-          def input_image_url
-            request.parent_request.resolved_image_url
+            specific
           end
         end
       end

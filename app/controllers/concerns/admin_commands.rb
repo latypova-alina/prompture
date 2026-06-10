@@ -10,6 +10,7 @@ module AdminCommands
       random_character!
       brainrot_character!
       cartoon_character!
+      cartoon_script!
       script_templates!
       admin!
       generate_script!
@@ -64,6 +65,12 @@ module AdminCommands
     ScriptGenerator::ProcessCartoonCharacterJob.perform_async(chat["id"])
 
     respond_with :message, text: I18n.t("telegram_webhooks.commands.cartoon_character")
+  end
+
+  def cartoon_script!(*)
+    ScriptGenerator::ProcessCartoonScriptJob.perform_async(chat["id"])
+
+    respond_with :message, text: I18n.t("telegram_webhooks.commands.cartoon_script")
   end
 
   def admin!(*)

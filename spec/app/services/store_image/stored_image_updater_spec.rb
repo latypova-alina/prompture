@@ -24,4 +24,27 @@ describe StoreImage::StoredImageUpdater do
       expect(record.reload.stored_image.image_url).to eq(image_url)
     end
   end
+
+  context "when record is a cartoon script generation linked to an image prompt" do
+    let(:image_prompt) { create(:image_prompt, prompt: "Bloomy waves at the camera.") }
+    let(:command_request) do
+      create(
+        :command_edit_image_request,
+        category: ContentCategory::CARTOON_SCRIPT,
+        prompt: image_prompt.prompt,
+        image_prompt:
+      )
+    end
+    let(:record) { create(:button_image_processing_request, command_request:) }
+
+    it "attaches the stored image to the image prompt" do
+      call_updater
+
+      expect(record.reload.stored_image).to have_attributes(
+        image_url:,
+        image_prompt:
+      )
+      expect(image_prompt.stored_images).to contain_exactly(record.stored_image)
+    end
+  end
 end

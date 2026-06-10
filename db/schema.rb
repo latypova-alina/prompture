@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2026_06_08_132858) do
+ActiveRecord::Schema[8.0].define(version: 2026_06_10_150000) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -109,6 +109,10 @@ ActiveRecord::Schema[8.0].define(version: 2026_06_08_132858) do
     t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "category"
+    t.bigint "image_prompt_id"
+    t.index ["category"], name: "index_command_edit_image_requests_on_category"
+    t.index ["image_prompt_id"], name: "index_command_edit_image_requests_on_image_prompt_id"
     t.index ["user_id"], name: "index_command_edit_image_requests_on_user_id"
   end
 
@@ -134,6 +138,8 @@ ActiveRecord::Schema[8.0].define(version: 2026_06_08_132858) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "user_id"
+    t.string "category"
+    t.index ["category"], name: "index_command_prompt_to_image_requests_on_category"
     t.index ["user_id"], name: "index_command_prompt_to_image_requests_on_user_id"
   end
 
@@ -163,6 +169,12 @@ ActiveRecord::Schema[8.0].define(version: 2026_06_08_132858) do
     t.index ["feature_key", "key", "value"], name: "index_flipper_gates_on_feature_key_and_key_and_value", unique: true
   end
 
+  create_table "image_prompts", force: :cascade do |t|
+    t.text "prompt"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "prompt_messages", force: :cascade do |t|
     t.text "prompt"
     t.string "parent_request_type", null: false
@@ -177,12 +189,24 @@ ActiveRecord::Schema[8.0].define(version: 2026_06_08_132858) do
     t.index ["subcategory"], name: "index_prompt_messages_on_subcategory"
   end
 
+  create_table "scripts", force: :cascade do |t|
+    t.text "script_text", null: false
+    t.bigint "video_prompt_id"
+    t.bigint "image_prompt_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["image_prompt_id"], name: "index_scripts_on_image_prompt_id"
+    t.index ["video_prompt_id"], name: "index_scripts_on_video_prompt_id"
+  end
+
   create_table "stored_images", force: :cascade do |t|
     t.string "image_url", null: false
     t.string "source_message_type", null: false
     t.bigint "source_message_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "image_prompt_id"
+    t.index ["image_prompt_id"], name: "index_stored_images_on_image_prompt_id"
     t.index ["source_message_type", "source_message_id"], name: "idx_on_source_message_type_source_message_id_b22a70b9b7", unique: true
     t.index ["source_message_type", "source_message_id"], name: "index_stored_images_on_source_message"
   end
@@ -266,12 +290,22 @@ ActiveRecord::Schema[8.0].define(version: 2026_06_08_132858) do
     t.index ["chat_id"], name: "index_users_on_chat_id", unique: true
   end
 
+  create_table "video_prompts", force: :cascade do |t|
+    t.text "prompt"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   add_foreign_key "balance_transactions", "users"
   add_foreign_key "balances", "users"
+  add_foreign_key "command_edit_image_requests", "image_prompts"
   add_foreign_key "command_edit_image_requests", "users"
   add_foreign_key "command_image_to_video_requests", "users"
   add_foreign_key "command_prompt_to_audio_requests", "users"
   add_foreign_key "command_prompt_to_image_requests", "users"
   add_foreign_key "command_prompt_to_video_requests", "users"
+  add_foreign_key "scripts", "image_prompts"
+  add_foreign_key "scripts", "video_prompts"
+  add_foreign_key "stored_images", "image_prompts"
   add_foreign_key "tokens", "users"
 end

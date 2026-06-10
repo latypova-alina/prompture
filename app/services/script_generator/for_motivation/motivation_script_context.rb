@@ -1,6 +1,6 @@
 module ScriptGenerator
   module ForMotivation
-    class MotivationScriptContext < BaseContext
+    class MotivationScriptContext < ScriptGenerator::BaseContext
       def initialize(language: "en")
         super()
         @language = language

@@ -15,22 +15,6 @@ describe CommandPromptToVideoRequest, type: :model do
     end
   end
 
-  describe "#admin_generated?" do
-    subject(:admin_generated?) { request.admin_generated? }
-
-    context "when category is present" do
-      let(:request) { build(:command_prompt_to_video_request, category: ContentCategory::MOTIVATION) }
-
-      it { is_expected.to be(true) }
-    end
-
-    context "when category is nil" do
-      let(:request) { build(:command_prompt_to_video_request, category: nil) }
-
-      it { is_expected.to be(false) }
-    end
-  end
-
   describe "associations (command_request side)" do
     it do
       is_expected

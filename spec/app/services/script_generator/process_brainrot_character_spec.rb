@@ -9,14 +9,14 @@ describe ScriptGenerator::ProcessBrainrotCharacter do
       character_description: "A semi-realistic banana with crab claws"
     )
   end
-  let(:script_processor) { instance_double(ScriptGenerator::ProcessScript) }
+  let(:script_processor) { instance_double(ScriptGenerator::ProcessScript::ForVideo) }
 
   before do
     allow(ScriptGenerator::BrainrotCharacterContext)
       .to receive(:new)
       .with(chat_id: 456)
       .and_return(brainrot_character_context)
-    allow(ScriptGenerator::ProcessScript)
+    allow(ScriptGenerator::ProcessScript::ForVideo)
       .to receive(:new)
       .with(chat_id: 456, category: ContentCategory::BRAINROT_CHARACTER)
       .and_return(script_processor)

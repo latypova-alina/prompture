@@ -27,6 +27,16 @@ describe CommandPromptToImageRequest, type: :model do
     end
   end
 
+  describe "validations" do
+    it "allows nil category" do
+      expect(build(:command_prompt_to_image_request, category: nil)).to be_valid
+    end
+
+    it "rejects invalid category format" do
+      expect(build(:command_prompt_to_image_request, category: "Invalid Category")).not_to be_valid
+    end
+  end
+
   describe "associations (parent_request side)" do
     it do
       is_expected
