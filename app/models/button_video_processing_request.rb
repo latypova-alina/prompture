@@ -4,7 +4,8 @@ class ButtonVideoProcessingRequest < ApplicationRecord
 
   PROCESSOR_TYPES = %w[
     kling_2_1_pro_image_to_video
-    seedance_2_0_image_to_video
+    hailuo_02_standard_image_to_video
+    veo3_1_lite_image_to_video
   ].freeze
 
   belongs_to :parent_request, polymorphic: true

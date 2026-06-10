@@ -2,10 +2,9 @@ module Generator
   module Media
     module Video
       module CreateTask
-        class SeedancePayloadStrategy
-          API_URL = "https://queue.fal.run/bytedance/seedance-2.0/image-to-video".freeze
-          DURATION = 5
-          ASPECT_RATIO = "9:16".freeze
+        class Hailuo02StandardPayloadStrategy
+          API_URL = "https://queue.fal.run/fal-ai/minimax/hailuo-02/standard/image-to-video".freeze
+          DURATION = 6
 
           def initialize(prompt)
             @prompt = prompt
@@ -16,9 +15,7 @@ module Generator
           def payload
             {
               prompt:,
-              duration: DURATION,
-              aspect_ratio: ASPECT_RATIO,
-              generate_audio: false
+              duration: DURATION
             }
           end
 

@@ -13,7 +13,8 @@ module MediaGenerator
         "nano_banana_edit_image" => RecordCreators::ButtonRequests::Images::NanoBananaEdit,
         "imagen_image" => RecordCreators::ButtonRequests::Images::Imagen,
         "kling_2_1_pro_image_to_video" => RecordCreators::ButtonRequests::Videos::Kling,
-        "seedance_2_0_image_to_video" => RecordCreators::ButtonRequests::Videos::Seedance
+        "hailuo_02_standard_image_to_video" => RecordCreators::ButtonRequests::Videos::Hailuo02Standard,
+        "veo3_1_lite_image_to_video" => RecordCreators::ButtonRequests::Videos::Veo31Lite
       }.freeze
 
       AUDIO_VOICE_HANDLER = RecordCreators::ButtonRequests::Audio::ElevenlabsTurbo

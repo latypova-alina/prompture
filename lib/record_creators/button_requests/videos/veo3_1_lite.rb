@@ -1,11 +1,11 @@
 module RecordCreators
   module ButtonRequests
     module Videos
-      class Seedance < Base
+      class Veo31Lite < Base
         private
 
         def processor
-          "seedance_2_0_image_to_video"
+          "veo3_1_lite_image_to_video"
         end
       end
     end

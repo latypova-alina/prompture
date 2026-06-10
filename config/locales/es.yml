@@ -205,9 +205,12 @@ es:
           kling_2_1_pro_image_to_video:
             one: "Kling Pro 2.1 (%{count} crédito)"
             other: "Kling Pro 2.1 (%{count} créditos)"
-          seedance_2_0_image_to_video:
-            one: "Seedance 2.0 (%{count} crédito)"
-            other: "Seedance 2.0 (%{count} créditos)"
+          hailuo_02_standard_image_to_video:
+            one: "Hailuo 02 Standard (%{count} crédito)"
+            other: "Hailuo 02 Standard (%{count} créditos)"
+          veo3_1_lite_image_to_video:
+            one: "Veo 3.1 Lite (%{count} crédito)"
+            other: "Veo 3.1 Lite (%{count} créditos)"
         regenerate:
           one: "Regenerar (%{count} crédito)"
           other: "Regenerar (%{count} créditos)"
@@ -267,7 +270,8 @@ es:
         extend_prompt: "prompt"
         video:
           kling_2_1_pro_image_to_video: "video de Kling Pro"
-          seedance_2_0_image_to_video: "video de Seedance"
+          hailuo_02_standard_image_to_video: "video de Hailuo 02 Standard"
+          veo3_1_lite_image_to_video: "video de Veo 3.1 Lite"
         image:
           flux_image: "imagen de Flux"
           nano_banana_image: "imagen de NanoBanana"

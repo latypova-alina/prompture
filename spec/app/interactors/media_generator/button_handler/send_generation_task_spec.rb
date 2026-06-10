@@ -84,8 +84,20 @@ describe MediaGenerator::ButtonHandler::SendGenerationTask do
     end
   end
 
-  context "when button_request is seedance_2_0_image_to_video" do
-    let(:button_request) { "seedance_2_0_image_to_video" }
+  context "when button_request is hailuo_02_standard_image_to_video" do
+    let(:button_request) { "hailuo_02_standard_image_to_video" }
+
+    it "enqueues video generator job" do
+      subject
+
+      expect(Generator::Media::Video::TaskCreatorJob)
+        .to have_received(:perform_async)
+        .with(button_request_record.id)
+    end
+  end
+
+  context "when button_request is veo3_1_lite_image_to_video" do
+    let(:button_request) { "veo3_1_lite_image_to_video" }
 
     it "enqueues video generator job" do
       subject

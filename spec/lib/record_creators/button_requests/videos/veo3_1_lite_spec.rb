@@ -1,6 +1,6 @@
 require "rails_helper"
 
-describe RecordCreators::ButtonRequests::Videos::Seedance do
+describe RecordCreators::ButtonRequests::Videos::Veo31Lite do
   subject { described_class.new(parent_request, command_request).record }
 
   let(:image_url) { "https://example.com/image.jpg" }
@@ -9,13 +9,13 @@ describe RecordCreators::ButtonRequests::Videos::Seedance do
     create(:button_image_processing_request, image_url:, command_request:)
   end
 
-  it "creates a pending video processing request with seedance processor" do
+  it "creates a pending video processing request with veo 3.1 lite processor" do
     expect { subject }.to change(ButtonVideoProcessingRequest, :count).by(1)
 
     record = ButtonVideoProcessingRequest.last
 
     expect(record.status).to eq("PENDING")
-    expect(record.processor).to eq("seedance_2_0_image_to_video")
+    expect(record.processor).to eq("veo3_1_lite_image_to_video")
     expect(record.parent_request).to eq(parent_request)
     expect(record.command_request).to eq(command_request)
   end
