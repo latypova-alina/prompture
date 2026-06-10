@@ -37,7 +37,7 @@ module Generator
         end
 
         def folder
-          "videos/#{ContentCategory.bucket_folder(category)}"
+          ContentCategory.video_bucket_folder(category)
         end
 
         memoize def remote_url_downloader
