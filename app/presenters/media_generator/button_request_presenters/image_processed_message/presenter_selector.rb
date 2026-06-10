@@ -14,7 +14,7 @@ module MediaGenerator
 
         attr_reader :context
 
-        delegate :image_url, :command_request_classname, :command_request_category, :locale, :balance,
+        delegate :image_url, :command_request, :command_request_classname, :locale, :balance,
                  :processor_name, :processor, to: :context
 
         def presenter
@@ -30,10 +30,7 @@ module MediaGenerator
         private
 
         def presenter_class
-          if CommandEditImageRequest.cartoon_script_edit_image?(
-            classname: command_request_classname,
-            category: command_request_category
-          )
+          if CommandEditImageRequest.cartoon_script?(command_request)
             ForCartoonScriptEditImage
           else
             PRESENTERS.fetch(command_request_classname)

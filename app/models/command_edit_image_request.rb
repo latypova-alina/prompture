@@ -12,12 +12,8 @@ class CommandEditImageRequest < ApplicationRecord
     category == ContentCategory::CARTOON_SCRIPT
   end
 
-  def self.cartoon_script_edit_image?(command_request: nil, classname: nil, category: nil)
-    if command_request.present?
-      command_request.is_a?(self) && command_request.cartoon_script?
-    else
-      classname == name && category == ContentCategory::CARTOON_SCRIPT
-    end
+  def self.cartoon_script?(command_request)
+    command_request.is_a?(self) && command_request.cartoon_script?
   end
 
   def prompt

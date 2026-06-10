@@ -6,7 +6,7 @@ module MediaGenerator
 
       PROCESSOR = "hailuo_02_standard_image_to_video".freeze
 
-      delegate :parent_request, :command_request, to: :context
+      delegate :parent_request, :command_request, :script, to: :context
 
       def call
         context.button_request_record = button_video_processing_request
@@ -17,7 +17,7 @@ module MediaGenerator
 
       private
 
-      delegate :chat_id, :user, :image_prompt_id, to: :command_request
+      delegate :chat_id, :user, to: :command_request
 
       memoize def button_video_processing_request
         raise ImageNotReadyError unless image_url.present?
@@ -49,10 +49,6 @@ module MediaGenerator
 
       memoize def video_prompt
         ScriptGenerator::ForCartoon::ProcessScriptVideoPrompt.call(script:)
-      end
-
-      memoize def script
-        Script.find_by!(image_prompt_id:)
       end
 
       memoize def image_url
