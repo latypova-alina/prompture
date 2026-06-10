@@ -1,4 +1,6 @@
 class CommandEditImageRequest < ApplicationRecord
+  include CartoonScriptCheckable
+
   belongs_to :user
   belongs_to :image_prompt, optional: true
 
@@ -10,10 +12,6 @@ class CommandEditImageRequest < ApplicationRecord
 
   def cartoon_script?
     category == ContentCategory::CARTOON_SCRIPT
-  end
-
-  def self.cartoon_script?(command_request)
-    command_request.is_a?(self) && command_request.cartoon_script?
   end
 
   def prompt

@@ -14,18 +14,4 @@ describe CommandEditImageRequest, type: :model do
       expect(request.cartoon_script?).to be(false)
     end
   end
-
-  describe ".cartoon_script?" do
-    it "returns true for a cartoon script edit image request" do
-      request = create(:command_edit_image_request, category: ContentCategory::CARTOON_SCRIPT)
-
-      expect(described_class.cartoon_script?(request)).to be(true)
-    end
-
-    it "returns false for a non-edit-image command request" do
-      request = create(:command_prompt_to_image_request, category: ContentCategory::CARTOON_SCRIPT)
-
-      expect(described_class.cartoon_script?(request)).to be(false)
-    end
-  end
 end

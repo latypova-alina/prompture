@@ -1,5 +1,6 @@
 class CommandPromptToVideoRequest < ApplicationRecord
   include HasOriginPrompt
+  include CartoonScriptCheckable
 
   belongs_to :user
 
