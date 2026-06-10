@@ -47,5 +47,4 @@ describe ContentCategory do
         .to eq("videos/motivation")
     end
   end
-
 end

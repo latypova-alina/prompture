@@ -51,7 +51,9 @@ describe TelegramIntegration::CallbackQuery::CallbackButtonHandler do
     let(:button_request) { "generate_cartoon_video" }
 
     before do
-      allow(MediaGenerator::ButtonHandler::HandleGenerateCartoonVideoButton).to receive(:call).and_return(success_result)
+      allow(MediaGenerator::ButtonHandler::HandleGenerateCartoonVideoButton)
+        .to receive(:call)
+        .and_return(success_result)
       allow(MediaGenerator::ButtonHandler::HandleButton).to receive(:call)
     end
 
