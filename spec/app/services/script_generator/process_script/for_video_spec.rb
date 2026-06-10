@@ -1,6 +1,6 @@
 require "rails_helper"
 
-describe ScriptGenerator::ProcessScript do
+describe ScriptGenerator::ProcessScript::ForVideo do
   subject(:service) { described_class.new(chat_id:, category:) }
 
   let(:chat_id) { 456 }

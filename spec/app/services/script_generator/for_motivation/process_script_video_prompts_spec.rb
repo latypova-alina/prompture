@@ -6,7 +6,7 @@ describe ScriptGenerator::ForMotivation::ProcessScriptVideoPrompts do
   let(:motivation_prompt_context) do
     instance_double(ScriptGenerator::ForMotivation::MotivationPromptContext, scenes:)
   end
-  let(:script_processor) { instance_double(ScriptGenerator::ProcessScript) }
+  let(:script_processor) { instance_double(ScriptGenerator::ProcessScript::ForVideo) }
   let(:scenes) do
     [
       ScriptGenerator::ForMotivation::VideoScene.new(
@@ -24,7 +24,7 @@ describe ScriptGenerator::ForMotivation::ProcessScriptVideoPrompts do
     allow(ScriptGenerator::ForMotivation::MotivationPromptContext).to receive(:new)
       .with(script: "Narration text")
       .and_return(motivation_prompt_context)
-    allow(ScriptGenerator::ProcessScript)
+    allow(ScriptGenerator::ProcessScript::ForVideo)
       .to receive(:new)
       .with(chat_id: 456, category: ContentCategory::MOTIVATION)
       .and_return(script_processor)

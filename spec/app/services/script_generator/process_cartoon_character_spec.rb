@@ -9,14 +9,14 @@ describe ScriptGenerator::ProcessCartoonCharacter do
       character_description: "A blue Baby with pigtails, wearing a bow."
     )
   end
-  let(:script_processor) { instance_double(ScriptGenerator::ProcessScript) }
+  let(:script_processor) { instance_double(ScriptGenerator::ProcessScript::ForVideo) }
 
   before do
     allow(ScriptGenerator::CartoonCharacterContext)
       .to receive(:new)
       .with(chat_id: 456)
       .and_return(cartoon_character_context)
-    allow(ScriptGenerator::ProcessScript)
+    allow(ScriptGenerator::ProcessScript::ForVideo)
       .to receive(:new)
       .with(chat_id: 456, category: ContentCategory::CARTOON_CHARACTER)
       .and_return(script_processor)
