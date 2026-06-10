@@ -15,7 +15,7 @@ describe MediaGenerator::ButtonRequestPresenters::ImageProcessedMessage::ForCart
       is_expected.to eq(
         [
           [{ callback_data: "nano_banana_edit_image", text: "Regenerate (1 credit)" }],
-          [{ callback_data: "generate_cartoon_video", text: "Generate Video (6 credits)" }]
+          [{ callback_data: "generate_cartoon_video", text: "Generate Video (5 credits)" }]
         ]
       )
     end

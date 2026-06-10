@@ -48,8 +48,8 @@ describe MediaGenerator::ButtonHandler::CreateCartoonVideoRequest do
     video_request = result.button_request_record
 
     expect(result).to be_success
-    expect(result.button_request).to eq("hailuo_02_standard_image_to_video")
-    expect(video_request.processor).to eq("hailuo_02_standard_image_to_video")
+    expect(result.button_request).to eq("veo3_1_lite_image_to_video")
+    expect(video_request.processor).to eq("veo3_1_lite_image_to_video")
     expect(video_request.image_url).to eq("https://example.com/scene.png")
     expect(video_request.parent_request).to be_a(PromptMessage)
     expect(video_request.parent_request.prompt).to eq(video_prompt)

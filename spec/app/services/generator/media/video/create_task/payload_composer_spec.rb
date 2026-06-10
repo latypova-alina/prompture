@@ -32,4 +32,37 @@ describe Generator::Media::Video::CreateTask::PayloadComposer do
       )
     end
   end
+
+  context "when processor is veo3_1_lite for cartoon_script" do
+    let(:processor) { "veo3_1_lite_image_to_video" }
+    let(:command_request) do
+      create(:command_prompt_to_video_request, category: ContentCategory::CARTOON_SCRIPT)
+    end
+    let(:request) do
+      create(
+        :button_video_processing_request,
+        image_url:,
+        processor:,
+        command_request:
+      )
+    end
+    let(:strategy_payload) do
+      {
+        prompt: "hello",
+        aspect_ratio: "9:16",
+        duration: 6,
+        generate_audio: false
+      }
+    end
+
+    it "overrides aspect ratio to 16:9" do
+      expect(composer.final_payload).to eq(
+        prompt: "hello",
+        aspect_ratio: "16:9",
+        duration: 6,
+        generate_audio: false,
+        image_url:
+      )
+    end
+  end
 end

@@ -10,10 +10,6 @@ class CommandEditImageRequest < ApplicationRecord
   has_many :user_picture_messages, as: :command_request, dependent: :destroy
   has_many :user_image_url_messages, as: :command_request, dependent: :destroy
 
-  def cartoon_script?
-    category == ContentCategory::CARTOON_SCRIPT
-  end
-
   def prompt
     super.presence || image_prompt&.prompt
   end

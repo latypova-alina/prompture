@@ -1,5 +1,7 @@
 module CartoonScriptCheckable
   def cartoon_script?
-    false
+    return false unless respond_to?(:category)
+
+    category == ContentCategory::CARTOON_SCRIPT
   end
 end

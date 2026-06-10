@@ -10,7 +10,7 @@ describe Buttons::ForImageMessage::ForCartoonScriptEditImage do
     expect(subject).to eq(
       [
         [{ callback_data: "nano_banana_edit_image", text: "Regenerate (1 credit)" }],
-        [{ callback_data: "generate_cartoon_video", text: "Generate Video (6 credits)" }]
+        [{ callback_data: "generate_cartoon_video", text: "Generate Video (5 credits)" }]
       ]
     )
   end
@@ -22,7 +22,7 @@ describe Buttons::ForImageMessage::ForCartoonScriptEditImage do
       expect(subject).to eq(
         [
           [{ callback_data: "nano_banana_edit_image", text: "Сгенерировать снова (1 кредит)" }],
-          [{ callback_data: "generate_cartoon_video", text: "Сгенерировать видео (6 кредитов)" }]
+          [{ callback_data: "generate_cartoon_video", text: "Сгенерировать видео (5 кредитов)" }]
         ]
       )
     end

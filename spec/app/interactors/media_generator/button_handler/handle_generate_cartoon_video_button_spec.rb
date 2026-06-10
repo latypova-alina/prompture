@@ -50,7 +50,7 @@ describe MediaGenerator::ButtonHandler::HandleGenerateCartoonVideoButton do
     allow(TelegramIntegration::SendAnswerCallbackQuery).to receive(:call)
   end
 
-  it "creates a hailuo video request and enqueues generation" do
+  it "creates a veo video request and enqueues generation" do
     expect { result }
       .to change(ButtonVideoProcessingRequest, :count).by(1)
       .and change(PromptMessage, :count).by(1)
@@ -59,7 +59,7 @@ describe MediaGenerator::ButtonHandler::HandleGenerateCartoonVideoButton do
 
     video_request = ButtonVideoProcessingRequest.last
 
-    expect(video_request.processor).to eq("hailuo_02_standard_image_to_video")
+    expect(video_request.processor).to eq("veo3_1_lite_image_to_video")
     expect(video_request.image_url).to eq("https://example.com/scene.png")
     expect(video_request.parent_request).to be_a(PromptMessage)
     expect(video_request.parent_request.prompt).to eq(video_prompt)

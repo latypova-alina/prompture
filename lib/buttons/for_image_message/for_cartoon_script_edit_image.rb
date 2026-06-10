@@ -11,15 +11,15 @@ module Buttons
         {
           text: I18n.t(
             "telegram_webhooks.message.buttons.generate_cartoon_video",
-            count: hailuo_cost,
+            count: veo_cost,
             locale:
           ),
           callback_data: ButtonActions::GENERATE_CARTOON_VIDEO
         }
       end
 
-      def hailuo_cost
-        COSTS[:generate_video][:hailuo_02_standard_image_to_video]
+      def veo_cost
+        COSTS[:generate_video][:veo3_1_lite_image_to_video]
       end
     end
   end

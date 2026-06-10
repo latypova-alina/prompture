@@ -4,7 +4,7 @@ module MediaGenerator
       include Interactor
       include Memery
 
-      PROCESSOR = "hailuo_02_standard_image_to_video".freeze
+      PROCESSOR = "veo3_1_lite_image_to_video".freeze
 
       delegate :parent_request, :command_request, :script, to: :context
 
