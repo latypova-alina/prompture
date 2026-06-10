@@ -12,7 +12,11 @@ module ScriptGenerator
       end
 
       def call
-        ProcessScriptImagePrompts.call(chat_id:, scripts:)
+        ProcessScriptImagePrompts.call(
+          chat_id:,
+          scripts:,
+          reference_image_url:
+        )
       end
 
       private
@@ -20,6 +24,7 @@ module ScriptGenerator
       attr_reader :chat_id
 
       delegate :scenes, to: :cartoon_script_context
+      delegate :reference_image_url, to: :cartoon_script_context
 
       memoize def cartoon_script_context
         CartoonScriptContext.new

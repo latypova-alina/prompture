@@ -7,9 +7,10 @@ module ScriptGenerator
         new(...).call(...)
       end
 
-      def initialize(chat_id:, category: nil)
+      def initialize(chat_id:, category: nil, reference_image_url: nil)
         @chat_id = chat_id
         @category = category
+        @reference_image_url = reference_image_url
       end
 
       def call(script:)
@@ -22,7 +23,7 @@ module ScriptGenerator
 
       private
 
-      attr_reader :chat_id, :category
+      attr_reader :chat_id, :category, :reference_image_url
 
       def create_command_request!(script:)
         CommandEditImageRequest.create!(chat_id:, user:, category:, prompt: script)
@@ -30,7 +31,7 @@ module ScriptGenerator
 
       def create_reference_image!(command_request:)
         UserImageUrlMessage.create!(
-          image_url: CartoonCharacter::ReferenceImageUrl.call,
+          image_url: reference_image_url,
           parent_request: command_request,
           command_request:
         )

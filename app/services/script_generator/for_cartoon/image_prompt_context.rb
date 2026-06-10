@@ -37,10 +37,7 @@ module ScriptGenerator
       end
 
       def request_body
-        {
-          script_text:,
-          character_name: CartoonCharacter::Name.call
-        }
+        { script_text: }
       end
     end
   end

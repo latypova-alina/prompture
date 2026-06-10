@@ -22,13 +22,16 @@ module Generator
 
               payload.merge(
                 aspect_ratio: ASPECT_RATIO,
-                image_urls: [CartoonCharacter::ReferenceImageUrl.call]
+                image_urls: [resolved_image_url]
               )
             end
 
             private
 
             attr_reader :request, :payload
+
+            delegate :parent_request, to: :request
+            delegate :resolved_image_url, to: :parent_request
 
             def edit_image_processor?
               request.processor == "nano_banana_edit_image"
