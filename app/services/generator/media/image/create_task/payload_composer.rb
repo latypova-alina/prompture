@@ -3,6 +3,8 @@ module Generator
     module Image
       module CreateTask
         class PayloadComposer < Generator::Media::CreateTask::PayloadComposerBase
+          include Memery
+
           SPECIFIC_ENHANCERS = [
             PayloadEnhancers::EditImage,
             PayloadEnhancers::CartoonScript
@@ -19,10 +21,13 @@ module Generator
           delegate :payload, to: :strategy
 
           def applicable_enhancers
-            specific = SPECIFIC_ENHANCERS.select { |klass| klass.applies_to?(request) }
-            return [PayloadEnhancers::Default] if specific.empty?
+            return [PayloadEnhancers::Default] if specific_enhancers.empty?
 
-            specific
+            specific_enhancers
+          end
+
+          memoize def specific_enhancers
+            SPECIFIC_ENHANCERS.select { |klass| klass.applies_to?(request) }
           end
         end
       end
