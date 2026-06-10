@@ -20,18 +20,17 @@ module StoreImage
     attr_reader :record
 
     delegate :command_request, to: :record
-    delegate :prompt, :category, to: :command_request
+    delegate :image_prompt, :category, to: :command_request, prefix: true
 
     def image_prompt_from_button_request
       return unless cartoon_script_edit_request?
 
-      ImagePrompt.find_by(prompt:)
+      command_request_image_prompt
     end
 
     def cartoon_script_edit_request?
       command_request.is_a?(CommandEditImageRequest) &&
-        category == ContentCategory::CARTOON_SCRIPT &&
-        prompt.present?
+        command_request_category == ContentCategory::CARTOON_SCRIPT
     end
   end
 end

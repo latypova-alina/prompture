@@ -9,6 +9,21 @@ describe CommandEditImageRequest, type: :model do
     end
   end
 
+  describe "#prompt" do
+    it "returns the stored prompt when present" do
+      command_request = create(:command_edit_image_request, prompt: "Edit this image")
+
+      expect(command_request.prompt).to eq("Edit this image")
+    end
+
+    it "falls back to the linked image prompt text" do
+      image_prompt = create(:image_prompt, prompt: "Scene description")
+      command_request = create(:command_edit_image_request, prompt: nil, image_prompt:)
+
+      expect(command_request.prompt).to eq("Scene description")
+    end
+  end
+
   describe "#latest_image_message" do
     let(:command_request) { create(:command_edit_image_request) }
 

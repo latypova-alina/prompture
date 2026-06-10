@@ -25,18 +25,17 @@ describe StoreImage::StoredImageUpdater do
     end
   end
 
-  context "when record is a cartoon script generation with a matching image prompt" do
+  context "when record is a cartoon script generation linked to an image prompt" do
     let(:image_prompt) { create(:image_prompt, prompt: "Bloomy waves at the camera.") }
     let(:command_request) do
       create(
         :command_edit_image_request,
         category: ContentCategory::CARTOON_SCRIPT,
-        prompt: image_prompt.prompt
+        prompt: image_prompt.prompt,
+        image_prompt:
       )
     end
     let(:record) { create(:button_image_processing_request, command_request:) }
-
-    before { image_prompt }
 
     it "attaches the stored image to the image prompt" do
       call_updater

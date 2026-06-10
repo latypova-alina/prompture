@@ -13,7 +13,7 @@ module ScriptGenerator
       end
 
       def call
-        script_processor.call(script: image_prompt)
+        script_processor.call(image_prompt_record:)
 
         script.update!(image_prompt: image_prompt_record)
       end

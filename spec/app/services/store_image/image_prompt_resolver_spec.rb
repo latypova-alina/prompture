@@ -3,25 +3,32 @@ require "rails_helper"
 describe StoreImage::ImagePromptResolver do
   subject(:resolved_image_prompt) { described_class.call(record:) }
 
-  context "when record is a cartoon script edit image request with a matching image prompt" do
+  context "when record is a cartoon script edit image request linked to an image prompt" do
     let(:image_prompt) { create(:image_prompt, prompt: "Bloomy waves at the camera.") }
     let(:command_request) do
       create(
         :command_edit_image_request,
         category: ContentCategory::CARTOON_SCRIPT,
-        prompt: image_prompt.prompt
+        prompt: image_prompt.prompt,
+        image_prompt:
       )
     end
     let(:record) { create(:button_image_processing_request, command_request:) }
 
-    before { image_prompt }
-
-    it "returns the image prompt matched by prompt text" do
+    it "returns the linked image prompt" do
       expect(resolved_image_prompt).to eq(image_prompt)
+    end
+
+    context "when another image prompt has the same prompt text" do
+      before { create(:image_prompt, prompt: image_prompt.prompt) }
+
+      it "returns the image prompt linked on the command request" do
+        expect(resolved_image_prompt).to eq(image_prompt)
+      end
     end
   end
 
-  context "when record is a button image processing request without a matching image prompt" do
+  context "when record is a cartoon script edit image request without an image prompt" do
     let(:command_request) do
       create(
         :command_edit_image_request,

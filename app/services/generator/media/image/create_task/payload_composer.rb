@@ -3,10 +3,9 @@ module Generator
     module Image
       module CreateTask
         class PayloadComposer < Generator::Media::CreateTask::PayloadComposerBase
-          ENHANCERS = [
+          SPECIFIC_ENHANCERS = [
             PayloadEnhancers::EditImage,
-            PayloadEnhancers::CartoonScript,
-            PayloadEnhancers::Default
+            PayloadEnhancers::CartoonScript
           ].freeze
 
           def final_payload
@@ -20,7 +19,7 @@ module Generator
           delegate :payload, to: :strategy
 
           def applicable_enhancers
-            specific = ENHANCERS.without(PayloadEnhancers::Default).select { |klass| klass.applies_to?(request) }
+            specific = SPECIFIC_ENHANCERS.select { |klass| klass.applies_to?(request) }
             return [PayloadEnhancers::Default] if specific.empty?
 
             specific

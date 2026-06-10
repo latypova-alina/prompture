@@ -22,7 +22,7 @@ describe ScriptGenerator::ForCartoon::ProcessScriptImagePrompt do
 
     script.reload
     expect(script.image_prompt.prompt).to eq("Generated image prompt")
-    expect(script_processor).to have_received(:call).with(script: "Generated image prompt")
+    expect(script_processor).to have_received(:call).with(image_prompt_record: ImagePrompt.last)
   end
 
   it "fetches the image prompt from the API once" do

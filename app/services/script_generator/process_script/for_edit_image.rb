@@ -1,20 +1,15 @@
 module ScriptGenerator
   module ProcessScript
-    class ForEditImage
-      include Memery
-
-      def self.call(...)
-        new(...).call(...)
-      end
-
+    class ForEditImage < Base
       def initialize(chat_id:, category: nil, reference_image_url: nil)
-        @chat_id = chat_id
-        @category = category
+        super(chat_id:, category:)
         @reference_image_url = reference_image_url
       end
 
-      def call(script:)
-        command_request = create_command_request!(script:)
+      # Unlike ForVideo (memoized command_request on Base), each #call starts a separate
+      # edit-image flow with its own CommandEditImageRequest.
+      def call(image_prompt_record: nil)
+        command_request = create_command_request!(image_prompt_record:)
 
         create_reference_image!(command_request:)
 
@@ -23,10 +18,15 @@ module ScriptGenerator
 
       private
 
-      attr_reader :chat_id, :category, :reference_image_url
+      attr_reader :reference_image_url
 
-      def create_command_request!(script:)
-        CommandEditImageRequest.create!(chat_id:, user:, category:, prompt: script)
+      def create_command_request!(image_prompt_record:)
+        CommandEditImageRequest.create!(
+          chat_id:,
+          user:,
+          category:,
+          image_prompt: image_prompt_record
+        )
       end
 
       def create_reference_image!(command_request:)
@@ -35,10 +35,6 @@ module ScriptGenerator
           parent_request: command_request,
           command_request:
         )
-      end
-
-      memoize def user
-        User.find_by!(chat_id:)
       end
     end
   end

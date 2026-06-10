@@ -5,7 +5,7 @@ describe ScriptGenerator::ProcessScript::ForEditImage do
 
   let(:chat_id) { 456 }
   let(:category) { ContentCategory::CARTOON_SCRIPT }
-  let(:script) { "Bloomy waves at the camera." }
+  let(:image_prompt) { create(:image_prompt, prompt: "Bloomy waves at the camera.") }
   let!(:user) { create(:user, :with_balance, chat_id:) }
   let(:reference_image_url) { "https://example.com/bloomy.png" }
 
@@ -14,20 +14,28 @@ describe ScriptGenerator::ProcessScript::ForEditImage do
   end
 
   describe "#call" do
-    it "creates an edit image request with prompt and category" do
-      expect { service.call(script:) }.to change(CommandEditImageRequest, :count).by(1)
+    it "creates an edit image request with category" do
+      expect { service.call }.to change(CommandEditImageRequest, :count).by(1)
 
       command_request = CommandEditImageRequest.last
       expect(command_request).to have_attributes(
         chat_id:,
         user:,
         category:,
-        prompt: script
+        image_prompt: nil
       )
     end
 
+    it "links the edit image request to the image prompt when provided" do
+      service.call(image_prompt_record: image_prompt)
+
+      command_request = CommandEditImageRequest.last
+      expect(command_request.image_prompt).to eq(image_prompt)
+      expect(command_request.prompt).to eq(image_prompt.prompt)
+    end
+
     it "attaches the character reference image" do
-      expect { service.call(script:) }.to change(UserImageUrlMessage, :count).by(1)
+      service.call(image_prompt_record: image_prompt)
 
       image_message = UserImageUrlMessage.last
       expect(image_message).to have_attributes(
@@ -38,18 +46,21 @@ describe ScriptGenerator::ProcessScript::ForEditImage do
     end
 
     it "starts edit image generation" do
-      service.call(script:)
+      service.call(image_prompt_record: image_prompt)
 
       expect(ScriptGenerator::ProcessScript::StartEditImageGeneration)
         .to have_received(:call)
         .with(command_request: CommandEditImageRequest.last)
     end
 
-    it "creates a separate edit image request for each script" do
-      service.call(script: "scene one")
-      service.call(script: "scene two")
+    it "creates a separate edit image request for each image prompt" do
+      first_prompt = create(:image_prompt, prompt: "scene one")
+      second_prompt = create(:image_prompt, prompt: "scene two")
 
-      expect(CommandEditImageRequest.pluck(:prompt)).to contain_exactly("scene one", "scene two")
+      service.call(image_prompt_record: first_prompt)
+      service.call(image_prompt_record: second_prompt)
+
+      expect(CommandEditImageRequest.all.map(&:prompt)).to contain_exactly("scene one", "scene two")
     end
   end
 end
