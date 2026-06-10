@@ -1,0 +1,63 @@
+module MediaGenerator
+  module ButtonHandler
+    class CreateCartoonVideoRequest
+      include Interactor
+      include Memery
+
+      PROCESSOR = "hailuo_02_standard_image_to_video".freeze
+
+      delegate :parent_request, :command_request, to: :context
+
+      def call
+        context.button_request_record = button_video_processing_request
+        context.button_request = PROCESSOR
+      rescue ImageNotReadyError
+        context.fail!(error: ImageNotReadyError)
+      end
+
+      private
+
+      delegate :chat_id, :user, :image_prompt_id, to: :command_request
+
+      memoize def button_video_processing_request
+        raise ImageNotReadyError unless image_url.present?
+
+        ButtonVideoProcessingRequest.create!(
+          image_url:,
+          status: "PENDING",
+          parent_request: prompt_message,
+          processor: PROCESSOR,
+          command_request: command_prompt_to_video_request
+        )
+      end
+
+      memoize def prompt_message
+        PromptMessage.create!(
+          prompt: video_prompt,
+          parent_request:,
+          command_request: command_prompt_to_video_request
+        )
+      end
+
+      memoize def command_prompt_to_video_request
+        CommandPromptToVideoRequest.create!(
+          chat_id:,
+          user:,
+          category: ContentCategory::CARTOON_SCRIPT
+        )
+      end
+
+      memoize def video_prompt
+        ScriptGenerator::ForCartoon::ProcessScriptVideoPrompt.call(script:)
+      end
+
+      memoize def script
+        Script.find_by!(image_prompt_id:)
+      end
+
+      memoize def image_url
+        RecordCreators::ButtonRequests::ImageResolver.new(parent_request).image_url
+      end
+    end
+  end
+end

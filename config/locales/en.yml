@@ -201,6 +201,9 @@ en:
         get_audio_samples: "Get samples"
         image_to_video:
           provide_prompt: "Provide Prompt"
+        generate_cartoon_video:
+          one: "Generate Video (%{count} credit)"
+          other: "Generate Video (%{count} credits)"
         generate_video:
           kling_2_1_pro_image_to_video:
             one: "Kling Pro 2.1 (%{count} credit)"

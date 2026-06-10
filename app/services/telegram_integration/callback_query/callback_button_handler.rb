@@ -32,6 +32,8 @@ module TelegramIntegration
           handle_set_locale
         when ButtonActions::PROVIDE_PROMPT
           handle_provide_prompt_button
+        when ButtonActions::GENERATE_CARTOON_VIDEO
+          handle_generate_cartoon_video_button
         else
           handle_media_button
         end
@@ -39,6 +41,10 @@ module TelegramIntegration
 
       def handle_provide_prompt_button
         MediaGenerator::ButtonHandler::HandleProvidePromptButton.call(**media_button_handler_params)
+      end
+
+      def handle_generate_cartoon_video_button
+        MediaGenerator::ButtonHandler::HandleGenerateCartoonVideoButton.call(**media_button_handler_params)
       end
 
       def handle_get_audio_samples

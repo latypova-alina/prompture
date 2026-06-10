@@ -201,6 +201,9 @@ es:
         get_audio_samples: "Escuchar muestras"
         image_to_video:
           provide_prompt: "Proporcionar prompt"
+        generate_cartoon_video:
+          one: "Generar video (%{count} crédito)"
+          other: "Generar video (%{count} créditos)"
         generate_video:
           kling_2_1_pro_image_to_video:
             one: "Kling Pro 2.1 (%{count} crédito)"

@@ -24,6 +24,7 @@ module Generator::Media::Image::NotifySuccess
       MediaGenerator::ButtonRequestPresenters::ImageProcessedMessage::Context.new(
         image_url:,
         command_request_classname:,
+        command_request_category: request.command_request.category,
         locale:,
         balance:,
         processor_name: humanized_process_name,
