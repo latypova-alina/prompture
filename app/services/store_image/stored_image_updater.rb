@@ -12,12 +12,16 @@ module StoreImage
     end
 
     def call
-      stored_image.update!(image_url:)
+      stored_image.update!(image_url:, image_prompt:)
     end
 
     private
 
     attr_reader :record, :image_url
+
+    def image_prompt
+      ImagePromptResolver.call(record:)
+    end
 
     memoize def stored_image
       record.stored_image || record.build_stored_image

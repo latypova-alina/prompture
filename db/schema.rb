@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2026_06_09_140000) do
+ActiveRecord::Schema[8.0].define(version: 2026_06_10_120000) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -203,6 +203,8 @@ ActiveRecord::Schema[8.0].define(version: 2026_06_09_140000) do
     t.bigint "source_message_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "image_prompt_id"
+    t.index ["image_prompt_id"], name: "index_stored_images_on_image_prompt_id"
     t.index ["source_message_type", "source_message_id"], name: "idx_on_source_message_type_source_message_id_b22a70b9b7", unique: true
     t.index ["source_message_type", "source_message_id"], name: "index_stored_images_on_source_message"
   end
@@ -301,5 +303,6 @@ ActiveRecord::Schema[8.0].define(version: 2026_06_09_140000) do
   add_foreign_key "command_prompt_to_video_requests", "users"
   add_foreign_key "scripts", "image_prompts"
   add_foreign_key "scripts", "video_prompts"
+  add_foreign_key "stored_images", "image_prompts"
   add_foreign_key "tokens", "users"
 end
