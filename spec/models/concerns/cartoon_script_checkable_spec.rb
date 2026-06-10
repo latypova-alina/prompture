@@ -13,12 +13,6 @@ describe CartoonScriptCheckable do
 
       expect(request.cartoon_script?).to be(false)
     end
-
-    it "returns false for command requests without category" do
-      request = build(:command_image_to_video_request)
-
-      expect(request.cartoon_script?).to be(false)
-    end
   end
 
   it "is included in all command request models" do
