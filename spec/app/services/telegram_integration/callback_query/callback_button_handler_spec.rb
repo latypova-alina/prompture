@@ -47,6 +47,29 @@ describe TelegramIntegration::CallbackQuery::CallbackButtonHandler do
     end
   end
 
+  context "when button_request is generate_cartoon_video" do
+    let(:button_request) { "generate_cartoon_video" }
+
+    before do
+      allow(MediaGenerator::ButtonHandler::HandleGenerateCartoonVideoButton).to receive(:call).and_return(success_result)
+      allow(MediaGenerator::ButtonHandler::HandleButton).to receive(:call)
+    end
+
+    it "calls HandleGenerateCartoonVideoButton" do
+      handled_button
+
+      expect(MediaGenerator::ButtonHandler::HandleGenerateCartoonVideoButton)
+        .to have_received(:call)
+        .with(
+          button_request:,
+          chat_id:,
+          tg_message_id:,
+          callback_query_id:
+        )
+      expect(MediaGenerator::ButtonHandler::HandleButton).not_to have_received(:call)
+    end
+  end
+
   context "when button_request is media command" do
     let(:button_request) { "flux_image" }
 

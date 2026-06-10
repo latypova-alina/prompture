@@ -44,4 +44,27 @@ describe Generator::Media::StoredMedia::VideoUploader do
       expect(StoreVideo::Registrar).to have_received(:call).with(record:, video_url: uploaded_url)
     end
   end
+
+  context "when command request is cartoon script" do
+    let(:command_request) do
+      create(:command_prompt_to_video_request, category: ContentCategory::CARTOON_SCRIPT)
+    end
+
+    before do
+      allow(StoreMedia::Upload::Facade)
+        .to receive(:new)
+        .with(bytes: "video-bytes", filename: "generated.mp4", folder: "cartoon/videos")
+        .and_return(upload_facade)
+    end
+
+    it "uploads to cartoon/videos folder" do
+      service.call
+
+      expect(StoreMedia::Upload::Facade).to have_received(:new).with(
+        bytes: "video-bytes",
+        filename: "generated.mp4",
+        folder: "cartoon/videos"
+      )
+    end
+  end
 end

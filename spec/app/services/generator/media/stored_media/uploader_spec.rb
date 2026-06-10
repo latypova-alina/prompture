@@ -29,8 +29,28 @@ describe Generator::Media::StoredMedia::Uploader do
 
       expect(StoreImage::Upload::Facade).to have_received(:new).with(
         bytes: "image-bytes",
-        filename: "generated.png"
+        filename: "generated.png",
+        folder: "images"
       )
+    end
+
+    context "when command request is cartoon script" do
+      let(:command_request) do
+        create(:command_edit_image_request, category: ContentCategory::CARTOON_SCRIPT)
+      end
+      let!(:record) do
+        create(:button_image_processing_request, command_request:, parent_request: command_request)
+      end
+
+      it "uploads to cartoon/images folder" do
+        uploader.call
+
+        expect(StoreImage::Upload::Facade).to have_received(:new).with(
+          bytes: "image-bytes",
+          filename: "generated.png",
+          folder: "cartoon/images"
+        )
+      end
     end
   end
 
