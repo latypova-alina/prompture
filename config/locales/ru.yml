@@ -219,6 +219,11 @@ ru:
             few: "Hope (%{count} кредита)"
             many: "Hope (%{count} кредитов)"
             other: "Hope (%{count} кредитов)"
+          lulu_lollipop:
+            one: "Lulu Lollipop (%{count} кредит)"
+            few: "Lulu Lollipop (%{count} кредита)"
+            many: "Lulu Lollipop (%{count} кредитов)"
+            other: "Lulu Lollipop (%{count} кредитов)"
         get_audio_samples: "Примеры голосов"
         image_to_video:
           provide_prompt: "Указать промпт"
@@ -227,6 +232,11 @@ ru:
           few: "Сгенерировать видео (%{count} кредита)"
           many: "Сгенерировать видео (%{count} кредитов)"
           other: "Сгенерировать видео (%{count} кредитов)"
+        generate_cartoon_audio:
+          one: "Сгенерировать аудио (%{count} кредит)"
+          few: "Сгенерировать аудио (%{count} кредита)"
+          many: "Сгенерировать аудио (%{count} кредитов)"
+          other: "Сгенерировать аудио (%{count} кредитов)"
         generate_video:
           kling_2_1_pro_image_to_video:
             one: "Kling Pro 2.1 (%{count} кредит)"
@@ -265,6 +275,7 @@ ru:
           knox: "Knox"
           milo: "Milo"
           hope: "Hope"
+          lulu_lollipop: "Lulu Lollipop"
   errors:
     prompt_forgotten: "Пожалуйста, введи промпт ещё раз."
     extend_prompt_error: "К сожалению, не удалось обработать запрос. Попробуй позже."
@@ -318,3 +329,4 @@ ru:
             knox: "аудио Knox"
             milo: "аудио Milo"
             hope: "аудио Hope"
+            lulu_lollipop: "аудио Lulu Lollipop"

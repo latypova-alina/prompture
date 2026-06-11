@@ -33,7 +33,8 @@ module MediaGenerator
 
       memoize def prompt_message
         PromptMessage.create!(
-          prompt: video_prompt,
+          prompt: video_prompt_record.prompt,
+          video_prompt: video_prompt_record,
           parent_request:,
           command_request: command_prompt_to_video_request
         )
@@ -47,7 +48,7 @@ module MediaGenerator
         )
       end
 
-      memoize def video_prompt
+      memoize def video_prompt_record
         ScriptGenerator::ForCartoon::ProcessScriptVideoPrompt.call(script:)
       end
 

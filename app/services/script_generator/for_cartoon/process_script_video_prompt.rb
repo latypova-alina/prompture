@@ -14,7 +14,7 @@ module ScriptGenerator
       def call
         script.update!(video_prompt: video_prompt_record)
 
-        video_prompt_record.prompt
+        video_prompt_record
       end
 
       private

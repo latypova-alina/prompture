@@ -2,8 +2,8 @@ module Generator
   module Media
     module Audio
       module CreateTask
-        class ElevenlabsTurboPayloadStrategy
-          API_URL = "https://api.magnific.com/v1/ai/voiceover/elevenlabs-turbo-v2-5".freeze
+        class ElevenlabsV3PayloadStrategy
+          API_URL = "https://queue.fal.run/fal-ai/elevenlabs/tts/eleven-v3".freeze
 
           def initialize(prompt, voice_id)
             @prompt = prompt
@@ -13,7 +13,7 @@ module Generator
           def payload
             {
               text: prompt,
-              voice_id:
+              voice: voice_id
             }
           end
 

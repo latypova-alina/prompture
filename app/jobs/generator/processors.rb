@@ -21,7 +21,7 @@ module Generator
     ].freeze
 
     AUDIO = %w[
-      elevenlabs_turbo_v2_5_audio
+      elevenlabs_v3_audio
     ].freeze
   end
 end

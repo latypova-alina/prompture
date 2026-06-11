@@ -1,5 +1,5 @@
 default: &default
-  elevenlabs_turbo_v2_5_audio:
+  elevenlabs_v3_audio:
     adam:
       voice_id: hIssydxXZ1WuDorjx6Ic
     victoria:
@@ -10,6 +10,8 @@ default: &default
       voice_id: GUDYcgRAONiI1nXDcNQQ
     hope:
       voice_id: tnSpp4vdxKPjI9w0GnoV
+    lulu_lollipop:
+      voice_id: ocZQ262SsZb9RIxcQBOj
 
 development:
   <<: *default

@@ -1,7 +1,7 @@
 module RecordCreators
   module ButtonRequests
     module Audio
-      class ElevenlabsTurbo < RecordCreators::Base
+      class ElevenlabsV3 < RecordCreators::Base
         def initialize(parent_request, command_request, voice:)
           @voice = voice.to_s
           super(parent_request, command_request)
@@ -22,7 +22,7 @@ module RecordCreators
         attr_reader :voice
 
         def processor
-          "elevenlabs_turbo_v2_5_audio"
+          "elevenlabs_v3_audio"
         end
       end
     end

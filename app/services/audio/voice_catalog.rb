@@ -1,6 +1,6 @@
 module Audio
   class VoiceCatalog
-    DEFAULT_PROCESSOR = :elevenlabs_turbo_v2_5_audio
+    DEFAULT_PROCESSOR = :elevenlabs_v3_audio
     DEFAULT_VOICE_SLUG = :adam
 
     class << self

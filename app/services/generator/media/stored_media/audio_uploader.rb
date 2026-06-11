@@ -27,8 +27,15 @@ module Generator
         delegate :downloaded_bytes, to: :remote_url_downloader
 
         memoize def upload_facade
-          StoreMedia::Upload::Facade.new(bytes: downloaded_bytes, filename:, folder: "audio")
+          StoreMedia::Upload::Facade.new(bytes: downloaded_bytes, filename:, folder:)
         end
+
+        def folder
+          ContentCategory.audio_bucket_folder(category)
+        end
+
+        delegate :category, to: :command_request, allow_nil: true
+        delegate :command_request, to: :record
 
         memoize def remote_url_downloader
           StoreImage::Download::RemoteUrlDownloader.new(media_url)

@@ -10,9 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2026_06_10_150000) do
+ActiveRecord::Schema[8.0].define(version: 2026_06_10_190000) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
+
+  create_table "audio_prompts", force: :cascade do |t|
+    t.text "prompt", null: false
+    t.bigint "video_prompt_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["video_prompt_id"], name: "index_audio_prompts_on_video_prompt_id"
+  end
 
   create_table "balance_transactions", force: :cascade do |t|
     t.integer "amount", null: false
@@ -57,6 +65,8 @@ ActiveRecord::Schema[8.0].define(version: 2026_06_10_150000) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "voice", default: "adam", null: false
+    t.bigint "audio_prompt_id"
+    t.index ["audio_prompt_id"], name: "index_button_audio_processing_requests_on_audio_prompt_id"
     t.index ["command_request_type", "command_request_id"], name: "index_button_audio_processing_requests_on_command_request"
     t.index ["parent_request_type", "parent_request_id"], name: "index_button_audio_processing_requests_on_parent_request"
   end
@@ -130,6 +140,8 @@ ActiveRecord::Schema[8.0].define(version: 2026_06_10_150000) do
     t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "category"
+    t.index ["category"], name: "index_command_prompt_to_audio_requests_on_category"
     t.index ["user_id"], name: "index_command_prompt_to_audio_requests_on_user_id"
   end
 
@@ -184,9 +196,11 @@ ActiveRecord::Schema[8.0].define(version: 2026_06_10_150000) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "subcategory"
+    t.bigint "video_prompt_id"
     t.index ["command_request_type", "command_request_id"], name: "index_prompt_messages_on_command_request"
     t.index ["parent_request_type", "parent_request_id"], name: "index_prompt_messages_on_parent_request"
     t.index ["subcategory"], name: "index_prompt_messages_on_subcategory"
+    t.index ["video_prompt_id"], name: "index_prompt_messages_on_video_prompt_id"
   end
 
   create_table "scripts", force: :cascade do |t|
@@ -296,14 +310,17 @@ ActiveRecord::Schema[8.0].define(version: 2026_06_10_150000) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "audio_prompts", "video_prompts"
   add_foreign_key "balance_transactions", "users"
   add_foreign_key "balances", "users"
+  add_foreign_key "button_audio_processing_requests", "audio_prompts"
   add_foreign_key "command_edit_image_requests", "image_prompts"
   add_foreign_key "command_edit_image_requests", "users"
   add_foreign_key "command_image_to_video_requests", "users"
   add_foreign_key "command_prompt_to_audio_requests", "users"
   add_foreign_key "command_prompt_to_image_requests", "users"
   add_foreign_key "command_prompt_to_video_requests", "users"
+  add_foreign_key "prompt_messages", "video_prompts"
   add_foreign_key "scripts", "image_prompts"
   add_foreign_key "scripts", "video_prompts"
   add_foreign_key "stored_images", "image_prompts"

@@ -5,8 +5,10 @@ module Generator
         class TaskCreator < Generator::Media::CreateTask::TaskCreatorBase
           private
 
-          def api_client_class
-            ApiClient
+          delegate :webhook_url, to: :payload_composer
+
+          def api_client
+            Generator::Media::Image::CreateTask::FalApiClient.new(api_url, final_payload, webhook_url)
           end
 
           def payload_composer_class

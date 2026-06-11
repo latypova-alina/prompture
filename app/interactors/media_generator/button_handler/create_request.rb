@@ -17,7 +17,7 @@ module MediaGenerator
         "veo3_1_lite_image_to_video" => RecordCreators::ButtonRequests::Videos::Veo31Lite
       }.freeze
 
-      AUDIO_VOICE_HANDLER = RecordCreators::ButtonRequests::Audio::ElevenlabsTurbo
+      AUDIO_VOICE_HANDLER = RecordCreators::ButtonRequests::Audio::ElevenlabsV3
 
       def call
         context.button_request_record = record
