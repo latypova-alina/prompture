@@ -32,10 +32,6 @@ module ScriptGenerator
         response_payload[response_payload_key].to_s.strip.presence
       end
 
-      def response_payload
-        parsed_json_body || {}
-      end
-
       def response_payload_key
         raise NotImplementedError
       end

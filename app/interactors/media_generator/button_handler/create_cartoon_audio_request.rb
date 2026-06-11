@@ -18,6 +18,9 @@ module MediaGenerator
       private
 
       delegate :chat_id, :user, to: :command_request
+      delegate :command_request, to: :parent_request
+
+      memoize :command_request
 
       memoize def audio_prompt_record
         ScriptGenerator::ForCartoon::ProcessScriptAudioPrompt.call(
@@ -43,10 +46,6 @@ module MediaGenerator
           user:,
           category: ContentCategory::CARTOON_SCRIPT
         )
-      end
-
-      memoize def command_request
-        parent_request.command_request
       end
     end
   end

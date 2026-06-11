@@ -6,6 +6,16 @@ module MediaGenerator
 
       delegate :command_request, :parent_request, to: :context
 
+      # parent_request is a ButtonVideoProcessingRequest
+      # the request tied to the message the button was pressed on
+      delegate :prompt_message, to: :parent_request
+      delegate :video_prompt, to: :prompt_message
+      delegate :script, to: :video_prompt
+
+      memoize :prompt_message, :video_prompt, :script
+
+      private :prompt_message, :video_prompt, :script
+
       def call
         context.script = script
         context.video_prompt = video_prompt
@@ -13,22 +23,6 @@ module MediaGenerator
         return if command_request.cartoon_script? && script.present?
 
         context.fail!(error: CommandUnknownError)
-      end
-
-      private
-
-      memoize def video_prompt
-        prompt_message.video_prompt
-      end
-
-      memoize def script
-        video_prompt.script
-      end
-
-      # parent_request is a ButtonVideoProcessingRequest
-      # the request tied to the message the button was pressed on
-      memoize def prompt_message
-        parent_request.prompt_message
       end
     end
   end

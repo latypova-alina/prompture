@@ -18,6 +18,10 @@ module ScriptGenerator
       nil
     end
 
+    def response_payload
+      parsed_json_body || {}
+    end
+
     def response
       raise NotImplementedError
     end
