@@ -2,7 +2,7 @@ module MediaGenerator
   module ButtonRequestPresenters
     module VideoProcessedMessage
       class PresenterSelector
-        DEFAULT_PRESENTER = ::MediaGenerator::ButtonRequestPresenters::VideoProcessedMessagePresenter.freeze
+        DEFAULT_PRESENTER = ::MediaGenerator::ButtonRequestPresenters::VideoProcessedMessagePresenter
 
         def initialize(context:)
           @context = context
