@@ -13,16 +13,14 @@ module ScriptGenerator
       end
 
       def call
-        video_prompt.audio_prompts.create!(prompt: audio_prompt)
+        video_prompt.audio_prompts.create!(prompt:)
       end
 
       private
 
       attr_reader :script_text, :video_prompt
 
-      memoize def audio_prompt
-        audio_prompt_context.audio_prompt
-      end
+      delegate :prompt, to: :audio_prompt_context
 
       memoize def audio_prompt_context
         AudioPromptContext.new(script_text:)

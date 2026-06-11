@@ -26,10 +26,6 @@ module ScriptGenerator
         response_payload["script"].to_s
       end
 
-      def response_payload
-        parsed_json_body || {}
-      end
-
       memoize def response
         connection.get("/motivation_script", { language: })
       end

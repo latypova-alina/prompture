@@ -28,7 +28,7 @@ module ScriptGenerator
       end
 
       memoize def video_prompt
-        video_prompt_context.video_prompt
+        video_prompt_context.prompt
       end
 
       memoize def video_prompt_context

@@ -22,9 +22,11 @@ module MediaGenerator
       end
 
       memoize def script
-        video_prompt&.script
+        video_prompt.script
       end
 
+      # parent_request is a ButtonVideoProcessingRequest
+      # the request tied to the message the button was pressed on
       memoize def prompt_message
         parent_request.prompt_message
       end

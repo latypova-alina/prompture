@@ -2,6 +2,8 @@ module MediaGenerator
   module ButtonRequestPresenters
     module VideoProcessedMessage
       class PresenterSelector
+        DEFAULT_PRESENTER = ::MediaGenerator::ButtonRequestPresenters::VideoProcessedMessagePresenter.freeze
+
         def initialize(context:)
           @context = context
         end
@@ -23,11 +25,9 @@ module MediaGenerator
         private
 
         def presenter_class
-          if command_request.cartoon_script?
-            ForCartoonScript
-          else
-            ::MediaGenerator::ButtonRequestPresenters::VideoProcessedMessagePresenter
-          end
+          return ForCartoonScript if command_request.cartoon_script?
+
+          DEFAULT_PRESENTER
         end
       end
     end

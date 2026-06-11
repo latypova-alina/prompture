@@ -8,7 +8,7 @@ module ScriptGenerator
       def call
         handle_error
 
-        response_payload
+        parsed_json_body || {}
       rescue Faraday::Error => e
         raise ScriptGeneratorRequestError, e.message
       end
@@ -17,10 +17,6 @@ module ScriptGenerator
 
       def handle_error
         raise ScriptGeneratorRequestError unless response.success?
-      end
-
-      def response_payload
-        parsed_json_body || {}
       end
 
       memoize def response

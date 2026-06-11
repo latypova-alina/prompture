@@ -4,9 +4,11 @@ module Generator
       private
 
       def media_urls
-        url = payload.dig(:audio, :url)
-
         url.present? ? [url] : []
+      end
+
+      def url
+        payload.dig(:audio, :url)
       end
     end
   end

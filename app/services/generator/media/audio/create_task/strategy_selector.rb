@@ -11,14 +11,20 @@ module Generator
             strategies.fetch(processor).new(prompt, request.voice_id)
           end
 
+          private
+
           def prompt
-            return request.audio_prompt.prompt if request.audio_prompt.present?
+            return audio_prompt_text if audio_prompt_text.present?
 
             super
           end
 
           def strategies
             STRATEGIES
+          end
+
+          memoize def audio_prompt_text
+            request.audio_prompt&.prompt
           end
         end
       end
