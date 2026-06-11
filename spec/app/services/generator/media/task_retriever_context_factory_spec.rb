@@ -24,6 +24,17 @@ describe Generator::Media::TaskRetrieverContext do
       end
     end
 
+    Generator::Processors::AUDIO.each do |audio_processor|
+      context "when processor is #{audio_processor}" do
+        let(:params) { ActionController::Parameters.new(processor: audio_processor) }
+
+        it "returns FalAudioTaskRetrieverContext" do
+          expect(described_class.for(params:))
+            .to be_a(Generator::Media::FalAudioTaskRetrieverContext)
+        end
+      end
+    end
+
     context "when processor uses freepik webhook" do
       let(:params) { ActionController::Parameters.new(processor: "extend_prompt") }
 

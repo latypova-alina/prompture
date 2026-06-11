@@ -9,13 +9,14 @@ describe Generator::Media::Audio::CreateTask::TaskCreator do
   let(:strategy_instance) { instance_double("Strategy", api_url: api_url) }
 
   let(:payload_composer_instance) { instance_double(Generator::Media::Audio::CreateTask::PayloadComposer) }
-  let(:final_payload) { { text: "Hello", voice_id: "", webhook_url: "https://example.com/webhook" } }
+  let(:final_payload) { { text: "Hello", voice: "voice-id", webhook_url: "https://example.com/webhook" } }
 
-  let(:api_client_instance) { instance_double(Generator::Media::Audio::CreateTask::ApiClient) }
+  let(:api_client_instance) { instance_double(Generator::Media::Image::CreateTask::FalApiClient) }
   let(:response) { instance_double("Response", success?: success, status:) }
 
-  let(:api_url) { "https://api.magnific.com/v1/ai/voiceover/elevenlabs-turbo-v2-5" }
+  let(:api_url) { "https://queue.fal.run/fal-ai/elevenlabs/tts/eleven-v3" }
   let(:status) { 200 }
+  let(:webhook_url) { "https://example.com/webhook" }
 
   before do
     allow(Generator::Media::Audio::CreateTask::StrategySelector)
@@ -33,12 +34,11 @@ describe Generator::Media::Audio::CreateTask::TaskCreator do
       .and_return(payload_composer_instance)
 
     allow(payload_composer_instance)
-      .to receive(:final_payload)
-      .and_return(final_payload)
+      .to receive_messages(final_payload:, webhook_url:)
 
-    allow(Generator::Media::Audio::CreateTask::ApiClient)
+    allow(Generator::Media::Image::CreateTask::FalApiClient)
       .to receive(:new)
-      .with(api_url, final_payload)
+      .with(api_url, final_payload, webhook_url)
       .and_return(api_client_instance)
 
     allow(api_client_instance)

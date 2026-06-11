@@ -4,7 +4,7 @@ RSpec.describe ButtonAudioProcessingRequest do
   subject(:request) { build(:button_audio_processing_request, voice:, processor:) }
 
   let(:voice) { "adam" }
-  let(:processor) { "elevenlabs_turbo_v2_5_audio" }
+  let(:processor) { "elevenlabs_v3_audio" }
 
   describe "validations" do
     it "is valid with a known voice" do
@@ -29,7 +29,7 @@ RSpec.describe ButtonAudioProcessingRequest do
 
   describe "#cost" do
     it "uses processor pricing" do
-      expect(request.cost).to eq(COSTS[:generate_audio][:elevenlabs_turbo_v2_5_audio])
+      expect(request.cost).to eq(COSTS[:generate_audio][:elevenlabs_v3_audio])
     end
   end
 end

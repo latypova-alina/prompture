@@ -26,7 +26,7 @@ describe Generator::Processors do
 
     it "defines audio processors" do
       expect(described_class::AUDIO).to eq(
-        %w[elevenlabs_turbo_v2_5_audio]
+        %w[elevenlabs_v3_audio]
       )
     end
   end

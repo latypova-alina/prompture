@@ -23,9 +23,9 @@ describe ScriptGenerator::ForCartoon::ImagePromptContext do
     ).and_return(response)
   end
 
-  describe "#image_prompt" do
+  describe "#prompt" do
     it "returns image_prompt from response body" do
-      expect(image_prompt_context.image_prompt).to eq(image_prompt)
+      expect(image_prompt_context.prompt).to eq(image_prompt)
     end
 
     it "posts script_text to the API" do
@@ -33,7 +33,7 @@ describe ScriptGenerator::ForCartoon::ImagePromptContext do
       allow(request).to receive(:body=)
       allow(connection).to receive(:post).with("/generate_image_prompt").and_yield(request).and_return(response)
 
-      image_prompt_context.image_prompt
+      image_prompt_context.prompt
 
       expect(request).to have_received(:body=).with({ script_text: }.to_json)
     end
@@ -42,7 +42,7 @@ describe ScriptGenerator::ForCartoon::ImagePromptContext do
       let(:response) { instance_double(Faraday::Response, success?: false, body: "service unavailable") }
 
       it "raises ScriptGeneratorRequestError" do
-        expect { image_prompt_context.image_prompt }.to raise_error(ScriptGeneratorRequestError)
+        expect { image_prompt_context.prompt }.to raise_error(ScriptGeneratorRequestError)
       end
     end
 
@@ -52,7 +52,7 @@ describe ScriptGenerator::ForCartoon::ImagePromptContext do
       end
 
       it "raises ScriptGeneratorRequestError" do
-        expect { image_prompt_context.image_prompt }.to raise_error(ScriptGeneratorRequestError)
+        expect { image_prompt_context.prompt }.to raise_error(ScriptGeneratorRequestError)
       end
     end
 
@@ -62,7 +62,7 @@ describe ScriptGenerator::ForCartoon::ImagePromptContext do
       end
 
       it "raises ScriptGeneratorRequestError" do
-        expect { image_prompt_context.image_prompt }.to raise_error(ScriptGeneratorRequestError, "timeout")
+        expect { image_prompt_context.prompt }.to raise_error(ScriptGeneratorRequestError, "timeout")
       end
     end
   end

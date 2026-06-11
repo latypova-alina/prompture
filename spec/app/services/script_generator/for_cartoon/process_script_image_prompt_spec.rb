@@ -13,7 +13,7 @@ describe ScriptGenerator::ForCartoon::ProcessScriptImagePrompt do
     allow(ScriptGenerator::ForCartoon::ImagePromptContext).to receive(:new)
       .with(script_text: script.script_text)
       .and_return(image_prompt_context)
-    allow(image_prompt_context).to receive(:image_prompt).and_return("Generated image prompt")
+    allow(image_prompt_context).to receive(:prompt).and_return("Generated image prompt")
     allow(script_processor).to receive(:call)
   end
 
@@ -28,6 +28,6 @@ describe ScriptGenerator::ForCartoon::ProcessScriptImagePrompt do
   it "fetches the image prompt from the API once" do
     process_script_image_prompt
 
-    expect(image_prompt_context).to have_received(:image_prompt).once
+    expect(image_prompt_context).to have_received(:prompt).once
   end
 end

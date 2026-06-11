@@ -34,7 +34,7 @@ describe MediaGenerator::ButtonHandler::HandleGenerateCartoonVideoButton do
     )
   end
   let(:video_prompt) { "Camera slowly zooms in as Bloomy waves." }
-  let(:video_prompt_context) { instance_double(ScriptGenerator::ForCartoon::VideoPromptContext, video_prompt:) }
+  let(:video_prompt_context) { instance_double(ScriptGenerator::ForCartoon::VideoPromptContext, prompt: video_prompt) }
 
   before do
     script
@@ -63,6 +63,7 @@ describe MediaGenerator::ButtonHandler::HandleGenerateCartoonVideoButton do
     expect(video_request.image_url).to eq("https://example.com/scene.png")
     expect(video_request.parent_request).to be_a(PromptMessage)
     expect(video_request.parent_request.prompt).to eq(video_prompt)
+    expect(video_request.parent_request.video_prompt).to eq(script.reload.video_prompt)
     expect(script.reload.video_prompt.prompt).to eq(video_prompt)
 
     expect(Generator::Media::Video::TaskCreatorJob)
