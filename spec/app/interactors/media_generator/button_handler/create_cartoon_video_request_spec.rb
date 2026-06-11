@@ -30,12 +30,13 @@ describe MediaGenerator::ButtonHandler::CreateCartoonVideoRequest do
     )
   end
   let(:video_prompt) { "Camera slowly zooms in as Bloomy waves." }
+  let(:video_prompt_record) { create(:video_prompt, prompt: video_prompt) }
 
   before do
     allow(ScriptGenerator::ForCartoon::ProcessScriptVideoPrompt)
       .to receive(:call)
       .with(script:)
-      .and_return(video_prompt)
+      .and_return(video_prompt_record)
   end
 
   it "creates records and sets context for video generation" do
@@ -53,6 +54,7 @@ describe MediaGenerator::ButtonHandler::CreateCartoonVideoRequest do
     expect(video_request.image_url).to eq("https://example.com/scene.png")
     expect(video_request.parent_request).to be_a(PromptMessage)
     expect(video_request.parent_request.prompt).to eq(video_prompt)
+    expect(video_request.parent_request.video_prompt).to eq(video_prompt_record)
     expect(video_request.command_request).to be_a(CommandPromptToVideoRequest)
     expect(video_request.command_request.category).to eq(ContentCategory::CARTOON_SCRIPT)
     expect(video_request.command_request.user).to eq(user)

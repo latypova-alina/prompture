@@ -3,7 +3,7 @@ require "rails_helper"
 RSpec.describe Audio::VoiceCatalog do
   describe ".slugs" do
     it "returns configured voice slugs for the default processor" do
-      expect(described_class.slugs).to eq(%i[adam victoria knox milo hope])
+      expect(described_class.slugs).to eq(%i[adam victoria knox milo hope lulu_lollipop])
     end
   end
 

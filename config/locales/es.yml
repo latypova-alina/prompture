@@ -198,12 +198,18 @@ es:
           hope:
             one: "Hope (%{count} crédito)"
             other: "Hope (%{count} créditos)"
+          lulu_lollipop:
+            one: "Lulu Lollipop (%{count} crédito)"
+            other: "Lulu Lollipop (%{count} créditos)"
         get_audio_samples: "Escuchar muestras"
         image_to_video:
           provide_prompt: "Proporcionar prompt"
         generate_cartoon_video:
           one: "Generar video (%{count} crédito)"
           other: "Generar video (%{count} créditos)"
+        generate_cartoon_audio:
+          one: "Generar audio (%{count} crédito)"
+          other: "Generar audio (%{count} créditos)"
         generate_video:
           kling_2_1_pro_image_to_video:
             one: "Kling Pro 2.1 (%{count} crédito)"
@@ -234,6 +240,7 @@ es:
           knox: "Knox"
           milo: "Milo"
           hope: "Hope"
+          lulu_lollipop: "Lulu Lollipop"
   errors:
     prompt_forgotten: "Por favor, proporciona el prompt nuevamente"
     extend_prompt_error: "Lo siento, no pude procesar tu solicitud. Por favor, inténtalo de nuevo más tarde."
@@ -287,6 +294,7 @@ es:
             knox: "audio de Knox"
             milo: "audio de Milo"
             hope: "audio de Hope"
+            lulu_lollipop: "audio de Lulu Lollipop"
 
 
 

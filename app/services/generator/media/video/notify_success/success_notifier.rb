@@ -20,6 +20,7 @@ module Generator::Media::Video::NotifySuccess
     private
 
     delegate :reply_data, to: :presenter
+    delegate :presenter, to: :presenter_factory
     delegate :user, to: :request
     delegate :balance, to: :user
     delegate :credits, to: :balance, prefix: true
@@ -34,14 +35,8 @@ module Generator::Media::Video::NotifySuccess
       request.update!(status: "COMPLETED", video_url:)
     end
 
-    memoize def presenter
-      MediaGenerator::ButtonRequestPresenters::VideoProcessedMessagePresenter.new(
-        message: video_url,
-        balance: balance_credits,
-        locale:,
-        processor_name: humanized_process_name,
-        processor:
-      )
+    def presenter_factory
+      PresenterFactory.new(video_url:, request:, balance: balance_credits)
     end
 
     memoize def request

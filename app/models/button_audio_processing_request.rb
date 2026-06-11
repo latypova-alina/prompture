@@ -1,11 +1,12 @@
 class ButtonAudioProcessingRequest < ApplicationRecord
   include HasOriginPrompt
 
-  PROCESSOR_TYPES = %w[elevenlabs_turbo_v2_5_audio].freeze
+  PROCESSOR_TYPES = %w[elevenlabs_v3_audio].freeze
   VOICE_TYPES = Audio::VoiceCatalog.slugs.map(&:to_s).freeze
 
   belongs_to :parent_request, polymorphic: true
   belongs_to :command_request, polymorphic: true
+  belongs_to :audio_prompt, optional: true
 
   has_one :bot_telegram_message, as: :request, dependent: :destroy
 

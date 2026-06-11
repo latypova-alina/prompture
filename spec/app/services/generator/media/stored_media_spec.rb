@@ -65,7 +65,7 @@ describe Generator::Media::StoredMedia::Retriever do
     end
 
     context "when processor is audio" do
-      let(:processor) { "elevenlabs_turbo_v2_5_audio" }
+      let(:processor) { "elevenlabs_v3_audio" }
       let!(:button_request) { create(:button_audio_processing_request) }
       let(:uploader) { instance_double(Generator::Media::StoredMedia::AudioUploader, stored_url: uploaded_url) }
 

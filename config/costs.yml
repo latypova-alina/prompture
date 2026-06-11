@@ -10,7 +10,7 @@ default: &default
     hailuo_02_standard_image_to_video: 6
     veo3_1_lite_image_to_video: 5
   generate_audio:
-    elevenlabs_turbo_v2_5_audio: 1
+    elevenlabs_v3_audio: 1
   prompt:
     extend_prompt: 1
 
@@ -30,7 +30,7 @@ test:
     hailuo_02_standard_image_to_video: 6
     veo3_1_lite_image_to_video: 5
   generate_audio:
-    elevenlabs_turbo_v2_5_audio: 1
+    elevenlabs_v3_audio: 1
   prompt:
     extend_prompt: 1
 

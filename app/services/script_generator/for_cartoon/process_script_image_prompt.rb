@@ -25,7 +25,7 @@ module ScriptGenerator
       delegate :script_text, to: :script
 
       memoize def image_prompt
-        image_prompt_context.image_prompt
+        image_prompt_context.prompt
       end
 
       memoize def image_prompt_record

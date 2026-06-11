@@ -23,9 +23,9 @@ describe ScriptGenerator::ForCartoon::VideoPromptContext do
     ).and_return(response)
   end
 
-  describe "#video_prompt" do
+  describe "#prompt" do
     it "returns video_prompt from response body" do
-      expect(video_prompt_context.video_prompt).to eq(video_prompt)
+      expect(video_prompt_context.prompt).to eq(video_prompt)
     end
 
     it "posts script_text to the API" do
@@ -33,7 +33,7 @@ describe ScriptGenerator::ForCartoon::VideoPromptContext do
       allow(request).to receive(:body=)
       allow(connection).to receive(:post).with("/generate_video_prompt").and_yield(request).and_return(response)
 
-      video_prompt_context.video_prompt
+      video_prompt_context.prompt
 
       expect(request).to have_received(:body=).with({ script_text: }.to_json)
     end
@@ -42,7 +42,7 @@ describe ScriptGenerator::ForCartoon::VideoPromptContext do
       let(:response) { instance_double(Faraday::Response, success?: false, body: "service unavailable") }
 
       it "raises ScriptGeneratorRequestError" do
-        expect { video_prompt_context.video_prompt }.to raise_error(ScriptGeneratorRequestError)
+        expect { video_prompt_context.prompt }.to raise_error(ScriptGeneratorRequestError)
       end
     end
 
@@ -52,7 +52,7 @@ describe ScriptGenerator::ForCartoon::VideoPromptContext do
       end
 
       it "raises ScriptGeneratorRequestError" do
-        expect { video_prompt_context.video_prompt }.to raise_error(ScriptGeneratorRequestError)
+        expect { video_prompt_context.prompt }.to raise_error(ScriptGeneratorRequestError)
       end
     end
 
@@ -62,7 +62,7 @@ describe ScriptGenerator::ForCartoon::VideoPromptContext do
       end
 
       it "raises ScriptGeneratorRequestError" do
-        expect { video_prompt_context.video_prompt }.to raise_error(ScriptGeneratorRequestError, "timeout")
+        expect { video_prompt_context.prompt }.to raise_error(ScriptGeneratorRequestError, "timeout")
       end
     end
   end

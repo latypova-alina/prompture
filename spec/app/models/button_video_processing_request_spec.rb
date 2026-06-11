@@ -73,6 +73,15 @@ describe ButtonVideoProcessingRequest, type: :model do
     end
   end
 
+  describe "#prompt_message" do
+    let(:prompt_message) { create(:prompt_message) }
+    let(:record) { create(:button_video_processing_request, parent_request: prompt_message) }
+
+    it "returns the parent prompt message" do
+      expect(record.prompt_message).to eq(prompt_message)
+    end
+  end
+
   describe "#resolved_image_url" do
     context "when parent has resolved image url" do
       let(:image_parent_request) do

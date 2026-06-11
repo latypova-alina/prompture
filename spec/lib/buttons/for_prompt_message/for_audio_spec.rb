@@ -11,6 +11,7 @@ describe Buttons::ForPromptMessage::ForAudio do
         [{ callback_data: "knox", text: "Knox (1 credit)" }],
         [{ callback_data: "milo", text: "Milo (1 credit)" }],
         [{ callback_data: "hope", text: "Hope (1 credit)" }],
+        [{ callback_data: "lulu_lollipop", text: "Lulu Lollipop (1 credit)" }],
         [{ callback_data: "get_audio_samples", text: "Get samples" }]
       ]
     )

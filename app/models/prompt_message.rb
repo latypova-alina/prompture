@@ -4,6 +4,7 @@ class PromptMessage < ApplicationRecord
 
   belongs_to :parent_request, polymorphic: true
   belongs_to :command_request, polymorphic: true
+  belongs_to :video_prompt, optional: true
 
   delegate :chat_id, to: :command_request
 

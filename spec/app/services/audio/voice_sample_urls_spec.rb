@@ -12,7 +12,7 @@ RSpec.describe Audio::VoiceSampleUrls do
   describe ".samples" do
     it "returns a sample entry for each configured voice" do
       expect(described_class.samples.map { |sample| sample[:slug] })
-        .to eq(%w[adam victoria knox milo hope])
+        .to eq(%w[adam victoria knox milo hope lulu_lollipop])
     end
   end
 end

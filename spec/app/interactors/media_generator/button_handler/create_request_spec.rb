@@ -64,7 +64,7 @@ describe MediaGenerator::ButtonHandler::CreateRequest do
 
   context "when button_request is an audio voice slug" do
     let(:button_request) { "milo" }
-    let(:record_creator_class) { RecordCreators::ButtonRequests::Audio::ElevenlabsTurbo }
+    let(:record_creator_class) { RecordCreators::ButtonRequests::Audio::ElevenlabsV3 }
     let(:record) { create(:button_audio_processing_request, voice: button_request) }
     let(:command_request) { create(:command_prompt_to_audio_request) }
 

@@ -30,4 +30,8 @@ class ButtonVideoProcessingRequest < ApplicationRecord
   def resolved_image_url
     origin_image_url
   end
+
+  def prompt_message
+    parent_request
+  end
 end

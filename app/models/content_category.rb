@@ -17,6 +17,10 @@ class ContentCategory
     MOTIVATION => "videos/motivation"
   }.freeze
 
+  AUDIO_BUCKET_FOLDERS = {
+    CARTOON_SCRIPT => "cartoon/audio"
+  }.freeze
+
   CATEGORY_FORMAT = /\A[a-z0-9_]+\z/
 
   class << self
@@ -30,6 +34,10 @@ class ContentCategory
 
     def video_bucket_folder(category)
       VIDEO_BUCKET_FOLDERS[category.to_s]
+    end
+
+    def audio_bucket_folder(category)
+      AUDIO_BUCKET_FOLDERS.fetch(category.to_s, "audio")
     end
 
     def normalize(value)
