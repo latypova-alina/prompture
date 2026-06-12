@@ -4,7 +4,7 @@ module MediaGenerator
       include Interactor::Organizer
 
       organize FindParentRequest, FindCommandRequest, ValidateCartoonScriptRequest,
-               CreateCartoonVideoRequest, DecrementBalance, NotifyProcessingStarted,
+               AcknowledgeCallbackQuery, CreateCartoonVideoRequest, DecrementBalance,
                SendGenerationTask
     end
   end

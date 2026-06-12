@@ -50,6 +50,24 @@ describe MediaGenerator::ButtonHandler::HandleGenerateCartoonVideoButton do
     allow(TelegramIntegration::SendAnswerCallbackQuery).to receive(:call)
   end
 
+  it "shows the processing toast before script generation" do
+    allow(ScriptGenerator::ForCartoon::ProcessScriptVideoPrompt).to receive(:call).and_wrap_original do |method, **args|
+      expect(TelegramIntegration::SendAnswerCallbackQuery)
+        .to have_received(:call)
+        .with(
+          callback_query_id: "callback-123",
+          process_name: I18n.t(
+            "telegram.generation.humanized_process_names.video.veo3_1_lite_image_to_video",
+            locale: user.locale
+          )
+        )
+
+      method.call(**args)
+    end
+
+    result
+  end
+
   it "creates a veo video request and enqueues generation" do
     expect { result }
       .to change(ButtonVideoProcessingRequest, :count).by(1)

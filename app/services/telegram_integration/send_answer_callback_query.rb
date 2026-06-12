@@ -4,9 +4,10 @@ module TelegramIntegration
       new(...).call
     end
 
-    def initialize(callback_query_id:, button_request:)
+    def initialize(callback_query_id:, button_request: nil, process_name: nil)
       @callback_query_id = callback_query_id
       @button_request = button_request
+      @explicit_process_name = process_name
     end
 
     def call
@@ -15,12 +16,16 @@ module TelegramIntegration
         text: I18n.t("telegram.generation.processing", process_name: humanized_process_name),
         show_alert: false
       )
+    rescue Telegram::Bot::Error
+      nil
     end
 
     private
 
-    attr_reader :callback_query_id, :button_request
+    attr_reader :callback_query_id, :button_request, :explicit_process_name
 
-    delegate :humanized_process_name, to: :button_request
+    def humanized_process_name
+      explicit_process_name || button_request.humanized_process_name
+    end
   end
 end
