@@ -4,6 +4,7 @@ module Generator
       module CreateTask
         class FfmpegMergeAudioVideoPayloadStrategy
           API_URL = "https://queue.fal.run/fal-ai/ffmpeg-api/merge-audio-video".freeze
+          START_OFFSET = 1
 
           def initialize(video_url:, audio_url:)
             @video_url = video_url
@@ -13,7 +14,8 @@ module Generator
           def payload
             {
               video_url:,
-              audio_url:
+              audio_url:,
+              start_offset: START_OFFSET
             }
           end
 
