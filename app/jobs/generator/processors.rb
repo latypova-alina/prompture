@@ -23,5 +23,9 @@ module Generator
     AUDIO = %w[
       elevenlabs_v3_audio
     ].freeze
+
+    MERGE = %w[
+      ffmpeg_merge_audio_video
+    ].freeze
   end
 end

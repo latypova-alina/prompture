@@ -8,6 +8,7 @@ module MediaGenerator
 
       def call
         return perform_audio_generator_job if audio_request?
+        return perform_merge_generator_job if merge_request?
 
         case button_request
         when Generator::Processors::PROMPT_EXTENSION
@@ -43,8 +44,16 @@ module MediaGenerator
         Generator::Media::Audio::TaskCreatorJob.perform_async(button_request_id)
       end
 
+      def perform_merge_generator_job
+        Generator::Media::Merge::TaskCreatorJob.perform_async(button_request_id)
+      end
+
       def audio_request?
         button_request_record.is_a?(ButtonAudioProcessingRequest)
+      end
+
+      def merge_request?
+        button_request_record.is_a?(ButtonMergeAudioVideoProcessingRequest)
       end
 
       memoize def button_request_id

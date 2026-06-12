@@ -34,7 +34,8 @@ module Generator
 
       def fal_processor?
         Generator::Processors::ALL_IMAGE.include?(processor) ||
-          Generator::Processors::VIDEO.include?(processor)
+          Generator::Processors::VIDEO.include?(processor) ||
+          Generator::Processors::MERGE.include?(processor)
       end
     end
   end

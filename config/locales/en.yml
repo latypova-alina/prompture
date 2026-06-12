@@ -153,6 +153,8 @@ en:
       image_generated_postfix: "You can now generate a video using one of the processors (Kling)"
       video_generated_prefix: "Here is your %{processor_name} 🎥"
       audio_generated_prefix: "Here is your %{processor_name} 🔊"
+      merge_processed_prefix: "Here is your %{processor_name} 🎬"
+      merge_processed: "Open merged video"
       prompt_suffix: |
         What do you want to do next? You can: 
         
@@ -210,6 +212,9 @@ en:
         generate_cartoon_audio:
           one: "Generate Audio (%{count} credit)"
           other: "Generate Audio (%{count} credits)"
+        merge_cartoon_audio_video:
+          one: "Merge Audio to Video (%{count} credit)"
+          other: "Merge Audio to Video (%{count} credits)"
         generate_video:
           kling_2_1_pro_image_to_video:
             one: "Kling Pro 2.1 (%{count} credit)"
@@ -253,6 +258,7 @@ en:
     image_generating_timeout_error: "Sorry, the image generation is taking too long. Please try again later."
     video_generating_error: "Sorry, I couldn't generate the video. Please try again later."
     audio_generating_error: "Sorry, I couldn't generate the audio. Please try again later."
+    merge_audio_video_error: "Sorry, I couldn't merge the audio and video. Please try again later."
     video_generating_timeout_error: "Sorry, the video generation is taking too long. Please try again later."
     command_unknown: "Oops! It looks like you haven’t selected a command yet. Please choose one and follow the instructions."
     unknown: "Oops! Something went wrong. Please try again later."
@@ -287,6 +293,8 @@ en:
           nano_banana_image: "NanoBanana image"
           nano_banana_edit_image: "NanoBanana edit"
           imagen_image: "Imagen image"
+        merge:
+          ffmpeg_merge_audio_video: "merged cartoon video"
         audio:
           voices:
             adam: "Adam audio"

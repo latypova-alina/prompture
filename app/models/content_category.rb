@@ -21,6 +21,10 @@ class ContentCategory
     CARTOON_SCRIPT => "cartoon/audio"
   }.freeze
 
+  MERGED_VIDEO_BUCKET_FOLDERS = {
+    CARTOON_SCRIPT => "cartoon/video/with_audio"
+  }.freeze
+
   CATEGORY_FORMAT = /\A[a-z0-9_]+\z/
 
   class << self
@@ -38,6 +42,10 @@ class ContentCategory
 
     def audio_bucket_folder(category)
       AUDIO_BUCKET_FOLDERS.fetch(category.to_s, "audio")
+    end
+
+    def merged_video_bucket_folder(category)
+      MERGED_VIDEO_BUCKET_FOLDERS.fetch(category.to_s, "videos/with_audio")
     end
 
     def normalize(value)

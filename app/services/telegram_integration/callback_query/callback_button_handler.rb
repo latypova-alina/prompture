@@ -36,6 +36,8 @@ module TelegramIntegration
           handle_generate_cartoon_video_button
         when ButtonActions::GENERATE_CARTOON_AUDIO
           handle_generate_cartoon_audio_button
+        when ButtonActions::MERGE_CARTOON_AUDIO_VIDEO
+          handle_merge_cartoon_audio_video_button
         else
           handle_media_button
         end
@@ -51,6 +53,10 @@ module TelegramIntegration
 
       def handle_generate_cartoon_audio_button
         MediaGenerator::ButtonHandler::HandleGenerateCartoonAudioButton.call(**media_button_handler_params)
+      end
+
+      def handle_merge_cartoon_audio_video_button
+        MediaGenerator::ButtonHandler::HandleMergeCartoonAudioVideoButton.call(**media_button_handler_params)
       end
 
       def handle_get_audio_samples

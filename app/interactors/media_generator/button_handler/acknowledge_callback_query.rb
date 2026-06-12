@@ -24,6 +24,8 @@ module MediaGenerator
           cartoon_video_process_name
         when ButtonActions::GENERATE_CARTOON_AUDIO
           cartoon_audio_process_name
+        when ButtonActions::MERGE_CARTOON_AUDIO_VIDEO
+          cartoon_merge_process_name
         end
       end
 
@@ -37,6 +39,13 @@ module MediaGenerator
       def cartoon_audio_process_name
         I18n.t(
           "telegram.generation.humanized_process_names.audio.voices.#{CreateCartoonAudioRequest::VOICE}",
+          locale:
+        )
+      end
+
+      def cartoon_merge_process_name
+        I18n.t(
+          "telegram.generation.humanized_process_names.merge.#{CreateCartoonMergeRequest::PROCESSOR}",
           locale:
         )
       end
