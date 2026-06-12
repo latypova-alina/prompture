@@ -3,32 +3,15 @@ require "rails_helper"
 describe ScriptGenerator::ForCartoon::ProcessCartoonShortsScript do
   subject(:process_cartoon_shorts_script) { described_class.call(chat_id: 456) }
 
-  let(:scenes_array) { ["Scene A", "Scene B", "Scene C"] }
-  let(:reference_image_url) { "https://example.com/bloomy.png" }
-  let(:cartoon_script_context) do
-    instance_double(
-      ScriptGenerator::ForCartoon::CartoonScriptContext,
-      reference_image_url:
-    )
-  end
-
   before do
-    allow(ScriptGenerator::ForCartoon::CartoonScriptContext).to receive(:new)
-      .and_return(cartoon_script_context)
-    allow(cartoon_script_context).to receive(:scenes).and_return(scenes_array)
-    allow(scenes_array).to receive(:sample).and_return("Scene B")
-    allow(ScriptGenerator::ForCartoon::ProcessScriptImagePrompts).to receive(:call)
+    allow(ScriptGenerator::ForCartoon::ProcessSingleCartoonScript).to receive(:call)
   end
 
-  it "creates one script from a random scene and processes image prompts for shorts" do
-    expect { process_cartoon_shorts_script }.to change(Script, :count).by(1)
+  it "delegates to ProcessSingleCartoonScript with shorts category" do
+    process_cartoon_shorts_script
 
-    script = Script.order(:id).last
-    expect(script.script_text).to eq("Scene B")
-    expect(ScriptGenerator::ForCartoon::ProcessScriptImagePrompts).to have_received(:call).with(
+    expect(ScriptGenerator::ForCartoon::ProcessSingleCartoonScript).to have_received(:call).with(
       chat_id: 456,
-      scripts: [script],
-      reference_image_url:,
       category: ContentCategory::CARTOON_SHORTS_SCRIPT
     )
   end

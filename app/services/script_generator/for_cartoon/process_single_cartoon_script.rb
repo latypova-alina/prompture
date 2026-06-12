@@ -25,15 +25,15 @@ module ScriptGenerator
 
       attr_reader :chat_id, :category
 
-      delegate :scenes, to: :cartoon_script_context
-      delegate :reference_image_url, to: :cartoon_script_context
+      delegate :scenes, to: :single_cartoon_script_context
+      delegate :reference_image_url, to: :single_cartoon_script_context
 
-      memoize def cartoon_script_context
-        CartoonScriptContext.new
+      memoize def single_cartoon_script_context
+        SingleCartoonScriptContext.new
       end
 
       memoize def scripts
-        [Script.create!(script_text: scenes.sample)]
+        scenes.map { |scene| Script.create!(script_text: scene) }
       end
     end
   end
