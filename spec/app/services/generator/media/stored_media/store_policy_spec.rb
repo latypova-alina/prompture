@@ -56,5 +56,14 @@ describe Generator::Media::StoredMedia::StorePolicy do
 
       it { is_expected.not_to be_needs_to_be_stored }
     end
+
+    context "when processor is merge with cartoon script category" do
+      let(:processor) { Generator::Processors::MERGE.first }
+      let(:command_request) do
+        create(:command_prompt_to_video_request, category: ContentCategory::CARTOON_SCRIPT)
+      end
+
+      it { is_expected.to be_needs_to_be_stored }
+    end
   end
 end

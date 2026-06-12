@@ -12,6 +12,8 @@ module Generator
             VideoUploader
           when *Generator::Processors::AUDIO
             AudioUploader
+          when *Generator::Processors::MERGE
+            MergedVideoUploader
           else
             Uploader
           end

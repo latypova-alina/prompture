@@ -154,6 +154,8 @@ ru:
       image_generated_postfix: "Теперь ты можешь сгенерировать видео с помощью одного из процессоров (Kling)"
       video_generated_prefix: "Вот твое %{processor_name} 🎥"
       audio_generated_prefix: "Вот твое %{processor_name} 🔊"
+      merge_processed_prefix: "Вот твое %{processor_name} 🎬"
+      merge_processed: "Открыть объединённое видео"
       prompt_suffix: | 
         Что ты хочешь сделать дальше? Ты можешь:
           
@@ -237,6 +239,11 @@ ru:
           few: "Сгенерировать аудио (%{count} кредита)"
           many: "Сгенерировать аудио (%{count} кредитов)"
           other: "Сгенерировать аудио (%{count} кредитов)"
+        merge_cartoon_audio_video:
+          one: "Объединить аудио с видео (%{count} кредит)"
+          few: "Объединить аудио с видео (%{count} кредита)"
+          many: "Объединить аудио с видео (%{count} кредитов)"
+          other: "Объединить аудио с видео (%{count} кредитов)"
         generate_video:
           kling_2_1_pro_image_to_video:
             one: "Kling Pro 2.1 (%{count} кредит)"
@@ -288,6 +295,7 @@ ru:
     image_generating_timeout_error: "К сожалению, генерация изображения занимает слишком много времени. Попробуй позже."
     video_generating_error: "К сожалению, не удалось сгенерировать видео. Попробуй позже."
     audio_generating_error: "К сожалению, не удалось сгенерировать аудио. Попробуй позже."
+    merge_audio_video_error: "К сожалению, не удалось объединить аудио и видео. Попробуй позже."
     video_generating_timeout_error: "К сожалению, генерация видео занимает слишком много времени. Попробуй позже."
     command_unknown: "Ой! Похоже, ты ещё не выбрал команду. Пожалуйста, выбери команду и следуй инструкциям."
     unknown: "Ой! Что-то пошло не так. Попробуй позже."
@@ -313,6 +321,8 @@ ru:
       processing: "Генерируется %{process_name}, пожалуйста, подожди…"
       humanized_process_names:
         extend_prompt: "промпт"
+        merge:
+          ffmpeg_merge_audio_video: "объединённое мультфильм-видео"
         video:
           kling_2_1_pro_image_to_video: "видео Kling Pro"
           hailuo_02_standard_image_to_video: "видео Hailuo 02 Standard"

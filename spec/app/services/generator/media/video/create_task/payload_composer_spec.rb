@@ -55,11 +55,11 @@ describe Generator::Media::Video::CreateTask::PayloadComposer do
       }
     end
 
-    it "overrides aspect ratio to 16:9" do
+    it "overrides aspect ratio to 16:9 and duration to 8 seconds" do
       expect(composer.final_payload).to eq(
         prompt: "hello",
         aspect_ratio: "16:9",
-        duration: 6,
+        duration: 8,
         generate_audio: false,
         image_url:
       )

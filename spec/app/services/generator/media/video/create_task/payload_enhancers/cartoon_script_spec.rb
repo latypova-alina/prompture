@@ -15,8 +15,8 @@ describe Generator::Media::Video::CreateTask::PayloadEnhancers::CartoonScript do
     )
   end
 
-  it "sets aspect ratio to 16:9" do
-    expect(enhanced_payload).to eq(prompt: "hello", aspect_ratio: "16:9")
+  it "sets aspect ratio to 16:9 and duration to 8 seconds" do
+    expect(enhanced_payload).to eq(prompt: "hello", aspect_ratio: "16:9", duration: 8)
   end
 
   describe ".applies_to?" do

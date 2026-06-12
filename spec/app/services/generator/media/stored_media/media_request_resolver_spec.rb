@@ -41,5 +41,14 @@ describe Generator::Media::StoredMedia::MediaRequestResolver do
         expect(resolved_request).to eq(button_request)
       end
     end
+
+    context "when processor is merge" do
+      let(:processor) { Generator::Processors::MERGE.first }
+      let(:button_request) { create(:button_merge_audio_video_processing_request) }
+
+      it "returns button merge audio video processing request" do
+        expect(resolved_request).to eq(button_request)
+      end
+    end
   end
 end

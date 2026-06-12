@@ -23,6 +23,8 @@ module Generator
             ButtonVideoProcessingRequest
           when *Generator::Processors::AUDIO
             ButtonAudioProcessingRequest
+          when *Generator::Processors::MERGE
+            ButtonMergeAudioVideoProcessingRequest
           else
             ButtonImageProcessingRequest
           end

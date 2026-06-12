@@ -4,51 +4,47 @@ module MediaGenerator
       include Interactor
       include Memery
 
+      BUTTON_REQUEST_JOB_CLASSES = {
+        ButtonAudioProcessingRequest => Generator::Media::Audio::TaskCreatorJob,
+        ButtonMergeAudioVideoProcessingRequest => Generator::Media::Merge::TaskCreatorJob
+      }.freeze
+
       delegate :button_request, :button_request_record, :command_request, to: :context
+      delegate :user, to: :command_request
 
       def call
-        return perform_audio_generator_job if audio_request?
+        return unless job_class
 
-        case button_request
-        when Generator::Processors::PROMPT_EXTENSION
-          perform_prompt_extension_job
-        when *Generator::Processors::ALL_IMAGE
-          perform_image_generator_job
-        when *Generator::Processors::VIDEO
-          perform_video_generator_job
-        end
+        job_class.perform_async(button_request_record.id)
       end
 
       private
 
-      delegate :user, to: :command_request
+      memoize def job_class
+        record_job_class || processor_job_class
+      end
 
-      def perform_prompt_extension_job
-        if Flipper[:improve_prompt_with_freepik].enabled?(user)
-          ::Generator::Media::Prompt::TaskCreatorJob.perform_async(button_request_id)
-        else
-          ::Generator::Prompt::ExtendJob.perform_async(button_request_id)
+      def record_job_class
+        BUTTON_REQUEST_JOB_CLASSES[button_request_record.class]
+      end
+
+      def processor_job_class
+        case button_request
+        when Generator::Processors::PROMPT_EXTENSION
+          prompt_extension_job_class
+        when *Generator::Processors::ALL_IMAGE
+          Generator::Media::Image::TaskCreatorJob
+        when *Generator::Processors::VIDEO
+          Generator::Media::Video::TaskCreatorJob
         end
       end
 
-      def perform_image_generator_job
-        Generator::Media::Image::TaskCreatorJob.perform_async(button_request_id)
-      end
-
-      def perform_video_generator_job
-        Generator::Media::Video::TaskCreatorJob.perform_async(button_request_id)
-      end
-
-      def perform_audio_generator_job
-        Generator::Media::Audio::TaskCreatorJob.perform_async(button_request_id)
-      end
-
-      def audio_request?
-        button_request_record.is_a?(ButtonAudioProcessingRequest)
-      end
-
-      memoize def button_request_id
-        button_request_record.id
+      def prompt_extension_job_class
+        if Flipper[:improve_prompt_with_freepik].enabled?(user)
+          Generator::Media::Prompt::TaskCreatorJob
+        else
+          Generator::Prompt::ExtendJob
+        end
       end
     end
   end

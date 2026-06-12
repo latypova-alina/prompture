@@ -4,7 +4,8 @@ module Generator
       WEBHOOK_RETRIEVER_JOBS_BY_PROCESSOR = [
         *Generator::Processors::ALL_IMAGE.product([Image::TaskRetrieverJob]),
         *Generator::Processors::VIDEO.product([Video::FalTaskRetrieverJob]),
-        *Generator::Processors::AUDIO.product([Audio::FalTaskRetrieverJob])
+        *Generator::Processors::AUDIO.product([Audio::FalTaskRetrieverJob]),
+        *Generator::Processors::MERGE.product([Merge::FalTaskRetrieverJob])
       ].to_h.freeze
 
       def self.call(...)

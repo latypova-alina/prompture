@@ -2,6 +2,8 @@ module Generator::Media::Audio::NotifySuccess
   class SuccessNotifier
     include Memery
 
+    PARENT_REQUEST_INCLUDES = %i[bot_telegram_message stored_video].freeze
+
     def self.call(...)
       new(...).call
     end
@@ -36,17 +38,17 @@ module Generator::Media::Audio::NotifySuccess
     end
 
     memoize def presenter
-      MediaGenerator::ButtonRequestPresenters::AudioProcessedMessagePresenter.new(
+      MediaGenerator::ButtonRequestPresenters::AudioProcessedMessage::PresenterSelector.new(
+        request:,
         message: audio_url,
         balance: balance_credits,
-        locale:,
         processor_name: humanized_process_name,
         processor:
-      )
+      ).presenter
     end
 
     memoize def request
-      ButtonAudioProcessingRequest.includes({ parent_request: :bot_telegram_message },
+      ButtonAudioProcessingRequest.includes({ parent_request: PARENT_REQUEST_INCLUDES },
                                             command_request: { user: :balance }).find(button_request_id)
     end
   end

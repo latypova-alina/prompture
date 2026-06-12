@@ -28,7 +28,8 @@ module Generator
         end
 
         def video_processor?
-          Generator::Processors::VIDEO.include?(processor)
+          Generator::Processors::VIDEO.include?(processor) ||
+            Generator::Processors::MERGE.include?(processor)
         end
       end
     end
