@@ -31,9 +31,9 @@ describe ContentCategory do
         .to eq("cartoon/images")
     end
 
-    it "returns cartoon_shorts/images for cartoon shorts script" do
+    it "returns cartoon/shorts/images for cartoon shorts script" do
       expect(described_class.image_bucket_folder(ContentCategory::CARTOON_SHORTS_SCRIPT))
-        .to eq("cartoon_shorts/images")
+        .to eq("cartoon/shorts/images")
     end
 
     it "returns images for other categories" do
@@ -48,9 +48,9 @@ describe ContentCategory do
         .to eq("cartoon/videos")
     end
 
-    it "returns cartoon_shorts/videos for cartoon shorts script" do
+    it "returns cartoon/shorts/videos for cartoon shorts script" do
       expect(described_class.video_bucket_folder(ContentCategory::CARTOON_SHORTS_SCRIPT))
-        .to eq("cartoon_shorts/videos")
+        .to eq("cartoon/shorts/videos")
     end
 
     it "returns videos/motivation for motivation" do

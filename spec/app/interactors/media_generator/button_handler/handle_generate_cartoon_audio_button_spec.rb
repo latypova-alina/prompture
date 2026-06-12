@@ -70,6 +70,24 @@ describe MediaGenerator::ButtonHandler::HandleGenerateCartoonAudioButton do
       .with(audio_request.id)
   end
 
+  context "when command request is cartoon shorts script" do
+    let(:command_request) do
+      create(
+        :command_prompt_to_video_request,
+        user:,
+        chat_id:,
+        category: ContentCategory::CARTOON_SHORTS_SCRIPT
+      )
+    end
+
+    it "creates audio request with cartoon shorts category" do
+      result
+
+      expect(ButtonAudioProcessingRequest.last.command_request.category)
+        .to eq(ContentCategory::CARTOON_SHORTS_SCRIPT)
+    end
+  end
+
   context "when command request is not cartoon script" do
     let(:command_request) do
       create(:command_prompt_to_video_request, user:, chat_id:, category: nil)

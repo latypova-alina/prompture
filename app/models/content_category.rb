@@ -11,23 +11,23 @@ class ContentCategory
 
   IMAGE_BUCKET_FOLDERS = {
     CARTOON_SCRIPT => "cartoon/images",
-    CARTOON_SHORTS_SCRIPT => "cartoon_shorts/images"
+    CARTOON_SHORTS_SCRIPT => "cartoon/shorts/images"
   }.freeze
 
   VIDEO_BUCKET_FOLDERS = {
     CARTOON_SCRIPT => "cartoon/videos",
-    CARTOON_SHORTS_SCRIPT => "cartoon_shorts/videos",
+    CARTOON_SHORTS_SCRIPT => "cartoon/shorts/videos",
     MOTIVATION => "videos/motivation"
   }.freeze
 
   AUDIO_BUCKET_FOLDERS = {
     CARTOON_SCRIPT => "cartoon/audio",
-    CARTOON_SHORTS_SCRIPT => "cartoon_shorts/audio"
+    CARTOON_SHORTS_SCRIPT => "cartoon/shorts/audio"
   }.freeze
 
   MERGED_VIDEO_BUCKET_FOLDERS = {
-    CARTOON_SCRIPT => "cartoon/video/with_audio",
-    CARTOON_SHORTS_SCRIPT => "cartoon_shorts/video/with_audio"
+    CARTOON_SCRIPT => "cartoon/videos/with_audio",
+    CARTOON_SHORTS_SCRIPT => "cartoon/shorts/videos/with_audio"
   }.freeze
 
   CATEGORY_FORMAT = /\A[a-z0-9_]+\z/

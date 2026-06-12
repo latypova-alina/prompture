@@ -17,7 +17,7 @@ module MediaGenerator
 
       private
 
-      delegate :chat_id, :user, to: :command_request
+      delegate :chat_id, :user, :category, to: :command_request
 
       memoize def button_video_processing_request
         raise ImageNotReadyError unless image_url.present?
@@ -49,7 +49,7 @@ module MediaGenerator
         CommandPromptToVideoRequest.create!(
           chat_id:,
           user:,
-          category: command_request.category
+          category:
         )
       end
 
