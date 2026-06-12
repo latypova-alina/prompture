@@ -10,8 +10,6 @@ module MediaGenerator
         ScriptGenerator::ProcessSingleCartoonScriptJob.perform_async(chat_id, category)
       end
 
-      private
-
       delegate :category, to: :command_request
     end
   end

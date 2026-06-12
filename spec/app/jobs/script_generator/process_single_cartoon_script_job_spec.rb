@@ -33,7 +33,8 @@ describe ScriptGenerator::ProcessSingleCartoonScriptJob do
 
     context "when unexpected error occurs" do
       before do
-        allow(ScriptGenerator::ForCartoon::ProcessSingleCartoonScript).to receive(:call).and_raise(StandardError, "boom")
+        allow(ScriptGenerator::ForCartoon::ProcessSingleCartoonScript).to receive(:call).and_raise(StandardError,
+                                                                                                   "boom")
       end
 
       it "sends default error message to user" do
