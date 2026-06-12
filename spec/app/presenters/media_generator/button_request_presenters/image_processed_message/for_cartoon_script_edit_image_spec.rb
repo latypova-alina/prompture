@@ -11,11 +11,11 @@ describe MediaGenerator::ButtonRequestPresenters::ImageProcessedMessage::ForCart
   describe "#inline_keyboard" do
     subject { super().inline_keyboard }
 
-    it "returns regenerate, regenerate script&image, and generate video buttons" do
+    it "returns regenerate, regenerate script, and generate video buttons" do
       is_expected.to eq(
         [
           [{ callback_data: "nano_banana_edit_image", text: "Regenerate (1 credit)" }],
-          [{ callback_data: "regenerate_single_cartoon_script_image", text: "Regenerate Script&Image (1 credit)" }],
+          [{ callback_data: "regenerate_single_cartoon_script_image", text: "Regenerate Script (1 credit)" }],
           [{ callback_data: "generate_cartoon_video", text: "Generate Video (5 credits)" }]
         ]
       )

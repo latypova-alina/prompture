@@ -219,8 +219,8 @@ en:
           one: "Merge Audio to Video (%{count} credit)"
           other: "Merge Audio to Video (%{count} credits)"
         regenerate_cartoon_script_image:
-          one: "Regenerate Script&Image (%{count} credit)"
-          other: "Regenerate Script&Image (%{count} credits)"
+          one: "Regenerate Script (%{count} credit)"
+          other: "Regenerate Script (%{count} credits)"
         generate_video:
           kling_2_1_pro_image_to_video:
             one: "Kling Pro 2.1 (%{count} credit)"
