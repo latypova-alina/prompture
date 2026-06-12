@@ -1,5 +1,6 @@
 class ButtonAudioProcessingRequest < ApplicationRecord
   include HasOriginPrompt
+  include HasOriginTelegramMessage
 
   PROCESSOR_TYPES = %w[elevenlabs_v3_audio].freeze
   VOICE_TYPES = Audio::VoiceCatalog.slugs.map(&:to_s).freeze

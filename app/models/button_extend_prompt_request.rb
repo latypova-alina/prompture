@@ -1,5 +1,6 @@
 class ButtonExtendPromptRequest < ApplicationRecord
   include HasOriginPrompt
+  include HasOriginTelegramMessage
 
   belongs_to :parent_request, polymorphic: true
   belongs_to :command_request, polymorphic: true

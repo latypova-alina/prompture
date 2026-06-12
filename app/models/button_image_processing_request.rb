@@ -1,5 +1,6 @@
 class ButtonImageProcessingRequest < ApplicationRecord
   include HasOriginPrompt
+  include HasOriginTelegramMessage
 
   PROCESSOR_TYPES = Generator::Processors::ALL_IMAGE.freeze
 

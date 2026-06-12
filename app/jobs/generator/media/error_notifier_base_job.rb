@@ -18,9 +18,7 @@ module Generator
 
       attr_reader :button_request_id, :error_reason
 
-      delegate :chat_id, :locale, :parent_request, to: :request
-      delegate :bot_telegram_message, to: :parent_request, prefix: true, allow_nil: true
-      delegate :tg_message_id, to: :parent_request_bot_telegram_message, prefix: true, allow_nil: true
+      delegate :chat_id, :locale, to: :request
 
       def custom_error_text
         return if error_reason.blank?
@@ -45,7 +43,7 @@ module Generator
       end
 
       def original_prompt_message_id
-        parent_request_bot_telegram_message_tg_message_id
+        request.origin_telegram_message_id
       end
 
       memoize def request

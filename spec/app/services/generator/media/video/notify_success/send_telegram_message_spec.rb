@@ -34,6 +34,47 @@ describe Generator::Media::Video::NotifySuccess::SendTelegramMessage do
       end
     end
 
+    context "when source telegram message is on an ancestor request" do
+      let(:command_request) { create(:command_edit_image_request) }
+      let(:image_request) do
+        create(
+          :button_image_processing_request,
+          :completed,
+          command_request:,
+          parent_request: command_request
+        )
+      end
+      let(:prompt_message) do
+        create(
+          :prompt_message,
+          command_request:,
+          parent_request: image_request
+        )
+      end
+      let(:request) do
+        create(
+          :button_video_processing_request,
+          command_request: create(:command_prompt_to_video_request, user: command_request.user),
+          parent_request: prompt_message
+        )
+      end
+
+      before do
+        create(:bot_telegram_message, request: image_request, tg_message_id: 6280)
+      end
+
+      it "sends telegram message as reply" do
+        call_service
+
+        expect(TelegramIntegration::SendMessageWithButtons)
+          .to have_received(:call)
+          .with(
+            reply_data: reply_data.merge(reply_to_message_id: 6280),
+            request:
+          )
+      end
+    end
+
     context "when source telegram message does not exist" do
       it "sends telegram message without reply reference" do
         call_service
