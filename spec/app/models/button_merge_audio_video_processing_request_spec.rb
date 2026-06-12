@@ -39,7 +39,8 @@ RSpec.describe ButtonMergeAudioVideoProcessingRequest do
   describe "#humanized_process_name" do
     it "returns translated processor name" do
       expect(request.humanized_process_name)
-        .to eq(I18n.t("telegram.generation.humanized_process_names.merge.ffmpeg_merge_audio_video", locale: request.locale))
+        .to eq(I18n.t("telegram.generation.humanized_process_names.merge.ffmpeg_merge_audio_video",
+                      locale: request.locale))
     end
   end
 end
