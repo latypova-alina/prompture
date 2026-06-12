@@ -2,6 +2,7 @@ class ButtonVideoProcessingRequest < ApplicationRecord
   include HasOriginPrompt
   include HasOriginImage
   include HasOriginTelegramMessage
+  include HasOriginVideoPrompt
 
   PROCESSOR_TYPES = %w[
     kling_2_1_pro_image_to_video

@@ -77,7 +77,7 @@ describe ButtonVideoProcessingRequest, type: :model do
     let(:prompt_message) { create(:prompt_message) }
     let(:record) { create(:button_video_processing_request, parent_request: prompt_message) }
 
-    it "returns the parent prompt message" do
+    it "returns the immediate parent request" do
       expect(record.prompt_message).to eq(prompt_message)
     end
   end
