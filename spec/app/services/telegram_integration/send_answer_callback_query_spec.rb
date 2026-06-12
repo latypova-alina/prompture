@@ -24,4 +24,31 @@ describe TelegramIntegration::SendAnswerCallbackQuery do
 
     subject
   end
+
+  context "when process_name is provided directly" do
+    subject { described_class.call(callback_query_id:, process_name: "Veo 3.1 Lite video") }
+
+    it "uses the provided process name in the toast" do
+      expected_text = I18n.t("telegram.generation.processing", process_name: "Veo 3.1 Lite video")
+
+      expect(bot).to receive(:answer_callback_query).with(
+        callback_query_id:,
+        text: expected_text,
+        show_alert: false
+      )
+
+      subject
+    end
+  end
+
+  context "when Telegram rejects the callback query" do
+    before do
+      allow(bot).to receive(:answer_callback_query)
+        .and_raise(Telegram::Bot::Error, "query is too old")
+    end
+
+    it "does not raise" do
+      expect { subject }.not_to raise_error
+    end
+  end
 end
