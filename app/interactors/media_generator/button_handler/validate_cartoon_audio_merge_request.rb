@@ -19,11 +19,7 @@ module MediaGenerator
           audio_prompt.present? &&
           audio_url.present? &&
           status == "COMPLETED" &&
-          stored_video_url.present?
-      end
-
-      memoize def stored_video_url
-        button_video_processing_request&.stored_video&.video_url
+          button_video_processing_request&.persisted_video_url.present?
       end
     end
   end

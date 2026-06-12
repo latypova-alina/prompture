@@ -13,8 +13,24 @@ module MediaGenerator
         end
 
         def presenter
-          presenter_class.new(
+          return cartoon_presenter if cartoon_script_with_merge?
+
+          default_presenter
+        end
+
+        def cartoon_presenter
+          ForCartoonScript.new(
             request:,
+            message:,
+            balance:,
+            locale: request.locale,
+            processor_name:,
+            processor:
+          )
+        end
+
+        def default_presenter
+          DEFAULT_PRESENTER.new(
             message:,
             balance:,
             locale: request.locale,
@@ -27,21 +43,11 @@ module MediaGenerator
 
         attr_reader :request, :message, :balance, :processor_name, :processor
 
-        def presenter_class
-          return ForCartoonScript if cartoon_script_with_merge?
-
-          DEFAULT_PRESENTER
-        end
-
         def cartoon_script_with_merge?
           request.command_request.cartoon_script? &&
             request.audio_prompt.present? &&
             message.present? &&
-            stored_video_url.present?
-        end
-
-        def stored_video_url
-          video_request&.stored_video&.video_url
+            video_request&.persisted_video_url.present?
         end
 
         def video_request

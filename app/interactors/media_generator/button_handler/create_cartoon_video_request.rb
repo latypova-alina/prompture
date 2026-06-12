@@ -35,9 +35,14 @@ module MediaGenerator
         PromptMessage.create!(
           prompt: video_prompt_record.prompt,
           video_prompt: video_prompt_record,
+          subcategory: cartoon_video_subcategory,
           parent_request:,
           command_request: command_prompt_to_video_request
         )
+      end
+
+      def cartoon_video_subcategory
+        "video_prompt_#{video_prompt_record.id}"
       end
 
       memoize def command_prompt_to_video_request

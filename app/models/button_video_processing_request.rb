@@ -35,4 +35,8 @@ class ButtonVideoProcessingRequest < ApplicationRecord
   def prompt_message
     parent_request
   end
+
+  def persisted_video_url
+    stored_video&.video_url || video_url
+  end
 end

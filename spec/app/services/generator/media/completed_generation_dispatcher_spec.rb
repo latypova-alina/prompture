@@ -19,6 +19,7 @@ describe Generator::Media::CompletedGenerationDispatcher do
     allow(Generator::Media::FreepikEmptyGenerationAlert).to receive(:call)
     allow(Generator::Media::Image::TaskRetrieverJob).to receive(:perform_async)
     allow(Generator::Media::Video::FalTaskRetrieverJob).to receive(:perform_async)
+    allow(Generator::Media::Merge::FalTaskRetrieverJob).to receive(:perform_async)
     allow(Generator::Media::TaskRetrieverDispatcher).to receive(:call)
   end
 
@@ -62,6 +63,18 @@ describe Generator::Media::CompletedGenerationDispatcher do
 
         expect(Generator::Media::TaskRetrieverDispatcher).not_to have_received(:call)
       end
+    end
+  end
+
+  context "when processor is a merge processor" do
+    let(:processor) { "ffmpeg_merge_audio_video" }
+
+    it "enqueues Merge::FalTaskRetrieverJob with webhook media url" do
+      call_service
+
+      expect(Generator::Media::Merge::FalTaskRetrieverJob)
+        .to have_received(:perform_async)
+        .with("generated_media_url", button_request_id, processor)
     end
   end
 

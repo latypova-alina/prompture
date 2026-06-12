@@ -24,6 +24,17 @@ describe Generator::Media::TaskRetrieverContext do
       end
     end
 
+    Generator::Processors::MERGE.each do |merge_processor|
+      context "when processor is #{merge_processor}" do
+        let(:params) { ActionController::Parameters.new(processor: merge_processor) }
+
+        it "returns FalVideoTaskRetrieverContext" do
+          expect(described_class.for(params:))
+            .to be_a(Generator::Media::FalVideoTaskRetrieverContext)
+        end
+      end
+    end
+
     Generator::Processors::AUDIO.each do |audio_processor|
       context "when processor is #{audio_processor}" do
         let(:params) { ActionController::Parameters.new(processor: audio_processor) }

@@ -5,6 +5,7 @@ module Generator
         module PayloadEnhancers
           class CartoonScript
             ASPECT_RATIO = "16:9".freeze
+            DURATION = 8
             PROCESSOR = "veo3_1_lite_image_to_video".freeze
 
             def self.applies_to?(request)
@@ -18,7 +19,7 @@ module Generator
             end
 
             def enhance
-              payload.merge(aspect_ratio: ASPECT_RATIO)
+              payload.merge(aspect_ratio: ASPECT_RATIO, duration: DURATION)
             end
 
             private

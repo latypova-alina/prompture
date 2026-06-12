@@ -24,6 +24,8 @@ module Generator
           Generator::Media::Video::ErrorNotifierJob.perform_async(button_request_id)
         when *Generator::Processors::AUDIO
           Generator::Media::Audio::ErrorNotifierJob.perform_async(button_request_id)
+        when *Generator::Processors::MERGE
+          Generator::Media::Merge::ErrorNotifierJob.perform_async(button_request_id)
         end
       end
     end

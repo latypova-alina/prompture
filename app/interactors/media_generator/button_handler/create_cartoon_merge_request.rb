@@ -15,18 +15,14 @@ module MediaGenerator
 
       delegate :audio_request, :button_video_processing_request, to: :context
       delegate :audio_url, to: :audio_request
-      delegate :command_request, to: :button_video_processing_request
-      delegate :stored_video, to: :button_video_processing_request
-      delegate :video_url, to: :stored_video
-
-      memoize :video_url
+      delegate :command_request, :persisted_video_url, to: :button_video_processing_request
 
       memoize def button_merge_audio_video_processing_request
         ButtonMergeAudioVideoProcessingRequest.create!(
           status: "PENDING",
           parent_request: audio_request,
           processor: PROCESSOR,
-          source_video_url: video_url,
+          source_video_url: persisted_video_url,
           source_audio_url: audio_url,
           command_request:
         )
