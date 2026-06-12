@@ -6,7 +6,8 @@ module Generator
           include Memery
 
           SPECIFIC_ENHANCERS = [
-            PayloadEnhancers::CartoonScript
+            PayloadEnhancers::CartoonScript,
+            PayloadEnhancers::CartoonShortsScript
           ].freeze
 
           def final_payload

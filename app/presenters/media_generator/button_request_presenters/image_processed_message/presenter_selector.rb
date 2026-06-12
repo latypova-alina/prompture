@@ -30,7 +30,7 @@ module MediaGenerator
         private
 
         def presenter_class
-          if command_request.cartoon_script?
+          if command_request.cartoon_workflow?
             ForCartoonScriptEditImage
           else
             PRESENTERS.fetch(command_request_classname)

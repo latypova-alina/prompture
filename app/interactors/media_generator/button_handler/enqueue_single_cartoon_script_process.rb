@@ -7,7 +7,7 @@ module MediaGenerator
       delegate :chat_id, to: :command_request
 
       def call
-        ScriptGenerator::ProcessSingleCartoonScriptJob.perform_async(chat_id)
+        ScriptGenerator::ProcessSingleCartoonScriptJob.perform_async(chat_id, command_request.category)
       end
     end
   end

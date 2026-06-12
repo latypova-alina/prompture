@@ -1,15 +1,14 @@
 module ScriptGenerator
   module ForCartoon
-    class ProcessSingleCartoonScript
+    class ProcessCartoonShortsScript
       include Memery
 
       def self.call(...)
         new(...).call
       end
 
-      def initialize(chat_id:, category: ContentCategory::CARTOON_SCRIPT)
+      def initialize(chat_id:)
         @chat_id = chat_id
-        @category = category
       end
 
       def call
@@ -17,13 +16,13 @@ module ScriptGenerator
           chat_id:,
           scripts:,
           reference_image_url:,
-          category:
+          category: ContentCategory::CARTOON_SHORTS_SCRIPT
         )
       end
 
       private
 
-      attr_reader :chat_id, :category
+      attr_reader :chat_id
 
       delegate :scenes, to: :cartoon_script_context
       delegate :reference_image_url, to: :cartoon_script_context

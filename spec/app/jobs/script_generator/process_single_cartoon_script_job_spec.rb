@@ -7,7 +7,10 @@ describe ScriptGenerator::ProcessSingleCartoonScriptJob do
     end
 
     it "delegates to ScriptGenerator::ForCartoon::ProcessSingleCartoonScript service" do
-      expect(ScriptGenerator::ForCartoon::ProcessSingleCartoonScript).to receive(:call).with(chat_id: 456)
+      expect(ScriptGenerator::ForCartoon::ProcessSingleCartoonScript).to receive(:call).with(
+        chat_id: 456,
+        category: ContentCategory::CARTOON_SCRIPT
+      )
 
       described_class.new.perform(456)
     end

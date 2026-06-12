@@ -6,7 +6,7 @@ module MediaGenerator
       delegate :command_request, to: :context
 
       def call
-        return if command_request.cartoon_script?
+        return if command_request.cartoon_workflow?
 
         context.fail!(error: CommandUnknownError)
       end

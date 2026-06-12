@@ -1,7 +1,7 @@
 require "rails_helper"
 
-describe ScriptGenerator::ForCartoon::ProcessSingleCartoonScript do
-  subject(:process_single_cartoon_script) { described_class.call(chat_id: 456) }
+describe ScriptGenerator::ForCartoon::ProcessCartoonShortsScript do
+  subject(:process_cartoon_shorts_script) { described_class.call(chat_id: 456) }
 
   let(:scenes_array) { ["Scene A", "Scene B", "Scene C"] }
   let(:reference_image_url) { "https://example.com/bloomy.png" }
@@ -20,8 +20,8 @@ describe ScriptGenerator::ForCartoon::ProcessSingleCartoonScript do
     allow(ScriptGenerator::ForCartoon::ProcessScriptImagePrompts).to receive(:call)
   end
 
-  it "creates one script from a random scene and processes image prompts" do
-    expect { process_single_cartoon_script }.to change(Script, :count).by(1)
+  it "creates one script from a random scene and processes image prompts for shorts" do
+    expect { process_cartoon_shorts_script }.to change(Script, :count).by(1)
 
     script = Script.order(:id).last
     expect(script.script_text).to eq("Scene B")
@@ -29,7 +29,7 @@ describe ScriptGenerator::ForCartoon::ProcessSingleCartoonScript do
       chat_id: 456,
       scripts: [script],
       reference_image_url:,
-      category: ContentCategory::CARTOON_SCRIPT
+      category: ContentCategory::CARTOON_SHORTS_SCRIPT
     )
   end
 end

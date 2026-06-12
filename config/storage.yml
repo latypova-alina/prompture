@@ -2,6 +2,7 @@ default: &default
   store_video_categories:
     - motivation
     - cartoon_script
+    - cartoon_shorts_script
 
 development:
   <<: *default

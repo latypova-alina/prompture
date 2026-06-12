@@ -44,7 +44,7 @@ module MediaGenerator
         CommandPromptToAudioRequest.create!(
           chat_id:,
           user:,
-          category: ContentCategory::CARTOON_SCRIPT
+          category: command_request.category
         )
       end
     end

@@ -10,7 +10,7 @@ module MediaGenerator
         context.script = script
         context.video_prompt = origin_video_prompt
 
-        return if command_request.cartoon_script? && script.present?
+        return if command_request.cartoon_workflow? && script.present?
 
         context.fail!(error: CommandUnknownError)
       end
