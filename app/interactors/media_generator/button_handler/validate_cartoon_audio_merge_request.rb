@@ -4,31 +4,26 @@ module MediaGenerator
       include Interactor
       include Memery
 
-      delegate :command_request, :parent_request, to: :context
-
       def call
         context.fail!(error: CommandUnknownError) unless mergeable?
       end
 
       private
 
+      delegate :command_request, :audio_request, :button_video_processing_request, to: :context
+      delegate :audio_prompt, :audio_url, :status, to: :audio_request
+
       def mergeable?
         command_request.cartoon_script? &&
-          parent_request.is_a?(ButtonAudioProcessingRequest) &&
-          parent_request.audio_prompt.present? &&
-          parent_request.audio_url.present? &&
-          parent_request.status == "COMPLETED" &&
+          audio_request.is_a?(ButtonAudioProcessingRequest) &&
+          audio_prompt.present? &&
+          audio_url.present? &&
+          status == "COMPLETED" &&
           stored_video_url.present?
       end
 
       memoize def stored_video_url
-        video_request&.stored_video&.video_url
-      end
-
-      memoize def video_request
-        return unless parent_request.parent_request.is_a?(ButtonVideoProcessingRequest)
-
-        parent_request.parent_request
+        button_video_processing_request&.stored_video&.video_url
       end
     end
   end

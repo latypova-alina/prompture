@@ -3,7 +3,7 @@ module MediaGenerator
     class HandleMergeCartoonAudioVideoButton
       include Interactor::Organizer
 
-      organize FindParentRequest, FindCommandRequest, ValidateCartoonAudioMergeRequest,
+      organize FindParentRequest, SetCartoonMergeContext, FindCommandRequest, ValidateCartoonAudioMergeRequest,
                AcknowledgeCallbackQuery, CreateCartoonMergeRequest, DecrementBalance,
                SendGenerationTask
     end
