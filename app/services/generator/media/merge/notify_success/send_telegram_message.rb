@@ -25,15 +25,12 @@ module Generator::Media::Merge::NotifySuccess
     attr_reader :reply_data, :request
 
     delegate :locale, to: :request
+    delegate :origin_telegram_message_id, to: :request
 
     def reply_data_with_reply_reference
-      return reply_data unless original_prompt_message_id.present?
+      return reply_data unless origin_telegram_message_id.present?
 
-      reply_data.merge(reply_to_message_id: original_prompt_message_id)
-    end
-
-    def original_prompt_message_id
-      request.origin_telegram_message_id
+      reply_data.merge(reply_to_message_id: origin_telegram_message_id)
     end
   end
 end
