@@ -244,6 +244,11 @@ ru:
           few: "Объединить аудио с видео (%{count} кредита)"
           many: "Объединить аудио с видео (%{count} кредитов)"
           other: "Объединить аудио с видео (%{count} кредитов)"
+        regenerate_cartoon_script_image:
+          one: "Перегенерировать сценарий и изображение (%{count} кредит)"
+          few: "Перегенерировать сценарий и изображение (%{count} кредита)"
+          many: "Перегенерировать сценарий и изображение (%{count} кредитов)"
+          other: "Перегенерировать сценарий и изображение (%{count} кредитов)"
         generate_video:
           kling_2_1_pro_image_to_video:
             one: "Kling Pro 2.1 (%{count} кредит)"
@@ -320,6 +325,7 @@ ru:
     generation:
       processing: "Генерируется %{process_name}, пожалуйста, подожди…"
       humanized_process_names:
+        single_cartoon_script: "сцену мультфильма"
         extend_prompt: "промпт"
         merge:
           ffmpeg_merge_audio_video: "объединённое мультфильм-видео"

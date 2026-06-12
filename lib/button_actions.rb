@@ -3,4 +3,5 @@ module ButtonActions
   GENERATE_CARTOON_VIDEO = "generate_cartoon_video".freeze
   GENERATE_CARTOON_AUDIO = "generate_cartoon_audio".freeze
   MERGE_CARTOON_AUDIO_VIDEO = "merge_cartoon_audio_video".freeze
+  REGENERATE_SINGLE_CARTOON_SCRIPT_IMAGE = "regenerate_single_cartoon_script_image".freeze
 end

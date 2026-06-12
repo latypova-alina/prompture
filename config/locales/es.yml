@@ -215,6 +215,9 @@ es:
         merge_cartoon_audio_video:
           one: "Combinar audio con video (%{count} crédito)"
           other: "Combinar audio con video (%{count} créditos)"
+        regenerate_cartoon_script_image:
+          one: "Regenerar guion e imagen (%{count} crédito)"
+          other: "Regenerar guion e imagen (%{count} créditos)"
         generate_video:
           kling_2_1_pro_image_to_video:
             one: "Kling Pro 2.1 (%{count} crédito)"
@@ -283,6 +286,7 @@ es:
     generation:
       processing: "Generando %{process_name}, por favor espera…"
       humanized_process_names:
+        single_cartoon_script: "escena de dibujos animados"
         extend_prompt: "prompt"
         merge:
           ffmpeg_merge_audio_video: "video de dibujos animados combinado"

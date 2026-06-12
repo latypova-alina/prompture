@@ -215,6 +215,9 @@ en:
         merge_cartoon_audio_video:
           one: "Merge Audio to Video (%{count} credit)"
           other: "Merge Audio to Video (%{count} credits)"
+        regenerate_cartoon_script_image:
+          one: "Regenerate Script&Image (%{count} credit)"
+          other: "Regenerate Script&Image (%{count} credits)"
         generate_video:
           kling_2_1_pro_image_to_video:
             one: "Kling Pro 2.1 (%{count} credit)"
@@ -283,6 +286,7 @@ en:
     generation:
       processing: Generating %{process_name}, please wait…
       humanized_process_names:
+        single_cartoon_script: "cartoon scene"
         extend_prompt: "prompt"
         video:
           kling_2_1_pro_image_to_video: "Kling Pro video"
