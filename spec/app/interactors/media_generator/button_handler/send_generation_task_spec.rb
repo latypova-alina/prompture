@@ -16,6 +16,7 @@ describe MediaGenerator::ButtonHandler::SendGenerationTask do
     allow(Generator::Media::Image::TaskCreatorJob).to receive(:perform_async)
     allow(Generator::Media::Video::TaskCreatorJob).to receive(:perform_async)
     allow(Generator::Media::Audio::TaskCreatorJob).to receive(:perform_async)
+    allow(Generator::Media::Merge::TaskCreatorJob).to receive(:perform_async)
   end
 
   context "when button_request is extend_prompt" do
@@ -103,6 +104,19 @@ describe MediaGenerator::ButtonHandler::SendGenerationTask do
       subject
 
       expect(Generator::Media::Video::TaskCreatorJob)
+        .to have_received(:perform_async)
+        .with(button_request_record.id)
+    end
+  end
+
+  context "when button_request_record is a merge request" do
+    let(:button_request) { "ffmpeg_merge_audio_video" }
+    let(:button_request_record) { create(:button_merge_audio_video_processing_request, parent_request:) }
+
+    it "enqueues merge generator job" do
+      subject
+
+      expect(Generator::Media::Merge::TaskCreatorJob)
         .to have_received(:perform_async)
         .with(button_request_record.id)
     end

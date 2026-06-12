@@ -27,5 +27,11 @@ describe Generator::Media::StoredMedia::UploaderResolver do
 
       it { is_expected.to eq(Generator::Media::StoredMedia::Uploader) }
     end
+
+    context "when processor is merge" do
+      let(:processor) { Generator::Processors::MERGE.first }
+
+      it { is_expected.to eq(Generator::Media::StoredMedia::MergedVideoUploader) }
+    end
   end
 end

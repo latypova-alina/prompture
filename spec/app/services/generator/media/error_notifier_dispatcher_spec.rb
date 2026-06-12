@@ -19,6 +19,9 @@ describe Generator::Media::ErrorNotifierDispatcher do
 
     allow(Generator::Media::Audio::ErrorNotifierJob)
       .to receive(:perform_async)
+
+    allow(Generator::Media::Merge::ErrorNotifierJob)
+      .to receive(:perform_async)
   end
 
   describe ".call" do
@@ -93,6 +96,24 @@ describe Generator::Media::ErrorNotifierDispatcher do
           .not_to have_received(:perform_async)
 
         expect(Generator::Media::Prompt::ErrorNotifierJob)
+          .not_to have_received(:perform_async)
+      end
+    end
+
+    context "when processor is a merge processor" do
+      let(:processor) { Generator::Processors::MERGE.first }
+
+      it "dispatches merge error notifier job" do
+        call_service
+
+        expect(Generator::Media::Merge::ErrorNotifierJob)
+          .to have_received(:perform_async)
+          .with(button_request_id)
+
+        expect(Generator::Media::Video::ErrorNotifierJob)
+          .not_to have_received(:perform_async)
+
+        expect(Generator::Media::Audio::ErrorNotifierJob)
           .not_to have_received(:perform_async)
       end
     end
