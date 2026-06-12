@@ -301,8 +301,8 @@ describe TelegramWebhooksController, telegram_bot: :rails do
     end
   end
 
-  describe "#cartoon_script!" do
-    subject { -> { dispatch_command(:cartoon_script) } }
+  describe "#cartoon_yt!" do
+    subject { -> { dispatch_command(:cartoon_yt) } }
 
     let!(:user) { create(:user, chat_id: 456, admin:) }
     let(:admin) { true }
@@ -311,7 +311,7 @@ describe TelegramWebhooksController, telegram_bot: :rails do
       allow(ScriptGenerator::ProcessCartoonScriptJob).to receive(:perform_async)
     end
 
-    it { is_expected.to respond_with_message(I18n.t("telegram_webhooks.commands.cartoon_script")) }
+    it { is_expected.to respond_with_message(I18n.t("telegram_webhooks.commands.cartoon_yt")) }
 
     it "enqueues cartoon script job" do
       subject.call
@@ -326,8 +326,8 @@ describe TelegramWebhooksController, telegram_bot: :rails do
     end
   end
 
-  describe "#cartoon_shorts_script!" do
-    subject { -> { dispatch_command(:cartoon_shorts_script) } }
+  describe "#cartoon_shorts!" do
+    subject { -> { dispatch_command(:cartoon_shorts) } }
 
     let!(:user) { create(:user, chat_id: 456, admin:) }
     let(:admin) { true }
@@ -336,7 +336,7 @@ describe TelegramWebhooksController, telegram_bot: :rails do
       allow(ScriptGenerator::ProcessCartoonShortsScriptJob).to receive(:perform_async)
     end
 
-    it { is_expected.to respond_with_message(I18n.t("telegram_webhooks.commands.cartoon_shorts_script")) }
+    it { is_expected.to respond_with_message(I18n.t("telegram_webhooks.commands.cartoon_shorts")) }
 
     it "enqueues cartoon shorts script job" do
       subject.call

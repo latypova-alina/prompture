@@ -95,14 +95,14 @@ en:
 
         🔹 /cartoon_character - generate a random preschool cartoon character image
 
-        🔹 /cartoon_script - generate 12 cartoon scenes
+        🔹 /cartoon_yt - generate 12 cartoon scenes
 
-        🔹 /cartoon_shorts_script - generate 1 cartoon scene for shorts (9:16)
+        🔹 /cartoon_shorts - generate 1 cartoon scene for shorts (9:16)
       random_character: "Started random character generation."
       brainrot_character: "Started brainrot character generation."
       cartoon_character: "Started cartoon character generation."
-      cartoon_script: "Started cartoon script generation."
-      cartoon_shorts_script: "Started cartoon shorts script generation."
+      cartoon_yt: "Started cartoon script generation."
+      cartoon_shorts: "Started cartoon shorts script generation."
       motivation_workflow: "Started motivation workflow: script, audio, and video prompts."
       prompt_to_video: "Great! Now please provide a prompt for the video. It can later be extended with the help of the bot."
       prompt_to_image: "Great! Now please provide a prompt for the image. It can later be extended with the help of the bot."
