@@ -95,11 +95,14 @@ en:
 
         🔹 /cartoon_character - generate a random preschool cartoon character image
 
-        🔹 /cartoon_script - generate 12 cartoon scenes
+        🔹 /cartoon_yt - generate 12 cartoon scenes
+
+        🔹 /cartoon_shorts - generate 1 cartoon scene for shorts (9:16)
       random_character: "Started random character generation."
       brainrot_character: "Started brainrot character generation."
       cartoon_character: "Started cartoon character generation."
-      cartoon_script: "Started cartoon script generation."
+      cartoon_yt: "Started cartoon script generation."
+      cartoon_shorts: "Started cartoon shorts script generation."
       motivation_workflow: "Started motivation workflow: script, audio, and video prompts."
       prompt_to_video: "Great! Now please provide a prompt for the video. It can later be extended with the help of the bot."
       prompt_to_image: "Great! Now please provide a prompt for the image. It can later be extended with the help of the bot."
@@ -215,6 +218,9 @@ en:
         merge_cartoon_audio_video:
           one: "Merge Audio to Video (%{count} credit)"
           other: "Merge Audio to Video (%{count} credits)"
+        regenerate_cartoon_script_image:
+          one: "Regenerate Script (%{count} credit)"
+          other: "Regenerate Script (%{count} credits)"
         generate_video:
           kling_2_1_pro_image_to_video:
             one: "Kling Pro 2.1 (%{count} credit)"
@@ -283,6 +289,7 @@ en:
     generation:
       processing: Generating %{process_name}, please wait…
       humanized_process_names:
+        single_cartoon_script: "cartoon scene"
         extend_prompt: "prompt"
         video:
           kling_2_1_pro_image_to_video: "Kling Pro video"

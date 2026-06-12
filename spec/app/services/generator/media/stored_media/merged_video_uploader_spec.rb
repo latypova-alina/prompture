@@ -13,7 +13,7 @@ describe Generator::Media::StoredMedia::MergedVideoUploader do
       command_request:
     )
   end
-  let(:uploaded_url) { "https://internal.example/cartoon/video/with_audio/merged.mp4" }
+  let(:uploaded_url) { "https://internal.example/cartoon/videos/with_audio/merged.mp4" }
   let(:upload_facade) { instance_double(StoreMedia::Upload::Facade, stored_url: uploaded_url) }
   let(:remote_url_downloader) do
     instance_double(StoreImage::Download::RemoteUrlDownloader, downloaded_bytes: "video-bytes")
@@ -27,7 +27,7 @@ describe Generator::Media::StoredMedia::MergedVideoUploader do
 
     allow(StoreMedia::Upload::Facade)
       .to receive(:new)
-      .with(bytes: "video-bytes", filename: "merged.mp4", folder: "cartoon/video/with_audio")
+      .with(bytes: "video-bytes", filename: "merged.mp4", folder: "cartoon/videos/with_audio")
       .and_return(upload_facade)
 
     allow(upload_facade).to receive(:upload)

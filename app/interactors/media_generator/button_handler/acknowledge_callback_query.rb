@@ -26,6 +26,8 @@ module MediaGenerator
           cartoon_audio_process_name
         when ButtonActions::MERGE_CARTOON_AUDIO_VIDEO
           cartoon_merge_process_name
+        when ButtonActions::REGENERATE_SINGLE_CARTOON_SCRIPT_IMAGE
+          single_cartoon_script_process_name
         end
       end
 
@@ -48,6 +50,10 @@ module MediaGenerator
           "telegram.generation.humanized_process_names.merge.#{CreateCartoonMergeRequest::PROCESSOR}",
           locale:
         )
+      end
+
+      def single_cartoon_script_process_name
+        I18n.t("telegram.generation.humanized_process_names.single_cartoon_script", locale:)
       end
     end
   end

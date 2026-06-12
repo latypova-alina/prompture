@@ -23,7 +23,7 @@ module StoreImage
     delegate :image_prompt, to: :command_request, prefix: true
 
     def image_prompt_from_button_request
-      return unless command_request.cartoon_script?
+      return unless command_request.cartoon_workflow?
 
       command_request_image_prompt
     end

@@ -25,7 +25,7 @@ module MediaGenerator
         private
 
         def presenter_class
-          return ForCartoonScript if command_request.cartoon_script?
+          return ForCartoonScript if command_request.cartoon_workflow?
 
           DEFAULT_PRESENTER
         end

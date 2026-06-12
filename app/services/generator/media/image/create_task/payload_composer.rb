@@ -7,7 +7,8 @@ module Generator
 
           SPECIFIC_ENHANCERS = [
             PayloadEnhancers::EditImage,
-            PayloadEnhancers::CartoonScript
+            PayloadEnhancers::CartoonScript,
+            PayloadEnhancers::CartoonShortsScript
           ].freeze
 
           def final_payload

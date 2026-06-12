@@ -9,7 +9,7 @@ module MediaGenerator
       def call
         context.script = script
 
-        return if command_request.cartoon_script? && script.present?
+        return if command_request.cartoon_workflow? && script.present?
 
         context.fail!(error: CommandUnknownError)
       end

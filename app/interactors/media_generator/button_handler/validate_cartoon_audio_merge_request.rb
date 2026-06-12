@@ -14,7 +14,7 @@ module MediaGenerator
       delegate :audio_prompt, :audio_url, :status, to: :audio_request
 
       def mergeable?
-        command_request.cartoon_script? &&
+        command_request.cartoon_workflow? &&
           audio_request.is_a?(ButtonAudioProcessingRequest) &&
           audio_prompt.present? &&
           audio_url.present? &&

@@ -95,11 +95,14 @@ es:
 
         🔹 /cartoon_character - genera una imagen de personaje de dibujos animados para preescolares
 
-        🔹 /cartoon_script - genera 12 escenas de dibujos animados
+        🔹 /cartoon_yt - genera 12 escenas de dibujos animados
+
+        🔹 /cartoon_shorts - genera 1 escena de dibujos animados para shorts (9:16)
       random_character: "Generación de personaje aleatorio iniciada."
       brainrot_character: "Generación de personaje brainrot iniciada."
       cartoon_character: "Generación de personaje de dibujos animados iniciada."
-      cartoon_script: "Generación de guion de dibujos animados iniciada."
+      cartoon_yt: "Generación de guion de dibujos animados iniciada."
+      cartoon_shorts: "Generación de guion de dibujos animados para shorts iniciada."
       motivation_workflow: "Workflow motivacional iniciado: guion, audio y prompts de video."
       prompt_to_video: "¡Genial! Ahora, por favor, proporciona un prompt para el video. Más adelante podrás ampliarlo con la ayuda del bot."
       prompt_to_image: "¡Genial! Ahora, por favor, proporciona un prompt para la imagen. Más adelante podrás ampliarlo con la ayuda del bot."
@@ -215,6 +218,9 @@ es:
         merge_cartoon_audio_video:
           one: "Combinar audio con video (%{count} crédito)"
           other: "Combinar audio con video (%{count} créditos)"
+        regenerate_cartoon_script_image:
+          one: "Regenerar guion (%{count} crédito)"
+          other: "Regenerar guion (%{count} créditos)"
         generate_video:
           kling_2_1_pro_image_to_video:
             one: "Kling Pro 2.1 (%{count} crédito)"
@@ -283,6 +289,7 @@ es:
     generation:
       processing: "Generando %{process_name}, por favor espera…"
       humanized_process_names:
+        single_cartoon_script: "escena de dibujos animados"
         extend_prompt: "prompt"
         merge:
           ffmpeg_merge_audio_video: "video de dibujos animados combinado"

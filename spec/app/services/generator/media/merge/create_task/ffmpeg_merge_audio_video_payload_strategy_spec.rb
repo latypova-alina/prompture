@@ -7,10 +7,11 @@ describe Generator::Media::Merge::CreateTask::FfmpegMergeAudioVideoPayloadStrate
   let(:audio_url) { "https://example.com/audio.mp3" }
 
   describe "#payload" do
-    it "returns video and audio urls for fal merge endpoint" do
+    it "returns video and audio urls with start offset for fal merge endpoint" do
       expect(strategy.payload).to eq(
         video_url:,
-        audio_url:
+        audio_url:,
+        start_offset: 1
       )
     end
   end

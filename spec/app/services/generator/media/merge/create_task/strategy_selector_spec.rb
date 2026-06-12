@@ -18,7 +18,8 @@ describe Generator::Media::Merge::CreateTask::StrategySelector do
 
       expect(strategy.payload).to eq(
         video_url: "https://example.com/video.mp4",
-        audio_url: "https://example.com/audio.mp3"
+        audio_url: "https://example.com/audio.mp3",
+        start_offset: 1
       )
     end
   end

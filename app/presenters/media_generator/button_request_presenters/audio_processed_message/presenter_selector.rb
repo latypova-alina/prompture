@@ -44,7 +44,7 @@ module MediaGenerator
         attr_reader :request, :message, :balance, :processor_name, :processor
 
         def cartoon_script_with_merge?
-          request.command_request.cartoon_script? &&
+          request.command_request.cartoon_workflow? &&
             request.audio_prompt.present? &&
             message.present? &&
             video_request&.persisted_video_url.present?

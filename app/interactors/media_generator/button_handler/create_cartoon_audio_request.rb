@@ -19,6 +19,7 @@ module MediaGenerator
 
       delegate :chat_id, :user, to: :command_request
       delegate :command_request, to: :parent_request
+      delegate :category, to: :command_request
 
       memoize :command_request
 
@@ -44,7 +45,7 @@ module MediaGenerator
         CommandPromptToAudioRequest.create!(
           chat_id:,
           user:,
-          category: ContentCategory::CARTOON_SCRIPT
+          category:
         )
       end
     end
