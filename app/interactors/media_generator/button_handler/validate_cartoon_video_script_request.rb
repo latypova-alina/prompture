@@ -15,8 +15,6 @@ module MediaGenerator
         context.fail!(error: CommandUnknownError)
       end
 
-      private
-
       delegate :origin_video_prompt, to: :parent_request, allow_nil: true
       delegate :script, to: :origin_video_prompt, allow_nil: true
 
