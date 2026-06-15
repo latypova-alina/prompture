@@ -3,7 +3,7 @@ module Generator
     module CreateTask
       class FailureHandlerBase
         ERROR_REASONS = {
-          Freepik::DailyLimitExceeded => "daily_limit_exceeded"
+          Generator::DailyLimitExceeded => "daily_limit_exceeded"
         }.freeze
 
         def self.call(...)

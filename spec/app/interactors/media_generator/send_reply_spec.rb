@@ -8,7 +8,7 @@ describe MediaGenerator::SendReply do
 
   let(:context_double) do
     instance_double(
-      Generator::Media::FreepikTaskRetrieverContext,
+      Generator::Media::FalVideoTaskRetrieverContext,
       status: status,
       processor: processor,
       button_request_id: button_request_id,

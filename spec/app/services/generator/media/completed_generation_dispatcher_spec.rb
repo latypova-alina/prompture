@@ -16,7 +16,7 @@ describe Generator::Media::CompletedGenerationDispatcher do
   let(:task_id) { "abc-123" }
 
   before do
-    allow(Generator::Media::FreepikEmptyGenerationAlert).to receive(:call)
+    allow(Generator::Media::EmptyGenerationAlert).to receive(:call)
     allow(Generator::Media::Image::TaskRetrieverJob).to receive(:perform_async)
     allow(Generator::Media::Video::FalTaskRetrieverJob).to receive(:perform_async)
     allow(Generator::Media::TaskRetrieverDispatcher).to receive(:call)
@@ -25,10 +25,10 @@ describe Generator::Media::CompletedGenerationDispatcher do
   context "when generated is empty" do
     let(:generated) { [] }
 
-    it "calls FreepikEmptyGenerationAlert" do
+    it "calls EmptyGenerationAlert" do
       call_service
 
-      expect(Generator::Media::FreepikEmptyGenerationAlert)
+      expect(Generator::Media::EmptyGenerationAlert)
         .to have_received(:call)
         .with(processor:, button_request_id:)
 

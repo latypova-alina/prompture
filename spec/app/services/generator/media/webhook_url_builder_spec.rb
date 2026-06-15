@@ -47,6 +47,23 @@ describe Generator::Media::WebhookUrlBuilder do
       end
     end
 
+    Generator::Processors::AUDIO.each do |audio_processor|
+      context "when processor is #{audio_processor}" do
+        let(:processor) { audio_processor }
+
+        before do
+          allow(Rails.env).to receive(:production?).and_return(false)
+          stub_const("ENV", ENV.to_hash.merge("GENERATOR_WEBHOOK_BASE_URL" => "http://localhost:3000"))
+        end
+
+        it "builds webhook url using fal webhook path" do
+          expect(webhook_url).to eq(
+            "http://localhost:3000/api/fal/webhook?request_id_token=#{encoded_token}&processor=#{processor}"
+          )
+        end
+      end
+    end
+
     context "when in production" do
       before do
         allow(Rails.env).to receive(:production?).and_return(true)

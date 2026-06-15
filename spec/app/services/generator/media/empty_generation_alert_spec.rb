@@ -1,6 +1,6 @@
 require "rails_helper"
 
-describe Generator::Media::FreepikEmptyGenerationAlert do
+describe Generator::Media::EmptyGenerationAlert do
   subject(:call_service) do
     described_class.call(processor:, button_request_id:)
   end
@@ -8,13 +8,13 @@ describe Generator::Media::FreepikEmptyGenerationAlert do
   let(:button_request_id) { 123 }
 
   before do
-    allow(Generator::Media::Image::FreepikEmptyAlertJob)
+    allow(Generator::Media::Image::EmptyAlertJob)
       .to receive(:perform_async)
 
-    allow(Generator::Media::Video::FreepikEmptyAlertJob)
+    allow(Generator::Media::Video::EmptyAlertJob)
       .to receive(:perform_async)
 
-    allow(Generator::Media::Audio::FreepikEmptyAlertJob)
+    allow(Generator::Media::Audio::EmptyAlertJob)
       .to receive(:perform_async)
   end
 
@@ -22,14 +22,14 @@ describe Generator::Media::FreepikEmptyGenerationAlert do
     context "when processor is an image processor" do
       let(:processor) { Generator::Processors::IMAGE.first }
 
-      it "dispatches image freepik empty alert job" do
+      it "dispatches image empty alert job" do
         call_service
 
-        expect(Generator::Media::Image::FreepikEmptyAlertJob)
+        expect(Generator::Media::Image::EmptyAlertJob)
           .to have_received(:perform_async)
           .with(button_request_id)
 
-        expect(Generator::Media::Video::FreepikEmptyAlertJob)
+        expect(Generator::Media::Video::EmptyAlertJob)
           .not_to have_received(:perform_async)
       end
     end
@@ -37,14 +37,14 @@ describe Generator::Media::FreepikEmptyGenerationAlert do
     context "when processor is a video processor" do
       let(:processor) { Generator::Processors::VIDEO.first }
 
-      it "dispatches video freepik empty alert job" do
+      it "dispatches video empty alert job" do
         call_service
 
-        expect(Generator::Media::Video::FreepikEmptyAlertJob)
+        expect(Generator::Media::Video::EmptyAlertJob)
           .to have_received(:perform_async)
           .with(button_request_id)
 
-        expect(Generator::Media::Image::FreepikEmptyAlertJob)
+        expect(Generator::Media::Image::EmptyAlertJob)
           .not_to have_received(:perform_async)
       end
     end
@@ -52,17 +52,17 @@ describe Generator::Media::FreepikEmptyGenerationAlert do
     context "when processor is an audio processor" do
       let(:processor) { Generator::Processors::AUDIO.first }
 
-      it "dispatches audio freepik empty alert job" do
+      it "dispatches audio empty alert job" do
         call_service
 
-        expect(Generator::Media::Audio::FreepikEmptyAlertJob)
+        expect(Generator::Media::Audio::EmptyAlertJob)
           .to have_received(:perform_async)
           .with(button_request_id)
 
-        expect(Generator::Media::Image::FreepikEmptyAlertJob)
+        expect(Generator::Media::Image::EmptyAlertJob)
           .not_to have_received(:perform_async)
 
-        expect(Generator::Media::Video::FreepikEmptyAlertJob)
+        expect(Generator::Media::Video::EmptyAlertJob)
           .not_to have_received(:perform_async)
       end
     end
@@ -73,10 +73,10 @@ describe Generator::Media::FreepikEmptyGenerationAlert do
       it "does not enqueue any job" do
         call_service
 
-        expect(Generator::Media::Image::FreepikEmptyAlertJob)
+        expect(Generator::Media::Image::EmptyAlertJob)
           .not_to have_received(:perform_async)
 
-        expect(Generator::Media::Video::FreepikEmptyAlertJob)
+        expect(Generator::Media::Video::EmptyAlertJob)
           .not_to have_received(:perform_async)
       end
     end

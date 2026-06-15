@@ -13,8 +13,6 @@ module RecordValidators
         return false unless parsed_uri
         return false unless simple_valid?
 
-        return true if trusted?
-
         fetchable?
       end
 
@@ -26,10 +24,6 @@ module RecordValidators
         URI.parse(image_url)
       rescue URI::InvalidURIError
         nil
-      end
-
-      def trusted?
-        TrustedSourceValidator.new(uri: parsed_uri).valid?
       end
 
       def simple_valid?

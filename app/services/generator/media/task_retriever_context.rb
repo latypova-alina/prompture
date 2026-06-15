@@ -10,7 +10,7 @@ module Generator
         return FalVideoTaskRetrieverContext if video_processor?(processor)
         return FalAudioTaskRetrieverContext if Generator::Processors::AUDIO.include?(processor)
 
-        FreepikTaskRetrieverContext
+        raise ArgumentError, "Unknown processor: #{processor}"
       end
 
       def self.video_processor?(processor)

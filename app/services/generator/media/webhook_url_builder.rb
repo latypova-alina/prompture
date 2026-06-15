@@ -27,15 +27,7 @@ module Generator
       end
 
       def webhook_path
-        return FAL_WEBHOOK_PATH if fal_processor?
-
-        "/freepik_webhook"
-      end
-
-      def fal_processor?
-        Generator::Processors::ALL_IMAGE.include?(processor) ||
-          Generator::Processors::VIDEO.include?(processor) ||
-          Generator::Processors::MERGE.include?(processor)
+        FAL_WEBHOOK_PATH
       end
     end
   end

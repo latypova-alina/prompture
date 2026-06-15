@@ -4,6 +4,5 @@ Rails.application.routes.draw do
   telegram_webhook TelegramWebhooksController
   mount Sidekiq::Web => "/sidekiq"
 
-  post "/freepik_webhook", to: "freepik_webhooks#receive"
-  post "/api/fal/webhook", to: "freepik_webhooks#receive"
+  post "/api/fal/webhook", to: "generator_webhooks#receive"
 end

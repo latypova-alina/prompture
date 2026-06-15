@@ -8,7 +8,7 @@ module Generator
           @processor = processor
 
           SuccessNotifierJob.perform_async(media_url, button_request_id)
-        rescue Freepik::ResponseError
+        rescue Generator::ResponseError
           ErrorNotifierJob.perform_async(button_request_id)
         end
 

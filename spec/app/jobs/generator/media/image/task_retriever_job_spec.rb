@@ -32,9 +32,9 @@ describe Generator::Media::Image::TaskRetrieverJob do
     end
   end
 
-  context "when retriever raises Freepik::ResponseError" do
+  context "when retriever raises Generator::ResponseError" do
     before do
-      allow(retriever_instance).to receive(:media_url).and_raise(Freepik::ResponseError)
+      allow(retriever_instance).to receive(:media_url).and_raise(Generator::ResponseError)
       allow(Generator::Media::Image::ErrorNotifierJob).to receive(:perform_async)
     end
 
