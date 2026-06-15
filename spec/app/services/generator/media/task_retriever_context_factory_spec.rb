@@ -45,14 +45,5 @@ describe Generator::Media::TaskRetrieverContext do
         end
       end
     end
-
-    context "when processor uses freepik webhook" do
-      let(:params) { ActionController::Parameters.new(processor: "extend_prompt") }
-
-      it "returns FreepikTaskRetrieverContext" do
-        expect(described_class.for(params:))
-          .to be_a(Generator::Media::FreepikTaskRetrieverContext)
-      end
-    end
   end
 end

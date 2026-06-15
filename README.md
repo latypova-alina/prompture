@@ -84,4 +84,4 @@ rails s
 
 - Telegram Bot API
 
-- Freepik and ChatGPT API
+- Fal and ChatGPT API

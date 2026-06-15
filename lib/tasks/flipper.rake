@@ -1,9 +1,8 @@
 namespace :flipper do
-  desc "Create and enable :improve_prompt_with_freepik feature for admins"
-  task improve_prompt_with_freepik: :environment do
-    Flipper.add(:improve_prompt_with_freepik)
-    Flipper[:improve_prompt_with_freepik].enable_group(:admins)
-    puts "Flipper feature :improve_prompt_with_freepik enabled for :admins group"
+  desc "Remove :improve_prompt_with_freepik feature flag"
+  task remove_improve_prompt_with_freepik: :environment do
+    Flipper.remove(:improve_prompt_with_freepik)
+    puts "Flipper feature :improve_prompt_with_freepik removed"
   end
 
   desc "Remove :prompt_to_audio feature flag"

@@ -64,18 +64,4 @@ describe Generator::Media::CompletedGenerationDispatcher do
       end
     end
   end
-
-  context "when processor uses task polling" do
-    let(:processor) { Generator::Processors::PROMPT_EXTENSION }
-
-    it "calls TaskRetrieverDispatcher" do
-      call_service
-
-      expect(Generator::Media::TaskRetrieverDispatcher)
-        .to have_received(:call)
-        .with(task_id:, button_request_id:, processor:)
-
-      expect(Generator::Media::Image::TaskRetrieverJob).not_to have_received(:perform_async)
-    end
-  end
 end

@@ -9,29 +9,11 @@ describe Generator::Media::TaskRetrieverDispatcher do
   let(:button_request_id) { 456 }
 
   before do
-    allow(Generator::Media::Prompt::TaskRetrieverJob)
-      .to receive(:perform_async)
-
     allow(Generator::Media::Image::TaskRetrieverJob)
       .to receive(:perform_async)
   end
 
   describe ".call" do
-    context "when processor is extend_prompt" do
-      let(:processor) { Generator::Processors::PROMPT_EXTENSION }
-
-      it "dispatches prompt task retriever job" do
-        call_service
-
-        expect(Generator::Media::Prompt::TaskRetrieverJob)
-          .to have_received(:perform_async)
-          .with(task_id, button_request_id, processor)
-
-        expect(Generator::Media::Image::TaskRetrieverJob)
-          .not_to have_received(:perform_async)
-      end
-    end
-
     context "when processor is an image processor" do
       let(:processor) { Generator::Processors::IMAGE.first }
 
@@ -39,9 +21,6 @@ describe Generator::Media::TaskRetrieverDispatcher do
         call_service
 
         expect(Generator::Media::Image::TaskRetrieverJob)
-          .not_to have_received(:perform_async)
-
-        expect(Generator::Media::Prompt::TaskRetrieverJob)
           .not_to have_received(:perform_async)
       end
     end
@@ -54,9 +33,6 @@ describe Generator::Media::TaskRetrieverDispatcher do
 
         expect(Generator::Media::Image::TaskRetrieverJob)
           .not_to have_received(:perform_async)
-
-        expect(Generator::Media::Prompt::TaskRetrieverJob)
-          .not_to have_received(:perform_async)
       end
     end
 
@@ -65,9 +41,6 @@ describe Generator::Media::TaskRetrieverDispatcher do
 
       it "does not enqueue any job" do
         call_service
-
-        expect(Generator::Media::Prompt::TaskRetrieverJob)
-          .not_to have_received(:perform_async)
 
         expect(Generator::Media::Image::TaskRetrieverJob)
           .not_to have_received(:perform_async)
@@ -81,9 +54,6 @@ describe Generator::Media::TaskRetrieverDispatcher do
         call_service
 
         expect(Generator::Media::Image::TaskRetrieverJob)
-          .not_to have_received(:perform_async)
-
-        expect(Generator::Media::Prompt::TaskRetrieverJob)
           .not_to have_received(:perform_async)
       end
     end

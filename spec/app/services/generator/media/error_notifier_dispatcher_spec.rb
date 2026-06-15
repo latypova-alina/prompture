@@ -8,7 +8,7 @@ describe Generator::Media::ErrorNotifierDispatcher do
   let(:button_request_id) { 123 }
 
   before do
-    allow(Generator::Media::Prompt::ErrorNotifierJob)
+    allow(Generator::Prompt::ErrorNotifierJob)
       .to receive(:perform_async)
 
     allow(Generator::Media::Image::ErrorNotifierJob)
@@ -31,7 +31,7 @@ describe Generator::Media::ErrorNotifierDispatcher do
       it "dispatches prompt error notifier job" do
         call_service
 
-        expect(Generator::Media::Prompt::ErrorNotifierJob)
+        expect(Generator::Prompt::ErrorNotifierJob)
           .to have_received(:perform_async)
           .with(button_request_id)
 
@@ -56,7 +56,7 @@ describe Generator::Media::ErrorNotifierDispatcher do
         expect(Generator::Media::Video::ErrorNotifierJob)
           .not_to have_received(:perform_async)
 
-        expect(Generator::Media::Prompt::ErrorNotifierJob)
+        expect(Generator::Prompt::ErrorNotifierJob)
           .not_to have_received(:perform_async)
       end
     end
@@ -74,7 +74,7 @@ describe Generator::Media::ErrorNotifierDispatcher do
         expect(Generator::Media::Image::ErrorNotifierJob)
           .not_to have_received(:perform_async)
 
-        expect(Generator::Media::Prompt::ErrorNotifierJob)
+        expect(Generator::Prompt::ErrorNotifierJob)
           .not_to have_received(:perform_async)
       end
     end
@@ -95,7 +95,7 @@ describe Generator::Media::ErrorNotifierDispatcher do
         expect(Generator::Media::Video::ErrorNotifierJob)
           .not_to have_received(:perform_async)
 
-        expect(Generator::Media::Prompt::ErrorNotifierJob)
+        expect(Generator::Prompt::ErrorNotifierJob)
           .not_to have_received(:perform_async)
       end
     end
@@ -130,7 +130,7 @@ describe Generator::Media::ErrorNotifierDispatcher do
         expect(Generator::Media::Video::ErrorNotifierJob)
           .not_to have_received(:perform_async)
 
-        expect(Generator::Media::Prompt::ErrorNotifierJob)
+        expect(Generator::Prompt::ErrorNotifierJob)
           .not_to have_received(:perform_async)
       end
     end

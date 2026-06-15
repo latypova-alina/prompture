@@ -10,7 +10,6 @@ module MediaGenerator
       }.freeze
 
       delegate :button_request, :button_request_record, :command_request, to: :context
-      delegate :user, to: :command_request
 
       def call
         return unless job_class
@@ -31,19 +30,11 @@ module MediaGenerator
       def processor_job_class
         case button_request
         when Generator::Processors::PROMPT_EXTENSION
-          prompt_extension_job_class
+          Generator::Prompt::ExtendJob
         when *Generator::Processors::ALL_IMAGE
           Generator::Media::Image::TaskCreatorJob
         when *Generator::Processors::VIDEO
           Generator::Media::Video::TaskCreatorJob
-        end
-      end
-
-      def prompt_extension_job_class
-        if Flipper[:improve_prompt_with_freepik].enabled?(user)
-          Generator::Media::Prompt::TaskCreatorJob
-        else
-          Generator::Prompt::ExtendJob
         end
       end
     end
