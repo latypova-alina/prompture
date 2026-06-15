@@ -36,7 +36,8 @@ describe Generator::Media::Merge::CreateTask::FfmpegMerger do
 
   context "when ffmpeg fails" do
     before do
-      allow(Open3).to receive(:capture3).and_return(["", "some error", instance_double(Process::Status, success?: false)])
+      allow(Open3).to receive(:capture3).and_return(["", "some error",
+                                                     instance_double(Process::Status, success?: false)])
     end
 
     it "raises an error" do

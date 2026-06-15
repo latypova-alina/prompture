@@ -4,7 +4,13 @@ describe Generator::Media::Merge::CreateTask::MergedVideoUploader do
   subject(:stored_url) { described_class.new(tmp:, request:).stored_url }
 
   let(:request) { create(:button_merge_audio_video_processing_request) }
-  let(:tmp) { Tempfile.new(["merged", ".mp4"]).tap { |f| f.binmode; f.write("video bytes"); f.rewind } }
+  let(:tmp) do
+    Tempfile.new(["merged", ".mp4"]).tap do |f|
+      f.binmode
+      f.write("video bytes")
+      f.rewind
+    end
+  end
   let(:stored_url_value) { "https://s3.example.com/merged_#{request.id}.mp4" }
   let(:facade) { instance_double(StoreMedia::Upload::Facade, upload: nil, stored_url: stored_url_value) }
 
