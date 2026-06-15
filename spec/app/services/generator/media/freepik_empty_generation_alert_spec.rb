@@ -8,9 +8,6 @@ describe Generator::Media::FreepikEmptyGenerationAlert do
   let(:button_request_id) { 123 }
 
   before do
-    allow(Generator::Media::Prompt::FreepikEmptyAlertJob)
-      .to receive(:perform_async)
-
     allow(Generator::Media::Image::FreepikEmptyAlertJob)
       .to receive(:perform_async)
 
@@ -22,24 +19,6 @@ describe Generator::Media::FreepikEmptyGenerationAlert do
   end
 
   describe ".call" do
-    context "when processor is extend_prompt" do
-      let(:processor) { Generator::Processors::PROMPT_EXTENSION }
-
-      it "dispatches prompt freepik empty alert job" do
-        call_service
-
-        expect(Generator::Media::Prompt::FreepikEmptyAlertJob)
-          .to have_received(:perform_async)
-          .with(button_request_id)
-
-        expect(Generator::Media::Image::FreepikEmptyAlertJob)
-          .not_to have_received(:perform_async)
-
-        expect(Generator::Media::Video::FreepikEmptyAlertJob)
-          .not_to have_received(:perform_async)
-      end
-    end
-
     context "when processor is an image processor" do
       let(:processor) { Generator::Processors::IMAGE.first }
 
@@ -51,9 +30,6 @@ describe Generator::Media::FreepikEmptyGenerationAlert do
           .with(button_request_id)
 
         expect(Generator::Media::Video::FreepikEmptyAlertJob)
-          .not_to have_received(:perform_async)
-
-        expect(Generator::Media::Prompt::FreepikEmptyAlertJob)
           .not_to have_received(:perform_async)
       end
     end
@@ -69,9 +45,6 @@ describe Generator::Media::FreepikEmptyGenerationAlert do
           .with(button_request_id)
 
         expect(Generator::Media::Image::FreepikEmptyAlertJob)
-          .not_to have_received(:perform_async)
-
-        expect(Generator::Media::Prompt::FreepikEmptyAlertJob)
           .not_to have_received(:perform_async)
       end
     end
@@ -91,9 +64,6 @@ describe Generator::Media::FreepikEmptyGenerationAlert do
 
         expect(Generator::Media::Video::FreepikEmptyAlertJob)
           .not_to have_received(:perform_async)
-
-        expect(Generator::Media::Prompt::FreepikEmptyAlertJob)
-          .not_to have_received(:perform_async)
       end
     end
 
@@ -107,9 +77,6 @@ describe Generator::Media::FreepikEmptyGenerationAlert do
           .not_to have_received(:perform_async)
 
         expect(Generator::Media::Video::FreepikEmptyAlertJob)
-          .not_to have_received(:perform_async)
-
-        expect(Generator::Media::Prompt::FreepikEmptyAlertJob)
           .not_to have_received(:perform_async)
       end
     end

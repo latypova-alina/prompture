@@ -1,9 +1,7 @@
 module Generator
   module Media
     class TaskRetrieverDispatcher
-      TASK_RETRIEVER_JOBS_BY_PROCESSOR = [
-        [Generator::Processors::PROMPT_EXTENSION, Prompt::TaskRetrieverJob]
-      ].to_h.freeze
+      TASK_RETRIEVER_JOBS_BY_PROCESSOR = {}.freeze
 
       def self.call(...)
         new(...).call
