@@ -3,7 +3,7 @@ require "rails_helper"
 describe Generator::Media::StoredMedia::AudioUploader do
   subject(:service) { described_class.new(media_url:, record:) }
 
-  let(:media_url) { "https://ai-statics.freepik.com/generated.mp3" }
+  let(:media_url) { "https://v3b.fal.media/files/b/generated.mp3" }
   let(:record) { create(:button_audio_processing_request) }
   let(:uploaded_url) { "https://internal.example/audio/generated.mp3" }
   let(:upload_facade) { instance_double(StoreMedia::Upload::Facade, stored_url: uploaded_url) }

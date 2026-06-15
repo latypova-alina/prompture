@@ -8,6 +8,7 @@ module StoreImage
         "AppleWebKit/537.36 (KHTML, like Gecko)",
         "Chrome/122.0 Safari/537.36"
       ].join(" ").freeze
+
       def initialize(url)
         @url = url
       end
