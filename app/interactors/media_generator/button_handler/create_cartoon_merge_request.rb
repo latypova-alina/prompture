@@ -4,7 +4,7 @@ module MediaGenerator
       include Interactor
       include Memery
 
-      PROCESSOR = "ffmpeg_merge_audio_video".freeze
+      PROCESSOR = "local_ffmpeg_merge".freeze
 
       def call
         context.button_request_record = button_merge_audio_video_processing_request

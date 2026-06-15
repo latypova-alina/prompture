@@ -25,7 +25,7 @@ module Generator
     ].freeze
 
     MERGE = %w[
-      ffmpeg_merge_audio_video
+      local_ffmpeg_merge
     ].freeze
   end
 end

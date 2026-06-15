@@ -331,7 +331,7 @@ ru:
         single_cartoon_script: "сцену мультфильма"
         extend_prompt: "промпт"
         merge:
-          ffmpeg_merge_audio_video: "объединённое мультфильм-видео"
+          local_ffmpeg_merge: "объединённое мультфильм-видео"
         video:
           kling_2_1_pro_image_to_video: "видео Kling Pro"
           hailuo_02_standard_image_to_video: "видео Hailuo 02 Standard"

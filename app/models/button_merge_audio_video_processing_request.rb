@@ -2,7 +2,7 @@ class ButtonMergeAudioVideoProcessingRequest < ApplicationRecord
   include HasOriginPrompt
   include HasOriginTelegramMessage
 
-  PROCESSOR_TYPES = %w[ffmpeg_merge_audio_video].freeze
+  PROCESSOR_TYPES = %w[local_ffmpeg_merge].freeze
 
   belongs_to :parent_request, polymorphic: true
   belongs_to :command_request, polymorphic: true

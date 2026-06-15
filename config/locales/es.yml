@@ -292,7 +292,7 @@ es:
         single_cartoon_script: "escena de dibujos animados"
         extend_prompt: "prompt"
         merge:
-          ffmpeg_merge_audio_video: "video de dibujos animados combinado"
+          local_ffmpeg_merge: "video de dibujos animados combinado"
         video:
           kling_2_1_pro_image_to_video: "video de Kling Pro"
           hailuo_02_standard_image_to_video: "video de Hailuo 02 Standard"

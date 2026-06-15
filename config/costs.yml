@@ -12,7 +12,7 @@ default: &default
   generate_audio:
     elevenlabs_v3_audio: 1
   merge_audio_video:
-    ffmpeg_merge_audio_video: 1
+    local_ffmpeg_merge: 1
   prompt:
     extend_prompt: 1
 
@@ -34,7 +34,7 @@ test:
   generate_audio:
     elevenlabs_v3_audio: 1
   merge_audio_video:
-    ffmpeg_merge_audio_video: 1
+    local_ffmpeg_merge: 1
   prompt:
     extend_prompt: 1
 

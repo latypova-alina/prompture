@@ -301,7 +301,7 @@ en:
           nano_banana_edit_image: "NanoBanana edit"
           imagen_image: "Imagen image"
         merge:
-          ffmpeg_merge_audio_video: "merged cartoon video"
+          local_ffmpeg_merge: "merged cartoon video"
         audio:
           voices:
             adam: "Adam audio"
