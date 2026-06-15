@@ -20,8 +20,7 @@ describe StoreImage::Download::RemoteUrlDownloader do
     expect(URI).to have_received(:open).with(
       url,
       {
-        "User-Agent" => described_class::BROWSER_USER_AGENT,
-        "Referer" => described_class::BROWSER_REFERER
+        "User-Agent" => described_class::BROWSER_USER_AGENT
       }
     )
   end
