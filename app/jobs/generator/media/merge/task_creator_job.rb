@@ -1,19 +1,32 @@
 module Generator
   module Media
     module Merge
-      class TaskCreatorJob < Generator::Media::TaskCreatorBaseJob
+      class TaskCreatorJob < ApplicationJob
+        include Memery
+
+        def perform(button_request_id)
+          @button_request_id = button_request_id
+
+          SuccessNotifierJob.perform_async(url, button_request_id)
+        rescue StandardError => e
+          ErrorNotifierJob.perform_async(button_request_id)
+          raise e
+        end
+
         private
 
-        def task_creator_class
-          CreateTask::TaskCreator
-        end
+        delegate :url, to: :task_creator
 
-        def failure_handler_class
-          CreateTask::FailureHandler
-        end
+        attr_reader :button_request_id
 
-        def request_class
+        memoize def request
           ButtonMergeAudioVideoProcessingRequest
+            .includes(:parent_request, command_request: :user)
+            .find(button_request_id)
+        end
+
+        memoize def task_creator
+          CreateTask::TaskCreator.new(request)
         end
       end
     end

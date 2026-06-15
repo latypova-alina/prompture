@@ -4,41 +4,44 @@ describe Generator::Media::Merge::TaskCreatorJob do
   subject(:perform_job) { described_class.new.perform(button_request.id) }
 
   let(:button_request) { create(:button_merge_audio_video_processing_request, status: "PENDING") }
+  let(:task_creator) { instance_double(Generator::Media::Merge::CreateTask::TaskCreator, url: "https://example.com/merged.mp4") }
+
+  before do
+    allow(Generator::Media::Merge::CreateTask::TaskCreator)
+      .to receive(:new)
+      .and_return(task_creator)
+    allow(Generator::Media::Merge::SuccessNotifierJob).to receive(:perform_async)
+    allow(Generator::Media::Merge::ErrorNotifierJob).to receive(:perform_async)
+  end
 
   describe "#perform" do
     context "when task creator succeeds" do
-      before do
-        allow(Generator::Media::Merge::CreateTask::TaskCreator).to receive(:call)
+      it "enqueues SuccessNotifierJob with the merged url" do
+        perform_job
+
+        expect(Generator::Media::Merge::SuccessNotifierJob)
+          .to have_received(:perform_async)
+          .with("https://example.com/merged.mp4", button_request.id)
       end
 
-      it "calls TaskCreator with loaded request" do
-        expect(Generator::Media::Merge::CreateTask::TaskCreator)
-          .to receive(:call).with(button_request)
-
+      it "does not enqueue ErrorNotifierJob" do
         perform_job
-      end
 
-      it "does not call FailureHandler" do
-        expect(Generator::Media::Merge::CreateTask::FailureHandler).not_to receive(:call)
-
-        perform_job
+        expect(Generator::Media::Merge::ErrorNotifierJob).not_to have_received(:perform_async)
       end
     end
 
-    context "when Freepik::ResponseError is raised" do
-      let(:error) { Freepik::ResponseError.new }
-
+    context "when task creator raises" do
       before do
-        allow(Generator::Media::Merge::CreateTask::TaskCreator)
-          .to receive(:call)
-          .and_raise(error)
+        allow(task_creator).to receive(:url).and_raise(StandardError, "ffmpeg failed")
       end
 
-      it "calls FailureHandler with request" do
-        expect(Generator::Media::Merge::CreateTask::FailureHandler)
-          .to receive(:call).with(button_request, error:)
+      it "enqueues ErrorNotifierJob" do
+        expect { perform_job }.to raise_error(StandardError)
 
-        perform_job
+        expect(Generator::Media::Merge::ErrorNotifierJob)
+          .to have_received(:perform_async)
+          .with(button_request.id)
       end
     end
   end
