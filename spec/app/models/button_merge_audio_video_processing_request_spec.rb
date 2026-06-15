@@ -32,14 +32,14 @@ RSpec.describe ButtonMergeAudioVideoProcessingRequest do
 
   describe "#cost" do
     it "uses processor pricing" do
-      expect(request.cost).to eq(COSTS[:merge_audio_video][:ffmpeg_merge_audio_video])
+      expect(request.cost).to eq(COSTS[:merge_audio_video][:local_ffmpeg_merge])
     end
   end
 
   describe "#humanized_process_name" do
     it "returns translated processor name" do
       expect(request.humanized_process_name)
-        .to eq(I18n.t("telegram.generation.humanized_process_names.merge.ffmpeg_merge_audio_video",
+        .to eq(I18n.t("telegram.generation.humanized_process_names.merge.local_ffmpeg_merge",
                       locale: request.locale))
     end
   end

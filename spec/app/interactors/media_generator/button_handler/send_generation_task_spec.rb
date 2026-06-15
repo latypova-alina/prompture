@@ -110,7 +110,7 @@ describe MediaGenerator::ButtonHandler::SendGenerationTask do
   end
 
   context "when button_request_record is a merge request" do
-    let(:button_request) { "ffmpeg_merge_audio_video" }
+    let(:button_request) { "local_ffmpeg_merge" }
     let(:button_request_record) { create(:button_merge_audio_video_processing_request, parent_request:) }
 
     it "enqueues merge generator job" do

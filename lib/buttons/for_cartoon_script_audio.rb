@@ -18,7 +18,7 @@ module Buttons
     end
 
     def merge_cost
-      COSTS[:merge_audio_video][:ffmpeg_merge_audio_video]
+      COSTS[:merge_audio_video][:local_ffmpeg_merge]
     end
   end
 end
