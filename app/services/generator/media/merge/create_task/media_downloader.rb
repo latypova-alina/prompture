@@ -1,8 +1,12 @@
+require "open-uri"
+
 module Generator
   module Media
     module Merge
       module CreateTask
         class MediaDownloader
+          include Memery
+
           def initialize(url, ext)
             @url = url
             @ext = ext

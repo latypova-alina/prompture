@@ -3,6 +3,8 @@ module Generator
     module Merge
       module CreateTask
         class MergedVideoUploader
+          include Memery
+
           def initialize(tmp:, request:)
             @tmp = tmp
             @request = request
@@ -31,6 +33,7 @@ module Generator
 
           def read_bytes
             tmp.rewind
+            tmp.binmode
             tmp.read
           end
 
