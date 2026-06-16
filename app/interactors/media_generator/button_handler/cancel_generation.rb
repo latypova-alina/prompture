@@ -9,9 +9,10 @@ module MediaGenerator
 
       def call
         with_locale(locale) do
-          canceller.call
-          handle_canceller_result
-          answer_callback_query
+          Generator::Media::Interim::CancellationHandler.call(
+            generation_request:,
+            callback_query_id:
+          )
         end
       rescue StandardError
         notify_user(I18n.t("errors.generation_cancel_failed"))
@@ -19,22 +20,7 @@ module MediaGenerator
 
       private
 
-      delegate :locale, to: :generation_request
-      delegate :chat_id, to: :generation_request
-
-      memoize def canceller
-        Generator::Media::CancelFalRequest.new(generation_request)
-      end
-
-      def handle_canceller_result
-        return notify_user(I18n.t("errors.generation_cancelled")) if canceller.success?
-
-        notify_user(I18n.t("errors.generation_cancel_failed"))
-      end
-
-      def answer_callback_query
-        Telegram.bot.answer_callback_query(callback_query_id:)
-      end
+      delegate :locale, :chat_id, to: :generation_request
 
       def notify_user(text)
         Telegram.bot.send_message(chat_id:, text:)

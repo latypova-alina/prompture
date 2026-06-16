@@ -61,6 +61,15 @@ describe Generator::Media::Image::CreateTask::TaskCreator do
       it "does not raise error" do
         expect { call_service }.not_to raise_error
       end
+
+      it "saves fal request id and sends interim message" do
+        call_service
+
+        expect(request.reload.fal_request_id).to eq("test-123")
+        expect(Generator::Media::Interim::MessageSender)
+          .to have_received(:call)
+          .with(request:)
+      end
     end
 
     context "when response is not successful" do
