@@ -1,21 +1,21 @@
 module Generator
   module Media
     class FalStatusResolver
+      STATUS_TEXT_KEYS = {
+        "IN_QUEUE" => "errors.generation_status_in_progress",
+        "IN_PROGRESS" => "errors.generation_status_in_progress",
+        "COMPLETED" => "errors.generation_status_completed",
+        "FAILED" => "errors.generation_status_failed"
+      }.freeze
+
+      UNKNOWN_STATUS_TEXT_KEY = "errors.generation_status_unknown".freeze
+
       def initialize(request)
         @request = request
       end
 
       def status_text
-        case fal_status
-        when "IN_QUEUE", "IN_PROGRESS"
-          I18n.t("errors.generation_status_in_progress")
-        when "COMPLETED"
-          I18n.t("errors.generation_status_completed")
-        when "FAILED"
-          I18n.t("errors.generation_status_failed")
-        else
-          I18n.t("errors.generation_status_unknown")
-        end
+        I18n.t(STATUS_TEXT_KEYS.fetch(fal_status, UNKNOWN_STATUS_TEXT_KEY))
       end
 
       private

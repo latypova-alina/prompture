@@ -53,7 +53,7 @@ module Generator
         end
 
         def send_interim_message
-          InterimMessageSender.call(request:) if request.respond_to?(:interim_tg_message_id)
+          Generator::Media::Interim::MessageSender.call(request:) if request.respond_to?(:interim_tg_message_id)
         end
 
         def api_client_class

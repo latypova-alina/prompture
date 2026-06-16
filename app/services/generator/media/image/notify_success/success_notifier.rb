@@ -23,14 +23,14 @@ module Generator::Media::Image::NotifySuccess
 
     delegate :reply_data, to: :presenter
     delegate :presenter, to: :presenter_factory
-    delegate :user, to: :request
+    delegate :user, :interim_tg_message_id, :chat_id, to: :request
     delegate :balance, to: :user
     delegate :credits, to: :balance, prefix: true
 
     def delete_interim_message
       TelegramIntegration::DeleteMessage.call(
-        chat_id: request.chat_id,
-        message_id: request.interim_tg_message_id
+        chat_id:,
+        message_id: interim_tg_message_id
       )
     end
 

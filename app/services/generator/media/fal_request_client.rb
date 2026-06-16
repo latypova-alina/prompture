@@ -1,12 +1,13 @@
 module Generator
   module Media
     class FalRequestClient
+      include Memery
+
       def initialize(request)
         @request = request
       end
 
       def status
-        response = connection.get(status_url)
         JSON.parse(response.body)["status"]
       end
 
@@ -19,19 +20,14 @@ module Generator
       attr_reader :request
 
       delegate :fal_request_id, :processor, to: :request
+      delegate :status_url, :cancel_url, :base_url, to: :url_resolver
 
-      def status_url
-        "#{base_url}/requests/#{fal_request_id}/status"
+      memoize def response
+        connection.get(status_url)
       end
 
-      def cancel_url
-        "#{base_url}/requests/#{fal_request_id}/cancel"
-      end
-
-      def base_url
-        strategy_class = Generator::Media::Video::CreateTask::StrategySelector::STRATEGIES[processor] ||
-                         Generator::Media::Image::CreateTask::StrategySelector::STRATEGIES[processor]
-        strategy_class.const_get(:API_URL)
+      memoize def url_resolver
+        UrlResolver.new(fal_request_id:, processor:)
       end
 
       def connection
