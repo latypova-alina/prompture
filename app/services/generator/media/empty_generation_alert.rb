@@ -1,6 +1,6 @@
 module Generator
   module Media
-    class FreepikEmptyGenerationAlert
+    class EmptyGenerationAlert
       include Memery
 
       def self.call(...)
@@ -17,11 +17,11 @@ module Generator
       def call
         case processor
         when *Generator::Processors::ALL_IMAGE
-          Generator::Media::Image::FreepikEmptyAlertJob.perform_async(button_request_id)
+          Generator::Media::Image::EmptyAlertJob.perform_async(button_request_id)
         when *Generator::Processors::VIDEO
-          Generator::Media::Video::FreepikEmptyAlertJob.perform_async(button_request_id)
+          Generator::Media::Video::EmptyAlertJob.perform_async(button_request_id)
         when *Generator::Processors::AUDIO
-          Generator::Media::Audio::FreepikEmptyAlertJob.perform_async(button_request_id)
+          Generator::Media::Audio::EmptyAlertJob.perform_async(button_request_id)
         end
       end
     end

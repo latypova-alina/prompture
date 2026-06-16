@@ -3,7 +3,7 @@ require "rails_helper"
 describe Generator::Media::StoredMedia::Uploader do
   subject(:uploader) { described_class.new(media_url:, record:) }
 
-  let(:media_url) { "https://ai-statics.freepik.com/content/generated.png?token=abc" }
+  let(:media_url) { "https://v3b.fal.media/files/b/generated.png?token=abc" }
   let!(:record) { create(:button_image_processing_request) }
   let(:uploaded_url) { "https://internal.example/images/generated.png" }
   let(:upload_facade) { instance_double(StoreImage::Upload::Facade, stored_url: uploaded_url) }

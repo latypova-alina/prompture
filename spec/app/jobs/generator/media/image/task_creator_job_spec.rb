@@ -30,8 +30,8 @@ describe Generator::Media::Image::TaskCreatorJob do
       end
     end
 
-    context "when Freepik::ResponseError is raised" do
-      let(:error) { Freepik::ResponseError.new }
+    context "when Generator::ResponseError is raised" do
+      let(:error) { Generator::ResponseError.new }
 
       before do
         allow(

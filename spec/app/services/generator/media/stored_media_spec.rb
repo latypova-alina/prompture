@@ -3,7 +3,7 @@ require "rails_helper"
 describe Generator::Media::StoredMedia::Retriever do
   subject(:service) { described_class.new(media_url:, button_request_id:, processor:) }
 
-  let(:media_url) { "https://ai-statics.freepik.com/generated.png" }
+  let(:media_url) { "https://v3b.fal.media/files/b/generated.png" }
   let!(:button_request) { create(:button_image_processing_request) }
   let(:button_request_id) { button_request.id }
   let(:processor) { "flux_image" }
@@ -39,7 +39,7 @@ describe Generator::Media::StoredMedia::Retriever do
 
     context "when processor is video with storable category" do
       let(:processor) { Generator::Processors::VIDEO.first }
-      let(:media_url) { "https://ai-statics.freepik.com/generated.mp4" }
+      let(:media_url) { "https://v3b.fal.media/files/b/generated.mp4" }
       let!(:button_request) do
         create(
           :button_video_processing_request,

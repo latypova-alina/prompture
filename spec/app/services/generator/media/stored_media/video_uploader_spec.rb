@@ -3,7 +3,7 @@ require "rails_helper"
 describe Generator::Media::StoredMedia::VideoUploader do
   subject(:service) { described_class.new(media_url:, record:) }
 
-  let(:media_url) { "https://ai-statics.freepik.com/generated.mp4" }
+  let(:media_url) { "https://v3b.fal.media/files/b/generated.mp4" }
   let(:command_request) { create(:command_prompt_to_video_request, :motivation) }
   let(:prompt_message) do
     create(:prompt_message, command_request:, parent_request: command_request, subcategory: "cry")

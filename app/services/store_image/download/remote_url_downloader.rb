@@ -8,7 +8,6 @@ module StoreImage
         "AppleWebKit/537.36 (KHTML, like Gecko)",
         "Chrome/122.0 Safari/537.36"
       ].join(" ").freeze
-      BROWSER_REFERER = "https://www.freepik.com/".freeze
 
       def initialize(url)
         @url = url
@@ -28,10 +27,7 @@ module StoreImage
         # rubocop:disable Security/Open
         URI.open(
           url,
-          {
-            "User-Agent" => BROWSER_USER_AGENT,
-            "Referer" => BROWSER_REFERER
-          }
+          { "User-Agent" => BROWSER_USER_AGENT }
         )
         # rubocop:enable Security/Open
       end

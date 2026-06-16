@@ -1,7 +1,7 @@
 module Generator
   module Media
     module Audio
-      class FreepikEmptyAlertJob < Generator::Media::FreepikEmptyAlertBaseJob
+      class EmptyAlertJob < Generator::Media::EmptyAlertBaseJob
         private
 
         def error_text

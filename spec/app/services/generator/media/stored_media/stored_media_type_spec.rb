@@ -3,7 +3,7 @@ require "rails_helper"
 describe Generator::Media::StoredMedia::StoredMediaType do
   subject(:stored_media_type) { described_class.new(processor:, media_url:, button_request_id:) }
 
-  let(:media_url) { "https://ai-statics.freepik.com/generated.png" }
+  let(:media_url) { "https://v3b.fal.media/files/b/generated.png" }
   let(:button_request_id) { button_request.id }
 
   describe "#needs_to_be_stored?" do
@@ -49,7 +49,7 @@ describe Generator::Media::StoredMedia::StoredMediaType do
   end
 
   describe "#uploader" do
-    let(:media_url) { "https://ai-statics.freepik.com/generated.mp3" }
+    let(:media_url) { "https://v3b.fal.media/files/b/generated.mp3" }
 
     context "when processor is image" do
       let(:processor) { Generator::Processors::IMAGE.first }

@@ -1,6 +1,6 @@
 module Generator
   module Media
-    class FreepikEmptyAlertBaseJob < ApplicationJob
+    class EmptyAlertBaseJob < ApplicationJob
       include Memery
 
       def perform(button_request_id)

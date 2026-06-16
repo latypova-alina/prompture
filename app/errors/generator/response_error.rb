@@ -1,3 +1,3 @@
-module Freepik
+module Generator
   class ResponseError < StandardError; end
 end

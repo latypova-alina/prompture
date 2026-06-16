@@ -1,9 +1,9 @@
 require "rails_helper"
 
-describe Generator::Media::Video::FreepikEmptyAlertJob do
+describe Generator::Media::Image::EmptyAlertJob do
   subject(:perform_job) { described_class.new.perform(button_request.id) }
 
-  let(:button_request) { create(:button_video_processing_request, status: "PENDING") }
+  let(:button_request) { create(:button_image_processing_request, status: "PENDING") }
 
   let(:telegram_bot) { double }
 
@@ -22,7 +22,7 @@ describe Generator::Media::Video::FreepikEmptyAlertJob do
       it "sends telegram message with reply_to_message_id" do
         expect(telegram_bot).to receive(:send_message).with(
           chat_id: button_request.chat_id,
-          text: I18n.t("errors.empty_generation_our_fault_video"),
+          text: I18n.t("errors.empty_generation_our_fault_image"),
           reply_to_message_id: 123_456
         )
 
@@ -34,7 +34,7 @@ describe Generator::Media::Video::FreepikEmptyAlertJob do
       it "sends telegram message without reply_to_message_id" do
         expect(telegram_bot).to receive(:send_message).with(
           chat_id: button_request.chat_id,
-          text: I18n.t("errors.empty_generation_our_fault_video")
+          text: I18n.t("errors.empty_generation_our_fault_image")
         )
 
         perform_job

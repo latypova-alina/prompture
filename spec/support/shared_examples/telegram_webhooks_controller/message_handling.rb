@@ -91,7 +91,7 @@ RSpec.shared_examples "message handling" do
     context "when message contains an image URL and command is image_to_video" do
       let(:command) { "image_to_video" }
       let!(:command_request) { create(:command_image_to_video_request, chat_id:) }
-      let(:image_url) { "https://cdn-magnific.freepik.com/image.png" }
+      let(:image_url) { "https://v3b.fal.media/files/b/generated.png" }
       let(:prompt) { image_url }
 
       let(:expected_text) do

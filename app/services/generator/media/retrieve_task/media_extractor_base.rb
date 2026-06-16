@@ -9,7 +9,7 @@ module Generator
         end
 
         def media_url
-          raise Freepik::ResponseError unless response.success?
+          raise Generator::ResponseError unless response.success?
 
           parsed_body.dig("data", "generated", 0)
         end

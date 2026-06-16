@@ -29,7 +29,7 @@ module Generator
       attr_reader :processor, :button_request_id, :generated, :task_id
 
       def empty_generation_alert
-        FreepikEmptyGenerationAlert.call(processor:, button_request_id:)
+        EmptyGenerationAlert.call(processor:, button_request_id:)
       end
 
       def dispatch_retrieval

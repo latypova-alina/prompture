@@ -59,9 +59,9 @@ describe Generator::Media::Audio::CreateTask::TaskCreator do
       let(:success) { false }
       let(:status) { 500 }
 
-      it "raises Freepik::ResponseError" do
+      it "raises Generator::ResponseError" do
         expect { call_service }
-          .to raise_error(Freepik::ResponseError)
+          .to raise_error(Generator::ResponseError)
       end
     end
 
@@ -69,9 +69,9 @@ describe Generator::Media::Audio::CreateTask::TaskCreator do
       let(:success) { false }
       let(:status) { 429 }
 
-      it "raises Freepik::DailyLimitExceeded" do
+      it "raises Generator::DailyLimitExceeded" do
         expect { call_service }
-          .to raise_error(Freepik::DailyLimitExceeded)
+          .to raise_error(Generator::DailyLimitExceeded)
       end
     end
   end

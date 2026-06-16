@@ -15,9 +15,9 @@ module Generator
         def call
           return if response.success?
 
-          raise Freepik::DailyLimitExceeded if response.status == 429
+          raise Generator::DailyLimitExceeded if response.status == 429
 
-          raise Freepik::ResponseError
+          raise Generator::ResponseError
         end
 
         private
