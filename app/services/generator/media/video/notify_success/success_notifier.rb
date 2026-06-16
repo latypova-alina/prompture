@@ -12,8 +12,8 @@ module Generator::Media::Video::NotifySuccess
     end
 
     def call
+      delete_interim_message
       send_telegram_message
-
       update_request_status
     end
 
@@ -26,6 +26,12 @@ module Generator::Media::Video::NotifySuccess
     delegate :credits, to: :balance, prefix: true
     delegate :locale, :humanized_process_name, :processor, to: :request
     attr_reader :video_url, :button_request_id
+
+    def delete_interim_message
+      return unless request.interim_tg_message_id
+
+      Telegram.bot.delete_message(chat_id: request.chat_id, message_id: request.interim_tg_message_id)
+    end
 
     def send_telegram_message
       SendTelegramMessage.call(reply_data:, request:)

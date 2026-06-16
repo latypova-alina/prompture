@@ -40,6 +40,10 @@ module TelegramIntegration
           handle_merge_cartoon_audio_video_button
         when ButtonActions::REGENERATE_SINGLE_CARTOON_SCRIPT_IMAGE
           handle_regenerate_single_cartoon_script_image_button
+        when ButtonActions::CHECK_GENERATION_STATUS
+          handle_check_generation_status
+        when ButtonActions::CANCEL_GENERATION
+          handle_cancel_generation
         else
           handle_media_button
         end
@@ -63,6 +67,22 @@ module TelegramIntegration
 
       def handle_regenerate_single_cartoon_script_image_button
         MediaGenerator::ButtonHandler::HandleRegenerateSingleCartoonScriptImageButton.call(**media_button_handler_params)
+      end
+
+      def handle_check_generation_status
+        MediaGenerator::ButtonHandler::CheckGenerationStatus.call(
+          button_request:,
+          chat_id:,
+          callback_query_id:
+        )
+      end
+
+      def handle_cancel_generation
+        MediaGenerator::ButtonHandler::CancelGeneration.call(
+          button_request:,
+          chat_id:,
+          callback_query_id:
+        )
       end
 
       def handle_get_audio_samples
