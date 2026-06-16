@@ -19,6 +19,12 @@ describe CartoonScriptCheckable do
 
       expect(request.cartoon_script?).to be(false)
     end
+
+    it "returns false when model does not have a category column" do
+      request = build(:command_image_to_video_request)
+
+      expect(request.cartoon_script?).to be(false)
+    end
   end
 
   describe "#cartoon_shorts_script?" do
@@ -26,6 +32,12 @@ describe CartoonScriptCheckable do
       request = build(:command_edit_image_request, category: ContentCategory::CARTOON_SHORTS_SCRIPT)
 
       expect(request.cartoon_shorts_script?).to be(true)
+    end
+
+    it "returns false when model does not have a category column" do
+      request = build(:command_image_to_video_request)
+
+      expect(request.cartoon_shorts_script?).to be(false)
     end
   end
 
