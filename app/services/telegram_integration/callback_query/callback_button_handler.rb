@@ -72,7 +72,6 @@ module TelegramIntegration
       def handle_check_generation_status
         MediaGenerator::ButtonHandler::CheckGenerationStatus.call(
           button_request:,
-          chat_id:,
           callback_query_id:
         )
       end
@@ -80,7 +79,6 @@ module TelegramIntegration
       def handle_cancel_generation
         MediaGenerator::ButtonHandler::CancelGeneration.call(
           button_request:,
-          chat_id:,
           callback_query_id:
         )
       end

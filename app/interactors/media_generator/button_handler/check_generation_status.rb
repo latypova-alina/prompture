@@ -1,17 +1,11 @@
 module MediaGenerator
   module ButtonHandler
     class CheckGenerationStatus
+      include Interactor
+      include Memery
       include LocaleSupport
 
-      def self.call(button_request:, chat_id:, callback_query_id:)
-        new(button_request:, chat_id:, callback_query_id:).call
-      end
-
-      def initialize(button_request:, chat_id:, callback_query_id:)
-        @button_request = button_request
-        @chat_id = chat_id
-        @callback_query_id = callback_query_id
-      end
+      delegate :button_request, :callback_query_id, to: :context
 
       def call
         with_locale(locale) do
@@ -25,35 +19,16 @@ module MediaGenerator
 
       private
 
-      attr_reader :button_request, :chat_id, :callback_query_id
+      delegate :locale, to: :generation_request
+      delegate :status_text, to: :status_resolver
 
-      delegate :locale, to: :request
-
-      def status_text
-        case fal_status
-        when "IN_QUEUE", "IN_PROGRESS"
-          I18n.t("errors.generation_status_in_progress")
-        when "COMPLETED"
-          I18n.t("errors.generation_status_completed")
-        when "FAILED"
-          I18n.t("errors.generation_status_failed")
-        else
-          I18n.t("errors.generation_status_unknown")
-        end
+      memoize def status_resolver
+        Generator::Media::FalStatusResolver.new(generation_request)
       end
 
-      def fal_status
-        Generator::Media::FalRequestClient.new(request).status
-      rescue StandardError
-        nil
-      end
-
-      def request
-        @request ||= resolve_request
-      end
-
-      def resolve_request
+      memoize def generation_request
         request_id, request_type = button_request.split(":").last(2)
+
         request_type.constantize.find(request_id)
       end
     end
