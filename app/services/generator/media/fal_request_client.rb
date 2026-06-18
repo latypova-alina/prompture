@@ -11,8 +11,12 @@ module Generator
         JSON.parse(response.body)["status"]
       end
 
-      def cancel
+      memoize def cancel_request
         connection.put(cancel_url)
+      end
+
+      def success?
+        cancel_request.success?
       end
 
       private

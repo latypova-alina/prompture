@@ -1,6 +1,8 @@
 module Generator
   module Media
     class FalTaskRetrieverContextBase
+      CANCELLATION_STATUS_CODE = "499"
+
       def initialize(params:)
         @params = params
       end
@@ -15,6 +17,7 @@ module Generator
 
       def status
         return "COMPLETED" if params[:status] == "OK"
+        return "CANCELLED" if cancelled?
 
         "FAILED"
       end
@@ -30,6 +33,10 @@ module Generator
       private
 
       attr_reader :params
+
+      def cancelled?
+        params[:error].to_s.include?(CANCELLATION_STATUS_CODE)
+      end
 
       def payload
         params.fetch(:payload, {}).permit!

@@ -14,7 +14,7 @@ module Generator
         end
 
         def call
-          canceller.call
+          canceller.cancel_request
           deliver_result
         end
 
@@ -25,11 +25,11 @@ module Generator
         delegate :chat_id, to: :generation_request
 
         memoize def canceller
-          Generator::Media::CancelFalRequest.new(generation_request)
+          Generator::Media::FalRequestCanceller.new(generation_request)
         end
 
         def deliver_result
-          return answer_callback_query_with_alert(I18n.t("errors.generation_cancelled")) if canceller.success?
+          return answer_callback_query_with_alert(I18n.t("errors.generation_cancel_requested")) if canceller.success?
 
           notify_user(I18n.t("errors.generation_cancel_failed"))
 
