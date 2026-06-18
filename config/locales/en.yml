@@ -263,10 +263,15 @@ en:
     audio_generating_error: "Sorry, I couldn't generate the audio. Please try again later."
     merge_audio_video_error: "Sorry, I couldn't merge the audio and video. Please try again later."
     video_generating_timeout_error: "Sorry, the video generation is taking too long. Please try again later."
-    media_generating_interim: "Your media is generating ⏳ You can check the status or cancel using the buttons below. Once it's ready, this message will be deleted automatically."
+    media_generating_interim: |
+      Your media is generating ⏳ 
+      This message will be deleted automatically.
+
+      ❗ PLEASE NOTE: Cancellation will only work for queued requests. If it's being processed already, it cannot be cancelled.
     check_status_button: "🔄 Check status"
     cancel_generation_button: "❌ Cancel"
-    generation_status_in_progress: "⏳ Still generating, hang tight!"
+    generation_status_in_queue: "⏳ Your generation request is in the queue!"
+    generation_status_in_progress: "⏳ Generation is in progress, hang tight!"
     generation_status_completed: "✅ Generation completed!"
     generation_status_failed: "❌ Generation failed."
     generation_status_unknown: "🤔 Status unknown, please wait."

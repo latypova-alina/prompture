@@ -2,7 +2,7 @@ module Generator
   module Media
     class FalStatusResolver
       STATUS_TEXT_KEYS = {
-        "IN_QUEUE" => "errors.generation_status_in_progress",
+        "IN_QUEUE" => "errors.generation_status_in_queue",
         "IN_PROGRESS" => "errors.generation_status_in_progress",
         "COMPLETED" => "errors.generation_status_completed",
         "FAILED" => "errors.generation_status_failed"

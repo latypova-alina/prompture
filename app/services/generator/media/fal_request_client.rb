@@ -24,15 +24,15 @@ module Generator
       attr_reader :request
 
       delegate :fal_request_id, :processor, to: :request
-      delegate :status_url, :base_url, to: :url_resolver
+      delegate :status_url, :base_url, to: :status_url_resolver
       delegate :cancel_url, to: :cancel_url_resolver
 
       memoize def response
         connection.get(status_url)
       end
 
-      memoize def url_resolver
-        UrlResolver.new(fal_request_id:, processor:)
+      memoize def status_url_resolver
+        StatusUrlResolver.new(fal_request_id:, processor:)
       end
 
       memoize def cancel_url_resolver
