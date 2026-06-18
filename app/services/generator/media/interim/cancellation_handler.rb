@@ -15,8 +15,7 @@ module Generator
 
         def call
           canceller.call
-          notify_user(result_message)
-          answer_callback_query
+          deliver_result
         end
 
         private
@@ -29,10 +28,19 @@ module Generator
           Generator::Media::CancelFalRequest.new(generation_request)
         end
 
-        def result_message
-          return I18n.t("errors.generation_cancelled") if canceller.success?
+        def deliver_result
+          return answer_callback_query_with_alert(I18n.t("errors.generation_cancelled")) if canceller.success?
 
-          I18n.t("errors.generation_cancel_failed")
+          notify_user(I18n.t("errors.generation_cancel_failed"))
+
+          answer_callback_query
+        end
+
+        def answer_callback_query_with_alert(text)
+          TelegramIntegration::SendAlertCallbackQuery.call(
+            callback_query_id:,
+            text:
+          )
         end
 
         def notify_user(text)

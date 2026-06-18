@@ -3,6 +3,7 @@ module Generator
     module Image
       module CreateTask
         class ImagenPayloadStrategy < PayloadStrategyBase
+          # NO LONGER SUPPORTED BY FAL
           API_URL = "https://queue.fal.run/fal-ai/imagen4/preview/fast".freeze
 
           private

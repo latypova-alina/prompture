@@ -10,17 +10,17 @@ module Generator
         "#{base_url}/requests/#{fal_request_id}/status"
       end
 
-      def cancel_url
-        "#{base_url}/requests/#{fal_request_id}/cancel"
-      end
-
       def base_url
-        strategy_class.const_get(:API_URL)
+        strategy_api_url.sub(%r{/edit\z}, "")
       end
 
       private
 
       attr_reader :fal_request_id, :processor
+
+      def strategy_api_url
+        strategy_class.const_get(:API_URL)
+      end
 
       def strategy_class
         Generator::Media::Video::CreateTask::StrategySelector::STRATEGIES[processor] ||

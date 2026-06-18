@@ -21,17 +21,14 @@ module Generator::Media::Video::NotifySuccess
 
     delegate :reply_data, to: :presenter
     delegate :presenter, to: :presenter_factory
-    delegate :user, :interim_tg_message_id, :chat_id, to: :request
+    delegate :user, to: :request
     delegate :balance, to: :user
     delegate :credits, to: :balance, prefix: true
     delegate :locale, :humanized_process_name, :processor, to: :request
     attr_reader :video_url, :button_request_id
 
     def delete_interim_message
-      TelegramIntegration::DeleteMessage.call(
-        chat_id:,
-        message_id: interim_tg_message_id
-      )
+      Generator::Media::Interim::MessageDeleter.call(request:)
     end
 
     def send_telegram_message

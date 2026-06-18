@@ -10,7 +10,7 @@ module Generator
 
         request.update!(status: "CANCELLED")
 
-        delete_interim_message
+        Interim::MessageDeleter.call(request:)
       end
 
       delegate :success?, to: :response
@@ -19,17 +19,8 @@ module Generator
 
       attr_reader :request
 
-      delegate :chat_id, :interim_tg_message_id, to: :request
-
       def response
         FalRequestClient.new(request).cancel
-      end
-
-      def delete_interim_message
-        TelegramIntegration::DeleteMessage.call(
-          chat_id:,
-          message_id: interim_tg_message_id
-        )
       end
     end
   end

@@ -20,7 +20,8 @@ module Generator
       attr_reader :request
 
       delegate :fal_request_id, :processor, to: :request
-      delegate :status_url, :cancel_url, :base_url, to: :url_resolver
+      delegate :status_url, :base_url, to: :url_resolver
+      delegate :cancel_url, to: :cancel_url_resolver
 
       memoize def response
         connection.get(status_url)
@@ -28,6 +29,10 @@ module Generator
 
       memoize def url_resolver
         UrlResolver.new(fal_request_id:, processor:)
+      end
+
+      memoize def cancel_url_resolver
+        CancelUrlResolver.new(fal_request_id:, processor:)
       end
 
       def connection
