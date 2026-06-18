@@ -151,7 +151,7 @@ es:
       image_to_video_image_reply: "¡Genial! Puedes generar un video con Kling o proporcionar un prompt primero."
       image_to_video_prompt_reply: "¡Genial! Ahora, por favor, proporciona un prompt para el video."
       edit_image_prompt_reply: "¡Genial! Ahora envía tu prompt de edición."
-      extended_prompt_postfix: "Aquí está tu prompt extendido ⬆️ \n\nAhora puedes generar una imagen usando uno de los procesadores (Flux/NanoBanana/Imagen)"
+      extended_prompt_postfix: "Aquí está tu prompt extendido ⬆️ \n\nAhora puedes generar una imagen usando uno de los procesadores (Flux/NanoBanana)"
       image_generated_prefix: "Aquí está tu %{processor_name} 🖼️"
       image_generated_postfix: "Ahora puedes generar un video usando uno de los procesadores (Kling)"
       video_generated_prefix: "Aquí está tu %{processor_name} 🎥"
@@ -163,7 +163,7 @@ es:
 
         🔹 extender el prompt
           
-        🔹 generar una imagen usando uno de los procesadores (Flux/NanoBanana/Imagen)
+        🔹 generar una imagen usando uno de los procesadores (Flux/NanoBanana)
       prompt_suffix_audio: |
         ¿Qué quieres hacer a continuación? Puedes:
 
@@ -184,9 +184,6 @@ es:
           nano_banana_edit_image:
             one: "NanoBanana Edit (%{count} crédito)"
             other: "NanoBanana Edit (%{count} créditos)"
-          imagen_image:
-            one: "Imagen (%{count} crédito)"
-            other: "Imagen (%{count} créditos)"
         generate_audio:
           adam:
             one: "Adam (%{count} crédito)"
@@ -311,7 +308,6 @@ es:
           flux_image: "imagen de Flux"
           nano_banana_image: "imagen de NanoBanana"
           nano_banana_edit_image: "edición de NanoBanana"
-          imagen_image: "imagen de Imagen"
         audio:
           voices:
             adam: "audio de Adam"

@@ -28,7 +28,7 @@ module MediaGenerator
     end
 
     def delete_interim_message
-      Generator::Media::Interim::MessageDeleter.call_for_webhook(
+      Generator::Media::Interim::WebhookMessageDeleter.call(
         processor:,
         button_request_id:
       )

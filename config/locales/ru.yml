@@ -152,7 +152,7 @@ ru:
       image_to_video_image_reply: "Отлично! Ты можешь сгенерировать видео с помощью Kling или сначала указать промпт."
       image_to_video_prompt_reply: "Отлично! Теперь напиши промпт для видео."
       edit_image_prompt_reply: "Отлично! Теперь отправь промпт для редактирования."
-      extended_prompt_postfix: "Вот твой расширенный промпт ⬆️ \n\nТеперь ты можешь сгенерировать изображение с помощью одного из процессоров (Flux/NanoBanana/Imagen)"
+      extended_prompt_postfix: "Вот твой расширенный промпт ⬆️ \n\nТеперь ты можешь сгенерировать изображение с помощью одного из процессоров (Flux/NanoBanana)"
       image_generated_prefix: "Вот твое %{processor_name} 🖼️"
       image_generated_postfix: "Теперь ты можешь сгенерировать видео с помощью одного из процессоров (Kling)"
       video_generated_prefix: "Вот твое %{processor_name} 🎥"
@@ -164,7 +164,7 @@ ru:
           
         🔹 расширить промпт (👉 ⚠️ результат будет на английском языке для улучшения качества генерации)
           
-        🔹 сгенерировать изображение с помощью одного из процессоров (Flux/NanoBanana/Imagen)
+        🔹 сгенерировать изображение с помощью одного из процессоров (Flux/NanoBanana)
       prompt_suffix_audio: |
         Что ты хочешь сделать дальше? Ты можешь:
 
@@ -193,11 +193,6 @@ ru:
             few: "NanoBanana Edit (%{count} кредита)"
             many: "NanoBanana Edit (%{count} кредитов)"
             other: "NanoBanana Edit (%{count} кредитов)"
-          imagen_image:
-            one: "Imagen (%{count} кредит)"
-            few: "Imagen (%{count} кредита)"
-            many: "Imagen (%{count} кредитов)"
-            other: "Imagen (%{count} кредитов)"
         generate_audio:
           adam:
             one: "Adam (%{count} кредит)"
@@ -350,7 +345,6 @@ ru:
           flux_image: "изображение Flux"
           nano_banana_image: "изображение NanoBanana"
           nano_banana_edit_image: "редактирование NanoBanana"
-          imagen_image: "изображение Imagen"
         audio:
           voices:
             adam: "аудио Adam"

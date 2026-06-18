@@ -14,41 +14,27 @@ module Generator
         end
 
         def call
-          canceller.cancel_request
-          deliver_result
+          cancel_request
+
+          notify_result
         end
 
         private
 
         attr_reader :generation_request, :callback_query_id
 
-        delegate :chat_id, to: :generation_request
+        delegate :success?, :cancel_request, to: :canceller
 
-        memoize def canceller
-          Generator::Media::FalRequestCanceller.new(generation_request)
-        end
-
-        def deliver_result
-          return answer_callback_query_with_alert(I18n.t("errors.generation_cancel_requested")) if canceller.success?
-
-          notify_user(I18n.t("errors.generation_cancel_failed"))
-
-          answer_callback_query
-        end
-
-        def answer_callback_query_with_alert(text)
-          TelegramIntegration::SendAlertCallbackQuery.call(
+        def notify_result
+          CancellationResultNotifier.call(
+            generation_request:,
             callback_query_id:,
-            text:
+            success: success?
           )
         end
 
-        def notify_user(text)
-          Telegram.bot.send_message(chat_id:, text:)
-        end
-
-        def answer_callback_query
-          Telegram.bot.answer_callback_query(callback_query_id:)
+        memoize def canceller
+          Generator::Media::FalRequestCanceller.new(generation_request)
         end
       end
     end
