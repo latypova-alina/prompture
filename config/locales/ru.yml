@@ -315,7 +315,6 @@ ru:
     generation_status_completed: "✅ Генерация завершена!"
     generation_status_failed: "❌ Генерация не удалась."
     generation_status_unknown: "🤔 Статус неизвестен, подожди немного."
-    generation_cancel_requested: "Отмена запрошена. Если генерация ещё не началась, она будет отменена."
     generation_cancel_failed: "Не удалось отменить генерацию. Возможно, она уже завершилась."
     generation_cancelled_successfully: "Твой запрос на %{processor_name} успешно отменён."
     command_unknown: "Ой! Похоже, ты ещё не выбрал команду. Пожалуйста, выбери команду и следуй инструкциям."

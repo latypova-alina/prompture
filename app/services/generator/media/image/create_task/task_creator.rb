@@ -3,7 +3,17 @@ module Generator
     module Image
       module CreateTask
         class TaskCreator < Generator::Media::CreateTask::TaskCreatorBase
+          def call
+            super
+
+            send_interim_message
+          end
+
           private
+
+          def send_interim_message
+            Generator::Media::Interim::MessageSender.call(request:)
+          end
 
           delegate :webhook_url, to: :payload_composer
 

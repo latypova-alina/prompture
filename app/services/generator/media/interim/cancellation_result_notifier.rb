@@ -13,7 +13,7 @@ module Generator
         end
 
         def call
-          return answer_callback_query_with_alert(I18n.t("errors.generation_cancel_requested")) if success?
+          return answer_callback_query_with_alert(cancelled_message_text) if success?
 
           notify_user(I18n.t("errors.generation_cancel_failed"))
 
@@ -26,7 +26,14 @@ module Generator
 
         alias success? success
 
-        delegate :chat_id, to: :generation_request
+        delegate :chat_id, :humanized_process_name, to: :generation_request
+
+        def cancelled_message_text
+          I18n.t(
+            "errors.generation_cancelled_successfully",
+            processor_name: humanized_process_name
+          )
+        end
 
         def answer_callback_query_with_alert(text)
           TelegramIntegration::SendAlertCallbackQuery.call(

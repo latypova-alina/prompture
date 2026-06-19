@@ -2,8 +2,6 @@ module Generator
   module Media
     module Interim
       class CancellationHandler
-        include Memery
-
         def self.call(generation_request:, callback_query_id:)
           new(generation_request:, callback_query_id:).call
         end
@@ -14,27 +12,27 @@ module Generator
         end
 
         def call
-          cancel_request
+          cancel_generation
 
-          notify_result
+          notify_success
         end
 
         private
 
         attr_reader :generation_request, :callback_query_id
 
-        delegate :success?, :cancel_request, to: :canceller
+        def cancel_generation
+          generation_request.update!(status: "CANCELLED")
 
-        def notify_result
+          MessageDeleter.call(request: generation_request)
+        end
+
+        def notify_success
           CancellationResultNotifier.call(
             generation_request:,
             callback_query_id:,
-            success: success?
+            success: true
           )
-        end
-
-        memoize def canceller
-          Generator::Media::FalRequestCanceller.new(generation_request)
         end
       end
     end

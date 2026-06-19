@@ -17,7 +17,6 @@ module Generator
           raise Generator::ResponseError unless response.success?
 
           save_fal_request_id
-          send_interim_message
         end
 
         private
@@ -50,10 +49,6 @@ module Generator
 
         def save_fal_request_id
           request.update!(fal_request_id:) if request.respond_to?(:fal_request_id)
-        end
-
-        def send_interim_message
-          Generator::Media::Interim::MessageSender.call(request:) if request.respond_to?(:interim_tg_message_id)
         end
 
         def api_client_class

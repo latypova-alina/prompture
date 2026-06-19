@@ -12,6 +12,8 @@ module MediaGenerator
       delegate :button_request, :button_request_record, :command_request, to: :context
 
       def call
+        return enqueue_video_task if video_processor?
+
         return unless job_class
 
         job_class.perform_async(button_request_record.id)
@@ -33,9 +35,15 @@ module MediaGenerator
           Generator::Prompt::ExtendJob
         when *Generator::Processors::ALL_IMAGE
           Generator::Media::Image::TaskCreatorJob
-        when *Generator::Processors::VIDEO
-          Generator::Media::Video::TaskCreatorJob
         end
+      end
+
+      def video_processor?
+        button_request.in?(Generator::Processors::VIDEO)
+      end
+
+      def enqueue_video_task
+        Generator::Media::Video::EnqueueVideoTask.call(button_request_record)
       end
     end
   end
