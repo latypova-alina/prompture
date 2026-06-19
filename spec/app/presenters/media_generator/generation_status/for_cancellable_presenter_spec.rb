@@ -1,6 +1,6 @@
 require "rails_helper"
 
-describe MediaGenerator::GenerationStatusPresenter do
+describe MediaGenerator::GenerationStatus::ForCancellablePresenter do
   subject(:presenter) { described_class.new(request) }
 
   let(:request) { create(:button_video_processing_request) }
@@ -21,6 +21,12 @@ describe MediaGenerator::GenerationStatusPresenter do
           ]
         ]
       )
+    end
+  end
+
+  describe "#message_payload_text" do
+    it "returns translated video interim message" do
+      expect(presenter.message_payload_text).to eq(I18n.t("errors.video_generating_interim"))
     end
   end
 end

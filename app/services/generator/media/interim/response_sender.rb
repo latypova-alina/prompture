@@ -16,10 +16,11 @@ module Generator
 
         attr_reader :request
 
-        delegate :inline_keyboard, to: :presenter
+        delegate :presenter, to: :presenter_selector
+        delegate :inline_keyboard, :message_payload_text, to: :presenter
 
-        memoize def presenter
-          MediaGenerator::GenerationStatusPresenter.new(request)
+        memoize def presenter_selector
+          MediaGenerator::GenerationStatus::PresenterSelector.new(request:)
         end
 
         memoize def response
@@ -28,7 +29,7 @@ module Generator
 
         def message_payload
           {
-            text: I18n.t("errors.media_generating_interim"),
+            text: message_payload_text,
             reply_markup: { inline_keyboard: }
           }
         end

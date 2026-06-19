@@ -264,7 +264,10 @@ en:
     merge_audio_video_error: "Sorry, I couldn't merge the audio and video. Please try again later."
     video_generating_timeout_error: "Sorry, the video generation is taking too long. Please try again later."
     media_generating_interim: |
-      Your media is generating ⏳ 
+      Your media is generating ⏳
+      This message will be deleted automatically.
+    video_generating_interim: |
+      Your media is generating ⏳
       This message will be deleted automatically.
 
       ❗ PLEASE NOTE: Cancellation will only work for queued requests. If it's being processed already, it cannot be cancelled.

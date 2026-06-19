@@ -266,6 +266,9 @@ es:
     media_generating_interim: |
       Tu media se está generando ⏳
       Este mensaje se eliminará automáticamente.
+    video_generating_interim: |
+      Tu media se está generando ⏳
+      Este mensaje se eliminará automáticamente.
 
       ❗ TEN EN CUENTA: La cancelación solo funcionará para solicitudes en cola. Si ya se está procesando, no se puede cancelar.
     check_status_button: "🔄 Verificar estado"
