@@ -11,21 +11,12 @@ module Generator
         JSON.parse(response.body)["status"]
       end
 
-      memoize def cancel_request
-        connection.put(cancel_url)
-      end
-
-      def success?
-        cancel_request.success?
-      end
-
       private
 
       attr_reader :request
 
       delegate :fal_request_id, :processor, to: :request
       delegate :status_url, :base_url, to: :status_url_resolver
-      delegate :cancel_url, to: :cancel_url_resolver
 
       memoize def response
         connection.get(status_url)
@@ -33,10 +24,6 @@ module Generator
 
       memoize def status_url_resolver
         StatusUrlResolver.new(fal_request_id:, processor:)
-      end
-
-      memoize def cancel_url_resolver
-        CancelUrlResolver.new(fal_request_id:, processor:)
       end
 
       def connection

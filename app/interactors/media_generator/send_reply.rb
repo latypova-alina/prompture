@@ -6,15 +6,11 @@ module MediaGenerator
     delegate :params, to: :context
 
     def call
-      return if status == "IN_PROGRESS"
-
       delete_interim_message
 
       case status
       when "COMPLETED"
         handle_completed_status
-      when "CANCELLED"
-        handle_cancelled_status
       when "FAILED"
         Generator::Media::ErrorNotifierDispatcher.call(processor:, button_request_id:)
       end
@@ -42,10 +38,6 @@ module MediaGenerator
         generated:,
         task_id:
       )
-    end
-
-    def handle_cancelled_status
-      Generator::Media::CancelledGenerationDispatcher.call(processor:, button_request_id:)
     end
   end
 end

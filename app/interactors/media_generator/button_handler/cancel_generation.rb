@@ -15,16 +15,15 @@ module MediaGenerator
           )
         end
       rescue StandardError
-        notify_user(I18n.t("errors.generation_cancel_failed"))
+        Generator::Media::Interim::Notifier::Fail.call(
+          generation_request:,
+          callback_query_id:
+        )
       end
 
       private
 
-      delegate :locale, :chat_id, to: :generation_request
-
-      def notify_user(text)
-        Telegram.bot.send_message(chat_id:, text:)
-      end
+      delegate :locale, to: :generation_request
 
       memoize def generation_request
         request_id, request_type = button_request.split(":").last(2)
