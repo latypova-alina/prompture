@@ -275,7 +275,7 @@ en:
     generation_status_completed: "✅ Generation completed!"
     generation_status_failed: "❌ Generation failed."
     generation_status_unknown: "🤔 Status unknown, please wait."
-    generation_cancel_requested: "Cancel was requested."
+    generation_cancel_requested: "Cancellation requested. If generation hasn't started processing yet, it will be cancelled."
     generation_cancel_failed: "Couldn't cancel the generation. It may have already completed."
     generation_cancelled_successfully: "Your %{processor_name} request was cancelled successfully."
     command_unknown: "Oops! It looks like you haven’t selected a command yet. Please choose one and follow the instructions."
