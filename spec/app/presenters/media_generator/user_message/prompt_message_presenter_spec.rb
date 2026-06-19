@@ -25,8 +25,7 @@ describe MediaGenerator::UserMessage::PromptMessagePresenter do
       [
         [{ callback_data: "extend_prompt", text: "Extend prompt (1 credit)" }],
         [{ callback_data: "flux_image", text: "Flux (1 credit)" }],
-        [{ callback_data: "nano_banana_image", text: "NanoBanana (1 credit)" }],
-        [{ callback_data: "imagen_image", text: "Imagen (0 credits)" }]
+        [{ callback_data: "nano_banana_image", text: "NanoBanana (1 credit)" }]
       ]
     end
 

@@ -13,11 +13,10 @@ module Generator
         end
 
         def call
-          return if response.success?
-
           raise Generator::DailyLimitExceeded if response.status == 429
+          raise Generator::ResponseError unless response.success?
 
-          raise Generator::ResponseError
+          save_fal_request_id
         end
 
         private
@@ -42,6 +41,14 @@ module Generator
 
         memoize def response
           api_client.response
+        end
+
+        def fal_request_id
+          JSON.parse(response.body)["request_id"]
+        end
+
+        def save_fal_request_id
+          request.update!(fal_request_id:) if request.respond_to?(:fal_request_id)
         end
 
         def api_client_class

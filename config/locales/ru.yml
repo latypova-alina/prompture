@@ -152,7 +152,7 @@ ru:
       image_to_video_image_reply: "Отлично! Ты можешь сгенерировать видео с помощью Kling или сначала указать промпт."
       image_to_video_prompt_reply: "Отлично! Теперь напиши промпт для видео."
       edit_image_prompt_reply: "Отлично! Теперь отправь промпт для редактирования."
-      extended_prompt_postfix: "Вот твой расширенный промпт ⬆️ \n\nТеперь ты можешь сгенерировать изображение с помощью одного из процессоров (Flux/NanoBanana/Imagen)"
+      extended_prompt_postfix: "Вот твой расширенный промпт ⬆️ \n\nТеперь ты можешь сгенерировать изображение с помощью одного из процессоров (Flux/NanoBanana)"
       image_generated_prefix: "Вот твое %{processor_name} 🖼️"
       image_generated_postfix: "Теперь ты можешь сгенерировать видео с помощью одного из процессоров (Kling)"
       video_generated_prefix: "Вот твое %{processor_name} 🎥"
@@ -164,7 +164,7 @@ ru:
           
         🔹 расширить промпт (👉 ⚠️ результат будет на английском языке для улучшения качества генерации)
           
-        🔹 сгенерировать изображение с помощью одного из процессоров (Flux/NanoBanana/Imagen)
+        🔹 сгенерировать изображение с помощью одного из процессоров (Flux/NanoBanana)
       prompt_suffix_audio: |
         Что ты хочешь сделать дальше? Ты можешь:
 
@@ -193,11 +193,6 @@ ru:
             few: "NanoBanana Edit (%{count} кредита)"
             many: "NanoBanana Edit (%{count} кредитов)"
             other: "NanoBanana Edit (%{count} кредитов)"
-          imagen_image:
-            one: "Imagen (%{count} кредит)"
-            few: "Imagen (%{count} кредита)"
-            many: "Imagen (%{count} кредитов)"
-            other: "Imagen (%{count} кредитов)"
         generate_audio:
           adam:
             one: "Adam (%{count} кредит)"
@@ -305,6 +300,27 @@ ru:
     audio_generating_error: "К сожалению, не удалось сгенерировать аудио. Попробуй позже."
     merge_audio_video_error: "К сожалению, не удалось объединить аудио и видео. Попробуй позже."
     video_generating_timeout_error: "К сожалению, генерация видео занимает слишком много времени. Попробуй позже."
+    media_generating_interim: |
+      Медиа генерируется ⏳
+      Это сообщение удалится автоматически.
+    video_generating_interim: |
+      Медиа генерируется ⏳
+      Это сообщение удалится автоматически.
+
+      ❗ ОБРАТИ ВНИМАНИЕ: Отмена работает только для запросов в очереди. Если генерация уже в процессе, отменить её нельзя.
+    check_status_button: "🔄 Проверить статус"
+    cancel_generation_button: "❌ Отменить"
+    generation_status_in_queue: "⏳ Запрос на генерацию в очереди, подожди!"
+    generation_status_in_progress: "⏳ Генерация в процессе, подожди!"
+    generation_status_completed: "✅ Генерация завершена!"
+    generation_status_failed: "❌ Генерация не удалась."
+    generation_status_unknown: "🤔 Статус неизвестен, подожди немного."
+    generation_cancel_failed: "Не удалось отменить генерацию. Возможно, она уже завершилась."
+    generation_already_processing: |
+      Извини, твоя генерация %{processor_name} уже запущена и больше не может быть отменена 😢
+
+      Надеемся, тебе понравится результат!
+    generation_cancelled_successfully: "Твой запрос на %{processor_name} успешно отменён."
     command_unknown: "Ой! Похоже, ты ещё не выбрал команду. Пожалуйста, выбери команду и следуй инструкциям."
     unknown: "Ой! Что-то пошло не так. Попробуй позже."
     wrong_message_type: "Тип отправленного сообщения не подходит для этой команды. Пожалуйста, отправь сообщение нужного типа и попробуй снова."
@@ -340,7 +356,6 @@ ru:
           flux_image: "изображение Flux"
           nano_banana_image: "изображение NanoBanana"
           nano_banana_edit_image: "редактирование NanoBanana"
-          imagen_image: "изображение Imagen"
         audio:
           voices:
             adam: "аудио Adam"

@@ -6,11 +6,12 @@ module MediaGenerator
     delegate :params, to: :context
 
     def call
-      return if status == "IN_PROGRESS"
+      delete_interim_message
 
-      if status == "COMPLETED"
+      case status
+      when "COMPLETED"
         handle_completed_status
-      elsif status == "FAILED"
+      when "FAILED"
         Generator::Media::ErrorNotifierDispatcher.call(processor:, button_request_id:)
       end
     end
@@ -21,6 +22,13 @@ module MediaGenerator
 
     memoize def task_retriever_context
       Generator::Media::TaskRetrieverContext.for(params:)
+    end
+
+    def delete_interim_message
+      Generator::Media::Interim::WebhookMessageDeleter.call(
+        processor:,
+        button_request_id:
+      )
     end
 
     def handle_completed_status

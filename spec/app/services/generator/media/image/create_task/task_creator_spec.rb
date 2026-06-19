@@ -5,7 +5,7 @@ require "rails_helper"
 describe Generator::Media::Image::CreateTask::TaskCreator do
   subject(:call_service) { described_class.call(request) }
 
-  let(:request) { create(:button_image_processing_request, processor: "imagen_image") }
+  let(:request) { create(:button_image_processing_request, processor: "flux_image") }
 
   let(:strategy_selector_instance) { instance_double(Generator::Media::Image::CreateTask::StrategySelector) }
   let(:strategy_instance) { instance_double("Strategy", api_url: api_url) }
@@ -15,7 +15,7 @@ describe Generator::Media::Image::CreateTask::TaskCreator do
   let(:webhook_url) { "https://example.com/webhook" }
 
   let(:api_client_instance) { instance_double(Generator::Media::Image::CreateTask::FalApiClient) }
-  let(:response) { instance_double("Response", success?: success, status:) }
+  let(:response) { instance_double("Response", success?: success, status:, body: '{"request_id":"test-123"}') }
 
   let(:api_url) { "https://api.example.com" }
   let(:status) { 200 }
@@ -48,6 +48,7 @@ describe Generator::Media::Image::CreateTask::TaskCreator do
       .with(api_url, final_payload, webhook_url)
       .and_return(api_client_instance)
 
+    allow(Generator::Media::Interim::MessageSender).to receive(:call)
     allow(api_client_instance)
       .to receive(:response)
       .and_return(response)
@@ -59,6 +60,15 @@ describe Generator::Media::Image::CreateTask::TaskCreator do
 
       it "does not raise error" do
         expect { call_service }.not_to raise_error
+      end
+
+      it "saves fal request id and sends interim message" do
+        call_service
+
+        expect(request.reload.fal_request_id).to eq("test-123")
+        expect(Generator::Media::Interim::MessageSender)
+          .to have_received(:call)
+          .with(request:)
       end
     end
 

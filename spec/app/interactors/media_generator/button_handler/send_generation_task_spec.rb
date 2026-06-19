@@ -12,7 +12,7 @@ describe MediaGenerator::ButtonHandler::SendGenerationTask do
   before do
     allow(Generator::Prompt::ExtendJob).to receive(:perform_async)
     allow(Generator::Media::Image::TaskCreatorJob).to receive(:perform_async)
-    allow(Generator::Media::Video::TaskCreatorJob).to receive(:perform_async)
+    allow(Generator::Media::Video::EnqueueVideoTask).to receive(:call)
     allow(Generator::Media::Audio::TaskCreatorJob).to receive(:perform_async)
     allow(Generator::Media::Merge::TaskCreatorJob).to receive(:perform_async)
   end
@@ -44,36 +44,36 @@ describe MediaGenerator::ButtonHandler::SendGenerationTask do
   context "when button_request is kling_2_1_pro_image_to_video" do
     let(:button_request) { "kling_2_1_pro_image_to_video" }
 
-    it "enqueues video generator job" do
+    it "enqueues video generation" do
       subject
 
-      expect(Generator::Media::Video::TaskCreatorJob)
-        .to have_received(:perform_async)
-        .with(button_request_record.id)
+      expect(Generator::Media::Video::EnqueueVideoTask)
+        .to have_received(:call)
+        .with(button_request_record)
     end
   end
 
   context "when button_request is hailuo_02_standard_image_to_video" do
     let(:button_request) { "hailuo_02_standard_image_to_video" }
 
-    it "enqueues video generator job" do
+    it "enqueues video generation" do
       subject
 
-      expect(Generator::Media::Video::TaskCreatorJob)
-        .to have_received(:perform_async)
-        .with(button_request_record.id)
+      expect(Generator::Media::Video::EnqueueVideoTask)
+        .to have_received(:call)
+        .with(button_request_record)
     end
   end
 
   context "when button_request is veo3_1_lite_image_to_video" do
     let(:button_request) { "veo3_1_lite_image_to_video" }
 
-    it "enqueues video generator job" do
+    it "enqueues video generation" do
       subject
 
-      expect(Generator::Media::Video::TaskCreatorJob)
-        .to have_received(:perform_async)
-        .with(button_request_record.id)
+      expect(Generator::Media::Video::EnqueueVideoTask)
+        .to have_received(:call)
+        .with(button_request_record)
     end
   end
 

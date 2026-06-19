@@ -13,7 +13,7 @@ describe Generator::Media::Video::CreateTask::TaskCreator do
   let(:webhook_url) { "https://example.com/webhook" }
 
   let(:api_client_instance) { instance_double(Generator::Media::Image::CreateTask::FalApiClient) }
-  let(:response) { instance_double("Response", success?: success, status:) }
+  let(:response) { instance_double("Response", success?: success, status:, body: '{"request_id":"test-123"}') }
 
   let(:api_url) { "https://api.example.com" }
   let(:status) { 200 }
@@ -46,6 +46,7 @@ describe Generator::Media::Video::CreateTask::TaskCreator do
       .with(api_url, final_payload, webhook_url)
       .and_return(api_client_instance)
 
+    allow(Generator::Media::Interim::MessageSender).to receive(:call)
     allow(api_client_instance)
       .to receive(:response)
       .and_return(response)
@@ -57,6 +58,13 @@ describe Generator::Media::Video::CreateTask::TaskCreator do
 
       it "does not raise error" do
         expect { call_service }.not_to raise_error
+      end
+
+      it "saves fal request id" do
+        call_service
+
+        expect(request.reload.fal_request_id).to eq("test-123")
+        expect(Generator::Media::Interim::MessageSender).not_to have_received(:call)
       end
     end
 

@@ -5,7 +5,6 @@ module Generator
     IMAGE = %w[
       flux_image
       nano_banana_image
-      imagen_image
     ].freeze
 
     EDIT_IMAGE = %w[

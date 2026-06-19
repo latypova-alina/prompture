@@ -40,19 +40,6 @@ describe Generator::Media::Image::CreateTask::StrategySelector do
       end
     end
 
-    context "when processor is imagen_image" do
-      let(:processor) { "imagen_image" }
-
-      it "returns ImagenPayloadStrategy initialized with parent_prompt" do
-        strategy = selector.strategy
-
-        expect(strategy)
-          .to be_a(Generator::Media::Image::CreateTask::ImagenPayloadStrategy)
-
-        expect(strategy.prompt).to eq(parent_prompt)
-      end
-    end
-
     context "when processor is nano_banana_edit_image" do
       let(:processor) { "nano_banana_edit_image" }
       let(:command_request) { create(:command_edit_image_request, prompt: "edit this image") }

@@ -13,7 +13,6 @@ module Generator::Media::Video::NotifySuccess
 
     def call
       send_telegram_message
-
       update_request_status
     end
 

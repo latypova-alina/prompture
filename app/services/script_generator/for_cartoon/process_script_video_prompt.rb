@@ -12,22 +12,23 @@ module ScriptGenerator
       end
 
       def call
-        script.update!(video_prompt: video_prompt_record)
-
-        video_prompt_record
+        script.video_prompt || assign_video_prompt
       end
 
       private
 
       attr_reader :script
 
+      def assign_video_prompt
+        script.update!(video_prompt: VideoPrompt.create!(prompt: generated_video_prompt))
+
+        script.video_prompt
+      end
+
       delegate :script_text, to: :script
-      delegate :prompt, to: :video_prompt_context, prefix: :video
 
-      memoize :video_prompt
-
-      memoize def video_prompt_record
-        VideoPrompt.create!(prompt: video_prompt)
+      memoize def generated_video_prompt
+        video_prompt_context.prompt
       end
 
       memoize def video_prompt_context

@@ -428,32 +428,22 @@ describe TelegramWebhooksController, telegram_bot: :rails do
                     job_class: ::Generator::Media::Image::TaskCreatorJob
   end
 
-  describe "#imagen_image_callback_query", :callback_query do
-    it_behaves_like "an image callback",
-                    processor: "imagen",
-                    record_creator: RecordCreators::ButtonRequests::Images::Imagen,
-                    job_class: ::Generator::Media::Image::TaskCreatorJob
-  end
-
   describe "#kling_video_callback_query", :callback_query do
     it_behaves_like "a video callback",
                     processor: "kling_2_1_pro",
-                    record_creator: RecordCreators::ButtonRequests::Videos::Kling,
-                    job_class: ::Generator::Media::Video::TaskCreatorJob
+                    record_creator: RecordCreators::ButtonRequests::Videos::Kling
   end
 
   describe "#hailuo_02_standard_video_callback_query", :callback_query do
     it_behaves_like "a video callback",
                     processor: "hailuo_02_standard",
-                    record_creator: RecordCreators::ButtonRequests::Videos::Hailuo02Standard,
-                    job_class: ::Generator::Media::Video::TaskCreatorJob
+                    record_creator: RecordCreators::ButtonRequests::Videos::Hailuo02Standard
   end
 
   describe "#veo3_1_lite_video_callback_query", :callback_query do
     it_behaves_like "a video callback",
                     processor: "veo3_1_lite",
-                    record_creator: RecordCreators::ButtonRequests::Videos::Veo31Lite,
-                    job_class: ::Generator::Media::Video::TaskCreatorJob
+                    record_creator: RecordCreators::ButtonRequests::Videos::Veo31Lite
   end
 
   describe "#set_locale_callback_query", :callback_query do

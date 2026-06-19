@@ -13,9 +13,5 @@ FactoryBot.define do
       status { "COMPLETED" }
       image_url { "http://example.com/image.png" }
     end
-
-    trait :no_cost do
-      processor { "imagen_image" }
-    end
   end
 end

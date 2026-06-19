@@ -28,25 +28,19 @@ describe MediaGenerator::SendReply do
       .and_return(context_double)
 
     allow(Generator::Media::CompletedGenerationDispatcher).to receive(:call)
+    allow(Generator::Media::Interim::WebhookMessageDeleter).to receive(:call)
   end
 
   describe "#call" do
-    context "when status is IN_PROGRESS" do
-      let(:status) { "IN_PROGRESS" }
-
-      it "does nothing" do
-        expect(Generator::Media::TaskRetrieverDispatcher).not_to receive(:call)
-        expect(Generator::Media::ErrorNotifierDispatcher).not_to receive(:call)
-
-        result
-      end
-    end
-
     context "when status is COMPLETED" do
       let(:status) { "COMPLETED" }
 
-      it "delegates to CompletedGenerationDispatcher" do
+      it "deletes interim message and delegates to CompletedGenerationDispatcher" do
         result
+
+        expect(Generator::Media::Interim::WebhookMessageDeleter)
+          .to have_received(:call)
+          .with(processor:, button_request_id:)
 
         expect(Generator::Media::CompletedGenerationDispatcher)
           .to have_received(:call)
@@ -62,7 +56,7 @@ describe MediaGenerator::SendReply do
     context "when status is FAILED" do
       let(:status) { "FAILED" }
 
-      it "calls ErrorNotifierDispatcher with correct arguments" do
+      it "deletes interim message and calls ErrorNotifierDispatcher" do
         expect(Generator::Media::ErrorNotifierDispatcher)
           .to receive(:call)
           .with(
@@ -71,6 +65,10 @@ describe MediaGenerator::SendReply do
           )
 
         result
+
+        expect(Generator::Media::Interim::WebhookMessageDeleter)
+          .to have_received(:call)
+          .with(processor:, button_request_id:)
       end
     end
   end

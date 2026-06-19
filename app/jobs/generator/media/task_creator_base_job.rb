@@ -6,6 +6,8 @@ module Generator
       def perform(button_request_id)
         @button_request_id = button_request_id
 
+        return if request.status == "CANCELLED"
+
         task_creator_class.call(request)
       rescue Generator::ResponseError => e
         failure_handler_class.call(request, error: e)
