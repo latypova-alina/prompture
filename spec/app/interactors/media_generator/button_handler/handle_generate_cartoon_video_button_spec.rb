@@ -46,7 +46,7 @@ describe MediaGenerator::ButtonHandler::HandleGenerateCartoonVideoButton do
       .with(script_text: script.script_text)
       .and_return(video_prompt_context)
 
-    allow(Generator::Media::Video::TaskCreatorJob).to receive(:perform_async)
+    allow(Generator::Media::Video::EnqueueVideoTask).to receive(:call)
     allow(TelegramIntegration::SendAnswerCallbackQuery).to receive(:call)
   end
 
@@ -84,9 +84,9 @@ describe MediaGenerator::ButtonHandler::HandleGenerateCartoonVideoButton do
     expect(video_request.parent_request.video_prompt).to eq(script.reload.video_prompt)
     expect(script.reload.video_prompt.prompt).to eq(video_prompt)
 
-    expect(Generator::Media::Video::TaskCreatorJob)
-      .to have_received(:perform_async)
-      .with(video_request.id)
+    expect(Generator::Media::Video::EnqueueVideoTask)
+      .to have_received(:call)
+      .with(video_request)
   end
 
   context "when the script already has a video prompt" do

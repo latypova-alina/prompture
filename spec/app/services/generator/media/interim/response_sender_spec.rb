@@ -35,6 +35,23 @@ describe Generator::Media::Interim::ResponseSender do
         reply_markup: { inline_keyboard: }
       )
     end
+
+    context "when parent has a bot telegram message" do
+      before do
+        create(:bot_telegram_message, request: request.parent_request, tg_message_id: 123_456)
+      end
+
+      it "replies to the origin telegram message" do
+        tg_message_id
+
+        expect(telegram_bot).to have_received(:send_message).with(
+          chat_id: request.chat_id,
+          text: message_payload_text,
+          reply_markup: { inline_keyboard: },
+          reply_to_message_id: 123_456
+        )
+      end
+    end
   end
 
   context "when request is an image processing request" do
@@ -49,6 +66,23 @@ describe Generator::Media::Interim::ResponseSender do
         text: message_payload_text,
         reply_markup: { inline_keyboard: }
       )
+    end
+
+    context "when parent has a bot telegram message" do
+      before do
+        create(:bot_telegram_message, request: request.parent_request, tg_message_id: 123_456)
+      end
+
+      it "replies to the origin telegram message" do
+        tg_message_id
+
+        expect(telegram_bot).to have_received(:send_message).with(
+          chat_id: request.chat_id,
+          text: message_payload_text,
+          reply_markup: { inline_keyboard: },
+          reply_to_message_id: 123_456
+        )
+      end
     end
   end
 end

@@ -1,6 +1,6 @@
 require "rails_helper"
 
-describe Generator::Media::FalStatusResolver do
+describe Generator::Media::RequestStatusResolver do
   subject(:resolver) { described_class.new(request) }
 
   let(:request) { create(:button_video_processing_request, fal_request_id: "req-123") }
@@ -11,6 +11,16 @@ describe Generator::Media::FalStatusResolver do
   end
 
   describe "#status_text" do
+    context "when fal request id is not set yet" do
+      let(:request) { create(:button_video_processing_request, fal_request_id: nil) }
+
+      it "returns in queue message without calling fal api" do
+        expect(Generator::Media::FalRequestClient).not_to receive(:new)
+
+        expect(resolver.status_text).to eq(I18n.t("errors.generation_status_in_queue"))
+      end
+    end
+
     context "when fal status is IN_QUEUE" do
       before { allow(client).to receive(:status).and_return("IN_QUEUE") }
 

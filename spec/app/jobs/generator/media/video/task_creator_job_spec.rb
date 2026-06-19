@@ -6,6 +6,16 @@ describe Generator::Media::Video::TaskCreatorJob do
   let(:button_request) { create(:button_video_processing_request, status: "PENDING") }
 
   describe "#perform" do
+    context "when request is cancelled" do
+      let(:button_request) { create(:button_video_processing_request, status: "CANCELLED") }
+
+      it "does not call TaskCreator" do
+        expect(Generator::Media::Video::CreateTask::TaskCreator).not_to receive(:call)
+
+        perform_job
+      end
+    end
+
     context "when task creator succeeds" do
       before do
         allow(

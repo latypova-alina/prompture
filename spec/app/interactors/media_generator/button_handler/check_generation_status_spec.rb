@@ -13,11 +13,11 @@ describe MediaGenerator::ButtonHandler::CheckGenerationStatus do
   let(:button_request) do
     "#{ButtonActions::CHECK_GENERATION_STATUS}:#{generation_request.id}:#{generation_request.class.name}"
   end
-  let(:status_resolver) { instance_double(Generator::Media::FalStatusResolver, status_text: "Status text") }
+  let(:status_resolver) { instance_double(Generator::Media::RequestStatusResolver, status_text: "Status text") }
   let(:telegram_bot) { double }
 
   before do
-    allow(Generator::Media::FalStatusResolver)
+    allow(Generator::Media::RequestStatusResolver)
       .to receive(:new)
       .with(generation_request)
       .and_return(status_resolver)

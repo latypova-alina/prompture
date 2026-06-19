@@ -1,4 +1,4 @@
-RSpec.shared_examples "a video callback" do |processor:, record_creator:, job_class:|
+RSpec.shared_examples "a video callback" do |processor:, record_creator:|
   include_context "telegram callback setup"
 
   let(:button_request_text) { "#{processor}_image_to_video" }
@@ -37,11 +37,9 @@ RSpec.shared_examples "a video callback" do |processor:, record_creator:, job_cl
         .and_return(button_video_processing_request)
     end
 
-    it "enqueues the video generation job" do
-      expect(job_class).to receive(:perform_async)
-        .with(
-          button_video_processing_request.id
-        )
+    it "enqueues video generation" do
+      expect(Generator::Media::Video::EnqueueVideoTask).to receive(:call)
+        .with(button_video_processing_request)
 
       described_class.new.callback_query(button_request_text)
     end

@@ -29,7 +29,10 @@ describe Generator::Media::Interim::CancellationResultNotifier do
       expect(telegram_bot).not_to have_received(:send_message)
       expect(telegram_bot).to have_received(:answer_callback_query).with(
         callback_query_id:,
-        text: I18n.t("errors.generation_cancel_requested"),
+        text: I18n.t(
+          "errors.generation_cancelled_successfully",
+          processor_name: generation_request.humanized_process_name
+        ),
         show_alert: true
       )
     end

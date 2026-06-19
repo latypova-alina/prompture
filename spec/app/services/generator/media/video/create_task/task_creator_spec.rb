@@ -60,13 +60,11 @@ describe Generator::Media::Video::CreateTask::TaskCreator do
         expect { call_service }.not_to raise_error
       end
 
-      it "saves fal request id and sends interim message" do
+      it "saves fal request id" do
         call_service
 
         expect(request.reload.fal_request_id).to eq("test-123")
-        expect(Generator::Media::Interim::MessageSender)
-          .to have_received(:call)
-          .with(request:)
+        expect(Generator::Media::Interim::MessageSender).not_to have_received(:call)
       end
     end
 

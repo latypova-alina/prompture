@@ -12,46 +12,25 @@ describe Generator::Media::Interim::CancellationHandler do
   let(:generation_request) do
     create(:button_video_processing_request, interim_tg_message_id: 77_001)
   end
-  let(:canceller) do
-    instance_double(Generator::Media::FalRequestCanceller, cancel_request: nil, success?: success)
-  end
 
   before do
-    allow(Generator::Media::FalRequestCanceller).to receive(:new).and_return(canceller)
+    allow(Generator::Media::Interim::MessageDeleter).to receive(:call)
     allow(Generator::Media::Interim::CancellationResultNotifier).to receive(:call)
   end
 
-  context "when cancellation succeeds" do
-    let(:success) { true }
+  it "marks the request as cancelled, deletes the interim message, and notifies the user" do
+    call_handler
 
-    it "requests cancellation and notifies about the result" do
-      call_handler
-
-      expect(canceller).to have_received(:cancel_request)
-      expect(Generator::Media::Interim::CancellationResultNotifier)
-        .to have_received(:call)
-        .with(
-          generation_request:,
-          callback_query_id:,
-          success: true
-        )
-    end
-  end
-
-  context "when cancellation fails" do
-    let(:success) { false }
-
-    it "requests cancellation and notifies about the result" do
-      call_handler
-
-      expect(canceller).to have_received(:cancel_request)
-      expect(Generator::Media::Interim::CancellationResultNotifier)
-        .to have_received(:call)
-        .with(
-          generation_request:,
-          callback_query_id:,
-          success: false
-        )
-    end
+    expect(generation_request.reload.status).to eq("CANCELLED")
+    expect(Generator::Media::Interim::MessageDeleter)
+      .to have_received(:call)
+      .with(request: generation_request)
+    expect(Generator::Media::Interim::CancellationResultNotifier)
+      .to have_received(:call)
+      .with(
+        generation_request:,
+        callback_query_id:,
+        success: true
+      )
   end
 end
