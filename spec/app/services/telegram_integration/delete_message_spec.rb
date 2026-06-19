@@ -30,4 +30,18 @@ describe TelegramIntegration::DeleteMessage do
       expect(telegram_bot).not_to have_received(:delete_message)
     end
   end
+
+  context "when telegram reports message not found" do
+    let(:message_id) { 456 }
+
+    before do
+      allow(telegram_bot)
+        .to receive(:delete_message)
+        .and_raise(Telegram::Bot::Error, "Bad Request: message to delete not found")
+    end
+
+    it "does not raise" do
+      expect { call_service }.not_to raise_error
+    end
+  end
 end

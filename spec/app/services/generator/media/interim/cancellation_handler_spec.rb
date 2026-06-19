@@ -12,46 +12,46 @@ describe Generator::Media::Interim::CancellationHandler do
   let(:generation_request) do
     create(:button_video_processing_request, interim_tg_message_id: 77_001)
   end
-  let(:telegram_bot) { double }
+  let(:canceller) do
+    instance_double(Generator::Media::FalRequestCanceller, cancel_request: nil, success?: success)
+  end
 
   before do
-    allow(Telegram).to receive(:bot).and_return(telegram_bot)
-    allow(telegram_bot).to receive_messages(answer_callback_query: nil, send_message: nil)
+    allow(Generator::Media::FalRequestCanceller).to receive(:new).and_return(canceller)
+    allow(Generator::Media::Interim::CancellationResultNotifier).to receive(:call)
   end
 
   context "when cancellation succeeds" do
-    before do
-      allow(Generator::Media::CancelFalRequest).to receive(:new).and_return(
-        instance_double(Generator::Media::CancelFalRequest, call: nil, success?: true)
-      )
-    end
+    let(:success) { true }
 
-    it "notifies user about successful cancellation and answers callback query" do
+    it "requests cancellation and notifies about the result" do
       call_handler
 
-      expect(telegram_bot).to have_received(:send_message).with(
-        chat_id: generation_request.chat_id,
-        text: I18n.t("errors.generation_cancelled")
-      )
-      expect(telegram_bot).to have_received(:answer_callback_query).with(callback_query_id:)
+      expect(canceller).to have_received(:cancel_request)
+      expect(Generator::Media::Interim::CancellationResultNotifier)
+        .to have_received(:call)
+        .with(
+          generation_request:,
+          callback_query_id:,
+          success: true
+        )
     end
   end
 
   context "when cancellation fails" do
-    before do
-      allow(Generator::Media::CancelFalRequest).to receive(:new).and_return(
-        instance_double(Generator::Media::CancelFalRequest, call: nil, success?: false)
-      )
-    end
+    let(:success) { false }
 
-    it "notifies user about failed cancellation and answers callback query" do
+    it "requests cancellation and notifies about the result" do
       call_handler
 
-      expect(telegram_bot).to have_received(:send_message).with(
-        chat_id: generation_request.chat_id,
-        text: I18n.t("errors.generation_cancel_failed")
-      )
-      expect(telegram_bot).to have_received(:answer_callback_query).with(callback_query_id:)
+      expect(canceller).to have_received(:cancel_request)
+      expect(Generator::Media::Interim::CancellationResultNotifier)
+        .to have_received(:call)
+        .with(
+          generation_request:,
+          callback_query_id:,
+          success: false
+        )
     end
   end
 end

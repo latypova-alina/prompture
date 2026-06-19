@@ -19,5 +19,16 @@ RSpec.shared_examples "fal task retriever context" do
         expect(context.status).to eq("FAILED")
       end
     end
+
+    context "when callback status indicates cancellation" do
+      let(:callback_status) { "ERROR" }
+      let(:params) do
+        super().merge(error: "Invalid status code: 499")
+      end
+
+      it "returns CANCELLED" do
+        expect(context.status).to eq("CANCELLED")
+      end
+    end
   end
 end

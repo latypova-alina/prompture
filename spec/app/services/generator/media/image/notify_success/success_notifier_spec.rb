@@ -33,8 +33,6 @@ describe Generator::Media::Image::NotifySuccess::SuccessNotifier do
 
     allow(Generator::Media::Image::NotifySuccess::SendTelegramMessage)
       .to receive(:call)
-
-    allow(TelegramIntegration::DeleteMessage).to receive(:call)
   end
 
   describe ".call" do
@@ -47,16 +45,6 @@ describe Generator::Media::Image::NotifySuccess::SuccessNotifier do
 
       expect(button_request.reload.status).to eq("COMPLETED")
       expect(button_request.image_url).to eq(image_url)
-    end
-
-    it "deletes interim message when present" do
-      button_request.update!(interim_tg_message_id: 12_345)
-
-      call_service
-
-      expect(TelegramIntegration::DeleteMessage)
-        .to have_received(:call)
-        .with(chat_id: button_request.chat_id, message_id: 12_345)
     end
   end
 end

@@ -15,7 +15,7 @@ RSpec.shared_examples "message handling" do
 
         🔹 extend the prompt
 
-        🔹 generate an image using one of the processors (Flux/NanoBanana/Imagen)
+        🔹 generate an image using one of the processors (Flux/NanoBanana)
       HTML
     end
 
@@ -24,8 +24,7 @@ RSpec.shared_examples "message handling" do
         inline_keyboard: [
           [{ text: "Extend prompt (1 credit)", callback_data: "extend_prompt" }],
           [{ text: "Flux (1 credit)", callback_data: "flux_image" }],
-          [{ text: "NanoBanana (1 credit)", callback_data: "nano_banana_image" }],
-          [{ text: "Imagen (0 credits)", callback_data: "imagen_image" }]
+          [{ text: "NanoBanana (1 credit)", callback_data: "nano_banana_image" }]
         ]
       }
     end

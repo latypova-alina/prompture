@@ -28,18 +28,36 @@ describe Generator::Media::FalRequestClient do
       expect(client.status).to eq("IN_PROGRESS")
 
       expect(connection).to have_received(:get).with(
-        "https://queue.fal.run/fal-ai/kling-video/v2.1/pro/image-to-video/requests/req-123/status"
+        "https://queue.fal.run/fal-ai/kling-video/requests/req-123/status"
       )
     end
   end
 
-  describe "#cancel" do
+  describe "#cancel_request" do
     it "sends cancel request to fal api" do
-      client.cancel
+      client.cancel_request
 
       expect(connection).to have_received(:put).with(
-        "https://queue.fal.run/fal-ai/kling-video/v2.1/pro/image-to-video/requests/req-123/cancel"
+        "https://queue.fal.run/fal-ai/kling-video/requests/req-123/cancel"
       )
+    end
+
+    context "when processor is veo3_1_lite_image_to_video" do
+      let(:request) do
+        create(
+          :button_video_processing_request,
+          fal_request_id: "req-123",
+          processor: "veo3_1_lite_image_to_video"
+        )
+      end
+
+      it "uses configured cancel base url" do
+        client.cancel_request
+
+        expect(connection).to have_received(:put).with(
+          "https://queue.fal.run/fal-ai/veo3.1/requests/req-123/cancel"
+        )
+      end
     end
   end
 end

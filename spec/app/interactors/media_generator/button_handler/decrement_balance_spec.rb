@@ -7,9 +7,9 @@ describe MediaGenerator::ButtonHandler::DecrementBalance do
 
   describe "#call" do
     context "when cost is zero" do
-      let(:button_request_record) do
-        create(:button_image_processing_request, :no_cost)
-      end
+      let(:button_request_record) { create(:button_image_processing_request) }
+
+      before { allow(button_request_record).to receive(:cost).and_return(0) }
 
       it "does not call Billing::Charger" do
         expect(Billing::Charger).not_to receive(:call)

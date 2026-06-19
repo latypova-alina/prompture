@@ -14,8 +14,8 @@ describe Generator::Media::FalStatusResolver do
     context "when fal status is IN_QUEUE" do
       before { allow(client).to receive(:status).and_return("IN_QUEUE") }
 
-      it "returns in progress message" do
-        expect(resolver.status_text).to eq(I18n.t("errors.generation_status_in_progress"))
+      it "returns in queue message" do
+        expect(resolver.status_text).to eq(I18n.t("errors.generation_status_in_queue"))
       end
     end
 

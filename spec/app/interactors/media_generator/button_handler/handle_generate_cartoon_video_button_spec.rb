@@ -89,6 +89,27 @@ describe MediaGenerator::ButtonHandler::HandleGenerateCartoonVideoButton do
       .with(video_request.id)
   end
 
+  context "when the script already has a video prompt" do
+    let!(:existing_video_prompt) { create(:video_prompt, prompt: video_prompt) }
+
+    before { script.update!(video_prompt: existing_video_prompt) }
+
+    it "creates another video request without calling the script API again" do
+      expect { result }
+        .to change(ButtonVideoProcessingRequest, :count).by(1)
+        .and change(PromptMessage, :count).by(1)
+        .and change(CommandPromptToVideoRequest, :count).by(1)
+        .and change(VideoPrompt, :count).by(0)
+
+      expect(ScriptGenerator::ForCartoon::VideoPromptContext).not_to have_received(:new)
+
+      video_request = ButtonVideoProcessingRequest.last
+
+      expect(video_request.parent_request.video_prompt).to eq(existing_video_prompt)
+      expect(script.reload.video_prompt).to eq(existing_video_prompt)
+    end
+  end
+
   context "when command request is not cartoon script" do
     let(:command_request) do
       create(:command_edit_image_request, user:, chat_id:, category: nil, image_prompt:)
