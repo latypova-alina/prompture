@@ -23,7 +23,7 @@ module MediaGenerator
       delegate :status_text, to: :status_resolver
 
       memoize def status_resolver
-        Generator::Media::FalStatusResolver.new(generation_request)
+        Generator::Media::RequestStatusResolver.new(generation_request)
       end
 
       memoize def generation_request
