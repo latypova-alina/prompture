@@ -28,23 +28,10 @@ describe MediaGenerator::SendReply do
       .and_return(context_double)
 
     allow(Generator::Media::CompletedGenerationDispatcher).to receive(:call)
-    allow(Generator::Media::CancelledGenerationDispatcher).to receive(:call)
     allow(Generator::Media::Interim::WebhookMessageDeleter).to receive(:call)
   end
 
   describe "#call" do
-    context "when status is IN_PROGRESS" do
-      let(:status) { "IN_PROGRESS" }
-
-      it "does nothing" do
-        expect(Generator::Media::TaskRetrieverDispatcher).not_to receive(:call)
-        expect(Generator::Media::ErrorNotifierDispatcher).not_to receive(:call)
-        expect(Generator::Media::Interim::WebhookMessageDeleter).not_to receive(:call)
-
-        result
-      end
-    end
-
     context "when status is COMPLETED" do
       let(:status) { "COMPLETED" }
 
@@ -80,24 +67,6 @@ describe MediaGenerator::SendReply do
         result
 
         expect(Generator::Media::Interim::WebhookMessageDeleter)
-          .to have_received(:call)
-          .with(processor:, button_request_id:)
-        expect(Generator::Media::CancelledGenerationDispatcher).not_to have_received(:call)
-      end
-    end
-
-    context "when status is CANCELLED" do
-      let(:status) { "CANCELLED" }
-
-      it "deletes interim message and calls CancelledGenerationDispatcher" do
-        expect(Generator::Media::ErrorNotifierDispatcher).not_to receive(:call)
-
-        result
-
-        expect(Generator::Media::Interim::WebhookMessageDeleter)
-          .to have_received(:call)
-          .with(processor:, button_request_id:)
-        expect(Generator::Media::CancelledGenerationDispatcher)
           .to have_received(:call)
           .with(processor:, button_request_id:)
       end

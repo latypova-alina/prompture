@@ -15,12 +15,6 @@ describe MediaGenerator::ButtonHandler::CancelGeneration do
   let(:button_request) do
     "#{ButtonActions::CANCEL_GENERATION}:#{generation_request.id}:#{generation_request.class.name}"
   end
-  let(:telegram_bot) { double }
-
-  before do
-    allow(Telegram).to receive(:bot).and_return(telegram_bot)
-    allow(telegram_bot).to receive_messages(answer_callback_query: nil, send_message: nil)
-  end
 
   context "when cancellation succeeds" do
     before do
@@ -41,15 +35,15 @@ describe MediaGenerator::ButtonHandler::CancelGeneration do
       allow(Generator::Media::Interim::CancellationHandler)
         .to receive(:call)
         .and_raise(StandardError)
+      allow(Generator::Media::Interim::Notifier::Fail).to receive(:call)
     end
 
-    it "notifies user about failed cancellation" do
+    it "notifies user via fail notifier" do
       result
 
-      expect(telegram_bot).to have_received(:send_message).with(
-        chat_id: generation_request.chat_id,
-        text: I18n.t("errors.generation_cancel_failed")
-      )
+      expect(Generator::Media::Interim::Notifier::Fail)
+        .to have_received(:call)
+        .with(generation_request:, callback_query_id:)
     end
   end
 end
