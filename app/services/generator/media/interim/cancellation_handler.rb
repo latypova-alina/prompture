@@ -12,27 +12,26 @@ module Generator
         end
 
         def call
+          return Notifier::Outdated.call(generation_request:, callback_query_id:) if already_sent_to_fal?
+
           cancel_generation
 
-          notify_success
+          Notifier::Success.call(generation_request:, callback_query_id:)
         end
 
         private
 
         attr_reader :generation_request, :callback_query_id
 
+        def already_sent_to_fal?
+          generation_request.respond_to?(:fal_request_id) &&
+            generation_request.fal_request_id.present?
+        end
+
         def cancel_generation
           generation_request.update!(status: "CANCELLED")
 
           MessageDeleter.call(request: generation_request)
-        end
-
-        def notify_success
-          CancellationResultNotifier.call(
-            generation_request:,
-            callback_query_id:,
-            success: true
-          )
         end
       end
     end

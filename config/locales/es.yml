@@ -279,6 +279,10 @@ es:
     generation_status_failed: "❌ La generación falló."
     generation_status_unknown: "🤔 Estado desconocido, por favor espera."
     generation_cancel_failed: "No se pudo cancelar la generación. Es posible que ya haya terminado."
+    generation_already_processing: |
+      Lo sentimos, tu generación de %{processor_name} ya ha comenzado y ya no se puede cancelar 😢
+
+      ¡Esperamos que disfrutes del resultado!
     generation_cancelled_successfully: "Tu solicitud de %{processor_name} se canceló correctamente."
     command_unknown: "¡Ups! Parece que aún no has seleccionado un comando. Por favor, elige uno y sigue las instrucciones."
     unknown: "¡Ups! Algo salió mal. Por favor, inténtalo de nuevo más tarde."

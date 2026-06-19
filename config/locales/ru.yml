@@ -316,6 +316,10 @@ ru:
     generation_status_failed: "❌ Генерация не удалась."
     generation_status_unknown: "🤔 Статус неизвестен, подожди немного."
     generation_cancel_failed: "Не удалось отменить генерацию. Возможно, она уже завершилась."
+    generation_already_processing: |
+      Извини, твоя генерация %{processor_name} уже запущена и больше не может быть отменена 😢
+
+      Надеемся, тебе понравится результат!
     generation_cancelled_successfully: "Твой запрос на %{processor_name} успешно отменён."
     command_unknown: "Ой! Похоже, ты ещё не выбрал команду. Пожалуйста, выбери команду и следуй инструкциям."
     unknown: "Ой! Что-то пошло не так. Попробуй позже."
