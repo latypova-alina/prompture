@@ -18,6 +18,7 @@ module Generator
 
         delegate :presenter, to: :presenter_selector
         delegate :inline_keyboard, :message_payload_text, to: :presenter
+        delegate :origin_telegram_message_id, to: :request
 
         memoize def presenter_selector
           MediaGenerator::GenerationStatus::PresenterSelector.new(request:)
@@ -30,8 +31,9 @@ module Generator
         def message_payload
           {
             text: message_payload_text,
-            reply_markup: { inline_keyboard: }
-          }
+            reply_markup: { inline_keyboard: },
+            reply_to_message_id: origin_telegram_message_id
+          }.compact
         end
       end
     end
