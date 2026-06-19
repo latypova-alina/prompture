@@ -1,7 +1,7 @@
 module Generator
   module Media
     class FalTaskRetrieverContextBase
-      CANCELLATION_STATUS_CODE = "499"
+      CANCELLATION_STATUS_CODE = "499".freeze
 
       def initialize(params:)
         @params = params

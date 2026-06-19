@@ -10,11 +10,12 @@ module MediaGenerator
 
       delete_interim_message
 
-      if status == "COMPLETED"
+      case status
+      when "COMPLETED"
         handle_completed_status
-      elsif status == "CANCELLED"
+      when "CANCELLED"
         handle_cancelled_status
-      elsif status == "FAILED"
+      when "FAILED"
         Generator::Media::ErrorNotifierDispatcher.call(processor:, button_request_id:)
       end
     end
