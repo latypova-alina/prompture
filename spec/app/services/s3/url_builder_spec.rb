@@ -1,6 +1,6 @@
 require "rails_helper"
 
-describe StoreMedia::Upload::StoredUrlBuilder do
+describe S3::UrlBuilder do
   subject(:stored_url) { described_class.new(object_key:).stored_url }
 
   let(:object_key) { "images/20260409/uuid-image.jpg" }

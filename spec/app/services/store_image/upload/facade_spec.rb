@@ -10,7 +10,7 @@ describe StoreImage::Upload::Facade do
   let(:content_type) { "image/jpeg" }
   let(:stored_url) { "https://internal.example/#{object_key}" }
   let(:object_uploader) { instance_double(StoreMedia::Upload::S3ObjectUploader, upload: true) }
-  let(:url_builder) { instance_double(StoreMedia::Upload::StoredUrlBuilder, stored_url:) }
+  let(:url_builder) { instance_double(S3::UrlBuilder, stored_url:) }
   let(:dimensions_validator) { instance_double(StoreImage::Upload::ImageDimensionsValidator, validate!: true) }
 
   before do
@@ -25,7 +25,7 @@ describe StoreImage::Upload::Facade do
       .with(bytes:, object_key:, content_type:)
       .and_return(object_uploader)
     allow(StoreImage::Upload::ImageDimensionsValidator).to receive(:new).with(bytes:).and_return(dimensions_validator)
-    allow(StoreMedia::Upload::StoredUrlBuilder).to receive(:new).with(object_key:).and_return(url_builder)
+    allow(S3::UrlBuilder).to receive(:new).with(object_key:).and_return(url_builder)
   end
 
   describe "#upload_image" do
@@ -38,7 +38,7 @@ describe StoreImage::Upload::Facade do
   end
 
   describe "#stored_url" do
-    it "returns url from StoredUrlBuilder" do
+    it "returns url from UrlBuilder" do
       expect(facade.stored_url).to eq(stored_url)
     end
   end

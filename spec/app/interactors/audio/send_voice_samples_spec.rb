@@ -10,6 +10,10 @@ RSpec.describe Audio::SendVoiceSamples do
 
   before do
     stub_const("ENV", ENV.to_hash.merge("INTERNAL_BUCKET_BASE_URL" => "https://bucket.example"))
+    all_keys = %w[adam victoria knox milo hope lulu_lollipop].map { |slug| "audio/samples/#{slug}.mp3" }
+    allow(S3::ObjectKeysFetcher).to receive(:new).and_return(
+      instance_double(S3::ObjectKeysFetcher, object_keys: all_keys)
+    )
     allow(Telegram.bot).to receive(:send_message)
   end
 
