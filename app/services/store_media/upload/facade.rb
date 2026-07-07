@@ -29,7 +29,7 @@ module StoreMedia
       end
 
       memoize def stored_url_builder
-        StoredUrlBuilder.new(object_key:)
+        S3::UrlBuilder.new(object_key:)
       end
 
       memoize def object_key_builder
