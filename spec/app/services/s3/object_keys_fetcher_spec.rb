@@ -17,7 +17,7 @@ RSpec.describe S3::ObjectKeysFetcher do
 
   before do
     allow(Aws::S3::Client).to receive(:new).with(region: ENV.fetch("AWS_REGION")).and_return(s3_client)
-    allow(s3_client).to receive(:list_objects_v2).with(
+    allow(s3_client).to receive(:list_objects_v2).with( # rubocop:disable Naming/VariableNumber
       bucket: ENV.fetch("INTERNAL_BUCKET_NAME"),
       prefix:
     ).and_return(response)
