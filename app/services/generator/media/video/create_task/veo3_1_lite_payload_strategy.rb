@@ -5,7 +5,7 @@ module Generator
         class Veo31LitePayloadStrategy
           API_URL = "https://queue.fal.run/fal-ai/veo3.1/lite/image-to-video".freeze
           DURATION = 6
-          ASPECT_RATIO = "9:16".freeze
+          ASPECT_RATIO = "auto".freeze
 
           def initialize(prompt)
             @prompt = prompt

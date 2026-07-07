@@ -49,7 +49,7 @@ describe Generator::Media::Video::CreateTask::PayloadComposer do
     let(:strategy_payload) do
       {
         prompt: "hello",
-        aspect_ratio: "9:16",
+        aspect_ratio: "auto",
         duration: 6,
         generate_audio: false
       }
@@ -82,7 +82,7 @@ describe Generator::Media::Video::CreateTask::PayloadComposer do
     let(:strategy_payload) do
       {
         prompt: "hello",
-        aspect_ratio: "9:16",
+        aspect_ratio: "auto",
         duration: 6,
         generate_audio: false
       }

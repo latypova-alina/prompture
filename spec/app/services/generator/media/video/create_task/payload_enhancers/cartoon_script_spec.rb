@@ -3,7 +3,7 @@ require "rails_helper"
 describe Generator::Media::Video::CreateTask::PayloadEnhancers::CartoonScript do
   subject(:enhanced_payload) { described_class.new(request:, payload:).enhance }
 
-  let(:payload) { { prompt: "hello", aspect_ratio: "9:16" } }
+  let(:payload) { { prompt: "hello", aspect_ratio: "auto" } }
   let(:command_request) do
     create(:command_prompt_to_video_request, category: ContentCategory::CARTOON_SCRIPT)
   end
