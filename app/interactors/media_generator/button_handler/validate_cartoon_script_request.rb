@@ -7,9 +7,9 @@ module MediaGenerator
       delegate :command_request, to: :context
 
       def call
-        context.script = script
+        context.scene = scene
 
-        return if command_request.cartoon_workflow? && script.present?
+        return if command_request.cartoon_workflow? && scene.present?
 
         context.fail!(error: CommandUnknownError)
       end
@@ -18,8 +18,8 @@ module MediaGenerator
 
       delegate :image_prompt_id, to: :command_request
 
-      memoize def script
-        Script.find_by(image_prompt_id:)
+      memoize def scene
+        Scene.find_by(image_prompt_id:)
       end
     end
   end

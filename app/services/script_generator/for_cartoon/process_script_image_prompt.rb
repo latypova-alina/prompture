@@ -7,22 +7,22 @@ module ScriptGenerator
         new(...).call
       end
 
-      def initialize(script:, script_processor:)
-        @script = script
+      def initialize(scene:, script_processor:)
+        @scene = scene
         @script_processor = script_processor
       end
 
       def call
         script_processor.call(image_prompt_record:)
 
-        script.update!(image_prompt: image_prompt_record)
+        scene.update!(image_prompt: image_prompt_record)
       end
 
       private
 
-      attr_reader :script, :script_processor
+      attr_reader :scene, :script_processor
 
-      delegate :script_text, to: :script
+      delegate :scene_text, to: :scene
 
       memoize def image_prompt
         image_prompt_context.prompt
@@ -33,7 +33,7 @@ module ScriptGenerator
       end
 
       memoize def image_prompt_context
-        ImagePromptContext.new(script_text:)
+        ImagePromptContext.new(script_text: scene_text)
       end
     end
   end

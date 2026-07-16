@@ -14,7 +14,7 @@ describe MediaGenerator::ButtonHandler::HandleGenerateCartoonAudioButton do
   let(:message_id) { 789 }
   let(:user) { create(:user, :with_balance, chat_id:) }
   let(:video_prompt) { create(:video_prompt, prompt: "Camera slowly zooms in as Bloomy waves.") }
-  let(:script) { create(:script, script_text: "Bloomy waves hello.", video_prompt:) }
+  let(:scene) { create(:scene, scene_text: "Bloomy waves hello.", video_prompt:) }
   let(:command_request) do
     create(
       :command_prompt_to_video_request,
@@ -39,12 +39,12 @@ describe MediaGenerator::ButtonHandler::HandleGenerateCartoonAudioButton do
   let(:audio_prompt_context) { instance_double(ScriptGenerator::ForCartoon::AudioPromptContext, prompt: audio_prompt_text) }
 
   before do
-    script
+    scene
     create(:bot_telegram_message, tg_message_id: message_id, chat_id:, request: parent_request)
 
     allow(ScriptGenerator::ForCartoon::AudioPromptContext)
       .to receive(:new)
-      .with(script_text: script.script_text)
+      .with(script_text: scene.scene_text)
       .and_return(audio_prompt_context)
 
     allow(Generator::Media::Audio::TaskCreatorJob).to receive(:perform_async)

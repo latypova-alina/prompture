@@ -14,7 +14,7 @@ describe MediaGenerator::ButtonHandler::HandleGenerateCartoonVideoButton do
   let(:message_id) { 789 }
   let(:user) { create(:user, :with_balance, chat_id:) }
   let(:image_prompt) { create(:image_prompt, prompt: "Bright kids room interior.") }
-  let(:script) { create(:script, script_text: "Bloomy waves hello.", image_prompt:) }
+  let(:scene) { create(:scene, scene_text: "Bloomy waves hello.", image_prompt:) }
   let(:command_request) do
     create(
       :command_edit_image_request,
@@ -37,13 +37,13 @@ describe MediaGenerator::ButtonHandler::HandleGenerateCartoonVideoButton do
   let(:video_prompt_context) { instance_double(ScriptGenerator::ForCartoon::VideoPromptContext, prompt: video_prompt) }
 
   before do
-    script
+    scene
     create(:bot_telegram_message, tg_message_id: message_id, chat_id:, request: parent_request)
     create(:stored_image, source_message: parent_request, image_url: "https://example.com/scene.png")
 
     allow(ScriptGenerator::ForCartoon::VideoPromptContext)
       .to receive(:new)
-      .with(script_text: script.script_text)
+      .with(script_text: scene.scene_text)
       .and_return(video_prompt_context)
 
     allow(Generator::Media::Video::EnqueueVideoTask).to receive(:call)
@@ -81,18 +81,18 @@ describe MediaGenerator::ButtonHandler::HandleGenerateCartoonVideoButton do
     expect(video_request.image_url).to eq("https://example.com/scene.png")
     expect(video_request.parent_request).to be_a(PromptMessage)
     expect(video_request.parent_request.prompt).to eq(video_prompt)
-    expect(video_request.parent_request.video_prompt).to eq(script.reload.video_prompt)
-    expect(script.reload.video_prompt.prompt).to eq(video_prompt)
+    expect(video_request.parent_request.video_prompt).to eq(scene.reload.video_prompt)
+    expect(scene.reload.video_prompt.prompt).to eq(video_prompt)
 
     expect(Generator::Media::Video::EnqueueVideoTask)
       .to have_received(:call)
       .with(video_request)
   end
 
-  context "when the script already has a video prompt" do
+  context "when the scene already has a video prompt" do
     let!(:existing_video_prompt) { create(:video_prompt, prompt: video_prompt) }
 
-    before { script.update!(video_prompt: existing_video_prompt) }
+    before { scene.update!(video_prompt: existing_video_prompt) }
 
     it "creates another video request without calling the script API again" do
       expect { result }
@@ -106,7 +106,7 @@ describe MediaGenerator::ButtonHandler::HandleGenerateCartoonVideoButton do
       video_request = ButtonVideoProcessingRequest.last
 
       expect(video_request.parent_request.video_prompt).to eq(existing_video_prompt)
-      expect(script.reload.video_prompt).to eq(existing_video_prompt)
+      expect(scene.reload.video_prompt).to eq(existing_video_prompt)
     end
   end
 

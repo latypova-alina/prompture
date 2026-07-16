@@ -7,22 +7,22 @@ module ScriptGenerator
         new(...).call
       end
 
-      def initialize(chat_id:, scripts:, reference_image_url:, category: ContentCategory::CARTOON_SCRIPT)
+      def initialize(chat_id:, scenes:, reference_image_url:, category: ContentCategory::CARTOON_SCRIPT)
         @chat_id = chat_id
-        @scripts = scripts
+        @scenes = scenes
         @reference_image_url = reference_image_url
         @category = category
       end
 
       def call
-        scripts.each do |script|
-          ProcessScriptImagePrompt.call(script:, script_processor:)
+        scenes.each do |scene|
+          ProcessScriptImagePrompt.call(scene:, script_processor:)
         end
       end
 
       private
 
-      attr_reader :chat_id, :scripts, :reference_image_url, :category
+      attr_reader :chat_id, :scenes, :reference_image_url, :category
 
       memoize def script_processor
         ScriptGenerator::ProcessScript::ForEditImage.new(

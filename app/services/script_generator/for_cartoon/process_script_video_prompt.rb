@@ -7,32 +7,32 @@ module ScriptGenerator
         new(...).call
       end
 
-      def initialize(script:)
-        @script = script
+      def initialize(scene:)
+        @scene = scene
       end
 
       def call
-        script.video_prompt || assign_video_prompt
+        scene.video_prompt || assign_video_prompt
       end
 
       private
 
-      attr_reader :script
+      attr_reader :scene
 
       def assign_video_prompt
-        script.update!(video_prompt: VideoPrompt.create!(prompt: generated_video_prompt))
+        scene.update!(video_prompt: VideoPrompt.create!(prompt: generated_video_prompt))
 
-        script.video_prompt
+        scene.video_prompt
       end
 
-      delegate :script_text, to: :script
+      delegate :scene_text, to: :scene
 
       memoize def generated_video_prompt
         video_prompt_context.prompt
       end
 
       memoize def video_prompt_context
-        VideoPromptContext.new(script_text:)
+        VideoPromptContext.new(script_text: scene_text)
       end
     end
   end

@@ -45,4 +45,11 @@ Project guidance for AI/code agents working in this repository.
 
 - Prefer creating real persisted records (via factories/fixtures) in specs instead of using doubles for model records.
 - Use doubles for external dependencies/IO boundaries (APIs, SDK clients, network calls), not for ActiveRecord entities when a real record can be used.
+- Use plain `describe` (not `RSpec.describe`).
+- Prefer this RSpec structure:
+  - `let(:input) { ... }`
+  - `subject { described_class.new(input).public_method }`
+  - one-line expectations: `it { is_expected.to ... }`
+  - context blocks for variations (`context "when ..."` with overridden `let`).
+- Keep specs concise and style-consistent across files.
 

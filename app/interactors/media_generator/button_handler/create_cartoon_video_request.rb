@@ -6,7 +6,7 @@ module MediaGenerator
 
       PROCESSOR = "veo3_1_lite_image_to_video".freeze
 
-      delegate :parent_request, :command_request, :script, to: :context
+      delegate :parent_request, :command_request, :scene, to: :context
 
       def call
         context.button_request_record = button_video_processing_request
@@ -54,7 +54,7 @@ module MediaGenerator
       end
 
       memoize def video_prompt_record
-        ScriptGenerator::ForCartoon::ProcessScriptVideoPrompt.call(script:)
+        ScriptGenerator::ForCartoon::ProcessScriptVideoPrompt.call(scene:)
       end
 
       memoize def image_url

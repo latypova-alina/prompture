@@ -5,13 +5,13 @@ describe MediaGenerator::ButtonHandler::CreateCartoonVideoRequest do
     described_class.call(
       parent_request:,
       command_request:,
-      script:
+      scene:
     )
   end
 
   let(:user) { create(:user, :with_balance) }
   let(:image_prompt) { create(:image_prompt, prompt: "Bright kids room interior.") }
-  let(:script) { create(:script, script_text: "Bloomy waves hello.", image_prompt:) }
+  let(:scene) { create(:scene, scene_text: "Bloomy waves hello.", image_prompt:) }
   let(:command_request) do
     create(
       :command_edit_image_request,
@@ -35,7 +35,7 @@ describe MediaGenerator::ButtonHandler::CreateCartoonVideoRequest do
   before do
     allow(ScriptGenerator::ForCartoon::ProcessScriptVideoPrompt)
       .to receive(:call)
-      .with(script:)
+      .with(scene:)
       .and_return(video_prompt_record)
   end
 
@@ -60,14 +60,14 @@ describe MediaGenerator::ButtonHandler::CreateCartoonVideoRequest do
     expect(video_request.command_request.user).to eq(user)
   end
 
-  it "fetches the video prompt from the script passed on context" do
+  it "fetches the video prompt from the scene passed on context" do
     create(:stored_image, source_message: parent_request, image_url: "https://example.com/scene.png")
 
     result
 
     expect(ScriptGenerator::ForCartoon::ProcessScriptVideoPrompt)
       .to have_received(:call)
-      .with(script:)
+      .with(scene:)
   end
 
   context "when image is not ready" do

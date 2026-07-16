@@ -7,7 +7,7 @@ describe MediaGenerator::ButtonHandler::ValidateCartoonVideoScriptRequest do
     create(:command_prompt_to_video_request, category: ContentCategory::CARTOON_SCRIPT)
   end
   let(:video_prompt) { create(:video_prompt, prompt: "Camera slowly zooms in as Bloomy waves.") }
-  let(:script) { create(:script, script_text: "Bloomy waves hello.", video_prompt:) }
+  let(:scene) { create(:scene, scene_text: "Bloomy waves hello.", video_prompt:) }
   let(:prompt_message) do
     create(:prompt_message, prompt: video_prompt.prompt, video_prompt:, command_request:)
   end
@@ -27,11 +27,11 @@ describe MediaGenerator::ButtonHandler::ValidateCartoonVideoScriptRequest do
     )
   end
 
-  before { script unless script.nil? }
+  before { scene unless scene.nil? }
 
-  it "succeeds and sets script and video_prompt on context" do
+  it "succeeds and sets scene and video_prompt on context" do
     expect(result).to be_success
-    expect(result.script).to eq(script)
+    expect(result.scene).to eq(scene)
     expect(result.video_prompt).to eq(video_prompt)
   end
 
@@ -54,13 +54,13 @@ describe MediaGenerator::ButtonHandler::ValidateCartoonVideoScriptRequest do
 
     it "succeeds using the ancestor prompt message" do
       expect(result).to be_success
-      expect(result.script).to eq(script)
+      expect(result.scene).to eq(scene)
       expect(result.video_prompt).to eq(video_prompt)
     end
   end
 
-  context "when script is missing" do
-    let(:script) { nil }
+  context "when scene is missing" do
+    let(:scene) { nil }
 
     it "fails with CommandUnknownError" do
       expect(result).to be_failure
