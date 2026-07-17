@@ -14,7 +14,7 @@ module ScriptGenerator
       def call
         ProcessScriptImagePrompts.call(
           chat_id:,
-          scripts:,
+          scenes: scene_records,
           reference_image_url:
         )
       end
@@ -30,8 +30,8 @@ module ScriptGenerator
         CartoonScriptContext.new
       end
 
-      memoize def scripts
-        scenes.map { |scene| Script.create!(script_text: scene) }
+      memoize def scene_records
+        scenes.map { |scene_text| Scene.create!(scene_text:) }
       end
     end
   end

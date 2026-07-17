@@ -7,7 +7,7 @@ module MediaGenerator
       PROCESSOR = "elevenlabs_v3_audio".freeze
       VOICE = "lulu_lollipop".freeze
 
-      delegate :parent_request, :script, :video_prompt, to: :context
+      delegate :parent_request, :scene, :video_prompt, to: :context
 
       def call
         context.audio_prompt_record = audio_prompt_record
@@ -25,7 +25,7 @@ module MediaGenerator
 
       memoize def audio_prompt_record
         ScriptGenerator::ForCartoon::ProcessScriptAudioPrompt.call(
-          script_text: script.script_text,
+          script_text: scene.scene_text,
           video_prompt:
         )
       end

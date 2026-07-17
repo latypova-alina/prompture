@@ -19,14 +19,14 @@ describe ScriptGenerator::ForCartoon::ProcessCartoonScript do
     allow(ScriptGenerator::ForCartoon::ProcessScriptImagePrompts).to receive(:call)
   end
 
-  it "creates a script record for each scene and processes image prompts" do
-    expect { process_cartoon_script }.to change(Script, :count).by(12)
+  it "creates a scene record for each scene and processes image prompts" do
+    expect { process_cartoon_script }.to change(Scene, :count).by(12)
 
-    scripts = Script.order(:id).last(12)
-    expect(scripts.pluck(:script_text)).to eq(scenes)
+    scene_records = Scene.order(:id).last(12)
+    expect(scene_records.pluck(:scene_text)).to eq(scenes)
     expect(ScriptGenerator::ForCartoon::ProcessScriptImagePrompts).to have_received(:call).with(
       chat_id: 456,
-      scripts:,
+      scenes: scene_records,
       reference_image_url:
     )
   end

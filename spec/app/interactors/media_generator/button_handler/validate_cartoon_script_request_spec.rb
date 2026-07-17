@@ -4,7 +4,7 @@ describe MediaGenerator::ButtonHandler::ValidateCartoonScriptRequest do
   subject(:result) { described_class.call(command_request:) }
 
   let(:image_prompt) { create(:image_prompt) }
-  let(:script) { create(:script, image_prompt:) }
+  let(:scene) { create(:scene, image_prompt:) }
   let(:command_request) do
     create(
       :command_edit_image_request,
@@ -13,11 +13,11 @@ describe MediaGenerator::ButtonHandler::ValidateCartoonScriptRequest do
     )
   end
 
-  before { script }
+  before { scene }
 
-  it "succeeds and stores the script on context" do
+  it "succeeds and stores the scene on context" do
     expect(result).to be_success
-    expect(result.script).to eq(script)
+    expect(result.scene).to eq(scene)
   end
 
   context "when command request is not cartoon script" do
@@ -29,8 +29,8 @@ describe MediaGenerator::ButtonHandler::ValidateCartoonScriptRequest do
     end
   end
 
-  context "when script is missing" do
-    let(:script) { nil }
+  context "when scene is missing" do
+    let(:scene) { nil }
 
     it "fails with CommandUnknownError" do
       expect(result).to be_failure

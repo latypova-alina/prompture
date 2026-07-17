@@ -2,10 +2,10 @@ require "rails_helper"
 
 describe ScriptGenerator::ForCartoon::ProcessScriptImagePrompts do
   subject(:process_script_image_prompts) do
-    described_class.call(chat_id: 456, scripts:, reference_image_url:)
+    described_class.call(chat_id: 456, scenes:, reference_image_url:)
   end
 
-  let(:scripts) { create_list(:script, 2) }
+  let(:scenes) { create_list(:scene, 2) }
   let(:reference_image_url) { "https://example.com/bloomy.png" }
   let(:script_processor) { instance_double(ScriptGenerator::ProcessScript::ForEditImage) }
 
@@ -20,18 +20,18 @@ describe ScriptGenerator::ForCartoon::ProcessScriptImagePrompts do
     allow(ScriptGenerator::ForCartoon::ProcessScriptImagePrompt).to receive(:call)
   end
 
-  it "processes each script with a shared script processor" do
+  it "processes each scene with a shared script processor" do
     process_script_image_prompts
 
-    scripts.each do |script|
+    scenes.each do |scene|
       expect(ScriptGenerator::ForCartoon::ProcessScriptImagePrompt).to have_received(:call).with(
-        script:,
+        scene:,
         script_processor:
       )
     end
   end
 
-  it "reuses the same script processor for all scripts" do
+  it "reuses the same script processor for all scenes" do
     process_script_image_prompts
 
     expect(ScriptGenerator::ProcessScript::ForEditImage).to have_received(:new).once
