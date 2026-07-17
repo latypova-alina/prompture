@@ -7,7 +7,15 @@ module CartoonScriptCheckable
     try(:category) == ContentCategory::CARTOON_SHORTS_SCRIPT
   end
 
+  def cartoon_shorts_complex_script?
+    try(:category) == ContentCategory::CARTOON_SHORTS_COMPLEX_SCRIPT
+  end
+
+  def cartoon_shorts_format?
+    cartoon_shorts_script? || cartoon_shorts_complex_script?
+  end
+
   def cartoon_workflow?
-    cartoon_script? || cartoon_shorts_script?
+    cartoon_script? || cartoon_shorts_format?
   end
 end

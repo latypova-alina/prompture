@@ -15,6 +15,8 @@ module Generator::Media::Image::NotifySuccess
       send_telegram_message
 
       update_request_status
+
+      enqueue_next_chained_scene
     end
 
     private
@@ -33,6 +35,13 @@ module Generator::Media::Image::NotifySuccess
 
     def update_request_status
       request.update!(status: "COMPLETED", image_url:)
+    end
+
+    def enqueue_next_chained_scene
+      ScriptGenerator::ForCartoon::EnqueueNextChainedScene.call(
+        image_url:,
+        button_request: request
+      )
     end
 
     def presenter_factory

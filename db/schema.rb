@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2026_07_16_120000) do
+ActiveRecord::Schema[8.0].define(version: 2026_07_17_170000) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -229,8 +229,18 @@ ActiveRecord::Schema[8.0].define(version: 2026_07_16_120000) do
     t.bigint "image_prompt_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "script_id", null: false
+    t.integer "order", default: 1, null: false
     t.index ["image_prompt_id"], name: "index_scenes_on_image_prompt_id"
+    t.index ["script_id", "order"], name: "index_scenes_on_script_id_and_order"
+    t.index ["script_id"], name: "index_scenes_on_script_id"
     t.index ["video_prompt_id"], name: "index_scenes_on_video_prompt_id"
+  end
+
+  create_table "scripts", force: :cascade do |t|
+    t.boolean "chained_references", default: false, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "stored_images", force: :cascade do |t|
@@ -342,6 +352,7 @@ ActiveRecord::Schema[8.0].define(version: 2026_07_16_120000) do
   add_foreign_key "command_prompt_to_video_requests", "users"
   add_foreign_key "prompt_messages", "video_prompts"
   add_foreign_key "scenes", "image_prompts"
+  add_foreign_key "scenes", "scripts"
   add_foreign_key "scenes", "video_prompts"
   add_foreign_key "stored_images", "image_prompts"
   add_foreign_key "tokens", "users"

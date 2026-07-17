@@ -8,7 +8,7 @@ module Generator
             PROCESSORS = %w[nano_banana_image nano_banana_edit_image].freeze
 
             def self.applies_to?(request)
-              request.command_request&.cartoon_shorts_script? &&
+              request.command_request&.cartoon_shorts_format? &&
                 PROCESSORS.include?(request.processor)
             end
 

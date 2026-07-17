@@ -32,8 +32,14 @@ module ScriptGenerator
         SingleCartoonScriptContext.new
       end
 
+      memoize def script
+        Script.create!(chained_references: false)
+      end
+
       memoize def scene_records
-        scenes.map { |scene_text| Scene.create!(scene_text:) }
+        scenes.each_with_index.map do |scene_text, index|
+          Scene.create!(script:, scene_text:, order: index + 1)
+        end
       end
     end
   end
