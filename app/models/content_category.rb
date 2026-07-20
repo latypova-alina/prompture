@@ -19,20 +19,20 @@ class ContentCategory
   VIDEO_BUCKET_FOLDERS = {
     BLOOMY_CARTOON_SCRIPT => "cartoon/bloomyvideos",
     CARTOON_BLOOMY_SHORTS_SCRIPT => "cartoon/bloomy/shorts/videos",
-    CARTOON_BLOOMY_SHORTS_COMPLEX_SCRIPT => "cartoon/bloomyshorts/videos",
+    CARTOON_BLOOMY_SHORTS_COMPLEX_SCRIPT => "cartoon/bloomy/shorts/videos",
     MOTIVATION => "videos/motivation"
   }.freeze
 
   AUDIO_BUCKET_FOLDERS = {
     BLOOMY_CARTOON_SCRIPT => "cartoon/bloomyaudio",
     CARTOON_BLOOMY_SHORTS_SCRIPT => "cartoon/bloomy/shorts/audio",
-    CARTOON_BLOOMY_SHORTS_COMPLEX_SCRIPT => "cartoon/bloomyshorts/audio"
+    CARTOON_BLOOMY_SHORTS_COMPLEX_SCRIPT => "cartoon/bloomy/shorts/audio"
   }.freeze
 
   MERGED_VIDEO_BUCKET_FOLDERS = {
     BLOOMY_CARTOON_SCRIPT => "cartoon/bloomyvideos/with_audio",
     CARTOON_BLOOMY_SHORTS_SCRIPT => "cartoon/bloomy/shorts/videos/with_audio",
-    CARTOON_BLOOMY_SHORTS_COMPLEX_SCRIPT => "cartoon/bloomyshorts/videos/with_audio"
+    CARTOON_BLOOMY_SHORTS_COMPLEX_SCRIPT => "cartoon/bloomy/shorts/videos/with_audio"
   }.freeze
 
   CATEGORY_FORMAT = /\A[a-z0-9_]+\z/
