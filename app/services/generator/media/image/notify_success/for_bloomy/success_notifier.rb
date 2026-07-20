@@ -9,6 +9,10 @@ module Generator::Media::Image::NotifySuccess
 
       private
 
+      def presenter_factory
+        PresenterFactory.new(image_url:, request:, balance: balance_credits)
+      end
+
       def enqueue_next_chained_scene
         ScriptGenerator::ForBloomy::EnqueueNextChainedScene.call(
           image_url:,
