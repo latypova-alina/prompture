@@ -52,31 +52,31 @@ module AdminCommands
   end
 
   def random_character!(*)
-    ScriptGenerator::ProcessRandomCharacterJob.perform_async(chat["id"])
+    ScriptGenerator::Process::RandomCharacterJob.perform_async(chat["id"])
 
     respond_with :message, text: I18n.t("telegram_webhooks.commands.random_character")
   end
 
   def brainrot_character!(*)
-    ScriptGenerator::ProcessBrainrotCharacterJob.perform_async(chat["id"])
+    ScriptGenerator::Process::BrainrotCharacterJob.perform_async(chat["id"])
 
     respond_with :message, text: I18n.t("telegram_webhooks.commands.brainrot_character")
   end
 
   def cartoon_character!(*)
-    ScriptGenerator::ProcessCartoonCharacterJob.perform_async(chat["id"])
+    ScriptGenerator::Process::CartoonCharacterJob.perform_async(chat["id"])
 
     respond_with :message, text: I18n.t("telegram_webhooks.commands.cartoon_character")
   end
 
   def cartoon_yt!(*)
-    ScriptGenerator::ProcessCartoonScriptJob.perform_async(chat["id"])
+    ScriptGenerator::Process::ForCartoon::MultiSceneScriptJob.perform_async(chat["id"])
 
     respond_with :message, text: I18n.t("telegram_webhooks.commands.cartoon_yt")
   end
 
   def cartoon_shorts!(*)
-    ScriptGenerator::ProcessSingleCartoonScriptJob.perform_async(
+    ScriptGenerator::Process::ForCartoon::SingleScriptJob.perform_async(
       chat["id"],
       ContentCategory::CARTOON_SHORTS_SCRIPT
     )
@@ -85,7 +85,7 @@ module AdminCommands
   end
 
   def cartoon_shorts_complex!(*)
-    ScriptGenerator::ProcessCartoonShortsComplexScriptJob.perform_async(chat["id"])
+    ScriptGenerator::Process::ForCartoon::ShortComplexScriptJob.perform_async(chat["id"])
 
     respond_with :message, text: I18n.t("telegram_webhooks.commands.cartoon_shorts_complex")
   end
