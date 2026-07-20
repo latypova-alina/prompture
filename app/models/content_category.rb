@@ -17,20 +17,20 @@ class ContentCategory
   }.freeze
 
   VIDEO_BUCKET_FOLDERS = {
-    BLOOMY_CARTOON_SCRIPT => "cartoon/bloomyvideos",
+    BLOOMY_CARTOON_SCRIPT => "cartoon/bloomy/videos",
     CARTOON_BLOOMY_SHORTS_SCRIPT => "cartoon/bloomy/shorts/videos",
     CARTOON_BLOOMY_SHORTS_COMPLEX_SCRIPT => "cartoon/bloomy/shorts/videos",
     MOTIVATION => "videos/motivation"
   }.freeze
 
   AUDIO_BUCKET_FOLDERS = {
-    BLOOMY_CARTOON_SCRIPT => "cartoon/bloomyaudio",
+    BLOOMY_CARTOON_SCRIPT => "cartoon/bloomy/audio",
     CARTOON_BLOOMY_SHORTS_SCRIPT => "cartoon/bloomy/shorts/audio",
     CARTOON_BLOOMY_SHORTS_COMPLEX_SCRIPT => "cartoon/bloomy/shorts/audio"
   }.freeze
 
   MERGED_VIDEO_BUCKET_FOLDERS = {
-    BLOOMY_CARTOON_SCRIPT => "cartoon/bloomyvideos/with_audio",
+    BLOOMY_CARTOON_SCRIPT => "cartoon/bloomy/videos/with_audio",
     CARTOON_BLOOMY_SHORTS_SCRIPT => "cartoon/bloomy/shorts/videos/with_audio",
     CARTOON_BLOOMY_SHORTS_COMPLEX_SCRIPT => "cartoon/bloomy/shorts/videos/with_audio"
   }.freeze
