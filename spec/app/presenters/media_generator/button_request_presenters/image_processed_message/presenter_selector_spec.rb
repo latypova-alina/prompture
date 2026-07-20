@@ -99,13 +99,13 @@ describe MediaGenerator::ButtonRequestPresenters::ImageProcessedMessage::Present
       let(:presenter_instance) { double }
 
       before do
-        allow(MediaGenerator::ButtonRequestPresenters::ImageProcessedMessage::ForCartoonScriptEditImage)
+        allow(MediaGenerator::ButtonRequestPresenters::ImageProcessedMessage::ForBloomy::ForScene)
           .to receive(:new)
           .with(message: image_url, locale:, balance:, processor_name:, processor:)
           .and_return(presenter_instance)
       end
 
-      it "returns ForCartoonScriptEditImage presenter" do
+      it "returns ForBloomy::ForScene presenter" do
         expect(selector.presenter).to eq(presenter_instance)
       end
     end

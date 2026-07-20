@@ -1,6 +1,6 @@
 require "rails_helper"
 
-describe MediaGenerator::ButtonRequestPresenters::ImageProcessedMessage::ForCartoonScriptEditImage do
+describe MediaGenerator::ButtonRequestPresenters::ImageProcessedMessage::ForBloomy::ForScene do
   subject { described_class.new(message:, balance:, processor_name:, processor:) }
 
   let(:message) { "https://example.com/image.png" }

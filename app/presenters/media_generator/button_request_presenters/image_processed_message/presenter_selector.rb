@@ -31,7 +31,7 @@ module MediaGenerator
 
         def presenter_class
           if command_request.cartoon_workflow?
-            ForCartoonScriptEditImage
+            ForBloomy::ForScene
           else
             PRESENTERS.fetch(command_request_classname)
           end

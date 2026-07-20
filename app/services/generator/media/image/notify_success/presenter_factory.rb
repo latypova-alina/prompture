@@ -1,5 +1,7 @@
 module Generator::Media::Image::NotifySuccess
   class PresenterFactory
+    include Memery
+
     def initialize(image_url:, request:, balance:)
       @image_url = image_url
       @request = request
@@ -14,6 +16,10 @@ module Generator::Media::Image::NotifySuccess
 
     delegate :locale, :humanized_process_name, :processor, to: :request
 
+    delegate :command_request, to: :request
+
+    memoize :command_request
+
     def presenter_selector
       MediaGenerator::ButtonRequestPresenters::ImageProcessedMessage::PresenterSelector.new(
         context:
@@ -23,7 +29,7 @@ module Generator::Media::Image::NotifySuccess
     def context
       MediaGenerator::ButtonRequestPresenters::ImageProcessedMessage::Context.new(
         image_url:,
-        command_request: request.command_request,
+        command_request:,
         command_request_classname:,
         locale:,
         balance:,
@@ -33,7 +39,7 @@ module Generator::Media::Image::NotifySuccess
     end
 
     def command_request_classname
-      request.command_request.class.name
+      command_request.class.name
     end
   end
 end

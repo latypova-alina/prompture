@@ -1,6 +1,6 @@
 module Buttons
   module ForImageMessage
-    class ForCartoonScriptEditImage < ForEditImage
+    class ForScene < ForEditImage
       def build
         [[regenerate_button], [regenerate_script_image_button], [generate_video_button]]
       end
