@@ -17,7 +17,7 @@ module ScriptGenerator
         return if next_scene.image_prompt.blank?
         return if next_scene.image_prompt.stored_images.exists?
 
-        ScriptGenerator::ProcessScript::ForEditImage.new(
+        ScriptGenerator::ProcessScene::ForEditImage.new(
           chat_id: command_request.chat_id,
           category: command_request.category,
           reference_image_url: image_url

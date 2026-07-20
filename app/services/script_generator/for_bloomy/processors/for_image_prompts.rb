@@ -26,7 +26,7 @@ module ScriptGenerator
         attr_reader :chat_id, :scenes, :reference_image_url, :category
 
         memoize def script_processor
-          ScriptGenerator::ProcessScript::ForEditImage.new(
+          ScriptGenerator::ProcessScene::ForEditImage.new(
             chat_id:,
             category:,
             reference_image_url:

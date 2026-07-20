@@ -76,7 +76,7 @@ ru:
       admin: |
         Вот доступные команды для администратора:
 
-        🔹 /random_script - сгенерировать случайный скрипт
+        🔹 /generate_random_cats_script - сгенерировать случайный скрипт
 
         🔹 /motivation_workflow_en - мотивационный скрипт, аудио и кинематографические видео-промпты (английский)
 
@@ -84,11 +84,11 @@ ru:
 
         🔹 /motivation_workflow_ru - мотивационный скрипт, аудио и кинематографические видео-промпты (русский)
 
-        🔹 /generate_script %template_name% - сгенерировать скрипт из параметра template_name
+        🔹 /generate_cats_script %template_name% - сгенерировать скрипт из параметра template_name
 
-        🔹 /script_templates - показать доступные шаблоны скриптов
+        🔹 /cats_script_templates - показать доступные шаблоны скриптов
 
-        🔹 /random_character - сгенерировать изображение случайного персонажа
+        🔹 /food_character - сгенерировать изображение случайного персонажа
 
         🔹 /brainrot_character - сгенерировать изображение brainrot-персонажа
 
@@ -99,7 +99,7 @@ ru:
         🔹 /bloomy_cartoon_short - сгенерировать 1 мультяшную сцену для шортсов (9:16)
 
         🔹 /bloomy_complex_short - сгенерировать 5 связанных мультяшных сцен для шортсов (9:16)
-      random_character: "Генерирую случайного персонажа."
+      food_character: "Генерирую случайного персонажа."
       brainrot_character: "Генерирую brainrot-персонажа."
       cartoon_character: "Генерирую мультяшного персонажа."
       bloomy_multiscene_cartoon_yt: "Генерирую мультяшный скрипт."
@@ -341,7 +341,7 @@ ru:
     insufficient_credits: "К сожалению, на балансе недостаточно кредитов для выполнения этого действия :("
     moderation: "Ваше сообщение не может быть обработано, так как нарушает правила контента. Смотрите правила: /prompt_policy"
     script_generator_request_failed: "Не удалось выполнить запрос к API генератора скриптов."
-    template_name_missing: "Пожалуйста, укажи имя шаблона. Пример: /generate_script my_template."
+    template_name_missing: "Пожалуйста, укажи имя шаблона. Пример: /generate_cats_script my_template."
     daily_limit_exceeded: "К сожалению, дневной лимит для этого процессора исчерпан. Попробуй снова завтра или выбери другой процессор."
   telegram:
     generation:

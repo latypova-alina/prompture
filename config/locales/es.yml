@@ -77,7 +77,7 @@ es:
       admin: |
         Aquí están los comandos disponibles para administradores:
 
-        🔹 /random_script - genera un script aleatorio
+        🔹 /generate_random_cats_script - genera un script aleatorio
 
         🔹 /motivation_workflow_en - guion motivacional, audio y prompts de video cinematográficos (inglés)
 
@@ -85,11 +85,11 @@ es:
 
         🔹 /motivation_workflow_ru - guion motivacional, audio y prompts de video cinematográficos (ruso)
 
-        🔹 /generate_script %template_name% - genera un script desde el parametro template_name
+        🔹 /generate_cats_script %template_name% - genera un script desde el parametro template_name
 
-        🔹 /script_templates - muestra las plantillas de scripts disponibles
+        🔹 /cats_script_templates - muestra las plantillas de scripts disponibles
 
-        🔹 /random_character - genera una imagen de personaje aleatorio
+        🔹 /food_character - genera una imagen de personaje aleatorio
 
         🔹 /brainrot_character - genera una imagen de personaje brainrot aleatorio
 
@@ -100,7 +100,7 @@ es:
         🔹 /bloomy_cartoon_short - genera 1 escena de dibujos animados para shorts (9:16)
 
         🔹 /bloomy_complex_short - genera 5 escenas encadenadas de dibujos animados para shorts (9:16)
-      random_character: "Generación de personaje aleatorio iniciada."
+      food_character: "Generación de personaje aleatorio iniciada."
       brainrot_character: "Generación de personaje brainrot iniciada."
       cartoon_character: "Generación de personaje de dibujos animados iniciada."
       bloomy_multiscene_cartoon_yt: "Generación de guion de dibujos animados iniciada."
@@ -304,7 +304,7 @@ es:
     insufficient_credits: "Lo siento, parece que no tienes suficientes créditos para realizar esta acción 💰"
     moderation: "Tu mensaje no se puede procesar porque infringe nuestra politica de contenido. Revisa las reglas: /prompt_policy"
     script_generator_request_failed: "La solicitud al API del generador de scripts falló."
-    template_name_missing: "Por favor, proporciona un nombre de plantilla. Ejemplo: /generate_script my_template."
+    template_name_missing: "Por favor, proporciona un nombre de plantilla. Ejemplo: /generate_cats_script my_template."
     daily_limit_exceeded: "Lo siento, se ha superado el limite diario para este procesador. Intentalo de nuevo manana o elige otro procesador."
   telegram:
     generation:

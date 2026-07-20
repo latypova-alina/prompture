@@ -4,7 +4,7 @@ module ScriptGenerator
       include JobErrorHandler
 
       def perform(chat_id)
-        ScriptGenerator::ProcessRandomCharacter.call(chat_id:)
+        ScriptGenerator::ForCharacters::Processors::FoodCharacter.call(chat_id:)
       rescue StandardError => e
         notify_script_generator_error(chat_id:, error: e)
       end

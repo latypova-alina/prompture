@@ -35,7 +35,7 @@ module ScriptGenerator
           first_scene = scene_records.first
           return if first_scene.blank?
 
-          ScriptGenerator::ProcessScript::ForEditImage.new(
+          ScriptGenerator::ProcessScene::ForEditImage.new(
             chat_id:,
             category: CATEGORY,
             reference_image_url:
