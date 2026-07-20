@@ -77,7 +77,7 @@ en:
       admin: |
         Here are the possible commands for admin:
 
-        🔹 /random_script - will generate random script
+        🔹 /generate_random_cats_script - will generate random script
 
         🔹 /motivation_workflow_en - motivation script, audio, and cinematic video prompts (English)
 
@@ -85,24 +85,27 @@ en:
 
         🔹 /motivation_workflow_ru - motivation script, audio, and cinematic video prompts (Russian)
 
-        🔹 /generate_script %template_name% - will generate script from template_name param
+        🔹 /generate_cats_script %template_name% - will generate script from template_name param
 
-        🔹 /script_templates - see possible script templates
+        🔹 /cats_script_templates - see possible script templates
 
-        🔹 /random_character - generate a random character image
+        🔹 /food_character - generate a random character image
 
         🔹 /brainrot_character - generate a random brainrot character image
 
         🔹 /cartoon_character - generate a random preschool cartoon character image
 
-        🔹 /cartoon_yt - generate 12 cartoon scenes
+        🔹 /bloomy_multiscene_cartoon_yt - generate 12 cartoon scenes
 
-        🔹 /cartoon_shorts - generate 1 cartoon scene for shorts (9:16)
-      random_character: "Started random character generation."
+        🔹 /bloomy_cartoon_short - generate 1 cartoon scene for shorts (9:16)
+
+        🔹 /bloomy_complex_short - generate 5 chained cartoon shorts scenes (9:16)
+      food_character: "Started random character generation."
       brainrot_character: "Started brainrot character generation."
       cartoon_character: "Started cartoon character generation."
-      cartoon_yt: "Started cartoon script generation."
-      cartoon_shorts: "Started cartoon shorts script generation."
+      bloomy_multiscene_cartoon_yt: "Started cartoon script generation."
+      bloomy_cartoon_short: "Started cartoon shorts script generation."
+      bloomy_complex_short: "Started complex cartoon shorts script generation."
       motivation_workflow: "Started motivation workflow: script, audio, and video prompts."
       prompt_to_video: "Great! Now please provide a prompt for the video. It can later be extended with the help of the bot."
       prompt_to_image: "Great! Now please provide a prompt for the image. It can later be extended with the help of the bot."
@@ -301,7 +304,7 @@ en:
     insufficient_credits: "Sorry, it looks like you don't have enough credits to perform this action 💰"
     moderation: "Your message cannot be processed because it violates our content policy. See the rules: /prompt_policy"
     script_generator_request_failed: "Script generator API request failed."
-    template_name_missing: "Please provide a template name. Example: /generate_script my_template."
+    template_name_missing: "Please provide a template name. Example: /generate_cats_script my_template."
     daily_limit_exceeded: "Sorry, the daily limit for this processor has been exceeded. Please try again tomorrow or choose another processor."
   telegram:
     generation:

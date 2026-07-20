@@ -4,7 +4,7 @@ describe MediaGenerator::ButtonHandler::ValidateCartoonVideoScriptRequest do
   subject(:result) { described_class.call(context) }
 
   let(:command_request) do
-    create(:command_prompt_to_video_request, category: ContentCategory::CARTOON_SCRIPT)
+    create(:command_prompt_to_video_request, category: ContentCategory::BLOOMY_CARTOON_SCRIPT)
   end
   let(:video_prompt) { create(:video_prompt, prompt: "Camera slowly zooms in as Bloomy waves.") }
   let(:scene) { create(:scene, scene_text: "Bloomy waves hello.", video_prompt:) }

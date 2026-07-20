@@ -88,7 +88,7 @@ describe MediaGenerator::ButtonRequestPresenters::ImageProcessedMessage::Present
 
     context "when command request is cartoon script edit image" do
       let(:command_request) do
-        create(:command_edit_image_request, category: ContentCategory::CARTOON_SCRIPT)
+        create(:command_edit_image_request, category: ContentCategory::BLOOMY_CARTOON_SCRIPT)
       end
       let(:command_request_classname) { "CommandEditImageRequest" }
 

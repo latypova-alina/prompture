@@ -9,16 +9,15 @@ describe Generator::Media::Image::SuccessNotifierJob do
   let(:button_request_id) { 123 }
 
   before do
-    allow(
-      Generator::Media::Image::NotifySuccess::SuccessNotifier
-    ).to receive(:call)
+    allow(Generator::Media::Image::NotifySuccess::SuccessNotifierRouter)
+      .to receive(:call)
   end
 
-  it "calls SuccessNotifier with correct arguments" do
-    expect(
-      Generator::Media::Image::NotifySuccess::SuccessNotifier
-    ).to receive(:call).with(image_url:, button_request_id:)
-
+  it "calls SuccessNotifierRouter with correct arguments" do
     perform_job
+
+    expect(Generator::Media::Image::NotifySuccess::SuccessNotifierRouter)
+      .to have_received(:call)
+      .with(image_url:, button_request_id:)
   end
 end

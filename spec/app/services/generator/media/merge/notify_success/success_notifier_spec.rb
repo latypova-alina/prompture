@@ -15,7 +15,7 @@ describe Generator::Media::Merge::NotifySuccess::SuccessNotifier do
     create(
       :button_merge_audio_video_processing_request,
       status: "PENDING",
-      command_request: create(:command_prompt_to_video_request, user:, category: ContentCategory::CARTOON_SCRIPT)
+      command_request: create(:command_prompt_to_video_request, user:, category: ContentCategory::BLOOMY_CARTOON_SCRIPT)
     )
   end
 

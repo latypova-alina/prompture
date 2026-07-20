@@ -5,7 +5,7 @@ describe Generator::Media::Video::CreateTask::PayloadEnhancers::CartoonScript do
 
   let(:payload) { { prompt: "hello", aspect_ratio: "auto" } }
   let(:command_request) do
-    create(:command_prompt_to_video_request, category: ContentCategory::CARTOON_SCRIPT)
+    create(:command_prompt_to_video_request, category: ContentCategory::BLOOMY_CARTOON_SCRIPT)
   end
   let(:request) do
     create(

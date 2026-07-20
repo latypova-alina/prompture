@@ -5,7 +5,7 @@ describe AudioScriptProcessor::ProcessScript do
     it "runs audio script processing pipeline in expected order" do
       expect(described_class.organized).to eq(
         [
-          ScriptProcessor::CreatePromptMessage,
+          SceneProcessor::CreatePromptMessage,
           MediaGenerator::MessageHandler::NotifyUser,
           AudioScriptProcessor::HandleAudioButton
         ]

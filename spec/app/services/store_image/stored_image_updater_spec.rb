@@ -30,7 +30,7 @@ describe StoreImage::StoredImageUpdater do
     let(:command_request) do
       create(
         :command_edit_image_request,
-        category: ContentCategory::CARTOON_SCRIPT,
+        category: ContentCategory::BLOOMY_CARTOON_SCRIPT,
         prompt: image_prompt.prompt,
         image_prompt:
       )

@@ -9,7 +9,7 @@ module Generator
             PROCESSOR = "veo3_1_lite_image_to_video".freeze
 
             def self.applies_to?(request)
-              request.command_request.cartoon_shorts_script? &&
+              request.command_request.cartoon_shorts_format? &&
                 request.processor == PROCESSOR
             end
 

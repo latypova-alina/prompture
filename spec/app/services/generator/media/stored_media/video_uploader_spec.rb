@@ -47,23 +47,23 @@ describe Generator::Media::StoredMedia::VideoUploader do
 
   context "when command request is cartoon script" do
     let(:command_request) do
-      create(:command_prompt_to_video_request, category: ContentCategory::CARTOON_SCRIPT)
+      create(:command_prompt_to_video_request, category: ContentCategory::BLOOMY_CARTOON_SCRIPT)
     end
 
     before do
       allow(StoreMedia::Upload::Facade)
         .to receive(:new)
-        .with(bytes: "video-bytes", filename: "generated.mp4", folder: "cartoon/videos")
+        .with(bytes: "video-bytes", filename: "generated.mp4", folder: "cartoon/bloomy/videos")
         .and_return(upload_facade)
     end
 
-    it "uploads to cartoon/videos folder" do
+    it "uploads to cartoon/bloomy/videos folder" do
       service.call
 
       expect(StoreMedia::Upload::Facade).to have_received(:new).with(
         bytes: "video-bytes",
         filename: "generated.mp4",
-        folder: "cartoon/videos"
+        folder: "cartoon/bloomy/videos"
       )
     end
   end

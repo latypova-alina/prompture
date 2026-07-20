@@ -7,7 +7,7 @@ describe MediaGenerator::ButtonHandler::ValidateCartoonScriptImageRequest do
   let(:command_request) do
     create(
       :command_edit_image_request,
-      category: ContentCategory::CARTOON_SCRIPT,
+      category: ContentCategory::BLOOMY_CARTOON_SCRIPT,
       image_prompt:
     )
   end

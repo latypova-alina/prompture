@@ -1,0 +1,25 @@
+module ScriptGenerator
+  module ForMotivation
+    class ScriptVoice
+      VOICES_BY_LANGUAGE = {
+        "en" => "adam",
+        "pl" => "adam",
+        "ru" => "knox"
+      }.freeze
+
+      DEFAULT_LANGUAGE = "en".freeze
+
+      class << self
+        def for(language:)
+          VOICES_BY_LANGUAGE.fetch(normalize(language))
+        end
+
+        private
+
+        def normalize(language)
+          language.to_s.presence || DEFAULT_LANGUAGE
+        end
+      end
+    end
+  end
+end

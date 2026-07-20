@@ -1,0 +1,39 @@
+require "rails_helper"
+
+describe ScriptGenerator::ForBloomy::Processors::ForVideoPrompt do
+  subject(:process_script_video_prompt) { described_class.call(scene:) }
+
+  let(:scene) { create(:scene, scene_text: "Bloomy waves hello.") }
+  let(:video_prompt) { "Slow zoom on Bloomy waving." }
+  let(:video_prompt_context) { instance_double(ScriptGenerator::ForBloomy::SharedContexts::ForVideoPrompt, prompt: video_prompt) }
+
+  before do
+    allow(ScriptGenerator::ForBloomy::SharedContexts::ForVideoPrompt)
+      .to receive(:new)
+      .with(script_text: scene.scene_text)
+      .and_return(video_prompt_context)
+  end
+
+  it "creates a video prompt and links it to the scene" do
+    expect { process_script_video_prompt }
+      .to change(VideoPrompt, :count).by(1)
+      .and change { scene.reload.video_prompt&.prompt }.from(nil).to(video_prompt)
+
+    expect(process_script_video_prompt).to eq(VideoPrompt.last)
+    expect(process_script_video_prompt.prompt).to eq(video_prompt)
+  end
+
+  context "when the scene already has a video prompt" do
+    let!(:existing_video_prompt) { create(:video_prompt, prompt: "Existing video prompt.") }
+
+    before { scene.update!(video_prompt: existing_video_prompt) }
+
+    it "reuses the existing video prompt without calling the script API" do
+      expect { process_script_video_prompt }
+        .not_to change(VideoPrompt, :count)
+
+      expect(ScriptGenerator::ForBloomy::SharedContexts::ForVideoPrompt).not_to have_received(:new)
+      expect(process_script_video_prompt).to eq(existing_video_prompt)
+    end
+  end
+end

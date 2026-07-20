@@ -33,6 +33,8 @@ describe Generator::Media::Image::NotifySuccess::SuccessNotifier do
 
     allow(Generator::Media::Image::NotifySuccess::SendTelegramMessage)
       .to receive(:call)
+
+    allow(ScriptGenerator::ForBloomy::EnqueueNextChainedScene).to receive(:call)
   end
 
   describe ".call" do
@@ -45,6 +47,13 @@ describe Generator::Media::Image::NotifySuccess::SuccessNotifier do
 
       expect(button_request.reload.status).to eq("COMPLETED")
       expect(button_request.image_url).to eq(image_url)
+    end
+
+    it "does not enqueue the next chained scene" do
+      call_service
+
+      expect(ScriptGenerator::ForBloomy::EnqueueNextChainedScene)
+        .not_to have_received(:call)
     end
   end
 end

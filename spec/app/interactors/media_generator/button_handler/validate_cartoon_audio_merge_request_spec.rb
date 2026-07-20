@@ -4,7 +4,7 @@ describe MediaGenerator::ButtonHandler::ValidateCartoonAudioMergeRequest do
   subject(:result) { described_class.call(context) }
 
   let(:command_request) do
-    create(:command_prompt_to_video_request, category: ContentCategory::CARTOON_SCRIPT)
+    create(:command_prompt_to_video_request, category: ContentCategory::BLOOMY_CARTOON_SCRIPT)
   end
   let(:video_request) do
     create(
@@ -19,7 +19,7 @@ describe MediaGenerator::ButtonHandler::ValidateCartoonAudioMergeRequest do
     create(
       :button_audio_processing_request,
       :completed,
-      command_request: create(:command_prompt_to_audio_request, category: ContentCategory::CARTOON_SCRIPT),
+      command_request: create(:command_prompt_to_audio_request, category: ContentCategory::BLOOMY_CARTOON_SCRIPT),
       parent_request: video_request,
       audio_prompt:
     )

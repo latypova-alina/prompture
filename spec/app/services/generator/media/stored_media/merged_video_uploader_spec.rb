@@ -5,7 +5,7 @@ describe Generator::Media::StoredMedia::MergedVideoUploader do
 
   let(:media_url) { "https://fal.media/merged.mp4" }
   let(:command_request) do
-    create(:command_prompt_to_video_request, category: ContentCategory::CARTOON_SCRIPT)
+    create(:command_prompt_to_video_request, category: ContentCategory::BLOOMY_CARTOON_SCRIPT)
   end
   let(:record) do
     create(
@@ -13,7 +13,7 @@ describe Generator::Media::StoredMedia::MergedVideoUploader do
       command_request:
     )
   end
-  let(:uploaded_url) { "https://internal.example/cartoon/videos/with_audio/merged.mp4" }
+  let(:uploaded_url) { "https://internal.example/cartoon/bloomy/videos/with_audio/merged.mp4" }
   let(:upload_facade) { instance_double(StoreMedia::Upload::Facade, stored_url: uploaded_url) }
   let(:remote_url_downloader) do
     instance_double(StoreImage::Download::RemoteUrlDownloader, downloaded_bytes: "video-bytes")
@@ -27,7 +27,7 @@ describe Generator::Media::StoredMedia::MergedVideoUploader do
 
     allow(StoreMedia::Upload::Facade)
       .to receive(:new)
-      .with(bytes: "video-bytes", filename: "merged.mp4", folder: "cartoon/videos/with_audio")
+      .with(bytes: "video-bytes", filename: "merged.mp4", folder: "cartoon/bloomy/videos/with_audio")
       .and_return(upload_facade)
 
     allow(upload_facade).to receive(:upload)

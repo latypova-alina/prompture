@@ -16,7 +16,7 @@ describe MediaGenerator::ButtonHandler::CreateCartoonVideoRequest do
     create(
       :command_edit_image_request,
       user:,
-      category: ContentCategory::CARTOON_SCRIPT,
+      category: ContentCategory::BLOOMY_CARTOON_SCRIPT,
       image_prompt:
     )
   end
@@ -33,7 +33,7 @@ describe MediaGenerator::ButtonHandler::CreateCartoonVideoRequest do
   let(:video_prompt_record) { create(:video_prompt, prompt: video_prompt) }
 
   before do
-    allow(ScriptGenerator::ForCartoon::ProcessScriptVideoPrompt)
+    allow(ScriptGenerator::ForBloomy::Processors::ForVideoPrompt)
       .to receive(:call)
       .with(scene:)
       .and_return(video_prompt_record)
@@ -56,7 +56,7 @@ describe MediaGenerator::ButtonHandler::CreateCartoonVideoRequest do
     expect(video_request.parent_request.prompt).to eq(video_prompt)
     expect(video_request.parent_request.video_prompt).to eq(video_prompt_record)
     expect(video_request.command_request).to be_a(CommandPromptToVideoRequest)
-    expect(video_request.command_request.category).to eq(ContentCategory::CARTOON_SCRIPT)
+    expect(video_request.command_request.category).to eq(ContentCategory::BLOOMY_CARTOON_SCRIPT)
     expect(video_request.command_request.user).to eq(user)
   end
 
@@ -65,7 +65,7 @@ describe MediaGenerator::ButtonHandler::CreateCartoonVideoRequest do
 
     result
 
-    expect(ScriptGenerator::ForCartoon::ProcessScriptVideoPrompt)
+    expect(ScriptGenerator::ForBloomy::Processors::ForVideoPrompt)
       .to have_received(:call)
       .with(scene:)
   end

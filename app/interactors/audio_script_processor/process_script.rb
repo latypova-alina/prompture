@@ -2,7 +2,7 @@ module AudioScriptProcessor
   class ProcessScript
     include Interactor::Organizer
 
-    organize ScriptProcessor::CreatePromptMessage,
+    organize SceneProcessor::CreatePromptMessage,
              MediaGenerator::MessageHandler::NotifyUser,
              AudioScriptProcessor::HandleAudioButton
   end
