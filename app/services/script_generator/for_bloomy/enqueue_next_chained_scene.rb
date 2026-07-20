@@ -13,15 +13,13 @@ module ScriptGenerator
       end
 
       def call
-        return if next_scene.blank?
-        return if next_scene.image_prompt.blank?
-        return if next_scene.image_prompt.stored_images.exists?
+        return unless next_scene_ready?
 
         ScriptGenerator::ProcessScene::ForEditImage.new(
-          chat_id: command_request.chat_id,
-          category: command_request.category,
+          chat_id:,
+          category:,
           reference_image_url: image_url
-        ).call(image_prompt_record: next_scene.image_prompt)
+        ).call(image_prompt_record: next_scene_image_prompt)
       end
 
       private
@@ -29,22 +27,31 @@ module ScriptGenerator
       attr_reader :image_url, :button_request
 
       delegate :command_request, to: :button_request
+      delegate :chat_id, :category, to: :command_request
+      delegate :image_prompt, to: :next_scene, prefix: true
+      delegate :image_prompt_id, to: :command_request
+      delegate :script, to: :scene, allow_nil: true
+      delegate :scenes, to: :script, allow_nil: true
+      delegate :order, to: :scene, allow_nil: true, prefix: true
 
-      memoize def scene
-        return if command_request.image_prompt_id.blank?
+      memoize :script
 
-        Scene.find_by(image_prompt_id: command_request.image_prompt_id)
+      def next_scene_ready?
+        next_scene.present? &&
+          next_scene.image_prompt.present? &&
+          !next_scene.image_prompt.stored_images.exists?
       end
 
-      memoize def script
-        scene&.script
+      memoize def scene
+        return if image_prompt_id.blank?
+
+        Scene.find_by(image_prompt_id:)
       end
 
       memoize def next_scene
-        return if script.blank?
-        return unless script.chained_references?
+        return if script.blank? || !script.chained_references?
 
-        script.scenes.find_by(order: scene.order + 1)
+        scenes.find_by(order: scene_order + 1)
       end
     end
   end

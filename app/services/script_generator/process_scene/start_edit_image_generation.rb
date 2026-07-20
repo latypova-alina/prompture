@@ -1,6 +1,8 @@
 module ScriptGenerator
   module ProcessScene
     class StartEditImageGeneration
+      include Memery
+
       PROCESSOR = "nano_banana_edit_image".freeze
 
       def self.call(...)
@@ -19,8 +21,8 @@ module ScriptGenerator
 
       attr_reader :command_request
 
-      def generation_result
-        @generation_result ||= MediaGenerator::MessageHandler::EditImageMessageHandler::StartGeneration.call(
+      memoize def generation_result
+        MediaGenerator::MessageHandler::EditImageMessageHandler::StartGeneration.call(
           command_request:,
           button_request: PROCESSOR
         )

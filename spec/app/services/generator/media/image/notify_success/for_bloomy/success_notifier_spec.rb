@@ -1,6 +1,6 @@
 require "rails_helper"
 
-describe Generator::Media::Image::NotifySuccess::SuccessNotifier do
+describe Generator::Media::Image::NotifySuccess::ForBloomy::SuccessNotifier do
   subject(:call_service) do
     described_class.call(image_url:, button_request_id: button_request.id)
   end
@@ -8,9 +8,21 @@ describe Generator::Media::Image::NotifySuccess::SuccessNotifier do
   let(:image_url) { "http://example.com/image.png" }
   let(:balance) { 7 }
   let(:user) { create(:user, :with_custom_balance, credits: balance) }
-
+  let(:command_request) do
+    create(
+      :command_edit_image_request,
+      user:,
+      category: ContentCategory::CARTOON_BLOOMY_SHORTS_COMPLEX_SCRIPT
+    )
+  end
   let(:button_request) do
-    create(:button_image_processing_request, status: "PENDING", user:)
+    create(
+      :button_image_processing_request,
+      status: "PENDING",
+      user:,
+      command_request:,
+      parent_request: command_request
+    )
   end
 
   let(:presenter_selector_instance) { double }
@@ -38,7 +50,7 @@ describe Generator::Media::Image::NotifySuccess::SuccessNotifier do
   end
 
   describe ".call" do
-    it "sends telegram message and updates request status" do
+    it "sends telegram message, updates request, and enqueues next chained scene" do
       call_service
 
       expect(Generator::Media::Image::NotifySuccess::SendTelegramMessage)
@@ -47,13 +59,9 @@ describe Generator::Media::Image::NotifySuccess::SuccessNotifier do
 
       expect(button_request.reload.status).to eq("COMPLETED")
       expect(button_request.image_url).to eq(image_url)
-    end
-
-    it "does not enqueue the next chained scene" do
-      call_service
-
       expect(ScriptGenerator::ForBloomy::EnqueueNextChainedScene)
-        .not_to have_received(:call)
+        .to have_received(:call)
+        .with(image_url:, button_request:)
     end
   end
 end
