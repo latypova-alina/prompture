@@ -24,7 +24,7 @@ module MediaGenerator
       memoize :command_request
 
       memoize def audio_prompt_record
-        ScriptGenerator::ForCartoon::ProcessScriptAudioPrompt.call(
+        ScriptGenerator::ForCartoon::Processors::ForAudioPrompt.call(
           script_text: scene.scene_text,
           video_prompt:
         )

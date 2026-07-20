@@ -1,27 +1,23 @@
 module ScriptGenerator
   module ForCartoon
-    class CartoonScriptScenes
+    class ScriptScenesBuilder
       include Memery
-
-      def self.call(...)
-        new(...).call
-      end
 
       def initialize(payload:)
         @payload = payload
       end
 
-      def call
-        raise ScriptGeneratorRequestError if scenes.blank?
+      memoize def scenes
+        raise ScriptGeneratorRequestError if extracted_scenes.blank?
 
-        scenes
+        extracted_scenes
       end
 
       private
 
       attr_reader :payload
 
-      memoize def scenes
+      memoize def extracted_scenes
         Array(payload["scenes"]).map(&:to_s).reject(&:blank?)
       end
     end

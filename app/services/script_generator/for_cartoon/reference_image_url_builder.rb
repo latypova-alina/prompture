@@ -1,27 +1,23 @@
 module ScriptGenerator
   module ForCartoon
-    class CartoonScriptReferenceImageUrl
+    class ReferenceImageUrlBuilder
       include Memery
-
-      def self.call(...)
-        new(...).call
-      end
 
       def initialize(payload:)
         @payload = payload
       end
 
-      def call
-        raise ScriptGeneratorRequestError if reference_image_url.blank?
+      memoize def reference_image_url
+        raise ScriptGeneratorRequestError if extracted_reference_image_url.blank?
 
-        reference_image_url
+        extracted_reference_image_url
       end
 
       private
 
       attr_reader :payload
 
-      memoize def reference_image_url
+      memoize def extracted_reference_image_url
         payload["reference_image_url"].to_s.strip.presence
       end
     end

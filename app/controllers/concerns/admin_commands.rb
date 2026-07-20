@@ -76,7 +76,10 @@ module AdminCommands
   end
 
   def cartoon_shorts!(*)
-    ScriptGenerator::ProcessCartoonShortsScriptJob.perform_async(chat["id"])
+    ScriptGenerator::ProcessSingleCartoonScriptJob.perform_async(
+      chat["id"],
+      ContentCategory::CARTOON_SHORTS_SCRIPT
+    )
 
     respond_with :message, text: I18n.t("telegram_webhooks.commands.cartoon_shorts")
   end
