@@ -47,7 +47,8 @@ describe Generator::Media::Image::CreateTask::PayloadComposer do
       instance_double(UserImageUrlMessage, resolved_image_url: "https://internal.example/bloomy.png")
     end
     let(:command_request) do
-      instance_double(CommandEditImageRequest, cartoon_script?: true, cartoon_shorts_script?: false)
+      instance_double(CommandEditImageRequest, cartoon_script?: true, cartoon_shorts_script?: false,
+                                               cartoon_shorts_format?: false)
     end
     let(:request) do
       instance_double(
@@ -74,7 +75,8 @@ describe Generator::Media::Image::CreateTask::PayloadComposer do
       instance_double(UserImageUrlMessage, resolved_image_url: "https://example.com/bloomy.png")
     end
     let(:command_request) do
-      instance_double(CommandEditImageRequest, cartoon_script?: true, cartoon_shorts_script?: false)
+      instance_double(CommandEditImageRequest, cartoon_script?: true, cartoon_shorts_script?: false,
+                                               cartoon_shorts_format?: false)
     end
     let(:request) do
       instance_double(
@@ -108,7 +110,8 @@ describe Generator::Media::Image::CreateTask::PayloadComposer do
       instance_double(UserImageUrlMessage, resolved_image_url: "https://internal.example/bloomy.png")
     end
     let(:command_request) do
-      instance_double(CommandEditImageRequest, cartoon_shorts_script?: true, cartoon_script?: false)
+      instance_double(CommandEditImageRequest, cartoon_shorts_script?: true, cartoon_script?: false,
+                                               cartoon_shorts_format?: true)
     end
     let(:request) do
       instance_double(

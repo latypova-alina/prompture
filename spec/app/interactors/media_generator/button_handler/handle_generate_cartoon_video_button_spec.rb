@@ -20,7 +20,7 @@ describe MediaGenerator::ButtonHandler::HandleGenerateCartoonVideoButton do
       :command_edit_image_request,
       user:,
       chat_id:,
-      category: ContentCategory::CARTOON_SCRIPT,
+      category: ContentCategory::BLOOMY_CARTOON_SCRIPT,
       image_prompt:
     )
   end
@@ -34,14 +34,14 @@ describe MediaGenerator::ButtonHandler::HandleGenerateCartoonVideoButton do
     )
   end
   let(:video_prompt) { "Camera slowly zooms in as Bloomy waves." }
-  let(:video_prompt_context) { instance_double(ScriptGenerator::ForCartoon::VideoPromptContext, prompt: video_prompt) }
+  let(:video_prompt_context) { instance_double(ScriptGenerator::ForBloomy::SharedContexts::ForVideoPrompt, prompt: video_prompt) }
 
   before do
     scene
     create(:bot_telegram_message, tg_message_id: message_id, chat_id:, request: parent_request)
     create(:stored_image, source_message: parent_request, image_url: "https://example.com/scene.png")
 
-    allow(ScriptGenerator::ForCartoon::VideoPromptContext)
+    allow(ScriptGenerator::ForBloomy::SharedContexts::ForVideoPrompt)
       .to receive(:new)
       .with(script_text: scene.scene_text)
       .and_return(video_prompt_context)
@@ -51,19 +51,21 @@ describe MediaGenerator::ButtonHandler::HandleGenerateCartoonVideoButton do
   end
 
   it "shows the processing toast before script generation" do
-    allow(ScriptGenerator::ForCartoon::ProcessScriptVideoPrompt).to receive(:call).and_wrap_original do |method, **args|
-      expect(TelegramIntegration::SendAnswerCallbackQuery)
-        .to have_received(:call)
-        .with(
-          callback_query_id: "callback-123",
-          process_name: I18n.t(
-            "telegram.generation.humanized_process_names.video.veo3_1_lite_image_to_video",
-            locale: user.locale
+    allow(ScriptGenerator::ForBloomy::Processors::ForVideoPrompt)
+      .to receive(:call)
+      .and_wrap_original do |method, **args|
+        expect(TelegramIntegration::SendAnswerCallbackQuery)
+          .to have_received(:call)
+          .with(
+            callback_query_id: "callback-123",
+            process_name: I18n.t(
+              "telegram.generation.humanized_process_names.video.veo3_1_lite_image_to_video",
+              locale: user.locale
+            )
           )
-        )
 
-      method.call(**args)
-    end
+        method.call(**args)
+      end
 
     result
   end
@@ -101,7 +103,7 @@ describe MediaGenerator::ButtonHandler::HandleGenerateCartoonVideoButton do
         .and change(CommandPromptToVideoRequest, :count).by(1)
         .and change(VideoPrompt, :count).by(0)
 
-      expect(ScriptGenerator::ForCartoon::VideoPromptContext).not_to have_received(:new)
+      expect(ScriptGenerator::ForBloomy::SharedContexts::ForVideoPrompt).not_to have_received(:new)
 
       video_request = ButtonVideoProcessingRequest.last
 

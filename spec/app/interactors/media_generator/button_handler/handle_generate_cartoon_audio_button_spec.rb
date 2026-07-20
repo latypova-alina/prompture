@@ -20,7 +20,7 @@ describe MediaGenerator::ButtonHandler::HandleGenerateCartoonAudioButton do
       :command_prompt_to_video_request,
       user:,
       chat_id:,
-      category: ContentCategory::CARTOON_SCRIPT
+      category: ContentCategory::BLOOMY_CARTOON_SCRIPT
     )
   end
   let(:prompt_message) do
@@ -36,13 +36,13 @@ describe MediaGenerator::ButtonHandler::HandleGenerateCartoonAudioButton do
     )
   end
   let(:audio_prompt_text) { "Hi, my name is Bloomy. Let's explore my world together!" }
-  let(:audio_prompt_context) { instance_double(ScriptGenerator::ForCartoon::AudioPromptContext, prompt: audio_prompt_text) }
+  let(:audio_prompt_context) { instance_double(ScriptGenerator::ForBloomy::SharedContexts::ForAudioPrompt, prompt: audio_prompt_text) }
 
   before do
     scene
     create(:bot_telegram_message, tg_message_id: message_id, chat_id:, request: parent_request)
 
-    allow(ScriptGenerator::ForCartoon::AudioPromptContext)
+    allow(ScriptGenerator::ForBloomy::SharedContexts::ForAudioPrompt)
       .to receive(:new)
       .with(script_text: scene.scene_text)
       .and_return(audio_prompt_context)
@@ -63,7 +63,7 @@ describe MediaGenerator::ButtonHandler::HandleGenerateCartoonAudioButton do
     expect(audio_request.voice).to eq("lulu_lollipop")
     expect(audio_request.parent_request).to eq(parent_request)
     expect(audio_request.audio_prompt.prompt).to eq(audio_prompt_text)
-    expect(audio_request.command_request.category).to eq(ContentCategory::CARTOON_SCRIPT)
+    expect(audio_request.command_request.category).to eq(ContentCategory::BLOOMY_CARTOON_SCRIPT)
 
     expect(Generator::Media::Audio::TaskCreatorJob)
       .to have_received(:perform_async)
@@ -76,7 +76,7 @@ describe MediaGenerator::ButtonHandler::HandleGenerateCartoonAudioButton do
         :command_prompt_to_video_request,
         user:,
         chat_id:,
-        category: ContentCategory::CARTOON_SHORTS_SCRIPT
+        category: ContentCategory::CARTOON_BLOOMY_SHORTS_SCRIPT
       )
     end
 
@@ -84,7 +84,7 @@ describe MediaGenerator::ButtonHandler::HandleGenerateCartoonAudioButton do
       result
 
       expect(ButtonAudioProcessingRequest.last.command_request.category)
-        .to eq(ContentCategory::CARTOON_SHORTS_SCRIPT)
+        .to eq(ContentCategory::CARTOON_BLOOMY_SHORTS_SCRIPT)
     end
   end
 

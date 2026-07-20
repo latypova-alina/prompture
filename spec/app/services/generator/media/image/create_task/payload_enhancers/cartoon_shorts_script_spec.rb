@@ -8,7 +8,7 @@ describe Generator::Media::Image::CreateTask::PayloadEnhancers::CartoonShortsScr
     instance_double(UserImageUrlMessage, resolved_image_url: "https://internal.example/bloomy.png")
   end
   let(:command_request) do
-    instance_double(CommandEditImageRequest, cartoon_shorts_script?: true)
+    instance_double(CommandEditImageRequest, cartoon_shorts_format?: true)
   end
   let(:request) do
     instance_double(

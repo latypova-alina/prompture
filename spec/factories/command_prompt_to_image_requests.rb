@@ -5,7 +5,7 @@ FactoryBot.define do
     category { nil }
 
     trait :cartoon_script do
-      category { ContentCategory::CARTOON_SCRIPT }
+      category { ContentCategory::BLOOMY_CARTOON_SCRIPT }
     end
   end
 end

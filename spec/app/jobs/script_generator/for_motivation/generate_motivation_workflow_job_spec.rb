@@ -2,8 +2,8 @@ require "rails_helper"
 
 describe ScriptGenerator::ForMotivation::GenerateMotivationWorkflowJob do
   describe "#perform" do
-    it "delegates to ProcessMotivationWorkflow service" do
-      expect(ScriptGenerator::ForMotivation::ProcessMotivationWorkflow).to receive(:call).with(
+    it "delegates to Processors::ForWorkflow service" do
+      expect(ScriptGenerator::ForMotivation::Processors::ForWorkflow).to receive(:call).with(
         chat_id: 456,
         language: "en"
       )
@@ -13,7 +13,7 @@ describe ScriptGenerator::ForMotivation::GenerateMotivationWorkflowJob do
 
     context "when processing fails" do
       before do
-        allow(ScriptGenerator::ForMotivation::ProcessMotivationWorkflow).to receive(:call)
+        allow(ScriptGenerator::ForMotivation::Processors::ForWorkflow).to receive(:call)
           .and_raise(ScriptGeneratorRequestError, "invalid response")
         allow(Telegram.bot).to receive(:send_message)
       end

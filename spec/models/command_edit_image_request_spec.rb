@@ -3,7 +3,7 @@ require "rails_helper"
 describe CommandEditImageRequest, type: :model do
   describe "#cartoon_script?" do
     it "returns true when category is cartoon_script" do
-      request = build(:command_edit_image_request, category: ContentCategory::CARTOON_SCRIPT)
+      request = build(:command_edit_image_request, category: ContentCategory::BLOOMY_CARTOON_SCRIPT)
 
       expect(request.cartoon_script?).to be(true)
     end

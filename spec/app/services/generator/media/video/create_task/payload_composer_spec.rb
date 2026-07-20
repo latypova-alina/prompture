@@ -36,7 +36,7 @@ describe Generator::Media::Video::CreateTask::PayloadComposer do
   context "when processor is veo3_1_lite for cartoon_script" do
     let(:processor) { "veo3_1_lite_image_to_video" }
     let(:command_request) do
-      create(:command_prompt_to_video_request, category: ContentCategory::CARTOON_SCRIPT)
+      create(:command_prompt_to_video_request, category: ContentCategory::BLOOMY_CARTOON_SCRIPT)
     end
     let(:request) do
       create(
@@ -69,7 +69,7 @@ describe Generator::Media::Video::CreateTask::PayloadComposer do
   context "when processor is veo3_1_lite for cartoon_shorts_script" do
     let(:processor) { "veo3_1_lite_image_to_video" }
     let(:command_request) do
-      create(:command_prompt_to_video_request, category: ContentCategory::CARTOON_SHORTS_SCRIPT)
+      create(:command_prompt_to_video_request, category: ContentCategory::CARTOON_BLOOMY_SHORTS_SCRIPT)
     end
     let(:request) do
       create(

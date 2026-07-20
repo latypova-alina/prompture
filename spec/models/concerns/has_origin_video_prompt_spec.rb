@@ -4,7 +4,7 @@ RSpec.describe HasOriginVideoPrompt do
   subject(:origin_video_prompt) { request.origin_video_prompt }
 
   let(:command_request) do
-    create(:command_prompt_to_video_request, category: ContentCategory::CARTOON_SCRIPT)
+    create(:command_prompt_to_video_request, category: ContentCategory::BLOOMY_CARTOON_SCRIPT)
   end
   let(:video_prompt) { create(:video_prompt) }
   let(:prompt_message) { create(:prompt_message, video_prompt:, command_request:) }
