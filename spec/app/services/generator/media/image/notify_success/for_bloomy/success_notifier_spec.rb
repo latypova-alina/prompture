@@ -25,17 +25,17 @@ describe Generator::Media::Image::NotifySuccess::ForBloomy::SuccessNotifier do
     )
   end
 
-  let(:presenter_selector_instance) { double }
+  let(:presenter_factory) { instance_double(Generator::Media::Image::NotifySuccess::ForBloomy::PresenterFactory) }
   let(:presenter_instance) { double }
   let(:reply_data) { { text: "done" } }
 
   before do
-    allow(Generator::Media::Image::NotifySuccess::PresenterFactory)
+    allow(Generator::Media::Image::NotifySuccess::ForBloomy::PresenterFactory)
       .to receive(:new)
       .with(image_url:, request: button_request, balance:)
-      .and_return(presenter_selector_instance)
+      .and_return(presenter_factory)
 
-    allow(presenter_selector_instance)
+    allow(presenter_factory)
       .to receive(:presenter)
       .and_return(presenter_instance)
 
@@ -50,7 +50,7 @@ describe Generator::Media::Image::NotifySuccess::ForBloomy::SuccessNotifier do
   end
 
   describe ".call" do
-    it "sends telegram message, updates request, and enqueues next chained scene" do
+    it "sends telegram message via bloomy presenter, updates request, and enqueues next chained scene" do
       call_service
 
       expect(Generator::Media::Image::NotifySuccess::SendTelegramMessage)

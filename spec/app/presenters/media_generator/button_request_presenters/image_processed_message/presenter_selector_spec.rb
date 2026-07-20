@@ -99,13 +99,41 @@ describe MediaGenerator::ButtonRequestPresenters::ImageProcessedMessage::Present
       let(:presenter_instance) { double }
 
       before do
-        allow(MediaGenerator::ButtonRequestPresenters::ImageProcessedMessage::ForCartoonScriptEditImage)
+        allow(MediaGenerator::ButtonRequestPresenters::ImageProcessedMessage::ForBloomy::ForScene)
           .to receive(:new)
           .with(message: image_url, locale:, balance:, processor_name:, processor:)
           .and_return(presenter_instance)
       end
 
-      it "returns ForCartoonScriptEditImage presenter" do
+      it "returns ForBloomy::ForScene presenter" do
+        expect(selector.presenter).to eq(presenter_instance)
+      end
+    end
+
+    context "when command request is cartoon shorts complex script edit image" do
+      let(:command_request) do
+        create(
+          :command_edit_image_request,
+          category: ContentCategory::CARTOON_BLOOMY_SHORTS_COMPLEX_SCRIPT
+        )
+      end
+      let(:command_request_classname) { "CommandEditImageRequest" }
+
+      subject(:selector) do
+        described_class.new(context:)
+      end
+
+      let(:presenter_instance) { double }
+
+      before do
+        allow(
+          MediaGenerator::ButtonRequestPresenters::ImageProcessedMessage::ForBloomy::ForShortComplexScript
+        ).to receive(:new)
+          .with(message: image_url, locale:, balance:, processor_name:, processor:)
+          .and_return(presenter_instance)
+      end
+
+      it "returns ForBloomy::ForShortComplexScript presenter" do
         expect(selector.presenter).to eq(presenter_instance)
       end
     end

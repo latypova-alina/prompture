@@ -1,6 +1,6 @@
 require "rails_helper"
 
-describe Buttons::ForImageMessage::ForCartoonScriptEditImage do
+describe Buttons::ForImageMessage::ForScene do
   subject { described_class.build(locale:, processor:) }
 
   let(:locale) { :en }
