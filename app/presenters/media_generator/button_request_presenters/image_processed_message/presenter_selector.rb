@@ -30,9 +30,7 @@ module MediaGenerator
         private
 
         def presenter_class
-          if command_request.cartoon_shorts_complex_script?
-            ForBloomy::ForShortComplexScript
-          elsif command_request.cartoon_workflow?
+          if command_request.cartoon_workflow?
             ForBloomy::ForScene
           else
             PRESENTERS.fetch(command_request_classname)
