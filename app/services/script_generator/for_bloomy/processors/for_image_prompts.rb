@@ -1,5 +1,5 @@
 module ScriptGenerator
-  module ForCartoon
+  module ForBloomy
     module Processors
       class ForImagePrompts
         include Memery
@@ -8,7 +8,7 @@ module ScriptGenerator
           new(...).call
         end
 
-        def initialize(chat_id:, scenes:, reference_image_url:, category: ContentCategory::CARTOON_SCRIPT)
+        def initialize(chat_id:, scenes:, reference_image_url:, category: ContentCategory::BLOOMY_CARTOON_SCRIPT)
           @chat_id = chat_id
           @scenes = scenes
           @reference_image_url = reference_image_url

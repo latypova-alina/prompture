@@ -10,9 +10,9 @@ module AdminCommands
       random_character!
       brainrot_character!
       cartoon_character!
-      cartoon_yt!
-      cartoon_shorts!
-      cartoon_shorts_complex!
+      bloomy_multiscene_cartoon_yt!
+      bloomy_cartoon_short!
+      bloomy_complex_short!
       script_templates!
       admin!
       generate_script!
@@ -69,25 +69,25 @@ module AdminCommands
     respond_with :message, text: I18n.t("telegram_webhooks.commands.cartoon_character")
   end
 
-  def cartoon_yt!(*)
-    ScriptGenerator::Process::ForCartoon::MultiSceneScriptJob.perform_async(chat["id"])
+  def bloomy_multiscene_cartoon_yt!(*)
+    ScriptGenerator::Process::ForBloomy::MultiSceneScriptJob.perform_async(chat["id"])
 
-    respond_with :message, text: I18n.t("telegram_webhooks.commands.cartoon_yt")
+    respond_with :message, text: I18n.t("telegram_webhooks.commands.bloomy_multiscene_cartoon_yt")
   end
 
-  def cartoon_shorts!(*)
-    ScriptGenerator::Process::ForCartoon::SingleScriptJob.perform_async(
+  def bloomy_cartoon_short!(*)
+    ScriptGenerator::Process::ForBloomy::SingleScriptJob.perform_async(
       chat["id"],
-      ContentCategory::CARTOON_SHORTS_SCRIPT
+      ContentCategory::CARTOON_BLOOMY_SHORTS_SCRIPT
     )
 
-    respond_with :message, text: I18n.t("telegram_webhooks.commands.cartoon_shorts")
+    respond_with :message, text: I18n.t("telegram_webhooks.commands.bloomy_cartoon_short")
   end
 
-  def cartoon_shorts_complex!(*)
-    ScriptGenerator::Process::ForCartoon::ShortComplexScriptJob.perform_async(chat["id"])
+  def bloomy_complex_short!(*)
+    ScriptGenerator::Process::ForBloomy::ShortComplexScriptJob.perform_async(chat["id"])
 
-    respond_with :message, text: I18n.t("telegram_webhooks.commands.cartoon_shorts_complex")
+    respond_with :message, text: I18n.t("telegram_webhooks.commands.bloomy_complex_short")
   end
 
   def admin!(*)

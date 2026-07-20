@@ -3,36 +3,36 @@ class ContentCategory
   RANDOM_CHARACTER = "random_character".freeze
   BRAINROT_CHARACTER = "brainrot_character".freeze
   CARTOON_CHARACTER = "cartoon_character".freeze
-  CARTOON_SCRIPT = "cartoon_script".freeze
-  CARTOON_SHORTS_SCRIPT = "cartoon_shorts_script".freeze
-  CARTOON_SHORTS_COMPLEX_SCRIPT = "cartoon_shorts_complex_script".freeze
+  BLOOMY_CARTOON_SCRIPT = "bloomy_cartoon_script".freeze
+  CARTOON_BLOOMY_SHORTS_SCRIPT = "cartoon_bloomy_shorts_script".freeze
+  CARTOON_BLOOMY_SHORTS_COMPLEX_SCRIPT = "cartoon_bloomy_shorts_complex_script".freeze
   TEMPLATE = "template".freeze
 
   DEFAULT_IMAGE_BUCKET_FOLDER = "images".freeze
 
   IMAGE_BUCKET_FOLDERS = {
-    CARTOON_SCRIPT => "cartoon/images",
-    CARTOON_SHORTS_SCRIPT => "cartoon/shorts/images",
-    CARTOON_SHORTS_COMPLEX_SCRIPT => "cartoon/shorts/images"
+    BLOOMY_CARTOON_SCRIPT => "cartoon/bloomy/images",
+    CARTOON_BLOOMY_SHORTS_SCRIPT => "cartoon/bloomy/shorts/images",
+    CARTOON_BLOOMY_SHORTS_COMPLEX_SCRIPT => "cartoon/bloomy/shorts/images"
   }.freeze
 
   VIDEO_BUCKET_FOLDERS = {
-    CARTOON_SCRIPT => "cartoon/videos",
-    CARTOON_SHORTS_SCRIPT => "cartoon/shorts/videos",
-    CARTOON_SHORTS_COMPLEX_SCRIPT => "cartoon/shorts/videos",
+    BLOOMY_CARTOON_SCRIPT => "cartoon/bloomyvideos",
+    CARTOON_BLOOMY_SHORTS_SCRIPT => "cartoon/bloomy/shorts/videos",
+    CARTOON_BLOOMY_SHORTS_COMPLEX_SCRIPT => "cartoon/bloomyshorts/videos",
     MOTIVATION => "videos/motivation"
   }.freeze
 
   AUDIO_BUCKET_FOLDERS = {
-    CARTOON_SCRIPT => "cartoon/audio",
-    CARTOON_SHORTS_SCRIPT => "cartoon/shorts/audio",
-    CARTOON_SHORTS_COMPLEX_SCRIPT => "cartoon/shorts/audio"
+    BLOOMY_CARTOON_SCRIPT => "cartoon/bloomyaudio",
+    CARTOON_BLOOMY_SHORTS_SCRIPT => "cartoon/bloomy/shorts/audio",
+    CARTOON_BLOOMY_SHORTS_COMPLEX_SCRIPT => "cartoon/bloomyshorts/audio"
   }.freeze
 
   MERGED_VIDEO_BUCKET_FOLDERS = {
-    CARTOON_SCRIPT => "cartoon/videos/with_audio",
-    CARTOON_SHORTS_SCRIPT => "cartoon/shorts/videos/with_audio",
-    CARTOON_SHORTS_COMPLEX_SCRIPT => "cartoon/shorts/videos/with_audio"
+    BLOOMY_CARTOON_SCRIPT => "cartoon/bloomyvideos/with_audio",
+    CARTOON_BLOOMY_SHORTS_SCRIPT => "cartoon/bloomy/shorts/videos/with_audio",
+    CARTOON_BLOOMY_SHORTS_COMPLEX_SCRIPT => "cartoon/bloomyshorts/videos/with_audio"
   }.freeze
 
   CATEGORY_FORMAT = /\A[a-z0-9_]+\z/

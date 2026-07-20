@@ -54,7 +54,7 @@ module MediaGenerator
       end
 
       memoize def video_prompt_record
-        ScriptGenerator::ForCartoon::Processors::ForVideoPrompt.call(scene:)
+        ScriptGenerator::ForBloomy::Processors::ForVideoPrompt.call(scene:)
       end
 
       memoize def image_url

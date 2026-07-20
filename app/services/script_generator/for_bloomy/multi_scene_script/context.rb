@@ -1,5 +1,5 @@
 module ScriptGenerator
-  module ForCartoon
+  module ForBloomy
     module MultiSceneScript
       class Context
         include Memery

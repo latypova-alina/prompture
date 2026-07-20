@@ -1,5 +1,5 @@
 module ScriptGenerator
-  module ForCartoon
+  module ForBloomy
     module SharedContexts
       class Base < ScriptGenerator::BaseContext
         include Memery

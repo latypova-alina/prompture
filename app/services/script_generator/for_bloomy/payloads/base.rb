@@ -1,5 +1,5 @@
 module ScriptGenerator
-  module ForCartoon
+  module ForBloomy
     module Payloads
       class Base < ScriptGenerator::BaseContext
         memoize def payload

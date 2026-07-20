@@ -1,5 +1,5 @@
 module ScriptGenerator
-  module ForCartoon
+  module ForBloomy
     module SingleScript
       class Processor
         include Memery
@@ -8,7 +8,7 @@ module ScriptGenerator
           new(...).call
         end
 
-        def initialize(chat_id:, category: ContentCategory::CARTOON_SCRIPT)
+        def initialize(chat_id:, category: ContentCategory::BLOOMY_CARTOON_SCRIPT)
           @chat_id = chat_id
           @category = category
         end

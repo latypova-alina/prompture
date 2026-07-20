@@ -38,7 +38,7 @@ module Generator::Media::Image::NotifySuccess
     end
 
     def enqueue_next_chained_scene
-      ScriptGenerator::ForCartoon::EnqueueNextChainedScene.call(
+      ScriptGenerator::ForBloomy::EnqueueNextChainedScene.call(
         image_url:,
         button_request: request
       )

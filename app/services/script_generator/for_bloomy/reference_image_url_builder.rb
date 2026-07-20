@@ -1,5 +1,5 @@
 module ScriptGenerator
-  module ForCartoon
+  module ForBloomy
     class ReferenceImageUrlBuilder
       include Memery
 

@@ -1,10 +1,10 @@
 module ScriptGenerator
-  module ForCartoon
+  module ForBloomy
     module ShortComplexScript
       class Processor
         include Memery
 
-        CATEGORY = ContentCategory::CARTOON_SHORTS_COMPLEX_SCRIPT
+        CATEGORY = ContentCategory::CARTOON_BLOOMY_SHORTS_COMPLEX_SCRIPT
 
         def self.call(...)
           new(...).call

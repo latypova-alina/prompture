@@ -1,5 +1,5 @@
 module ScriptGenerator
-  module ForCartoon
+  module ForBloomy
     module Processors
       class ForVideoPrompt
         include Memery

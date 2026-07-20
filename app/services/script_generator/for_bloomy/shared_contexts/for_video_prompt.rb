@@ -1,5 +1,5 @@
 module ScriptGenerator
-  module ForCartoon
+  module ForBloomy
     module SharedContexts
       class ForVideoPrompt < Base
         private

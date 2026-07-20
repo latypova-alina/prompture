@@ -1,5 +1,5 @@
 module ScriptGenerator
-  module ForCartoon
+  module ForBloomy
     module Payloads
       class ForCartoonProblemSolutionScript < Base
         ENDPOINT_PATH = "/cartoon_problem_solution_script".freeze
