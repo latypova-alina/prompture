@@ -9,8 +9,7 @@ module MediaGenerator
                  ValidatePromptMessageType,
                  MediaGenerator::MessageHandler::ModerateMessage,
                  SavePrompt,
-                 StartGeneration,
-                 NotifyProcessingStarted
+                 StartGeneration
       end
     end
   end
