@@ -1,6 +1,6 @@
 require "rails_helper"
 
-describe RecordValidators::CommandRequests::EditImage do
+describe RecordValidators::CommandRequests::EditImage::Prompt do
   subject(:validator) do
     described_class.new(
       command_request:,

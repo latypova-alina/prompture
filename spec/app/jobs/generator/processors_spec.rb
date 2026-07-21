@@ -20,7 +20,12 @@ describe Generator::Processors do
 
     it "defines video processors" do
       expect(described_class::VIDEO).to eq(
-        %w[kling_2_1_pro_image_to_video hailuo_02_standard_image_to_video veo3_1_lite_image_to_video]
+        %w[
+          kling_2_1_pro_image_to_video
+          kling_3_standard_image_to_video
+          hailuo_02_standard_image_to_video
+          veo3_1_lite_image_to_video
+        ]
       )
     end
 

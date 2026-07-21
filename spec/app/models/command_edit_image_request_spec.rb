@@ -44,5 +44,23 @@ describe CommandEditImageRequest, type: :model do
       expect(command_request.latest_image_message).to eq(newer_message)
       expect(command_request.latest_image_message).not_to eq(older_message)
     end
+
+    it "includes file messages" do
+      picture_message = create(
+        :user_picture_message,
+        command_request:,
+        parent_request: command_request,
+        created_at: 2.minutes.ago
+      )
+      file_message = create(
+        :user_file_message,
+        command_request:,
+        parent_request: command_request,
+        created_at: 1.minute.ago
+      )
+
+      expect(command_request.latest_image_message).to eq(file_message)
+      expect(command_request.latest_image_message).not_to eq(picture_message)
+    end
   end
 end

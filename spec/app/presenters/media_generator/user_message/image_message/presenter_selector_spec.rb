@@ -39,6 +39,36 @@ describe MediaGenerator::UserMessage::ImageMessage::PresenterSelector do
       end
     end
 
+    context "when request belongs to first_last_frame_to_video command" do
+      let(:user) { create(:user, :with_balance) }
+      let(:command_request) { create(:command_two_frame_to_video_request, user:) }
+      let(:request) do
+        create(
+          :user_picture_message,
+          command_request:,
+          parent_request: command_request
+        )
+      end
+      let(:two_frames_selector) do
+        instance_double(
+          MediaGenerator::UserMessage::ImageMessage::ForTwoFramesCommand::PresenterSelector
+        )
+      end
+      let(:presenter_instance) { double }
+
+      before do
+        allow(MediaGenerator::UserMessage::ImageMessage::ForTwoFramesCommand::PresenterSelector)
+          .to receive(:new)
+          .with(request:)
+          .and_return(two_frames_selector)
+        allow(two_frames_selector).to receive(:presenter).and_return(presenter_instance)
+      end
+
+      it "delegates to ForTwoFramesCommand::PresenterSelector" do
+        expect(described_class.new(request:).presenter).to eq(presenter_instance)
+      end
+    end
+
     context "when request type is unsupported" do
       let(:request) { build(:prompt_message) }
 

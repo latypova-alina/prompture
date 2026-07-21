@@ -54,6 +54,7 @@ describe TelegramIntegration::CommandSync do
         { command: "prompt_to_image", description: "desc" },
         { command: "prompt_to_audio", description: "desc" },
         { command: "image_to_video", description: "desc" },
+        { command: "first_last_frame_to_video", description: "desc" },
         { command: "edit_image", description: "desc" },
         { command: "set_locale", description: "desc" },
         { command: "balance", description: "desc" },
