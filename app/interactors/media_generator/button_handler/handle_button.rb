@@ -4,7 +4,7 @@ module MediaGenerator
       include Interactor::Organizer
 
       organize FindParentRequest, FindCommandRequest, CreateRequest, DecrementBalance, NotifyProcessingStarted,
-               SendGenerationTask
+               SendGenerationTask, ClearInlineKeyboard
     end
   end
 end

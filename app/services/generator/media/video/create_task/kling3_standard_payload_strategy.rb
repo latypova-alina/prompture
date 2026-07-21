@@ -4,7 +4,7 @@ module Generator
       module CreateTask
         class Kling3StandardPayloadStrategy
           API_URL = "https://queue.fal.run/fal-ai/kling-video/v3/standard/image-to-video".freeze
-          DURATION = "5".freeze
+          DURATION = "3".freeze
           NEGATIVE_PROMPT = "blur, distort, and low quality".freeze
 
           def initialize(prompt, button_request:)

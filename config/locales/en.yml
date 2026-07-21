@@ -239,8 +239,8 @@ en:
             one: "Kling Pro 2.1 (%{count} credit)"
             other: "Kling Pro 2.1 (%{count} credits)"
           kling_3_standard_image_to_video:
-            one: "Generate Video (Kling 3 Standard) (%{count} credit)"
-            other: "Generate Video (Kling 3 Standard) (%{count} credits)"
+            one: "Kling 3 Standard (%{count} credit)"
+            other: "Kling 3 Standard (%{count} credits)"
           hailuo_02_standard_image_to_video:
             one: "Hailuo 02 Standard (%{count} credit)"
             other: "Hailuo 02 Standard (%{count} credits)"

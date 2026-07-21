@@ -27,7 +27,7 @@ module MediaGenerator
       end
 
       def edit_image_validator
-        ::RecordValidators::CommandRequests::EditImage.new(
+        ::RecordValidators::CommandRequests::EditImage::Prompt.new(
           command_request: context.command_request,
           message_text:,
           picture_id:
