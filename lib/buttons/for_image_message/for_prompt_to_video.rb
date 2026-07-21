@@ -27,7 +27,7 @@ module Buttons
       end
 
       def media_processors
-        COSTS[:generate_video].keys
+        image_to_video_processors
       end
     end
   end

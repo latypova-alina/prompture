@@ -39,5 +39,9 @@ module Buttons
     def cost_for(scope, type)
       COSTS[scope.to_sym][type.to_sym]
     end
+
+    def image_to_video_processors
+      COSTS[:generate_video].keys - %i[kling_3_standard_image_to_video]
+    end
   end
 end
