@@ -85,6 +85,14 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
     respond_with :message, text: t("telegram_webhooks.commands.image_to_video")
   end
 
+  def first_last_frame_to_video!(*)
+    session[:command] = "first_last_frame_to_video"
+
+    MediaGenerator::CommandHandler::HandleCommand.call(command: session[:command], chat_id: chat["id"])
+
+    respond_with :message, text: t("telegram_webhooks.commands.first_last_frame_to_video")
+  end
+
   def edit_image!(*)
     session[:command] = "edit_image"
 

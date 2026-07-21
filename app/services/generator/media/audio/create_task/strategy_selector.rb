@@ -8,7 +8,7 @@ module Generator
           }.freeze
 
           def strategy
-            strategies.fetch(processor).new(prompt, request.voice_id)
+            strategies.fetch(processor).new(prompt, button_request.voice_id)
           end
 
           private
@@ -24,7 +24,7 @@ module Generator
           end
 
           memoize def audio_prompt_text
-            request.audio_prompt&.prompt
+            button_request.audio_prompt&.prompt
           end
         end
       end

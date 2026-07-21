@@ -11,6 +11,7 @@ module MediaGenerator
         "prompt_to_audio" => CommandPromptToAudioRequest,
         "prompt_to_video" => CommandPromptToVideoRequest,
         "image_to_video" => CommandImageToVideoRequest,
+        "first_last_frame_to_video" => CommandTwoFrameToVideoRequest,
         "edit_image" => CommandEditImageRequest
       }.freeze
 

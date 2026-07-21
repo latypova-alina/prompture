@@ -145,6 +145,15 @@ describe TelegramWebhooksController, telegram_bot: :rails do
                     command: :image_to_video
   end
 
+  describe "#first_last_frame_to_video!" do
+    let(:expected_text) do
+      I18n.t("telegram_webhooks.commands.first_last_frame_to_video")
+    end
+
+    it_behaves_like "command handling",
+                    command: :first_last_frame_to_video
+  end
+
   describe "#generate_random_cats_script!" do
     subject { -> { dispatch_command(:generate_random_cats_script) } }
 

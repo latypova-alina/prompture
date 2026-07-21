@@ -12,6 +12,7 @@ ru:
         prompt_policy: "🛡 Правила промптов"
         set_locale: "🌐 Выбрать язык"
         image_to_video: "🖼🎬 Изображение → видео"
+        first_last_frame_to_video: "🖼🎬 Начальный и конечный кадр → видео"
         edit_image: "🖼✏️ Редактировать изображение"
       start:
         no_token: |
@@ -118,6 +119,16 @@ ru:
         🔹 файл 📁
 
         Обрати внимание: изображение должно быть не менее 300x300 пикселей и меньше 10 МБ.
+      first_last_frame_to_video: |
+        Отлично! Сначала отправь первое изображение (начальный кадр), затем второе (конечный кадр).
+        Каждое можно отправить как:
+
+        🔹 URL 🔗
+        🔹 картинку 🖼
+        🔹 файл 📁
+
+        Обрати внимание: каждое изображение должно быть не менее 300x300 пикселей и меньше 10 МБ.
+        После получения обоих кадров можно указать промпт и сгенерировать видео через Kling 3 Standard.
       edit_image: |
         Отлично! Отправь изображение, которое хочешь отредактировать.
         Его можно отправить как:
@@ -153,6 +164,8 @@ ru:
       image_message_url: "Вот твое изображение"
       image_message_reply: "Отлично! Теперь ты можешь сгенерировать видео с помощью одного из процессоров (Kling)"
       image_to_video_image_reply: "Отлично! Ты можешь сгенерировать видео с помощью Kling или сначала указать промпт."
+      first_last_frame_to_video_start_image_reply: "Отлично! Теперь отправь изображение конечного кадра."
+      first_last_frame_to_video_ready_reply: "Оба кадра получены. Можно указать промпт или сгенерировать видео через Kling 3 Standard."
       image_to_video_prompt_reply: "Отлично! Теперь напиши промпт для видео."
       edit_image_prompt_reply: "Отлично! Теперь отправь промпт для редактирования."
       extended_prompt_postfix: "Вот твой расширенный промпт ⬆️ \n\nТеперь ты можешь сгенерировать изображение с помощью одного из процессоров (Flux/NanoBanana)"
@@ -256,6 +269,11 @@ ru:
             few: "Kling Pro 2.1 (%{count} кредита)"
             many: "Kling Pro 2.1 (%{count} кредитов)"
             other: "Kling Pro 2.1 (%{count} кредитов)"
+          kling_3_standard_image_to_video:
+            one: "Kling 3 Standard (%{count} кредит)"
+            few: "Kling 3 Standard (%{count} кредита)"
+            many: "Kling 3 Standard (%{count} кредитов)"
+            other: "Kling 3 Standard (%{count} кредитов)"
           hailuo_02_standard_image_to_video:
             one: "Hailuo 02 Standard (%{count} кредит)"
             few: "Hailuo 02 Standard (%{count} кредита)"
@@ -353,6 +371,7 @@ ru:
           local_ffmpeg_merge: "объединённое мультфильм-видео"
         video:
           kling_2_1_pro_image_to_video: "видео Kling Pro"
+          kling_3_standard_image_to_video: "видео Kling 3 Standard"
           hailuo_02_standard_image_to_video: "видео Hailuo 02 Standard"
           veo3_1_lite_image_to_video: "видео Veo 3.1 Lite"
         image:

@@ -8,8 +8,8 @@ module Generator
           new(...).call
         end
 
-        def initialize(request)
-          @request = request
+        def initialize(button_request)
+          @button_request = button_request
         end
 
         def strategy
@@ -18,9 +18,9 @@ module Generator
 
         private
 
-        attr_reader :request
+        attr_reader :button_request
 
-        delegate :parent_request, :processor, to: :request
+        delegate :parent_request, :processor, to: :button_request
 
         def prompt
           return parent_request.parent_prompt if parent_request.respond_to?(:parent_prompt)

@@ -7,6 +7,7 @@ module TelegramIntegration
       prompt_to_image
       prompt_to_audio
       image_to_video
+      first_last_frame_to_video
       edit_image
       set_locale
       balance

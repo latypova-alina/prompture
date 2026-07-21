@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2026_07_17_170000) do
+ActiveRecord::Schema[8.0].define(version: 2026_07_21_120000) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -185,6 +185,18 @@ ActiveRecord::Schema[8.0].define(version: 2026_07_17_170000) do
     t.index ["user_id"], name: "index_command_prompt_to_video_requests_on_user_id"
   end
 
+  create_table "command_two_frame_to_video_requests", force: :cascade do |t|
+    t.bigint "chat_id", null: false
+    t.bigint "user_id"
+    t.string "start_image_url"
+    t.string "end_image_url"
+    t.text "prompt"
+    t.boolean "awaiting_video_prompt", default: false, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_command_two_frame_to_video_requests_on_user_id"
+  end
+
   create_table "flipper_features", force: :cascade do |t|
     t.string "key", null: false
     t.datetime "created_at", null: false
@@ -350,6 +362,7 @@ ActiveRecord::Schema[8.0].define(version: 2026_07_17_170000) do
   add_foreign_key "command_prompt_to_audio_requests", "users"
   add_foreign_key "command_prompt_to_image_requests", "users"
   add_foreign_key "command_prompt_to_video_requests", "users"
+  add_foreign_key "command_two_frame_to_video_requests", "users"
   add_foreign_key "prompt_messages", "video_prompts"
   add_foreign_key "scenes", "image_prompts"
   add_foreign_key "scenes", "scripts"

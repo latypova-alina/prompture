@@ -9,6 +9,7 @@ module MediaGenerator
                  ValidateImageMessageType,
                  ImageMessageHandler::CreateImageUrlMessage,
                  ImageMessageHandler::CreatePictureMessage,
+                 ImageMessageHandler::CreateFileMessage,
                  ImageMessageHandler::EnqueueStoreImageJob
       end
     end

@@ -12,6 +12,7 @@ module MediaGenerator
         "nano_banana_image" => RecordCreators::ButtonRequests::Images::NanoBanana,
         "nano_banana_edit_image" => RecordCreators::ButtonRequests::Images::NanoBananaEdit,
         "kling_2_1_pro_image_to_video" => RecordCreators::ButtonRequests::Videos::Kling,
+        "kling_3_standard_image_to_video" => RecordCreators::ButtonRequests::Videos::Kling3Standard,
         "hailuo_02_standard_image_to_video" => RecordCreators::ButtonRequests::Videos::Hailuo02Standard,
         "veo3_1_lite_image_to_video" => RecordCreators::ButtonRequests::Videos::Veo31Lite
       }.freeze

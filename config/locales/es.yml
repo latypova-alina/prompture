@@ -12,6 +12,7 @@ es:
         prompt_policy: "🛡 Ver reglas de prompts"
         set_locale: "🌐 Cambiar idioma"
         image_to_video: "🖼🎬 Imagen → video"
+        first_last_frame_to_video: "🖼🎬 Primer y último fotograma → video"
         edit_image: "🖼✏️ Editar imagen"
       start:
         no_token: |
@@ -119,6 +120,16 @@ es:
         🔹 un archivo 📁
 
         Ten en cuenta que la imagen debe tener al menos 300x300 píxeles y ser menor de 10 MB.
+      first_last_frame_to_video: |
+        ¡Genial! Envía primero la imagen del fotograma inicial y luego la del fotograma final.
+        Cada una puede enviarse como:
+
+        🔹 una URL 🔗
+        🔹 una imagen 🖼
+        🔹 un archivo 📁
+
+        Ten en cuenta que cada imagen debe tener al menos 300x300 píxeles y ser menor de 10 MB.
+        Después de recibir ambos fotogramas, puedes proporcionar un prompt y generar video con Kling 3 Standard.
       edit_image: |
         ¡Genial! Envía la imagen que quieres editar.
         Puedes enviarla como:
@@ -152,6 +163,8 @@ es:
       image_message_url: "Aquí está tu imagen"
       image_message_reply: "¡Genial! Ahora puedes generar un video usando uno de los procesadores (Kling)"
       image_to_video_image_reply: "¡Genial! Puedes generar un video con Kling o proporcionar un prompt primero."
+      first_last_frame_to_video_start_image_reply: "¡Genial! Ahora envía la imagen del fotograma final."
+      first_last_frame_to_video_ready_reply: "Ambos fotogramas están listos. Puedes proporcionar un prompt o generar video con Kling 3 Standard."
       image_to_video_prompt_reply: "¡Genial! Ahora, por favor, proporciona un prompt para el video."
       edit_image_prompt_reply: "¡Genial! Ahora envía tu prompt de edición."
       extended_prompt_postfix: "Aquí está tu prompt extendido ⬆️ \n\nAhora puedes generar una imagen usando uno de los procesadores (Flux/NanoBanana)"
@@ -225,6 +238,9 @@ es:
           kling_2_1_pro_image_to_video:
             one: "Kling Pro 2.1 (%{count} crédito)"
             other: "Kling Pro 2.1 (%{count} créditos)"
+          kling_3_standard_image_to_video:
+            one: "Kling 3 Standard (%{count} crédito)"
+            other: "Kling 3 Standard (%{count} créditos)"
           hailuo_02_standard_image_to_video:
             one: "Hailuo 02 Standard (%{count} crédito)"
             other: "Hailuo 02 Standard (%{count} créditos)"
@@ -316,6 +332,7 @@ es:
           local_ffmpeg_merge: "video de dibujos animados combinado"
         video:
           kling_2_1_pro_image_to_video: "video de Kling Pro"
+          kling_3_standard_image_to_video: "video de Kling 3 Standard"
           hailuo_02_standard_image_to_video: "video de Hailuo 02 Standard"
           veo3_1_lite_image_to_video: "video de Veo 3.1 Lite"
         image:

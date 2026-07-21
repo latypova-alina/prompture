@@ -8,27 +8,13 @@ describe Generator::Media::Video::CreateTask::PayloadComposer do
   let(:processor) { "kling_2_1_pro_image_to_video" }
 
   let(:strategy) { instance_double("Strategy", payload: strategy_payload) }
-  let(:strategy_payload) { { prompt: "hello" } }
-
-  let(:webhook_url_builder_instance) { double }
-  let(:webhook_url) { "http://example.com/webhook" }
-
-  before do
-    allow(Generator::Media::WebhookUrlBuilder)
-      .to receive(:new)
-      .with(processor:, button_request_id: request.id)
-      .and_return(webhook_url_builder_instance)
-
-    allow(webhook_url_builder_instance)
-      .to receive(:webhook_url)
-      .and_return(webhook_url)
-  end
+  let(:strategy_payload) { { prompt: "hello", image_url: } }
 
   describe "#final_payload" do
-    it "merges strategy payload with image_url" do
+    it "returns the strategy payload" do
       expect(composer.final_payload).to eq(
         prompt: "hello",
-        image_url: image_url
+        image_url:
       )
     end
   end
@@ -49,6 +35,7 @@ describe Generator::Media::Video::CreateTask::PayloadComposer do
     let(:strategy_payload) do
       {
         prompt: "hello",
+        image_url:,
         aspect_ratio: "auto",
         duration: 6,
         generate_audio: false
@@ -58,10 +45,10 @@ describe Generator::Media::Video::CreateTask::PayloadComposer do
     it "overrides aspect ratio to 16:9 and duration to 8 seconds" do
       expect(composer.final_payload).to eq(
         prompt: "hello",
+        image_url:,
         aspect_ratio: "16:9",
         duration: 8,
-        generate_audio: false,
-        image_url:
+        generate_audio: false
       )
     end
   end
@@ -82,6 +69,7 @@ describe Generator::Media::Video::CreateTask::PayloadComposer do
     let(:strategy_payload) do
       {
         prompt: "hello",
+        image_url:,
         aspect_ratio: "auto",
         duration: 6,
         generate_audio: false
@@ -91,10 +79,10 @@ describe Generator::Media::Video::CreateTask::PayloadComposer do
     it "keeps aspect ratio at 9:16 and sets duration to 8 seconds" do
       expect(composer.final_payload).to eq(
         prompt: "hello",
+        image_url:,
         aspect_ratio: "9:16",
         duration: 8,
-        generate_audio: false,
-        image_url:
+        generate_audio: false
       )
     end
   end
