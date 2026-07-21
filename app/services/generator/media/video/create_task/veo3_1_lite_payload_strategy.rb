@@ -7,15 +7,19 @@ module Generator
           DURATION = 6
           ASPECT_RATIO = "auto".freeze
 
-          def initialize(prompt)
+          def initialize(prompt, button_request:)
             @prompt = prompt
+            @button_request = button_request
           end
 
-          attr_reader :prompt
+          attr_reader :prompt, :button_request
+
+          delegate :image_url, to: :button_request
 
           def payload
             {
               prompt:,
+              image_url:,
               aspect_ratio: ASPECT_RATIO,
               duration: DURATION,
               generate_audio: false

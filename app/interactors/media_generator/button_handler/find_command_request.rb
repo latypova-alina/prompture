@@ -11,6 +11,7 @@ module MediaGenerator
         CommandPromptToAudioRequest,
         CommandPromptToVideoRequest,
         CommandImageToVideoRequest,
+        CommandTwoFrameToVideoRequest,
         CommandEditImageRequest
       ].freeze
 

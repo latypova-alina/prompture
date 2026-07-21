@@ -1,7 +1,7 @@
 module TelegramIntegration
   class MessageDispatcher
     TOKEN_COMMAND = "activate_token".freeze
-    IMAGE_INPUT_COMMANDS = %w[image_to_video edit_image].freeze
+    IMAGE_INPUT_COMMANDS = %w[image_to_video first_last_frame_to_video edit_image].freeze
 
     def self.call(...)
       new(...).call

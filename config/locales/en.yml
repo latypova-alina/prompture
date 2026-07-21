@@ -12,6 +12,7 @@ en:
         prompt_policy: "🛡 View prompt policy rules"
         set_locale: "🌐 Set language"
         image_to_video: "🖼🎬 Picture → video"
+        first_last_frame_to_video: "🖼🎬 Start & end frame → video"
         edit_image: "🖼✏️ Edit image"
       start: 
         no_token: |
@@ -119,6 +120,16 @@ en:
         🔹 a file 📁
 
         Please note that the image must be at least 300x300 pixels and smaller than 10 MB.
+      first_last_frame_to_video: |
+        Great! Send the first image (start frame), then the second image (end frame).
+        Each can be sent as:
+
+        🔹 a URL 🔗
+        🔹 a picture 🖼
+        🔹 a file 📁
+
+        Please note that each image must be at least 300x300 pixels and smaller than 10 MB.
+        After both images are received, you can optionally provide a prompt and generate video with Kling 3 Standard.
       edit_image: |
         Great! Send the image you want to edit.
         It can be sent as:
@@ -152,6 +163,8 @@ en:
       image_message_url: "Here is your image"
       image_message_reply: "Great! You can now generate a video using one of the processors (Kling)"
       image_to_video_image_reply: "Great! You can either generate a video using Kling or provide a prompt first."
+      first_last_frame_to_video_start_image_reply: "Great! Now please send the end frame image."
+      first_last_frame_to_video_ready_reply: "Both frames are ready. You can provide a prompt or generate video with Kling 3 Standard."
       image_to_video_prompt_reply: "Great! Now please provide a prompt for the video."
       edit_image_prompt_reply: "Great! Now send your edit prompt."
       extended_prompt_postfix: "Here is your extended prompt ⬆️ \n\nYou can now generate an image using one of the processors (Flux/NanoBanana)"
@@ -225,6 +238,9 @@ en:
           kling_2_1_pro_image_to_video:
             one: "Kling Pro 2.1 (%{count} credit)"
             other: "Kling Pro 2.1 (%{count} credits)"
+          kling_3_standard_image_to_video:
+            one: "Generate Video (Kling 3 Standard) (%{count} credit)"
+            other: "Generate Video (Kling 3 Standard) (%{count} credits)"
           hailuo_02_standard_image_to_video:
             one: "Hailuo 02 Standard (%{count} credit)"
             other: "Hailuo 02 Standard (%{count} credits)"
@@ -314,6 +330,7 @@ en:
         extend_prompt: "prompt"
         video:
           kling_2_1_pro_image_to_video: "Kling Pro video"
+          kling_3_standard_image_to_video: "Kling 3 Standard video"
           hailuo_02_standard_image_to_video: "Hailuo 02 Standard video"
           veo3_1_lite_image_to_video: "Veo 3.1 Lite video"
         image:

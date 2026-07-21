@@ -5,6 +5,10 @@ module TelegramIntegration
         image: MediaGenerator::MessageHandler::ImageMessageHandler::HandleImageMessage,
         prompt: MediaGenerator::MessageHandler::ImageToVideoMessageHandler::HandlePromptMessage
       },
+      "first_last_frame_to_video" => {
+        image: MediaGenerator::MessageHandler::FirstLastFrameToVideoMessageHandler::HandleImageMessage,
+        prompt: MediaGenerator::MessageHandler::FirstLastFrameToVideoMessageHandler::HandlePromptMessage
+      },
       "edit_image" => {
         image: MediaGenerator::MessageHandler::EditImageMessageHandler::HandleImageMessage,
         prompt: MediaGenerator::MessageHandler::EditImageMessageHandler::HandlePromptMessage

@@ -17,7 +17,7 @@ module Generator
 
           private
 
-          delegate :command_request, to: :request
+          delegate :command_request, to: :button_request
           delegate :prompt, to: :command_request, prefix: true
 
           def prompt

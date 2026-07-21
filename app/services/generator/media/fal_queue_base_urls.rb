@@ -7,6 +7,7 @@ module Generator
         "nano_banana_edit_image" => "https://queue.fal.run/fal-ai/nano-banana-2",
         "veo3_1_lite_image_to_video" => "https://queue.fal.run/fal-ai/veo3.1",
         "kling_2_1_pro_image_to_video" => "https://queue.fal.run/fal-ai/kling-video",
+        "kling_3_standard_image_to_video" => "https://queue.fal.run/fal-ai/kling-video",
         "hailuo_02_standard_image_to_video" => "https://queue.fal.run/fal-ai/minimax"
       }.freeze
     end

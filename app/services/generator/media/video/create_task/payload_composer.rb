@@ -11,12 +11,10 @@ module Generator
           ].freeze
 
           def final_payload
-            enhanced_payload.merge(image_url:)
+            enhanced_payload
           end
 
           private
-
-          delegate :image_url, to: :request
 
           def enhanced_payload
             applicable_enhancers.reduce(strategy.payload) do |current_payload, enhancer_class|

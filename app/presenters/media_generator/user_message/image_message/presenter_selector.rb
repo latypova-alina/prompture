@@ -8,6 +8,7 @@ module MediaGenerator
 
         def presenter
           return EditImagePromptRequestPresenter.new if edit_image_command?
+          return ForTwoFramesCommand::PresenterSelector.new(request:).presenter if two_frames_command?
 
           case request
           when UserImageUrlMessage
@@ -25,6 +26,10 @@ module MediaGenerator
 
         def edit_image_command?
           request.command_request.is_a?(CommandEditImageRequest)
+        end
+
+        def two_frames_command?
+          request.command_request.is_a?(CommandTwoFrameToVideoRequest)
         end
       end
     end
