@@ -10,11 +10,9 @@ module MediaGenerator
           def presenter
             assign_image_url
 
-            if command_request.reload.awaiting_end_image?
-              StartFramePresenter.new(locale:)
-            else
-              ReadyFramePresenter.new(locale:)
-            end
+            return StartFramePresenter.new(locale:) if command_request.reload.awaiting_end_image?
+
+            ReadyFramePresenter.new(locale:)
           end
 
           private

@@ -16,9 +16,7 @@ module RecordCreators
 
         private
 
-        def frames_ready?
-          command_request.is_a?(CommandTwoFrameToVideoRequest) && command_request.frames_ready?
-        end
+        delegate :frames_ready?, to: :command_request
 
         def processor
           raise NotImplementedError

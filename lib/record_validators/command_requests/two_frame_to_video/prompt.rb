@@ -17,12 +17,10 @@ module RecordValidators
 
         attr_reader :command_request, :message_text, :picture_id
 
-        def valid_message_type?
-          prompt_message? && command_request.awaiting_video_prompt?
-        end
+        delegate :awaiting_video_prompt?, :frames_ready?, to: :command_request
 
-        def frames_ready?
-          command_request.frames_ready?
+        def valid_message_type?
+          prompt_message? && awaiting_video_prompt?
         end
 
         def prompt_message?
