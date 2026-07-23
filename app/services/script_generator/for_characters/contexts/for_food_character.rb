@@ -5,7 +5,7 @@ module ScriptGenerator
         private
 
         def endpoint_path
-          "/random_character"
+          "/food_character"
         end
       end
     end

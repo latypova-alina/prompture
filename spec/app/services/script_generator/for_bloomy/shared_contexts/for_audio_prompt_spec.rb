@@ -16,7 +16,7 @@ describe ScriptGenerator::ForBloomy::SharedContexts::ForAudioPrompt do
 
   before do
     allow(ScriptGenerator::Connection).to receive(:call).and_return(connection)
-    allow(connection).to receive(:post).with("/generate_audio_prompt").and_yield(
+    allow(connection).to receive(:post).with("/audio_prompt_for_bloomy_single_scene").and_yield(
       instance_double(Faraday::Request, body: nil).tap do |request|
         allow(request).to receive(:body=)
       end
@@ -31,7 +31,7 @@ describe ScriptGenerator::ForBloomy::SharedContexts::ForAudioPrompt do
     it "posts script_text to the API" do
       request = instance_double(Faraday::Request)
       allow(request).to receive(:body=)
-      allow(connection).to receive(:post).with("/generate_audio_prompt").and_yield(request).and_return(response)
+      allow(connection).to receive(:post).with("/audio_prompt_for_bloomy_single_scene").and_yield(request).and_return(response)
 
       audio_prompt_context.prompt
 

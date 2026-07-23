@@ -19,7 +19,7 @@ module ScriptGenerator
       private
 
       memoize def response
-        connection.get("/generate", { template_name: })
+        connection.get("/cat_story_script", { template_name: })
       end
 
       def connection

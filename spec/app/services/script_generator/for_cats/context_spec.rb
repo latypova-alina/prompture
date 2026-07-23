@@ -10,7 +10,7 @@ describe ScriptGenerator::ForCats::Context do
 
   before do
     allow(ScriptGenerator::Connection).to receive(:call).and_return(connection)
-    allow(connection).to receive(:get).with("/generate", { template_name: }).and_return(response)
+    allow(connection).to receive(:get).with("/cat_story_script", { template_name: }).and_return(response)
   end
 
   describe "#script_array" do
@@ -28,7 +28,7 @@ describe ScriptGenerator::ForCats::Context do
 
     context "when Faraday raises an error" do
       before do
-        allow(connection).to receive(:get).with("/generate", { template_name: })
+        allow(connection).to receive(:get).with("/cat_story_script", { template_name: })
                                           .and_raise(Faraday::TimeoutError.new("timeout"))
       end
 
@@ -44,7 +44,7 @@ describe ScriptGenerator::ForCats::Context do
       it "passes template_name in request params" do
         context.script_array
 
-        expect(connection).to have_received(:get).with("/generate", { template_name: "daily_news" })
+        expect(connection).to have_received(:get).with("/cat_story_script", { template_name: "daily_news" })
       end
     end
   end

@@ -16,7 +16,7 @@ describe ScriptGenerator::ForBloomy::Payloads::ForCartoonScript do
 
   before do
     allow(ScriptGenerator::Connection).to receive(:call).and_return(connection)
-    allow(connection).to receive(:get).with("/cartoon_script").and_return(response)
+    allow(connection).to receive(:get).with("/bloomy_multi_scene_cartoon_script").and_return(response)
   end
 
   it "returns parsed response body" do
@@ -34,7 +34,7 @@ describe ScriptGenerator::ForBloomy::Payloads::ForCartoonScript do
   context "when Faraday raises an error" do
     before do
       allow(connection).to receive(:get)
-        .with("/cartoon_script")
+        .with("/bloomy_multi_scene_cartoon_script")
         .and_raise(Faraday::TimeoutError.new("timeout"))
     end
 
