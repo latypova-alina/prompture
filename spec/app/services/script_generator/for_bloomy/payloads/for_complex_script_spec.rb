@@ -1,7 +1,7 @@
 require "rails_helper"
 
-describe ScriptGenerator::ForBloomy::Payloads::ForCartoonProblemSolutionScript do
-  subject(:cartoon_problem_solution_script_payload) { described_class.new.payload }
+describe ScriptGenerator::ForBloomy::Payloads::ForComplexScript do
+  subject(:payload_result) { described_class.new.payload }
 
   let(:connection) { instance_double(Faraday::Connection) }
   let(:body) do
@@ -20,14 +20,14 @@ describe ScriptGenerator::ForBloomy::Payloads::ForCartoonProblemSolutionScript d
   end
 
   it "returns parsed response body" do
-    expect(cartoon_problem_solution_script_payload).to eq(body)
+    expect(payload_result).to eq(body)
   end
 
   context "when request fails with non-success status" do
     let(:response) { instance_double(Faraday::Response, success?: false, body: "service unavailable") }
 
     it "raises ScriptGeneratorRequestError" do
-      expect { cartoon_problem_solution_script_payload }.to raise_error(ScriptGeneratorRequestError)
+      expect { payload_result }.to raise_error(ScriptGeneratorRequestError)
     end
   end
 
@@ -39,7 +39,7 @@ describe ScriptGenerator::ForBloomy::Payloads::ForCartoonProblemSolutionScript d
     end
 
     it "raises ScriptGeneratorRequestError" do
-      expect { cartoon_problem_solution_script_payload }.to raise_error(ScriptGeneratorRequestError, "timeout")
+      expect { payload_result }.to raise_error(ScriptGeneratorRequestError, "timeout")
     end
   end
 end
