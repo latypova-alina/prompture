@@ -28,6 +28,8 @@ module MediaGenerator
           cartoon_merge_process_name
         when ButtonActions::REGENERATE_SINGLE_CARTOON_SCRIPT_IMAGE
           single_cartoon_script_process_name
+        when ButtonActions::GENERATE_BLOOMY_COMPLEX_VIDEOS
+          bloomy_complex_videos_process_name
         end
       end
 
@@ -54,6 +56,13 @@ module MediaGenerator
 
       def single_cartoon_script_process_name
         I18n.t("telegram.generation.humanized_process_names.single_cartoon_script", locale:)
+      end
+
+      def bloomy_complex_videos_process_name
+        I18n.t(
+          "telegram.generation.humanized_process_names.video.#{ForBloomy::ShortComplexScript::CreateVideoRequests::PROCESSOR}",
+          locale:
+        )
       end
     end
   end

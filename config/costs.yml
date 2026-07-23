@@ -6,7 +6,7 @@ default: &default
     nano_banana_edit_image: 1
   generate_video:
     kling_2_1_pro_image_to_video: 10
-    kling_3_standard_image_to_video: 9
+    kling_3_standard_image_to_video: 6
     hailuo_02_standard_image_to_video: 6
     veo3_1_lite_image_to_video: 5
   generate_audio:
@@ -28,7 +28,7 @@ test:
     nano_banana_edit_image: 1
   generate_video:
     kling_2_1_pro_image_to_video: 10
-    kling_3_standard_image_to_video: 9
+    kling_3_standard_image_to_video: 6
     hailuo_02_standard_image_to_video: 6
     veo3_1_lite_image_to_video: 5
   generate_audio:

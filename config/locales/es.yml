@@ -167,6 +167,8 @@ es:
       first_last_frame_to_video_ready_reply: "Ambos fotogramas están listos. Puedes proporcionar un prompt o generar video con Kling 3 Standard."
       image_to_video_prompt_reply: "¡Genial! Ahora, por favor, proporciona un prompt para el video."
       edit_image_prompt_reply: "¡Genial! Ahora envía tu prompt de edición."
+      bloomy_complex:
+        all_images_generated: "Todas las imágenes fueron generadas. ¿Qué te gustaría hacer a continuación?"
       extended_prompt_postfix: "Aquí está tu prompt extendido ⬆️ \n\nAhora puedes generar una imagen usando uno de los procesadores (Flux/NanoBanana)"
       image_generated_prefix: "Aquí está tu %{processor_name} 🖼️"
       image_generated_postfix: "Ahora puedes generar un video usando uno de los procesadores (Kling)"
@@ -225,6 +227,9 @@ es:
         generate_cartoon_video:
           one: "Generar video (%{count} crédito)"
           other: "Generar video (%{count} créditos)"
+        generate_bloomy_complex_videos:
+          one: "Generar videos (%{count} crédito)"
+          other: "Generar videos (%{count} créditos)"
         generate_cartoon_audio:
           one: "Generar audio (%{count} crédito)"
           other: "Generar audio (%{count} créditos)"

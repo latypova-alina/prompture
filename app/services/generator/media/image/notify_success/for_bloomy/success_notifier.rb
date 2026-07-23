@@ -5,6 +5,7 @@ module Generator::Media::Image::NotifySuccess
         super
 
         enqueue_next_chained_scene
+        send_generate_videos_cta
       end
 
       private
@@ -18,6 +19,10 @@ module Generator::Media::Image::NotifySuccess
           image_url:,
           button_request: request
         )
+      end
+
+      def send_generate_videos_cta
+        ScriptGenerator::ForBloomy::GenerateVideosCta::Generator.call(button_request: request)
       end
     end
   end

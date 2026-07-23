@@ -13,13 +13,13 @@ module ScriptGenerator
       end
 
       def call
-        return unless next_scene_ready?
+        return unless chained_scenes.can_start_next_scene?
 
         ScriptGenerator::ProcessScene::ForEditImage.new(
           chat_id:,
           category:,
           reference_image_url: image_url
-        ).call(image_prompt_record: next_scene_image_prompt)
+        ).call(image_prompt_record: next_scene.image_prompt)
       end
 
       private
@@ -28,30 +28,10 @@ module ScriptGenerator
 
       delegate :command_request, to: :button_request
       delegate :chat_id, :category, to: :command_request
-      delegate :image_prompt, to: :next_scene, prefix: true
-      delegate :image_prompt_id, to: :command_request
-      delegate :script, to: :scene, allow_nil: true
-      delegate :scenes, to: :script, allow_nil: true
-      delegate :order, to: :scene, allow_nil: true, prefix: true
+      delegate :next_scene, to: :chained_scenes
 
-      memoize :script
-
-      def next_scene_ready?
-        next_scene.present? &&
-          next_scene.image_prompt.present? &&
-          !next_scene.image_prompt.stored_images.exists?
-      end
-
-      memoize def scene
-        return if image_prompt_id.blank?
-
-        Scene.find_by(image_prompt_id:)
-      end
-
-      memoize def next_scene
-        return if script.blank? || !script.chained_references?
-
-        scenes.find_by(order: scene_order + 1)
+      memoize def chained_scenes
+        ChainedScenes::Facade.new(button_request:)
       end
     end
   end
