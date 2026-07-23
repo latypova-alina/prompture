@@ -1,25 +1,21 @@
 require "rails_helper"
 
-describe MediaGenerator::ButtonHandler::HandleGenerateCartoonAudioButton do
+describe MediaGenerator::ButtonHandler::ForBloomy::Audio::CreateRequest do
   subject(:result) do
     described_class.call(
-      button_request: ButtonActions::GENERATE_CARTOON_AUDIO,
-      chat_id:,
-      tg_message_id: message_id,
-      callback_query_id: "callback-123"
+      parent_request:,
+      scene:,
+      video_prompt:
     )
   end
 
-  let(:chat_id) { 456 }
-  let(:message_id) { 789 }
-  let(:user) { create(:user, :with_balance, chat_id:) }
+  let(:user) { create(:user, :with_balance) }
   let(:video_prompt) { create(:video_prompt, prompt: "Camera slowly zooms in as Bloomy waves.") }
   let(:scene) { create(:scene, scene_text: "Bloomy waves hello.", video_prompt:) }
   let(:command_request) do
     create(
       :command_prompt_to_video_request,
       user:,
-      chat_id:,
       category: ContentCategory::BLOOMY_CARTOON_SCRIPT
     )
   end
@@ -36,38 +32,30 @@ describe MediaGenerator::ButtonHandler::HandleGenerateCartoonAudioButton do
     )
   end
   let(:audio_prompt_text) { "Hi, my name is Bloomy. Let's explore my world together!" }
-  let(:audio_prompt_context) { instance_double(ScriptGenerator::ForBloomy::SharedContexts::ForAudioPrompt, prompt: audio_prompt_text) }
+  let(:audio_prompt_record) { create(:audio_prompt, prompt: audio_prompt_text) }
 
   before do
-    scene
-    create(:bot_telegram_message, tg_message_id: message_id, chat_id:, request: parent_request)
-
-    allow(ScriptGenerator::ForBloomy::SharedContexts::ForAudioPrompt)
-      .to receive(:new)
-      .with(script_text: scene.scene_text)
-      .and_return(audio_prompt_context)
-
-    allow(Generator::Media::Audio::TaskCreatorJob).to receive(:perform_async)
-    allow(TelegramIntegration::SendAnswerCallbackQuery).to receive(:call)
+    allow(ScriptGenerator::ForBloomy::Processors::ForAudioPrompt)
+      .to receive(:call)
+      .with(script_text: scene.scene_text, video_prompt:)
+      .and_return(audio_prompt_record)
   end
 
-  it "creates an audio request and enqueues generation" do
+  it "creates an audio request with cartoon category" do
     expect { result }
       .to change(ButtonAudioProcessingRequest, :count).by(1)
       .and change(CommandPromptToAudioRequest, :count).by(1)
-      .and change(AudioPrompt, :count).by(1)
 
-    audio_request = ButtonAudioProcessingRequest.last
+    audio_request = result.button_request_record
 
+    expect(result).to be_success
+    expect(result.button_request).to eq("elevenlabs_v3_audio")
     expect(audio_request.processor).to eq("elevenlabs_v3_audio")
     expect(audio_request.voice).to eq("lulu_lollipop")
     expect(audio_request.parent_request).to eq(parent_request)
-    expect(audio_request.audio_prompt.prompt).to eq(audio_prompt_text)
+    expect(audio_request.audio_prompt).to eq(audio_prompt_record)
     expect(audio_request.command_request.category).to eq(ContentCategory::BLOOMY_CARTOON_SCRIPT)
-
-    expect(Generator::Media::Audio::TaskCreatorJob)
-      .to have_received(:perform_async)
-      .with(audio_request.id)
+    expect(audio_request.command_request.user).to eq(user)
   end
 
   context "when command request is cartoon shorts script" do
@@ -75,7 +63,6 @@ describe MediaGenerator::ButtonHandler::HandleGenerateCartoonAudioButton do
       create(
         :command_prompt_to_video_request,
         user:,
-        chat_id:,
         category: ContentCategory::CARTOON_BLOOMY_SHORTS_SCRIPT
       )
     end
@@ -83,19 +70,8 @@ describe MediaGenerator::ButtonHandler::HandleGenerateCartoonAudioButton do
     it "creates audio request with cartoon shorts category" do
       result
 
-      expect(ButtonAudioProcessingRequest.last.command_request.category)
+      expect(result.button_request_record.command_request.category)
         .to eq(ContentCategory::CARTOON_BLOOMY_SHORTS_SCRIPT)
-    end
-  end
-
-  context "when command request is not cartoon script" do
-    let(:command_request) do
-      create(:command_prompt_to_video_request, user:, chat_id:, category: nil)
-    end
-
-    it "fails with CommandUnknownError" do
-      expect(result).to be_failure
-      expect(result.error).to eq(CommandUnknownError)
     end
   end
 end

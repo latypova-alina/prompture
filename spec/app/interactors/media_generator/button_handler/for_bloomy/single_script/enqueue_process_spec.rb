@@ -1,6 +1,6 @@
 require "rails_helper"
 
-describe MediaGenerator::ButtonHandler::EnqueueSingleCartoonScriptProcess do
+describe MediaGenerator::ButtonHandler::ForBloomy::SingleScript::EnqueueProcess do
   subject(:result) { described_class.call(command_request:) }
 
   let(:command_request) do

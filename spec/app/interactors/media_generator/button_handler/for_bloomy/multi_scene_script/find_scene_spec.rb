@@ -1,9 +1,10 @@
 require "rails_helper"
 
-describe MediaGenerator::ButtonHandler::ValidateCartoonScriptImageRequest do
+describe MediaGenerator::ButtonHandler::ForBloomy::MultiSceneScript::FindScene do
   subject(:result) { described_class.call(command_request:) }
 
   let(:image_prompt) { create(:image_prompt) }
+  let(:scene) { create(:scene, image_prompt:) }
   let(:command_request) do
     create(
       :command_edit_image_request,
@@ -12,12 +13,24 @@ describe MediaGenerator::ButtonHandler::ValidateCartoonScriptImageRequest do
     )
   end
 
-  it "succeeds" do
+  before { scene }
+
+  it "succeeds and stores the scene on context" do
     expect(result).to be_success
+    expect(result.scene).to eq(scene)
   end
 
   context "when command request is not cartoon script" do
     let(:command_request) { create(:command_edit_image_request, image_prompt:) }
+
+    it "fails with CommandUnknownError" do
+      expect(result).to be_failure
+      expect(result.error).to eq(CommandUnknownError)
+    end
+  end
+
+  context "when scene is missing" do
+    let(:scene) { nil }
 
     it "fails with CommandUnknownError" do
       expect(result).to be_failure

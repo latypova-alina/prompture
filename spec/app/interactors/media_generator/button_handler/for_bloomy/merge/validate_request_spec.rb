@@ -1,6 +1,6 @@
 require "rails_helper"
 
-describe MediaGenerator::ButtonHandler::ValidateCartoonAudioMergeRequest do
+describe MediaGenerator::ButtonHandler::ForBloomy::Merge::ValidateRequest do
   subject(:result) { described_class.call(context) }
 
   let(:command_request) do

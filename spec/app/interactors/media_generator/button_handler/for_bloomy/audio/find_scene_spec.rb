@@ -1,6 +1,6 @@
 require "rails_helper"
 
-describe MediaGenerator::ButtonHandler::ValidateCartoonVideoScriptRequest do
+describe MediaGenerator::ButtonHandler::ForBloomy::Audio::FindScene do
   subject(:result) { described_class.call(context) }
 
   let(:command_request) do
@@ -61,6 +61,15 @@ describe MediaGenerator::ButtonHandler::ValidateCartoonVideoScriptRequest do
 
   context "when scene is missing" do
     let(:scene) { nil }
+
+    it "fails with CommandUnknownError" do
+      expect(result).to be_failure
+      expect(result.error).to eq(CommandUnknownError)
+    end
+  end
+
+  context "when command request is not cartoon script" do
+    let(:command_request) { create(:command_prompt_to_video_request, category: nil) }
 
     it "fails with CommandUnknownError" do
       expect(result).to be_failure

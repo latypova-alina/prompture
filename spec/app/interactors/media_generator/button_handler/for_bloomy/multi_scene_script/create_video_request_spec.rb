@@ -1,6 +1,6 @@
 require "rails_helper"
 
-describe MediaGenerator::ButtonHandler::CreateCartoonVideoRequest do
+describe MediaGenerator::ButtonHandler::ForBloomy::MultiSceneScript::CreateVideoRequest do
   subject(:result) do
     described_class.call(
       parent_request:,

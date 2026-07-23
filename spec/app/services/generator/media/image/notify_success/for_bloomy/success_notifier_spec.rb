@@ -47,6 +47,7 @@ describe Generator::Media::Image::NotifySuccess::ForBloomy::SuccessNotifier do
       .to receive(:call)
 
     allow(ScriptGenerator::ForBloomy::EnqueueNextChainedScene).to receive(:call)
+    allow(ScriptGenerator::ForBloomy::GenerateVideosCta::Generator).to receive(:call)
   end
 
   describe ".call" do
@@ -62,6 +63,9 @@ describe Generator::Media::Image::NotifySuccess::ForBloomy::SuccessNotifier do
       expect(ScriptGenerator::ForBloomy::EnqueueNextChainedScene)
         .to have_received(:call)
         .with(image_url:, button_request:)
+      expect(ScriptGenerator::ForBloomy::GenerateVideosCta::Generator)
+        .to have_received(:call)
+        .with(button_request:)
     end
   end
 end

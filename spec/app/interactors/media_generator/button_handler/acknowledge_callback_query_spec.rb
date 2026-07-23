@@ -54,6 +54,60 @@ describe MediaGenerator::ButtonHandler::AcknowledgeCallbackQuery do
     end
   end
 
+  context "when merging cartoon audio and video" do
+    let(:button_request) { ButtonActions::MERGE_CARTOON_AUDIO_VIDEO }
+
+    it "shows the processing toast immediately" do
+      result
+
+      expect(TelegramIntegration::SendAnswerCallbackQuery)
+        .to have_received(:call)
+        .with(
+          callback_query_id:,
+          process_name: I18n.t(
+            "telegram.generation.humanized_process_names.merge.local_ffmpeg_merge",
+            locale: "en"
+          )
+        )
+    end
+  end
+
+  context "when regenerating a single cartoon script image" do
+    let(:button_request) { ButtonActions::REGENERATE_SINGLE_CARTOON_SCRIPT_IMAGE }
+
+    it "shows the processing toast immediately" do
+      result
+
+      expect(TelegramIntegration::SendAnswerCallbackQuery)
+        .to have_received(:call)
+        .with(
+          callback_query_id:,
+          process_name: I18n.t(
+            "telegram.generation.humanized_process_names.single_cartoon_script",
+            locale: "en"
+          )
+        )
+    end
+  end
+
+  context "when generating bloomy complex videos" do
+    let(:button_request) { ButtonActions::GENERATE_BLOOMY_COMPLEX_VIDEOS }
+
+    it "shows the processing toast immediately" do
+      result
+
+      expect(TelegramIntegration::SendAnswerCallbackQuery)
+        .to have_received(:call)
+        .with(
+          callback_query_id:,
+          process_name: I18n.t(
+            "telegram.generation.humanized_process_names.video.kling_3_standard_image_to_video",
+            locale: "en"
+          )
+        )
+    end
+  end
+
   context "when callback_query_id is blank" do
     let(:button_request) { ButtonActions::GENERATE_CARTOON_VIDEO }
     let(:callback_query_id) { nil }
