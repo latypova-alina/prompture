@@ -10,8 +10,7 @@ describe MediaGenerator::ButtonHandler::HandleButton do
           MediaGenerator::ButtonHandler::CreateRequest,
           MediaGenerator::ButtonHandler::DecrementBalance,
           MediaGenerator::ButtonHandler::NotifyProcessingStarted,
-          MediaGenerator::ButtonHandler::SendGenerationTask,
-          MediaGenerator::ButtonHandler::ClearInlineKeyboard
+          MediaGenerator::ButtonHandler::SendGenerationTask
         ]
       )
     end
