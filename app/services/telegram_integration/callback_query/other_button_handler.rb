@@ -46,19 +46,19 @@ module TelegramIntegration
       end
 
       def handle_generate_cartoon_video_button
-        MediaGenerator::ButtonHandler::HandleGenerateCartoonVideoButton.call(**media_button_handler_params)
+        MediaGenerator::ButtonHandler::ForBloomy::MultiSceneScript::HandleButton.call(**media_button_handler_params)
       end
 
       def handle_generate_cartoon_audio_button
-        MediaGenerator::ButtonHandler::HandleGenerateCartoonAudioButton.call(**media_button_handler_params)
+        MediaGenerator::ButtonHandler::ForBloomy::Audio::HandleButton.call(**media_button_handler_params)
       end
 
       def handle_merge_cartoon_audio_video_button
-        MediaGenerator::ButtonHandler::HandleMergeCartoonAudioVideoButton.call(**media_button_handler_params)
+        MediaGenerator::ButtonHandler::ForBloomy::Merge::HandleButton.call(**media_button_handler_params)
       end
 
       def handle_regenerate_single_cartoon_script_image_button
-        MediaGenerator::ButtonHandler::HandleRegenerateSingleCartoonScriptImageButton.call(**media_button_handler_params)
+        MediaGenerator::ButtonHandler::ForBloomy::SingleScript::HandleButton.call(**media_button_handler_params)
       end
 
       def handle_generate_bloomy_complex_videos_button

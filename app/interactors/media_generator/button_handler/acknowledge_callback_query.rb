@@ -35,21 +35,21 @@ module MediaGenerator
 
       def cartoon_video_process_name
         I18n.t(
-          "telegram.generation.humanized_process_names.video.#{CreateCartoonVideoRequest::PROCESSOR}",
+          "telegram.generation.humanized_process_names.video.#{ForBloomy::MultiSceneScript::CreateVideoRequest::PROCESSOR}",
           locale:
         )
       end
 
       def cartoon_audio_process_name
         I18n.t(
-          "telegram.generation.humanized_process_names.audio.voices.#{CreateCartoonAudioRequest::VOICE}",
+          "telegram.generation.humanized_process_names.audio.voices.#{ForBloomy::Audio::CreateRequest::VOICE}",
           locale:
         )
       end
 
       def cartoon_merge_process_name
         I18n.t(
-          "telegram.generation.humanized_process_names.merge.#{CreateCartoonMergeRequest::PROCESSOR}",
+          "telegram.generation.humanized_process_names.merge.#{ForBloomy::Merge::CreateRequest::PROCESSOR}",
           locale:
         )
       end
