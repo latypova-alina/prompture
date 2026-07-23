@@ -9,10 +9,10 @@ module ScriptGenerator
 
         private
 
-        delegate :payload, to: :cartoon_problem_solution_script_payload
+        delegate :payload, to: :complex_script_payload
 
-        memoize def cartoon_problem_solution_script_payload
-          Payloads::ForCartoonProblemSolutionScript.new
+        memoize def complex_script_payload
+          Payloads::ForComplexScript.new
         end
 
         memoize def cartoon_script_scenes_builder

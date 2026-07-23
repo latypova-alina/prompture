@@ -9,7 +9,7 @@ module ScriptGenerator
         end
 
         def endpoint_path
-          "/generate_audio_prompt"
+          "/audio_prompt_for_bloomy_single_scene"
         end
 
         def request_body

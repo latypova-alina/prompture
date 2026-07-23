@@ -15,7 +15,7 @@ describe ScriptGenerator::ForCharacters::Contexts::ForFoodCharacter do
 
   before do
     allow(ScriptGenerator::Connection).to receive(:call).and_return(connection)
-    allow(connection).to receive(:get).with("/random_character").and_return(response)
+    allow(connection).to receive(:get).with("/food_character").and_return(response)
   end
 
   describe "#character_description" do
@@ -45,7 +45,7 @@ describe ScriptGenerator::ForCharacters::Contexts::ForFoodCharacter do
 
     context "when Faraday raises an error" do
       before do
-        allow(connection).to receive(:get).with("/random_character")
+        allow(connection).to receive(:get).with("/food_character")
                                           .and_raise(Faraday::TimeoutError.new("timeout"))
       end
 

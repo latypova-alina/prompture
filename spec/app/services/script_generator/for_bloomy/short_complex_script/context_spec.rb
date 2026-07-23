@@ -9,13 +9,13 @@ describe ScriptGenerator::ForBloomy::ShortComplexScript::Context do
       "reference_image_url" => "https://example.com/bloomy.png"
     }
   end
-  let(:cartoon_problem_solution_script_payload) do
-    instance_double(ScriptGenerator::ForBloomy::Payloads::ForCartoonProblemSolutionScript, payload:)
+  let(:complex_script_payload) do
+    instance_double(ScriptGenerator::ForBloomy::Payloads::ForComplexScript, payload:)
   end
 
   before do
-    allow(ScriptGenerator::ForBloomy::Payloads::ForCartoonProblemSolutionScript).to receive(:new)
-      .and_return(cartoon_problem_solution_script_payload)
+    allow(ScriptGenerator::ForBloomy::Payloads::ForComplexScript).to receive(:new)
+      .and_return(complex_script_payload)
   end
 
   it "returns scenes from payload" do
@@ -26,10 +26,10 @@ describe ScriptGenerator::ForBloomy::ShortComplexScript::Context do
     expect(context.reference_image_url).to eq(payload["reference_image_url"])
   end
 
-  it "fetches cartoon problem solution script payload once" do
+  it "fetches complex script payload once" do
     context.scenes
     context.reference_image_url
 
-    expect(ScriptGenerator::ForBloomy::Payloads::ForCartoonProblemSolutionScript).to have_received(:new).once
+    expect(ScriptGenerator::ForBloomy::Payloads::ForComplexScript).to have_received(:new).once
   end
 end

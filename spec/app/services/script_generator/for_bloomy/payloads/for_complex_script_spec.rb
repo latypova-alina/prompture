@@ -1,12 +1,12 @@
 require "rails_helper"
 
-describe ScriptGenerator::ForBloomy::Payloads::ForCartoonScript do
-  subject(:cartoon_script_payload) { described_class.new.payload }
+describe ScriptGenerator::ForBloomy::Payloads::ForComplexScript do
+  subject(:payload_result) { described_class.new.payload }
 
   let(:connection) { instance_double(Faraday::Connection) }
   let(:body) do
     {
-      "scenes" => ["Scene 1"],
+      "scenes" => Array.new(5) { |index| "Scene #{index + 1}" },
       "reference_image_url" => "https://example.com/bloomy.png"
     }
   end
@@ -16,30 +16,30 @@ describe ScriptGenerator::ForBloomy::Payloads::ForCartoonScript do
 
   before do
     allow(ScriptGenerator::Connection).to receive(:call).and_return(connection)
-    allow(connection).to receive(:get).with("/cartoon_script").and_return(response)
+    allow(connection).to receive(:get).with("/bloomy_complex_cartoon_script").and_return(response)
   end
 
   it "returns parsed response body" do
-    expect(cartoon_script_payload).to eq(body)
+    expect(payload_result).to eq(body)
   end
 
   context "when request fails with non-success status" do
     let(:response) { instance_double(Faraday::Response, success?: false, body: "service unavailable") }
 
     it "raises ScriptGeneratorRequestError" do
-      expect { cartoon_script_payload }.to raise_error(ScriptGeneratorRequestError)
+      expect { payload_result }.to raise_error(ScriptGeneratorRequestError)
     end
   end
 
   context "when Faraday raises an error" do
     before do
       allow(connection).to receive(:get)
-        .with("/cartoon_script")
+        .with("/bloomy_complex_cartoon_script")
         .and_raise(Faraday::TimeoutError.new("timeout"))
     end
 
     it "raises ScriptGeneratorRequestError" do
-      expect { cartoon_script_payload }.to raise_error(ScriptGeneratorRequestError, "timeout")
+      expect { payload_result }.to raise_error(ScriptGeneratorRequestError, "timeout")
     end
   end
 end
