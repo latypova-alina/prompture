@@ -12,6 +12,7 @@ module TelegramIntegration
         ButtonActions::GENERATE_CARTOON_AUDIO => :handle_generate_cartoon_audio_button,
         ButtonActions::MERGE_CARTOON_AUDIO_VIDEO => :handle_merge_cartoon_audio_video_button,
         ButtonActions::REGENERATE_SINGLE_CARTOON_SCRIPT_IMAGE => :handle_regenerate_single_cartoon_script_image_button,
+        ButtonActions::GENERATE_BLOOMY_COMPLEX_VIDEOS => :handle_generate_bloomy_complex_videos_button,
         ButtonActions::CHECK_GENERATION_STATUS => :handle_check_generation_status,
         ButtonActions::CANCEL_GENERATION => :handle_cancel_generation
       }.freeze
@@ -45,19 +46,23 @@ module TelegramIntegration
       end
 
       def handle_generate_cartoon_video_button
-        MediaGenerator::ButtonHandler::HandleGenerateCartoonVideoButton.call(**media_button_handler_params)
+        MediaGenerator::ButtonHandler::ForBloomy::MultiSceneScript::HandleButton.call(**media_button_handler_params)
       end
 
       def handle_generate_cartoon_audio_button
-        MediaGenerator::ButtonHandler::HandleGenerateCartoonAudioButton.call(**media_button_handler_params)
+        MediaGenerator::ButtonHandler::ForBloomy::Audio::HandleButton.call(**media_button_handler_params)
       end
 
       def handle_merge_cartoon_audio_video_button
-        MediaGenerator::ButtonHandler::HandleMergeCartoonAudioVideoButton.call(**media_button_handler_params)
+        MediaGenerator::ButtonHandler::ForBloomy::Merge::HandleButton.call(**media_button_handler_params)
       end
 
       def handle_regenerate_single_cartoon_script_image_button
-        MediaGenerator::ButtonHandler::HandleRegenerateSingleCartoonScriptImageButton.call(**media_button_handler_params)
+        MediaGenerator::ButtonHandler::ForBloomy::SingleScript::HandleButton.call(**media_button_handler_params)
+      end
+
+      def handle_generate_bloomy_complex_videos_button
+        MediaGenerator::ButtonHandler::ForBloomy::ShortComplexScript::HandleButton.call(**media_button_handler_params)
       end
 
       def handle_check_generation_status

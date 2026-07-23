@@ -28,32 +28,41 @@ module MediaGenerator
           cartoon_merge_process_name
         when ButtonActions::REGENERATE_SINGLE_CARTOON_SCRIPT_IMAGE
           single_cartoon_script_process_name
+        when ButtonActions::GENERATE_BLOOMY_COMPLEX_VIDEOS
+          bloomy_complex_videos_process_name
         end
       end
 
       def cartoon_video_process_name
         I18n.t(
-          "telegram.generation.humanized_process_names.video.#{CreateCartoonVideoRequest::PROCESSOR}",
+          "telegram.generation.humanized_process_names.video.#{ForBloomy::MultiSceneScript::CreateVideoRequest::PROCESSOR}",
           locale:
         )
       end
 
       def cartoon_audio_process_name
         I18n.t(
-          "telegram.generation.humanized_process_names.audio.voices.#{CreateCartoonAudioRequest::VOICE}",
+          "telegram.generation.humanized_process_names.audio.voices.#{ForBloomy::Audio::CreateRequest::VOICE}",
           locale:
         )
       end
 
       def cartoon_merge_process_name
         I18n.t(
-          "telegram.generation.humanized_process_names.merge.#{CreateCartoonMergeRequest::PROCESSOR}",
+          "telegram.generation.humanized_process_names.merge.#{ForBloomy::Merge::CreateRequest::PROCESSOR}",
           locale:
         )
       end
 
       def single_cartoon_script_process_name
         I18n.t("telegram.generation.humanized_process_names.single_cartoon_script", locale:)
+      end
+
+      def bloomy_complex_videos_process_name
+        I18n.t(
+          "telegram.generation.humanized_process_names.video.#{ForBloomy::ShortComplexScript::CreateVideoRequests::PROCESSOR}",
+          locale:
+        )
       end
     end
   end

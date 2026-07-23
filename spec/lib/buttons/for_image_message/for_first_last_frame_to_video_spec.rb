@@ -9,7 +9,7 @@ describe Buttons::ForImageMessage::ForFirstLastFrameToVideo do
     expect(subject).to eq(
       [
         [{ callback_data: "provide_prompt", text: "Provide Prompt" }],
-        [{ callback_data: "kling_3_standard_image_to_video", text: "Kling 3 Standard (9 credits)" }]
+        [{ callback_data: "kling_3_standard_image_to_video", text: "Kling 3 Standard (6 credits)" }]
       ]
     )
   end

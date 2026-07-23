@@ -51,16 +51,66 @@ describe TelegramIntegration::CallbackQuery::CallbackButtonHandler do
     let(:button_request) { "generate_cartoon_video" }
 
     before do
-      allow(MediaGenerator::ButtonHandler::HandleGenerateCartoonVideoButton)
+      allow(MediaGenerator::ButtonHandler::ForBloomy::MultiSceneScript::HandleButton)
         .to receive(:call)
         .and_return(success_result)
       allow(MediaGenerator::ButtonHandler::HandleButton).to receive(:call)
     end
 
-    it "calls HandleGenerateCartoonVideoButton" do
+    it "calls ForBloomy::MultiSceneScript::HandleButton" do
       handled_button
 
-      expect(MediaGenerator::ButtonHandler::HandleGenerateCartoonVideoButton)
+      expect(MediaGenerator::ButtonHandler::ForBloomy::MultiSceneScript::HandleButton)
+        .to have_received(:call)
+        .with(
+          button_request:,
+          chat_id:,
+          tg_message_id:,
+          callback_query_id:
+        )
+      expect(MediaGenerator::ButtonHandler::HandleButton).not_to have_received(:call)
+    end
+  end
+
+  context "when button_request is generate_cartoon_audio" do
+    let(:button_request) { "generate_cartoon_audio" }
+
+    before do
+      allow(MediaGenerator::ButtonHandler::ForBloomy::Audio::HandleButton)
+        .to receive(:call)
+        .and_return(success_result)
+      allow(MediaGenerator::ButtonHandler::HandleButton).to receive(:call)
+    end
+
+    it "calls ForBloomy::Audio::HandleButton" do
+      handled_button
+
+      expect(MediaGenerator::ButtonHandler::ForBloomy::Audio::HandleButton)
+        .to have_received(:call)
+        .with(
+          button_request:,
+          chat_id:,
+          tg_message_id:,
+          callback_query_id:
+        )
+      expect(MediaGenerator::ButtonHandler::HandleButton).not_to have_received(:call)
+    end
+  end
+
+  context "when button_request is merge_cartoon_audio_video" do
+    let(:button_request) { "merge_cartoon_audio_video" }
+
+    before do
+      allow(MediaGenerator::ButtonHandler::ForBloomy::Merge::HandleButton)
+        .to receive(:call)
+        .and_return(success_result)
+      allow(MediaGenerator::ButtonHandler::HandleButton).to receive(:call)
+    end
+
+    it "calls ForBloomy::Merge::HandleButton" do
+      handled_button
+
+      expect(MediaGenerator::ButtonHandler::ForBloomy::Merge::HandleButton)
         .to have_received(:call)
         .with(
           button_request:,
@@ -76,16 +126,41 @@ describe TelegramIntegration::CallbackQuery::CallbackButtonHandler do
     let(:button_request) { "regenerate_single_cartoon_script_image" }
 
     before do
-      allow(MediaGenerator::ButtonHandler::HandleRegenerateSingleCartoonScriptImageButton)
+      allow(MediaGenerator::ButtonHandler::ForBloomy::SingleScript::HandleButton)
         .to receive(:call)
         .and_return(success_result)
       allow(MediaGenerator::ButtonHandler::HandleButton).to receive(:call)
     end
 
-    it "calls HandleRegenerateSingleCartoonScriptImageButton" do
+    it "calls ForBloomy::SingleScript::HandleButton" do
       handled_button
 
-      expect(MediaGenerator::ButtonHandler::HandleRegenerateSingleCartoonScriptImageButton)
+      expect(MediaGenerator::ButtonHandler::ForBloomy::SingleScript::HandleButton)
+        .to have_received(:call)
+        .with(
+          button_request:,
+          chat_id:,
+          tg_message_id:,
+          callback_query_id:
+        )
+      expect(MediaGenerator::ButtonHandler::HandleButton).not_to have_received(:call)
+    end
+  end
+
+  context "when button_request is generate_bloomy_complex_videos" do
+    let(:button_request) { "generate_bloomy_complex_videos" }
+
+    before do
+      allow(MediaGenerator::ButtonHandler::ForBloomy::ShortComplexScript::HandleButton)
+        .to receive(:call)
+        .and_return(success_result)
+      allow(MediaGenerator::ButtonHandler::HandleButton).to receive(:call)
+    end
+
+    it "calls ForBloomy::ShortComplexScript::HandleButton" do
+      handled_button
+
+      expect(MediaGenerator::ButtonHandler::ForBloomy::ShortComplexScript::HandleButton)
         .to have_received(:call)
         .with(
           button_request:,
