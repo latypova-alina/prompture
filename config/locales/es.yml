@@ -318,7 +318,6 @@ es:
     image_url_invalid: "El enlace de la imagen no es valido o la URL puede no contener una imagen ⚠️ \n\nAsegurate de que la imagen en la URL este en formato JPEG, JPG o PNG, y envia una URL directa valida. También puedes enviar la imagen como archivo 📁 o foto 🖼️"
     command_request_forgotten: "Parece que falta tu solicitud de comando anterior. Por favor, comienza de nuevo y proporciona la información necesaria."
     unauthorized: "Parece que primero necesitas activar un token 🔑"
-    admin_only_command: "Este comando solo está disponible para administradores."
     feature_under_development: "Esta función aún está en desarrollo."
     token_not_found: "Lo siento, el token que proporcionaste no es válido. Puedes pedirle al administrador un token válido."
     token_used: "Lo siento, el token que proporcionaste ya ha sido utilizado."

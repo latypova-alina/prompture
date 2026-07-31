@@ -318,7 +318,6 @@ en:
     image_url_invalid: "The image link is invalid, or the URL may not contain an image ⚠️ \n\nPlease make sure the image at the URL is in JPEG, JPG, or PNG format, and send a valid direct image URL. Alternatively, you can send an image as a file 📁 or picture 🖼️"
     command_request_forgotten: "It seems like your previous command request is missing. Please start over and provide the necessary information."
     unauthorized: "Seems you need to activate a token first 🔑"
-    admin_only_command: "This command is available only for admins."
     feature_under_development: "This feature is still under development."
     token_not_found: "Sorry, the token you provided is invalid. You can ask administrator for a valid token."
     token_used: "Sorry, the token you provided has already been used."

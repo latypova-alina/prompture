@@ -8,7 +8,6 @@ module ErrorI18nResolver
     "ParentNotFoundError" => "errors.parent_not_found",
     "TokenNotFoundError" => "errors.token_not_found",
     "UnauthorizedError" => "errors.unauthorized",
-    "AdminOnlyCommandError" => "errors.admin_only_command",
     "FeatureUnderDevelopmentError" => "errors.feature_under_development",
     "TokenUsedError" => "errors.token_used",
     "TokenExpiredError" => "errors.token_expired",
