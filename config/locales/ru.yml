@@ -243,6 +243,7 @@ ru:
             many: "Lulu Lollipop (%{count} кредитов)"
             other: "Lulu Lollipop (%{count} кредитов)"
         get_audio_samples: "Примеры голосов"
+        send_as_separate_message: "Отправить отдельным сообщением"
         image_to_video:
           provide_prompt: "Указать промпт"
         generate_cartoon_video:

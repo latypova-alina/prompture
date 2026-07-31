@@ -29,7 +29,10 @@ describe MediaGenerator::ButtonRequestPresenters::VideoProcessedMessagePresenter
 
     it do
       is_expected.to eq(
-        [[{ callback_data: "kling_2_1_pro_image_to_video", text: "Regenerate (10 credits)" }]]
+        [
+          [{ callback_data: "kling_2_1_pro_image_to_video", text: "Regenerate (10 credits)" }],
+          [{ callback_data: "send_as_separate_message", text: "Send as a separate message" }]
+        ]
       )
     end
   end

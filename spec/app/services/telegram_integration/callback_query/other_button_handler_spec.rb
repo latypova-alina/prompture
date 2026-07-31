@@ -60,4 +60,24 @@ describe TelegramIntegration::CallbackQuery::OtherButtonHandler do
       expect(MediaGenerator::ButtonHandler::HandleButton).not_to have_received(:call)
     end
   end
+
+  context "when button_request is send_as_separate_message" do
+    let(:button_request) { ButtonActions::SEND_AS_SEPARATE_MESSAGE }
+
+    before do
+      allow(MediaGenerator::ButtonHandler::SendAsSeparateMessage)
+        .to receive(:call)
+        .and_return(success_result)
+      allow(MediaGenerator::ButtonHandler::HandleButton).to receive(:call)
+    end
+
+    it "calls SendAsSeparateMessage" do
+      call_handler
+
+      expect(MediaGenerator::ButtonHandler::SendAsSeparateMessage)
+        .to have_received(:call)
+        .with(chat_id:, tg_message_id:, callback_query_id:)
+      expect(MediaGenerator::ButtonHandler::HandleButton).not_to have_received(:call)
+    end
+  end
 end

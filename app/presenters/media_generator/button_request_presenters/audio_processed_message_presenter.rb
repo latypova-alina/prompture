@@ -22,7 +22,7 @@ module MediaGenerator
       end
 
       def inline_keyboard
-        []
+        Buttons::ForAudioMessage.build(locale:)
       end
 
       private

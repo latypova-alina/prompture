@@ -41,4 +41,8 @@ class ButtonVideoProcessingRequest < ApplicationRecord
   def persisted_video_url
     stored_video&.video_url || video_url
   end
+
+  def resolved_media_url
+    persisted_video_url
+  end
 end

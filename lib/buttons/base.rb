@@ -36,6 +36,13 @@ module Buttons
       }
     end
 
+    def send_as_separate_message_button
+      {
+        text: I18n.t("telegram_webhooks.message.buttons.send_as_separate_message", locale:),
+        callback_data: ButtonActions::SEND_AS_SEPARATE_MESSAGE
+      }
+    end
+
     def cost_for(scope, type)
       COSTS[scope.to_sym][type.to_sym]
     end

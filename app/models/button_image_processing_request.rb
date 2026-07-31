@@ -31,4 +31,8 @@ class ButtonImageProcessingRequest < ApplicationRecord
   def resolved_image_url
     stored_image_image_url || image_url
   end
+
+  def resolved_media_url
+    resolved_image_url
+  end
 end

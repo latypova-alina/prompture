@@ -7,7 +7,7 @@ module Buttons
       end
 
       def build
-        [regenerate_row, *processor_rows]
+        [regenerate_row, *processor_rows, [send_as_separate_message_button]]
       end
 
       private

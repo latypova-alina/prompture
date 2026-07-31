@@ -29,7 +29,10 @@ describe MediaGenerator::ButtonRequestPresenters::ImageProcessedMessage::ForProm
 
     it do
       is_expected.to eq(
-        [[{ callback_data: "flux_image", text: "Regenerate (1 credit)" }]]
+        [
+          [{ callback_data: "flux_image", text: "Regenerate (1 credit)" }],
+          [{ callback_data: "send_as_separate_message", text: "Send as a separate message" }]
+        ]
       )
     end
   end

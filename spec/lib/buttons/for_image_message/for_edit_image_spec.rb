@@ -6,9 +6,12 @@ describe Buttons::ForImageMessage::ForEditImage do
 
     let(:processor) { "nano_banana_edit_image" }
 
-    it "returns regenerate button row using edit image cost" do
+    it "returns regenerate and send-as-separate-message button rows using edit image cost" do
       expect(result).to eq(
-        [[{ callback_data: "nano_banana_edit_image", text: "Regenerate (1 credit)" }]]
+        [
+          [{ callback_data: "nano_banana_edit_image", text: "Regenerate (1 credit)" }],
+          [{ callback_data: "send_as_separate_message", text: "Send as a separate message" }]
+        ]
       )
     end
   end

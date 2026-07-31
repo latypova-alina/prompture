@@ -38,7 +38,8 @@ describe MediaGenerator::ButtonRequestPresenters::ImageProcessedMessage::ForProm
         [{ callback_data: "hailuo_02_standard_image_to_video",
            text: "Hailuo 02 Standard (6 credits)" }],
         [{ callback_data: "veo3_1_lite_image_to_video",
-           text: "Veo 3.1 Lite (5 credits)" }]
+           text: "Veo 3.1 Lite (5 credits)" }],
+        [{ callback_data: "send_as_separate_message", text: "Send as a separate message" }]
       ]
     end
 

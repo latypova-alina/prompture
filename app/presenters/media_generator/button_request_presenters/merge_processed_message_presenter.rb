@@ -21,7 +21,7 @@ module MediaGenerator
       end
 
       def inline_keyboard
-        []
+        Buttons::ForMergeMessage.build(locale:)
       end
 
       private

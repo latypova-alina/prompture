@@ -23,4 +23,8 @@ class ButtonMergeAudioVideoProcessingRequest < ApplicationRecord
   def humanized_process_name
     I18n.t("telegram.generation.humanized_process_names.merge.#{processor}", locale:)
   end
+
+  def resolved_media_url
+    video_url
+  end
 end

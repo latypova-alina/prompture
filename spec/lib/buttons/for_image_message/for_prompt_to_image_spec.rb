@@ -6,18 +6,24 @@ describe Buttons::ForImageMessage::ForPromptToImage do
 
     let(:processor) { "flux_image" }
 
-    it "returns regenerate button row" do
+    it "returns regenerate and send-as-separate-message button rows" do
       expect(result).to eq(
-        [[{ callback_data: "flux_image", text: "Regenerate (1 credit)" }]]
+        [
+          [{ callback_data: "flux_image", text: "Regenerate (1 credit)" }],
+          [{ callback_data: "send_as_separate_message", text: "Send as a separate message" }]
+        ]
       )
     end
 
     context "when locale is russian" do
       subject(:result) { described_class.build(processor:, locale: :ru) }
 
-      it "returns regenerate button row with russian pluralization" do
+      it "returns button rows with russian pluralization" do
         expect(result).to eq(
-          [[{ callback_data: "flux_image", text: "Сгенерировать снова (1 кредит)" }]]
+          [
+            [{ callback_data: "flux_image", text: "Сгенерировать снова (1 кредит)" }],
+            [{ callback_data: "send_as_separate_message", text: "Отправить отдельным сообщением" }]
+          ]
         )
       end
     end
