@@ -28,4 +28,8 @@ class ButtonAudioProcessingRequest < ApplicationRecord
   def humanized_process_name
     I18n.t("telegram.generation.humanized_process_names.audio.voices.#{voice}", locale:)
   end
+
+  def resolved_media_url
+    audio_url
+  end
 end

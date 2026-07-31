@@ -6,7 +6,7 @@ module Buttons
     end
 
     def build
-      [[regenerate_button]]
+      [[regenerate_button], [send_as_separate_message_button]]
     end
 
     private

@@ -7,4 +7,5 @@ module ButtonActions
   GENERATE_BLOOMY_COMPLEX_VIDEOS = "generate_bloomy_complex_videos".freeze
   CHECK_GENERATION_STATUS = "check_generation_status".freeze
   CANCEL_GENERATION = "cancel_generation".freeze
+  SEND_AS_SEPARATE_MESSAGE = "send_as_separate_message".freeze
 end

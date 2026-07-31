@@ -222,6 +222,7 @@ en:
             one: "Lulu Lollipop (%{count} credit)"
             other: "Lulu Lollipop (%{count} credits)"
         get_audio_samples: "Get samples"
+        send_as_separate_message: "Send as a separate message"
         image_to_video:
           provide_prompt: "Provide Prompt"
         generate_cartoon_video:
