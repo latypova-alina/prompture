@@ -13,7 +13,7 @@ module TgChatAuthorization
   end
 
   def authorize_admin
-    raise AdminOnlyCommandError unless admin_chat?
+    throw(:abort) unless admin_chat?
   end
 
   def allowed_chat?

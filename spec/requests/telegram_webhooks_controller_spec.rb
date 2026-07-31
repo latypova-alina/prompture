@@ -175,7 +175,7 @@ describe TelegramWebhooksController, telegram_bot: :rails do
     context "when user is not admin" do
       let(:admin) { false }
 
-      it { should respond_with_message(I18n.t("errors.admin_only_command")) }
+      it { should_not respond_with_message }
     end
   end
 
@@ -202,7 +202,7 @@ describe TelegramWebhooksController, telegram_bot: :rails do
       context "when user is not admin" do
         let(:admin) { false }
 
-        it { should respond_with_message(I18n.t("errors.admin_only_command")) }
+        it { should_not respond_with_message }
       end
     end
   end
@@ -231,7 +231,7 @@ describe TelegramWebhooksController, telegram_bot: :rails do
     context "when user is not admin" do
       let(:admin) { false }
 
-      it { should respond_with_message(I18n.t("errors.admin_only_command")) }
+      it { should_not respond_with_message }
     end
   end
 
@@ -256,7 +256,7 @@ describe TelegramWebhooksController, telegram_bot: :rails do
     context "when user is not admin" do
       let(:admin) { false }
 
-      it { is_expected.to respond_with_message(I18n.t("errors.admin_only_command")) }
+      it { is_expected.not_to respond_with_message }
     end
   end
 
@@ -281,7 +281,7 @@ describe TelegramWebhooksController, telegram_bot: :rails do
     context "when user is not admin" do
       let(:admin) { false }
 
-      it { is_expected.to respond_with_message(I18n.t("errors.admin_only_command")) }
+      it { is_expected.not_to respond_with_message }
     end
   end
 
@@ -306,7 +306,7 @@ describe TelegramWebhooksController, telegram_bot: :rails do
     context "when user is not admin" do
       let(:admin) { false }
 
-      it { is_expected.to respond_with_message(I18n.t("errors.admin_only_command")) }
+      it { is_expected.not_to respond_with_message }
     end
   end
 
@@ -331,7 +331,7 @@ describe TelegramWebhooksController, telegram_bot: :rails do
     context "when user is not admin" do
       let(:admin) { false }
 
-      it { is_expected.to respond_with_message(I18n.t("errors.admin_only_command")) }
+      it { is_expected.not_to respond_with_message }
     end
   end
 
@@ -359,7 +359,7 @@ describe TelegramWebhooksController, telegram_bot: :rails do
     context "when user is not admin" do
       let(:admin) { false }
 
-      it { is_expected.to respond_with_message(I18n.t("errors.admin_only_command")) }
+      it { is_expected.not_to respond_with_message }
     end
   end
 
@@ -384,7 +384,7 @@ describe TelegramWebhooksController, telegram_bot: :rails do
     context "when user is not admin" do
       let(:admin) { false }
 
-      it { is_expected.to respond_with_message(I18n.t("errors.admin_only_command")) }
+      it { is_expected.not_to respond_with_message }
     end
   end
 
@@ -399,7 +399,7 @@ describe TelegramWebhooksController, telegram_bot: :rails do
     context "when user is not admin" do
       let(:admin) { false }
 
-      it { is_expected.to respond_with_message(I18n.t("errors.admin_only_command")) }
+      it { is_expected.not_to respond_with_message }
     end
   end
 

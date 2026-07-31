@@ -18,10 +18,6 @@ describe ErrorI18nResolver do
       expect(resolver.resolve("ImageResolutionError")).to eq("errors.image_resolution")
     end
 
-    it "returns mapped i18n key for admin-only command error class" do
-      expect(resolver.resolve("AdminOnlyCommandError")).to eq("errors.admin_only_command")
-    end
-
     it "returns mapped i18n key for feature under development error class" do
       expect(resolver.resolve("FeatureUnderDevelopmentError")).to eq("errors.feature_under_development")
     end
