@@ -29,7 +29,10 @@ describe MediaGenerator::ButtonRequestPresenters::ImageProcessedMessage::ForEdit
 
     it do
       is_expected.to eq(
-        [[{ callback_data: "nano_banana_edit_image", text: "Regenerate (1 credit)" }]]
+        [
+          [{ callback_data: "nano_banana_edit_image", text: "Regenerate (1 credit)" }],
+          [{ callback_data: "send_as_separate_message", text: "Send as a separate message" }]
+        ]
       )
     end
   end
