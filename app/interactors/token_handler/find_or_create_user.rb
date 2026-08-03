@@ -1,9 +1,9 @@
 module TokenHandler
   class FindOrCreateUser
     include Interactor
-    include Memery
 
     delegate :chat_id, :name, :locale, to: :context
+    delegate :user, to: :resolver
 
     def call
       context.user = user
@@ -11,11 +11,8 @@ module TokenHandler
 
     private
 
-    memoize def user
-      User.find_or_create_by(chat_id:) do |u|
-        u.name = context.name || "User#{context.chat_id}"
-        u.locale = locale
-      end
+    def resolver
+      UserResolver.new(chat_id:, name:, locale:)
     end
   end
 end

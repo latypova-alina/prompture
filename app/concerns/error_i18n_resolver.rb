@@ -16,7 +16,8 @@ module ErrorI18nResolver
     "ImageResolutionError" => "errors.image_resolution",
     "ImageNotReadyError" => "errors.image_not_ready",
     "ScriptGeneratorRequestError" => "errors.script_generator_request_failed",
-    "TemplateNameError" => "errors.template_name_missing"
+    "TemplateNameError" => "errors.template_name_missing",
+    "PackNotFoundError" => "errors.pack_not_found"
   }.freeze
 
   DEFAULT_ERROR_I18N_KEY = "errors.unknown".freeze

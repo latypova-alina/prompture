@@ -5,6 +5,7 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
   include SessionAccessor
   include ErrorHandler
   include TgChatAuthorization
+  include StarsPayments
 
   def start!(token_code = nil)
     handled_token = TokenHandler::HandleToken.call(
@@ -121,15 +122,12 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
   end
 
   memoize def user
-    User.eager_load(:balance).find_by(chat_id: chat["id"])
+    User.eager_load(:balance).find_by(chat_id: chat&.dig("id") || from["id"])
   end
 
   def start_message_for(handled_token)
-    if handled_token.success?
-      t("telegram_webhooks.commands.start.with_valid_token",
-        credits: handled_token.token.credits)
-    else
-      t("telegram_webhooks.commands.start.no_token")
-    end
+    return t("telegram_webhooks.commands.start.no_token") unless handled_token.success?
+
+    t("telegram_webhooks.commands.start.with_valid_token", credits: handled_token.token.credits)
   end
 end

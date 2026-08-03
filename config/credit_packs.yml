@@ -1,0 +1,19 @@
+default: &default
+  small:
+    stars: 480
+    credits: 50
+  medium:
+    stars: 850
+    credits: 100
+  large:
+    stars: 1600
+    credits: 200
+
+development:
+  <<: *default
+
+test:
+  <<: *default
+
+production:
+  <<: *default

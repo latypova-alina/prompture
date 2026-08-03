@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2026_07_21_120000) do
+ActiveRecord::Schema[8.0].define(version: 2026_07_31_175915) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -255,6 +255,18 @@ ActiveRecord::Schema[8.0].define(version: 2026_07_21_120000) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "stars_purchases", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.string "telegram_payment_charge_id", null: false
+    t.string "pack_key", null: false
+    t.integer "stars_amount", null: false
+    t.integer "credits_amount", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["telegram_payment_charge_id"], name: "index_stars_purchases_on_telegram_payment_charge_id", unique: true
+    t.index ["user_id"], name: "index_stars_purchases_on_user_id"
+  end
+
   create_table "stored_images", force: :cascade do |t|
     t.string "image_url", null: false
     t.string "source_message_type", null: false
@@ -367,6 +379,7 @@ ActiveRecord::Schema[8.0].define(version: 2026_07_21_120000) do
   add_foreign_key "scenes", "image_prompts"
   add_foreign_key "scenes", "scripts"
   add_foreign_key "scenes", "video_prompts"
+  add_foreign_key "stars_purchases", "users"
   add_foreign_key "stored_images", "image_prompts"
   add_foreign_key "tokens", "users"
 end

@@ -19,12 +19,19 @@ module ErrorHandler
     rescue_from ImageNotReadyError, with: :handle_error
     rescue_from ScriptGeneratorRequestError, with: :handle_error
     rescue_from TemplateNameError, with: :handle_error
+    rescue_from PackNotFoundError, with: :handle_error
   end
 
   private
 
   def handle_error(error)
+    return reject_pre_checkout_query(error) if payload_type == "pre_checkout_query"
+
     respond_with :message, **message_data(error)
+  end
+
+  def reject_pre_checkout_query(error)
+    answer_pre_checkout_query(false, error_message: I18n.t(error_i18n_key(error.class.name)))
   end
 
   def message_data(error)

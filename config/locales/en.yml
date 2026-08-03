@@ -11,6 +11,7 @@ en:
         prompt_to_audio: "🔊 Prompt → audio"
         prompt_policy: "🛡 View prompt policy rules"
         set_locale: "🌐 Set language"
+        buy_credits: "⭐ Buy credits with Telegram Stars"
         image_to_video: "🖼🎬 Picture → video"
         first_last_frame_to_video: "🖼🎬 Start & end frame → video"
         edit_image: "🖼✏️ Edit image"
@@ -159,6 +160,17 @@ en:
       set_locale:
         ask: "Please select your preferred language:"
         locale_updated: "Your language has been updated 🌐"
+      buy_credits:
+        ask: "💳 Tap below to choose your credit pack"
+        open_store_button: "🛒 Open Store"
+        pack_title:
+          small: "50 Credits"
+          medium: "100 Credits"
+          large: "200 Credits"
+        pack_description: "%{credits} credits"
+        thank_you:
+          one: "🎉 Payment received! %{credits} credit has been added to your balance."
+          other: "🎉 Payment received! %{credits} credits have been added to your balance."
     message:
       image_message_url: "Here is your image"
       image_message_reply: "Great! You can now generate a video using one of the processors (Kling)"
@@ -327,6 +339,7 @@ en:
     script_generator_request_failed: "Script generator API request failed."
     template_name_missing: "Please provide a template name. Example: /generate_cats_script my_template."
     daily_limit_exceeded: "Sorry, the daily limit for this processor has been exceeded. Please try again tomorrow or choose another processor."
+    pack_not_found: "Sorry, this credit pack is no longer available. Please try /buy_credits again."
   telegram:
     generation:
       processing: Generating %{process_name}, please wait…
@@ -353,3 +366,11 @@ en:
             hope: "Hope audio"
             lulu_lollipop: "Lulu Lollipop audio"
 
+  mini_app:
+    buy_credits:
+      error: "Something went wrong. Please try /buy_credits again from the bot."
+      buy_button: "Buy"
+      pack_estimate:
+        small: "~5–10 videos or ~50 images"
+        medium: "~10–20 videos or ~100 images"
+        large: "~20–40 videos or ~200 images"

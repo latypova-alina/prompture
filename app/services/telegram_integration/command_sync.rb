@@ -11,6 +11,7 @@ module TelegramIntegration
       edit_image
       set_locale
       balance
+      buy_credits
       activate_token
       start
       help
