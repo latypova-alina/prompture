@@ -44,24 +44,40 @@ describe TelegramWebhooksController, telegram_bot: :rails do
         let(:token) { create(:token, :used) }
 
         it { should respond_with_message(expected_text) }
+
+        it "still creates a user" do
+          expect { subject.call }.to change(User, :count).by(1)
+        end
       end
 
       context "when token is invalid" do
         subject { -> { dispatch_command(:start, "invalid_token") } }
 
         it { should respond_with_message(expected_text) }
+
+        it "still creates a user" do
+          expect { subject.call }.to change(User, :count).by(1)
+        end
       end
 
       context "when token is missing" do
         subject { -> { dispatch_command(:start) } }
 
         it { should respond_with_message(expected_text) }
+
+        it "still creates a user" do
+          expect { subject.call }.to change(User, :count).by(1)
+        end
       end
 
       context "when token is expired" do
         let(:token) { create(:token, :expired) }
 
         it { should respond_with_message(expected_text) }
+
+        it "still creates a user" do
+          expect { subject.call }.to change(User, :count).by(1)
+        end
       end
     end
   end
@@ -409,6 +425,131 @@ describe TelegramWebhooksController, telegram_bot: :rails do
     subject { -> { user_message } }
 
     it_behaves_like "message handling"
+  end
+
+  describe "#buy_credits!" do
+    subject { -> { dispatch_command(:buy_credits) } }
+
+    context "when the feature is enabled" do
+      before { Flipper.enable(:stars_payments) }
+
+      let(:expected_text) { I18n.t("telegram_webhooks.commands.buy_credits.ask") }
+
+      it_behaves_like "command handling", command: :buy_credits
+    end
+
+    context "when the feature is disabled" do
+      let!(:user) { create(:user, :with_balance, chat_id: 456) }
+
+      it { should respond_with_message(I18n.t("errors.feature_under_development")) }
+    end
+  end
+
+  describe "#pre_checkout_query" do
+    let(:pack_key) { "medium" }
+    let(:pack) { CREDIT_PACKS[:medium] }
+    let!(:user) { create(:user, chat_id: from_id) }
+
+    let(:update) do
+      {
+        update_id: 1,
+        pre_checkout_query: {
+          id: "pcq_1",
+          from: { id: from_id },
+          currency: "XTR",
+          total_amount: pack[:stars],
+          invoice_payload: pack_key
+        }
+      }
+    end
+
+    context "when the pack exists" do
+      it "approves the checkout" do
+        expect { dispatch(update) }
+          .to make_telegram_request(bot, :answerPreCheckoutQuery)
+          .with(pre_checkout_query_id: "pcq_1", ok: true)
+      end
+    end
+
+    context "when the pack does not exist" do
+      let(:pack_key) { "unknown" }
+
+      it "rejects the checkout" do
+        expect { dispatch(update) }
+          .to make_telegram_request(bot, :answerPreCheckoutQuery)
+          .with(pre_checkout_query_id: "pcq_1", ok: false, error_message: I18n.t("errors.pack_not_found"))
+      end
+    end
+
+    context "when the user does not exist" do
+      let(:user) { nil }
+
+      it "rejects the checkout instead of crashing" do
+        expect { dispatch(update) }
+          .to make_telegram_request(bot, :answerPreCheckoutQuery)
+          .with(pre_checkout_query_id: "pcq_1", ok: false, error_message: I18n.t("errors.unauthorized"))
+      end
+    end
+  end
+
+  describe "#message with successful_payment" do
+    let(:pack_key) { "medium" }
+    let(:pack) { CREDIT_PACKS[:medium] }
+    let(:telegram_payment_charge_id) { "charge_abc" }
+
+    let(:update) do
+      {
+        update_id: 1,
+        message: {
+          message_id: 10,
+          date: Time.current.to_i,
+          chat: { id: chat_id, first_name: "Barbara" },
+          from: { id: from_id, first_name: "Barbara" },
+          successful_payment: {
+            currency: "XTR",
+            total_amount: pack[:stars],
+            invoice_payload: pack_key,
+            telegram_payment_charge_id:,
+            provider_payment_charge_id: ""
+          }
+        }
+      }
+    end
+
+    it "grants the pack's credits to the user" do
+      dispatch(update)
+
+      expect(User.find_by(chat_id:).balance.credits).to eq(pack[:credits])
+    end
+
+    it "creates a StarsPurchase record" do
+      expect { dispatch(update) }.to change(StarsPurchase, :count).by(1)
+    end
+
+    it "sends a thank you message" do
+      expected_text = I18n.t(
+        "telegram_webhooks.commands.buy_credits.thank_you",
+        credits: pack[:credits],
+        count: pack[:credits]
+      )
+
+      expect { dispatch(update) }
+        .to send_telegram_message(bot, expected_text, chat_id:)
+    end
+
+    context "when the same payment update is delivered twice" do
+      it "does not grant credits twice" do
+        dispatch(update)
+
+        expect { dispatch(update) }.not_to(change { User.find_by(chat_id:).balance.credits })
+      end
+
+      it "does not create a duplicate StarsPurchase" do
+        dispatch(update)
+
+        expect { dispatch(update) }.not_to change(StarsPurchase, :count)
+      end
+    end
   end
 
   describe "#balance", :callback_query do
