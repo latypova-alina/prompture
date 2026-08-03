@@ -81,6 +81,21 @@ describe MiniApp::BuyCreditsController, type: :request do
       end
     end
 
+    context "when the test_credit_pack flag is enabled for the user" do
+      let!(:user) { create(:user, chat_id: telegram_user_id, locale: "en") }
+
+      before { Flipper.enable(:test_credit_pack, user) }
+
+      it "returns the test packs, all priced at 1 star" do
+        make_request
+
+        body = JSON.parse(response.body)
+
+        expect(body["packs"].map { |p| p["key"] }).to match_array(TEST_CREDIT_PACKS.keys.map(&:to_s))
+        expect(body["packs"]).to all(include("stars" => 1))
+      end
+    end
+
     context "when the existing user has an unsupported locale" do
       let!(:user) { create(:user, chat_id: telegram_user_id, locale: "de") }
 

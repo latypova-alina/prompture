@@ -22,7 +22,13 @@ module MiniApp
     delegate :locale, to: :user, prefix: true
 
     memoize def pack_data_builder
-      StarsPayment::PackDataBuilder.new(locale:)
+      pack_data_builder_class.new(locale:)
+    end
+
+    def pack_data_builder_class
+      return StarsPayment::TestPackDataBuilder if Flipper.enabled?(:test_credit_pack, user)
+
+      StarsPayment::PackDataBuilder
     end
 
     memoize def validator

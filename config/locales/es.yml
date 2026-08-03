@@ -167,6 +167,7 @@ es:
           small: "50 Créditos"
           medium: "100 Créditos"
           large: "200 Créditos"
+          test: "🧪 Paquete de prueba"
         pack_description: "%{credits} créditos"
         thank_you:
           one: "🎉 ¡Pago recibido! Se ha añadido %{credits} crédito a tu saldo."
@@ -382,3 +383,4 @@ es:
         small: "~5–10 vídeos o ~50 imágenes"
         medium: "~10–20 vídeos o ~100 imágenes"
         large: "~20–40 vídeos o ~200 imágenes"
+        test: "solo desarrollo, 1 estrella"

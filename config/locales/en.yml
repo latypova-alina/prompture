@@ -167,6 +167,7 @@ en:
           small: "50 Credits"
           medium: "100 Credits"
           large: "200 Credits"
+          test: "🧪 Test Pack"
         pack_description: "%{credits} credits"
         thank_you:
           one: "🎉 Payment received! %{credits} credit has been added to your balance."
@@ -374,3 +375,4 @@ en:
         small: "~5–10 videos or ~50 images"
         medium: "~10–20 videos or ~100 images"
         large: "~20–40 videos or ~200 images"
+        test: "dev-only, 1 star"

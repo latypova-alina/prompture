@@ -11,6 +11,9 @@ default: &default
 
 development:
   <<: *default
+  test:
+    stars: 1
+    credits: 10
 
 test:
   <<: *default
