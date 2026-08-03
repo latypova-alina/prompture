@@ -17,9 +17,7 @@ module Generator
       attr_reader :processor, :button_request_id
 
       def webhook_host
-        return ENV["GENERATOR_WEBHOOK_BASE_URL"] unless Rails.env.production?
-
-        ENV["PRODUCTION_BASE_URL"]
+        PublicBaseUrl.resolve
       end
 
       def request_id_token

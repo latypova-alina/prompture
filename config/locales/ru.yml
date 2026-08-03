@@ -11,6 +11,7 @@ ru:
         prompt_to_audio: "🔊 Промпт → аудио"
         prompt_policy: "🛡 Правила промптов"
         set_locale: "🌐 Выбрать язык"
+        buy_credits: "⭐ Купить кредиты за Telegram Stars"
         image_to_video: "🖼🎬 Изображение → видео"
         first_last_frame_to_video: "🖼🎬 Начальный и конечный кадр → видео"
         edit_image: "🖼✏️ Редактировать изображение"
@@ -160,6 +161,20 @@ ru:
       set_locale:
         ask: "Пожалуйста, выбери язык:"
         locale_updated: "Ваш язык был обновлён 🌐"
+      buy_credits:
+        ask: "💳 Нажми ниже, чтобы выбрать пакет кредитов"
+        open_store_button: "🛒 Открыть магазин"
+        pack_title:
+          small: "50 кредитов"
+          medium: "100 кредитов"
+          large: "200 кредитов"
+          test: "🧪 Тестовый пакет"
+        pack_description: "%{credits} кредитов"
+        thank_you:
+          one: "🎉 Оплата получена! На твой баланс начислен %{credits} кредит."
+          few: "🎉 Оплата получена! На твой баланс начислено %{credits} кредита."
+          many: "🎉 Оплата получена! На твой баланс начислено %{credits} кредитов."
+          other: "🎉 Оплата получена! На твой баланс начислено %{credits} кредитов."
     message:
       image_message_url: "Вот твое изображение"
       image_message_reply: "Отлично! Теперь ты можешь сгенерировать видео с помощью одного из процессоров (Kling)"
@@ -368,6 +383,7 @@ ru:
     script_generator_request_failed: "Не удалось выполнить запрос к API генератора скриптов."
     template_name_missing: "Пожалуйста, укажи имя шаблона. Пример: /generate_cats_script my_template."
     daily_limit_exceeded: "К сожалению, дневной лимит для этого процессора исчерпан. Попробуй снова завтра или выбери другой процессор."
+    pack_not_found: "К сожалению, этот пакет кредитов больше недоступен. Попробуй снова через /buy_credits."
   telegram:
     generation:
       processing: "Генерируется %{process_name}, пожалуйста, подожди…"
@@ -393,3 +409,12 @@ ru:
             milo: "аудио Milo"
             hope: "аудио Hope"
             lulu_lollipop: "аудио Lulu Lollipop"
+  mini_app:
+    buy_credits:
+      error: "Что-то пошло не так. Попробуй снова через /buy_credits в боте."
+      buy_button: "Купить"
+      pack_estimate:
+        small: "~5–10 видео или ~50 изображений"
+        medium: "~10–20 видео или ~100 изображений"
+        large: "~20–40 видео или ~200 изображений"
+        test: "только для разработки, 1 звезда"

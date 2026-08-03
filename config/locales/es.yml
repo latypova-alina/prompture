@@ -11,6 +11,7 @@ es:
         prompt_to_audio: "🔊 Prompt → audio"
         prompt_policy: "🛡 Ver reglas de prompts"
         set_locale: "🌐 Cambiar idioma"
+        buy_credits: "⭐ Comprar créditos con Telegram Stars"
         image_to_video: "🖼🎬 Imagen → video"
         first_last_frame_to_video: "🖼🎬 Primer y último fotograma → video"
         edit_image: "🖼✏️ Editar imagen"
@@ -159,6 +160,18 @@ es:
       set_locale:
         ask: "Por favor, selecciona tu idioma preferido:"
         locale_updated: "Tu idioma ha sido actualizado 🌐"
+      buy_credits:
+        ask: "💳 Toca abajo para elegir tu paquete de créditos"
+        open_store_button: "🛒 Abrir tienda"
+        pack_title:
+          small: "50 Créditos"
+          medium: "100 Créditos"
+          large: "200 Créditos"
+          test: "🧪 Paquete de prueba"
+        pack_description: "%{credits} créditos"
+        thank_you:
+          one: "🎉 ¡Pago recibido! Se ha añadido %{credits} crédito a tu saldo."
+          other: "🎉 ¡Pago recibido! Se han añadido %{credits} créditos a tu saldo."
     message:
       image_message_url: "Aquí está tu imagen"
       image_message_reply: "¡Genial! Ahora puedes generar un video usando uno de los procesadores (Kling)"
@@ -327,6 +340,7 @@ es:
     script_generator_request_failed: "La solicitud al API del generador de scripts falló."
     template_name_missing: "Por favor, proporciona un nombre de plantilla. Ejemplo: /generate_cats_script my_template."
     daily_limit_exceeded: "Lo siento, se ha superado el limite diario para este procesador. Intentalo de nuevo manana o elige otro procesador."
+    pack_not_found: "Lo sentimos, este paquete de créditos ya no está disponible. Por favor, inténtalo de nuevo con /buy_credits."
   telegram:
     generation:
       processing: "Generando %{process_name}, por favor espera…"
@@ -361,3 +375,12 @@ es:
 
 
 
+  mini_app:
+    buy_credits:
+      error: "Algo salió mal. Por favor, inténtalo de nuevo con /buy_credits en el bot."
+      buy_button: "Comprar"
+      pack_estimate:
+        small: "~5–10 vídeos o ~50 imágenes"
+        medium: "~10–20 vídeos o ~100 imágenes"
+        large: "~20–40 vídeos o ~200 imágenes"
+        test: "solo desarrollo, 1 estrella"

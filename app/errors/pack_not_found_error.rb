@@ -1,0 +1,1 @@
+class PackNotFoundError < StandardError; end

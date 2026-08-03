@@ -9,6 +9,35 @@ describe TelegramIntegration::MessageDispatcher do
   let(:locale) { :en }
 
   describe ".call" do
+    context "when the message contains a successful_payment" do
+      let(:command) { nil }
+      let(:payment) do
+        {
+          "invoice_payload" => "medium",
+          "telegram_payment_charge_id" => "charge_abc",
+          "total_amount" => 450
+        }
+      end
+      let(:user_message) { { "successful_payment" => payment } }
+      let(:result) { double(failure?: false) }
+
+      it "calls StarsPayment::HandlePayment with correct arguments" do
+        expect(StarsPayment::HandlePayment)
+          .to receive(:call)
+          .with(
+            chat_id:,
+            name:,
+            locale:,
+            pack_key: "medium",
+            telegram_payment_charge_id: "charge_abc",
+            stars_amount: 450
+          )
+          .and_return(result)
+
+        subject
+      end
+    end
+
     context "when command is activate_token" do
       let(:command) { "activate_token" }
       let(:result) { double(failure?: false) }

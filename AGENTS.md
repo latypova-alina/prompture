@@ -7,7 +7,7 @@ Project guidance for AI/code agents working in this repository.
 
 - Prefer small, focused classes and methods.
 - Extract logic into dedicated classes early when a method starts doing multiple things.
-- Keep one responsibility per class.
+- One responsibility per class, always — if a class does more than one thing, split it, even if that means more small classes/files.
 - Prefer explicit orchestration classes that delegate work to helpers/services.
 - Prefer readable, linear flow over compact "smart" code.
 - When possible, use `blank?` for Rails presence checks.
@@ -15,7 +15,22 @@ Project guidance for AI/code agents working in this repository.
 ## API/style conventions
 
 - When using instance-style services, keep input as initializer args and expose clear public methods.
-- Use `delegate` for collaboration boundaries when it improves readability.
+- Default to `delegate` whenever possible for collaboration boundaries — prefer `delegate :attr, to: :object` over inline chained calls (`object.attr`) at each call site when a class reads an attribute off an associated object. Treat this as the default, not a case-by-case judgment call.
+
+  ```ruby
+  # Prefer
+  delegate :chat_id, :resolved_media_url, to: :parent_request, private: true
+
+  def call
+    Telegram.bot.send_message(chat_id:, text: resolved_media_url)
+  end
+
+  # Over
+  def call
+    Telegram.bot.send_message(chat_id: parent_request.chat_id, text: parent_request.resolved_media_url)
+  end
+  ```
+
 - Prefer memoization (`Memery` + `memoize def`) for repeat derived values inside an object.
 - Use `memoize` consistently for computed/helper methods that are reused within the same object lifecycle.
 

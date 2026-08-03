@@ -5,8 +5,8 @@ describe TokenHandler::HandleToken do
     it "organizes interactors in correct order" do
       expect(described_class.organized).to eq(
         [
-          TokenHandler::VerifyToken,
           TokenHandler::FindOrCreateUser,
+          TokenHandler::VerifyToken,
           TokenHandler::UpdateToken,
           TokenHandler::GrantCredits,
           TokenHandler::NotifyUser
