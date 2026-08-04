@@ -38,9 +38,7 @@ es:
           /activate_token
 
           ℹ️ Cada generación cuesta tintas 🖋️.
-          Para recargar tu saldo, usa /activate_token e introduce un token válido.
-
-          Los tokens son proporcionados por el administrador.
+          Para recargar tu saldo, usa /activate_token e introduce un token válido, o usa /buy_inks para comprar tintas con Telegram Stars.
         with_valid_token: |
           🤖 Con este bot puedes generar imágenes, videos y audio usando diferentes modelos de IA.
 
@@ -67,16 +65,35 @@ es:
         🎬 Para generar un video, escribe:
         /prompt_to_video
 
+        🖼🎬 Para convertir una imagen en video, escribe:
+        /image_to_video
+
+        🖼🎬 Para convertir un fotograma inicial y final en video, escribe:
+        /first_last_frame_to_video
+
+        🖼✏️ Para editar una imagen, escribe:
+        /edit_image
+
         💰 Para consultar tu saldo, escribe:
         /balance
 
         🔑 Para activar un token, escribe:
         /activate_token
 
-        ℹ️ Cada generación cuesta tintas 🖋️.
-        Para recargar tu saldo, usa /activate_token e introduce un token válido.
+        ⭐ Para comprar tintas 🖋️ con Telegram Stars, escribe:
+        /buy_inks
 
-        Los tokens son proporcionados por el administrador.
+        🌐 Para cambiar de idioma, escribe:
+        /set_locale
+
+        🛡 Para ver las reglas de prompts, escribe:
+        /prompt_policy
+
+        📩 Para contactar con soporte, escribe:
+        /contact_support
+
+        ℹ️ Cada generación cuesta tintas 🖋️.
+        Para recargar tu saldo, usa /activate_token e introduce un token válido, o usa /buy_inks para comprar tintas con Telegram Stars.
       admin: |
         Aquí están los comandos disponibles para administradores:
 
