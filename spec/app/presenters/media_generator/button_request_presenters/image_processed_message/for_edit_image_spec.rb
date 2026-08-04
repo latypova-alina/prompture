@@ -18,7 +18,7 @@ describe MediaGenerator::ButtonRequestPresenters::ImageProcessedMessage::ForEdit
             <a href="#{message}">Open image</a>
 
             ────────────
-            Your current balance is #{balance} credits.
+            Your current balance is #{balance} inks 🖋️✨.
           TEXT
         )
     end
@@ -30,7 +30,7 @@ describe MediaGenerator::ButtonRequestPresenters::ImageProcessedMessage::ForEdit
     it do
       is_expected.to eq(
         [
-          [{ callback_data: "nano_banana_edit_image", text: "Regenerate (1 credit)" }],
+          [{ callback_data: "nano_banana_edit_image", text: "Regenerate (1 ink 🖋️✨)" }],
           [{ callback_data: "send_as_separate_message", text: "Send as a separate message" }]
         ]
       )

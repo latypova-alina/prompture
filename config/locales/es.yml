@@ -12,7 +12,7 @@ es:
         prompt_policy: "🛡 Ver reglas de prompts"
         contact_support: "📩 Contactar con soporte"
         set_locale: "🌐 Cambiar idioma"
-        buy_credits: "⭐ Comprar créditos con Telegram Stars"
+        buy_credits: "⭐ Comprar tintas 🖋️✨ con Telegram Stars"
         image_to_video: "🖼🎬 Imagen → video"
         first_last_frame_to_video: "🖼🎬 Primer y último fotograma → video"
         edit_image: "🖼✏️ Editar imagen"
@@ -37,7 +37,7 @@ es:
           🔑 Para activar un token, escribe:
           /activate_token
 
-          ℹ️ Cada generación cuesta créditos.
+          ℹ️ Cada generación cuesta tintas 🖋️✨.
           Para recargar tu saldo, usa /activate_token e introduce un token válido.
 
           Los tokens son proporcionados por el administrador.
@@ -73,7 +73,7 @@ es:
         🔑 Para activar un token, escribe:
         /activate_token
 
-        ℹ️ Cada generación cuesta créditos.
+        ℹ️ Cada generación cuesta tintas 🖋️✨.
         Para recargar tu saldo, usa /activate_token e introduce un token válido.
 
         Los tokens son proporcionados por el administrador.
@@ -151,29 +151,29 @@ es:
         ♦️ No solicites contenido de odio o acoso.
       contact_support: "📩 ¿Necesitas ayuda? Escríbenos a %{support_email} y te responderemos."
       balance:
-        one: "Tu saldo actual es de %{balance} crédito."
-        other: "Tu saldo actual es de %{balance} créditos."
+        one: "Tu saldo actual es de %{balance} tinta 🖋️✨."
+        other: "Tu saldo actual es de %{balance} tintas 🖋️✨."
       activate_token:
         ask: "Por favor, introduce tu token para activarlo:"
         activated: |
           ✅ ¡Tu token ha sido activado correctamente!
 
-          🎉 Has recibido %{credits} créditos.
+          🎉 Has recibido %{credits} tintas 🖋️✨.
       set_locale:
         ask: "Por favor, selecciona tu idioma preferido:"
         locale_updated: "Tu idioma ha sido actualizado 🌐"
       buy_credits:
-        ask: "💳 Toca abajo para elegir tu paquete de créditos"
+        ask: "💳 Toca abajo para elegir tu paquete de tintas 🖋️✨"
         open_store_button: "🛒 Abrir tienda"
         pack_title:
-          small: "50 Créditos"
-          medium: "100 Créditos"
-          large: "200 Créditos"
+          small: "50 Tintas 🖋️✨"
+          medium: "100 Tintas 🖋️✨"
+          large: "200 Tintas 🖋️✨"
           test: "🧪 Paquete de prueba"
-        pack_description: "%{credits} créditos"
+        pack_description: "%{credits} tintas 🖋️✨"
         thank_you:
-          one: "🎉 ¡Pago recibido! Se ha añadido %{credits} crédito a tu saldo."
-          other: "🎉 ¡Pago recibido! Se han añadido %{credits} créditos a tu saldo."
+          one: "🎉 ¡Pago recibido! Se ha añadido %{credits} tinta 🖋️✨ a tu saldo."
+          other: "🎉 ¡Pago recibido! Se han añadido %{credits} tintas 🖋️✨ a tu saldo."
     message:
       image_message_url: "Aquí está tu imagen"
       image_message_reply: "¡Genial! Ahora puedes generar un video usando uno de los procesadores (Kling)"
@@ -205,72 +205,72 @@ es:
       buttons:
         prompt:
           extend_prompt:
-            one: "Extender prompt (%{count} crédito)"
-            other: "Extender prompt (%{count} créditos)"
+            one: "Extender prompt (%{count} tinta 🖋️✨)"
+            other: "Extender prompt (%{count} tintas 🖋️✨)"
         generate_image:
           flux_image:
-            one: "Flux (%{count} crédito)"
-            other: "Flux (%{count} créditos)"
+            one: "Flux (%{count} tinta 🖋️✨)"
+            other: "Flux (%{count} tintas 🖋️✨)"
           nano_banana_image:
-            one: "NanoBanana (%{count} crédito)"
-            other: "NanoBanana (%{count} créditos)"
+            one: "NanoBanana (%{count} tinta 🖋️✨)"
+            other: "NanoBanana (%{count} tintas 🖋️✨)"
           nano_banana_edit_image:
-            one: "NanoBanana Edit (%{count} crédito)"
-            other: "NanoBanana Edit (%{count} créditos)"
+            one: "NanoBanana Edit (%{count} tinta 🖋️✨)"
+            other: "NanoBanana Edit (%{count} tintas 🖋️✨)"
         generate_audio:
           adam:
-            one: "Adam (%{count} crédito)"
-            other: "Adam (%{count} créditos)"
+            one: "Adam (%{count} tinta 🖋️✨)"
+            other: "Adam (%{count} tintas 🖋️✨)"
           victoria:
-            one: "Victoria (%{count} crédito)"
-            other: "Victoria (%{count} créditos)"
+            one: "Victoria (%{count} tinta 🖋️✨)"
+            other: "Victoria (%{count} tintas 🖋️✨)"
           knox:
-            one: "Knox (%{count} crédito)"
-            other: "Knox (%{count} créditos)"
+            one: "Knox (%{count} tinta 🖋️✨)"
+            other: "Knox (%{count} tintas 🖋️✨)"
           milo:
-            one: "Milo (%{count} crédito)"
-            other: "Milo (%{count} créditos)"
+            one: "Milo (%{count} tinta 🖋️✨)"
+            other: "Milo (%{count} tintas 🖋️✨)"
           hope:
-            one: "Hope (%{count} crédito)"
-            other: "Hope (%{count} créditos)"
+            one: "Hope (%{count} tinta 🖋️✨)"
+            other: "Hope (%{count} tintas 🖋️✨)"
           lulu_lollipop:
-            one: "Lulu Lollipop (%{count} crédito)"
-            other: "Lulu Lollipop (%{count} créditos)"
+            one: "Lulu Lollipop (%{count} tinta 🖋️✨)"
+            other: "Lulu Lollipop (%{count} tintas 🖋️✨)"
         get_audio_samples: "Escuchar muestras"
         send_as_separate_message: "Enviar como mensaje aparte"
         image_to_video:
           provide_prompt: "Proporcionar prompt"
         generate_cartoon_video:
-          one: "Generar video (%{count} crédito)"
-          other: "Generar video (%{count} créditos)"
+          one: "Generar video (%{count} tinta 🖋️✨)"
+          other: "Generar video (%{count} tintas 🖋️✨)"
         generate_bloomy_complex_videos:
-          one: "Generar videos (%{count} crédito)"
-          other: "Generar videos (%{count} créditos)"
+          one: "Generar videos (%{count} tinta 🖋️✨)"
+          other: "Generar videos (%{count} tintas 🖋️✨)"
         generate_cartoon_audio:
-          one: "Generar audio (%{count} crédito)"
-          other: "Generar audio (%{count} créditos)"
+          one: "Generar audio (%{count} tinta 🖋️✨)"
+          other: "Generar audio (%{count} tintas 🖋️✨)"
         merge_cartoon_audio_video:
-          one: "Combinar audio con video (%{count} crédito)"
-          other: "Combinar audio con video (%{count} créditos)"
+          one: "Combinar audio con video (%{count} tinta 🖋️✨)"
+          other: "Combinar audio con video (%{count} tintas 🖋️✨)"
         regenerate_cartoon_script_image:
-          one: "Regenerar guion (%{count} crédito)"
-          other: "Regenerar guion (%{count} créditos)"
+          one: "Regenerar guion (%{count} tinta 🖋️✨)"
+          other: "Regenerar guion (%{count} tintas 🖋️✨)"
         generate_video:
           kling_2_1_pro_image_to_video:
-            one: "Kling Pro 2.1 (%{count} crédito)"
-            other: "Kling Pro 2.1 (%{count} créditos)"
+            one: "Kling Pro 2.1 (%{count} tinta 🖋️✨)"
+            other: "Kling Pro 2.1 (%{count} tintas 🖋️✨)"
           kling_3_standard_image_to_video:
-            one: "Kling 3 Standard (%{count} crédito)"
-            other: "Kling 3 Standard (%{count} créditos)"
+            one: "Kling 3 Standard (%{count} tinta 🖋️✨)"
+            other: "Kling 3 Standard (%{count} tintas 🖋️✨)"
           hailuo_02_standard_image_to_video:
-            one: "Hailuo 02 Standard (%{count} crédito)"
-            other: "Hailuo 02 Standard (%{count} créditos)"
+            one: "Hailuo 02 Standard (%{count} tinta 🖋️✨)"
+            other: "Hailuo 02 Standard (%{count} tintas 🖋️✨)"
           veo3_1_lite_image_to_video:
-            one: "Veo 3.1 Lite (%{count} crédito)"
-            other: "Veo 3.1 Lite (%{count} créditos)"
+            one: "Veo 3.1 Lite (%{count} tinta 🖋️✨)"
+            other: "Veo 3.1 Lite (%{count} tintas 🖋️✨)"
         regenerate:
-          one: "Regenerar (%{count} crédito)"
-          other: "Regenerar (%{count} créditos)"
+          one: "Regenerar (%{count} tinta 🖋️✨)"
+          other: "Regenerar (%{count} tintas 🖋️✨)"
         set_locale:
           en: "English"
           ru: "Русский"
@@ -337,12 +337,12 @@ es:
     token_not_found: "Lo siento, el token que proporcionaste no es válido. Puedes pedirle al administrador un token válido."
     token_used: "Lo siento, el token que proporcionaste ya ha sido utilizado."
     token_expired: "Lo siento, el token que proporcionaste ha expirado."
-    insufficient_credits: "Lo siento, parece que no tienes suficientes créditos para realizar esta acción 💰"
+    insufficient_credits: "Lo siento, parece que no tienes suficientes tintas 🖋️✨ para realizar esta acción 💰"
     moderation: "Tu mensaje no se puede procesar porque infringe nuestra politica de contenido. Revisa las reglas: /prompt_policy"
     script_generator_request_failed: "La solicitud al API del generador de scripts falló."
     template_name_missing: "Por favor, proporciona un nombre de plantilla. Ejemplo: /generate_cats_script my_template."
     daily_limit_exceeded: "Lo siento, se ha superado el limite diario para este procesador. Intentalo de nuevo manana o elige otro procesador."
-    pack_not_found: "Lo sentimos, este paquete de créditos ya no está disponible. Por favor, inténtalo de nuevo con /buy_credits."
+    pack_not_found: "Lo sentimos, este paquete de tintas 🖋️✨ ya no está disponible. Por favor, inténtalo de nuevo con /buy_credits."
   telegram:
     generation:
       processing: "Generando %{process_name}, por favor espera…"

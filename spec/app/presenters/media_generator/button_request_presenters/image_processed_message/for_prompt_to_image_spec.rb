@@ -18,7 +18,7 @@ describe MediaGenerator::ButtonRequestPresenters::ImageProcessedMessage::ForProm
             <a href="#{message}">Open image</a>
 
             ────────────
-            Your current balance is #{balance} credits.
+            Your current balance is #{balance} inks 🖋️✨.
           TEXT
         )
     end
@@ -30,7 +30,7 @@ describe MediaGenerator::ButtonRequestPresenters::ImageProcessedMessage::ForProm
     it do
       is_expected.to eq(
         [
-          [{ callback_data: "flux_image", text: "Regenerate (1 credit)" }],
+          [{ callback_data: "flux_image", text: "Regenerate (1 ink 🖋️✨)" }],
           [{ callback_data: "send_as_separate_message", text: "Send as a separate message" }]
         ]
       )
