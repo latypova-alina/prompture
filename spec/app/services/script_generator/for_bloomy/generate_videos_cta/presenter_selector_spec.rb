@@ -12,7 +12,7 @@ describe ScriptGenerator::ForBloomy::GenerateVideosCta::PresenterSelector do
     expect(reply_data[:reply_markup][:inline_keyboard]).to eq(
       [[{
         callback_data: ButtonActions::GENERATE_BLOOMY_COMPLEX_VIDEOS,
-        text: "Generate videos (12 inks 🖋️✨)"
+        text: "Generate videos (12 inks 🖋️)"
       }]]
     )
   end

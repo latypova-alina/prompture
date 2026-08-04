@@ -20,7 +20,7 @@ describe MediaGenerator::ButtonRequestPresenters::ImageProcessedMessage::ForProm
             You can now generate a video using one of the processors (Kling)
 
             ────────────
-            Your current balance is #{balance} inks 🖋️✨.
+            Your current balance is #{balance} inks 🖋️.
           TEXT
         )
     end
@@ -32,13 +32,13 @@ describe MediaGenerator::ButtonRequestPresenters::ImageProcessedMessage::ForProm
     let(:expected_buttons) do
       [
         [{ callback_data: "flux_image",
-           text: "Regenerate (1 ink 🖋️✨)" }],
+           text: "Regenerate (1 ink 🖋️)" }],
         [{ callback_data: "kling_2_1_pro_image_to_video",
-           text: "Kling Pro 2.1 (10 inks 🖋️✨)" }],
+           text: "Kling Pro 2.1 (10 inks 🖋️)" }],
         [{ callback_data: "hailuo_02_standard_image_to_video",
-           text: "Hailuo 02 Standard (6 inks 🖋️✨)" }],
+           text: "Hailuo 02 Standard (6 inks 🖋️)" }],
         [{ callback_data: "veo3_1_lite_image_to_video",
-           text: "Veo 3.1 Lite (5 inks 🖋️✨)" }],
+           text: "Veo 3.1 Lite (5 inks 🖋️)" }],
         [{ callback_data: "send_as_separate_message", text: "Send as a separate message" }]
       ]
     end

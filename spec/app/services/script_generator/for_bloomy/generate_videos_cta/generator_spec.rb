@@ -44,7 +44,7 @@ describe ScriptGenerator::ForBloomy::GenerateVideosCta::Generator do
       expect(args[:reply_data][:reply_markup][:inline_keyboard]).to eq(
         [[{
           callback_data: ButtonActions::GENERATE_BLOOMY_COMPLEX_VIDEOS,
-          text: "Generate videos (6 inks 🖋️✨)"
+          text: "Generate videos (6 inks 🖋️)"
         }]]
       )
     end

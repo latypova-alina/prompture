@@ -9,9 +9,9 @@ describe Buttons::ForImageMessage::ForScene do
   it "returns regenerate, regenerate script, and generate video buttons" do
     expect(subject).to eq(
       [
-        [{ callback_data: "nano_banana_edit_image", text: "Regenerate (1 ink 🖋️✨)" }],
-        [{ callback_data: "regenerate_single_cartoon_script_image", text: "Regenerate Script (1 ink 🖋️✨)" }],
-        [{ callback_data: "generate_cartoon_video", text: "Generate Video (5 inks 🖋️✨)" }]
+        [{ callback_data: "nano_banana_edit_image", text: "Regenerate (1 ink 🖋️)" }],
+        [{ callback_data: "regenerate_single_cartoon_script_image", text: "Regenerate Script (1 ink 🖋️)" }],
+        [{ callback_data: "generate_cartoon_video", text: "Generate Video (5 inks 🖋️)" }]
       ]
     )
   end
@@ -22,10 +22,10 @@ describe Buttons::ForImageMessage::ForScene do
     it "returns localized button labels" do
       expect(subject).to eq(
         [
-          [{ callback_data: "nano_banana_edit_image", text: "Сгенерировать снова (1 инк 🖋️✨)" }],
+          [{ callback_data: "nano_banana_edit_image", text: "Сгенерировать снова (1 инк 🖋️)" }],
           [{ callback_data: "regenerate_single_cartoon_script_image",
-             text: "Перегенерировать сценарий (1 инк 🖋️✨)" }],
-          [{ callback_data: "generate_cartoon_video", text: "Сгенерировать видео (5 инков 🖋️✨)" }]
+             text: "Перегенерировать сценарий (1 инк 🖋️)" }],
+          [{ callback_data: "generate_cartoon_video", text: "Сгенерировать видео (5 инков 🖋️)" }]
         ]
       )
     end

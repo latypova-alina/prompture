@@ -18,7 +18,7 @@ describe MediaGenerator::ButtonRequestPresenters::AudioProcessedMessagePresenter
             <a href="#{message}">Open audio</a>
 
             ────────────
-            Your current balance is #{balance} inks 🖋️✨.
+            Your current balance is #{balance} inks 🖋️.
           TEXT
         )
     end
