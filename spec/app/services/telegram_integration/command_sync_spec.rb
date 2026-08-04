@@ -58,7 +58,7 @@ describe TelegramIntegration::CommandSync do
         { command: "edit_image", description: "desc" },
         { command: "set_locale", description: "desc" },
         { command: "balance", description: "desc" },
-        { command: "buy_credits", description: "desc" },
+        { command: "buy_inks", description: "desc" },
         { command: "activate_token", description: "desc" },
         { command: "start", description: "desc" },
         { command: "help", description: "desc" },

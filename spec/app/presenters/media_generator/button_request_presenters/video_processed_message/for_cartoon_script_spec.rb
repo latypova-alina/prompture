@@ -14,8 +14,8 @@ describe MediaGenerator::ButtonRequestPresenters::VideoProcessedMessage::ForCart
     it "includes regenerate and generate audio buttons" do
       is_expected.to eq(
         [
-          [{ callback_data: "veo3_1_lite_image_to_video", text: "Regenerate (5 credits)" }],
-          [{ callback_data: "generate_cartoon_audio", text: "Generate Audio (1 credit)" }]
+          [{ callback_data: "veo3_1_lite_image_to_video", text: "Regenerate (5 inks 🖋️)" }],
+          [{ callback_data: "generate_cartoon_audio", text: "Generate Audio (1 ink 🖋️)" }]
         ]
       )
     end

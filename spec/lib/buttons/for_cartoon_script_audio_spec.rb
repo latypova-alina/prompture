@@ -8,7 +8,7 @@ describe Buttons::ForCartoonScriptAudio do
   it "builds merge audio to video button" do
     expect(result).to eq(
       [
-        [{ callback_data: "merge_cartoon_audio_video", text: "Merge Audio to Video (1 credit)" }]
+        [{ callback_data: "merge_cartoon_audio_video", text: "Merge Audio to Video (1 ink 🖋️)" }]
       ]
     )
   end

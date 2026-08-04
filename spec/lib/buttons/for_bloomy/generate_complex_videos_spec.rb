@@ -7,7 +7,7 @@ describe Buttons::ForBloomy::GenerateComplexVideos do
     expect(subject).to eq(
       [[{
         callback_data: "generate_bloomy_complex_videos",
-        text: "Generate videos (24 credits)"
+        text: "Generate videos (24 inks 🖋️)"
       }]]
     )
   end

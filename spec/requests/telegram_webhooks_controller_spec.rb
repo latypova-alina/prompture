@@ -12,7 +12,7 @@ describe TelegramWebhooksController, telegram_bot: :rails do
 
     context "when token is correct" do
       let(:expected_greeting_text) do
-        "Hello, Rihanna!\n\n✅ Your token has been successfully activated!\n\n🎉 You have received 100 credits.\n"
+        "Hello, Rihanna!\n\n✅ Your token has been successfully activated!\n\n🎉 You have received 100 inks 🖋️.\n"
       end
 
       let(:expected_default_text) do
@@ -468,15 +468,15 @@ describe TelegramWebhooksController, telegram_bot: :rails do
     it_behaves_like "message handling"
   end
 
-  describe "#buy_credits!" do
-    subject { -> { dispatch_command(:buy_credits) } }
+  describe "#buy_inks!" do
+    subject { -> { dispatch_command(:buy_inks) } }
 
     context "when the feature is enabled" do
       before { Flipper.enable(:stars_payments) }
 
-      let(:expected_text) { I18n.t("telegram_webhooks.commands.buy_credits.ask") }
+      let(:expected_text) { I18n.t("telegram_webhooks.commands.buy_inks.ask") }
 
-      it_behaves_like "command handling", command: :buy_credits
+      it_behaves_like "command handling", command: :buy_inks
     end
 
     context "when the feature is disabled" do
@@ -569,7 +569,7 @@ describe TelegramWebhooksController, telegram_bot: :rails do
 
     it "sends a thank you message" do
       expected_text = I18n.t(
-        "telegram_webhooks.commands.buy_credits.thank_you",
+        "telegram_webhooks.commands.buy_inks.thank_you",
         credits: pack[:credits],
         count: pack[:credits]
       )
@@ -595,7 +595,7 @@ describe TelegramWebhooksController, telegram_bot: :rails do
 
   describe "#balance", :callback_query do
     let(:expected_text) do
-      "Your current balance is 100 credits."
+      "Your current balance is 100 inks 🖋️."
     end
 
     it_behaves_like "command handling",

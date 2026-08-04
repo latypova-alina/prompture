@@ -10,7 +10,7 @@ describe StarsPayment::NotifyUser do
 
   let(:expected_text) do
     I18n.t(
-      "telegram_webhooks.commands.buy_credits.thank_you",
+      "telegram_webhooks.commands.buy_inks.thank_you",
       credits: stars_purchase.credits_amount,
       count: stars_purchase.credits_amount
     )

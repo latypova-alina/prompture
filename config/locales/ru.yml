@@ -12,7 +12,7 @@ ru:
         prompt_policy: "🛡 Правила промптов"
         contact_support: "📩 Связаться с поддержкой"
         set_locale: "🌐 Выбрать язык"
-        buy_credits: "⭐ Купить кредиты за Telegram Stars"
+        buy_inks: "⭐ Купить инки 🖋️ за Telegram Stars"
         image_to_video: "🖼🎬 Изображение → видео"
         first_last_frame_to_video: "🖼🎬 Начальный и конечный кадр → видео"
         edit_image: "🖼✏️ Редактировать изображение"
@@ -37,7 +37,7 @@ ru:
           🔑 Чтобы активировать токен, введи:
           /activate_token
 
-          ℹ️ Каждая генерация выполняется за кредиты.
+          ℹ️ Каждая генерация выполняется за инки 🖋️.
           Чтобы пополнить баланс, введи /activate_token и введи действительный токен.
 
           Токены предоставляются администратором.
@@ -73,7 +73,7 @@ ru:
         🔑 Чтобы активировать токен, введи:
           /activate_token
         
-        ℹ️ Каждая генерация выполняется за кредиты. Чтобы пополнить баланс, введи /activate_token и введи действительный токен.
+        ℹ️ Каждая генерация выполняется за инки 🖋️. Чтобы пополнить баланс, введи /activate_token и введи действительный токен.
 
         Токены предоставляются администратором.
       admin: |
@@ -150,33 +150,33 @@ ru:
         ♦️ Нельзя запрашивать контент с ненавистью или травлей.
       contact_support: "📩 Нужна помощь? Напишите нам на %{support_email}, и мы ответим."
       balance:
-        one: "Текущий баланс: %{balance} кредит."
-        few: "Текущий баланс: %{balance} кредита."
-        many: "Текущий баланс: %{balance} кредитов."
-        other: "Текущий баланс: %{balance} кредитов."
+        one: "Текущий баланс: %{balance} инк 🖋️."
+        few: "Текущий баланс: %{balance} инка 🖋️."
+        many: "Текущий баланс: %{balance} инков 🖋️."
+        other: "Текущий баланс: %{balance} инков 🖋️."
       activate_token:
         ask: "Введи токен для активации:"
         activated: |
           ✅ Токен успешно активирован!
 
-          🎉 На твой баланс начислено %{credits} кредитов.
+          🎉 На твой баланс начислено %{credits} инков 🖋️.
       set_locale:
         ask: "Пожалуйста, выбери язык:"
         locale_updated: "Ваш язык был обновлён 🌐"
-      buy_credits:
-        ask: "💳 Нажми ниже, чтобы выбрать пакет кредитов"
+      buy_inks:
+        ask: "💳 Нажми ниже, чтобы выбрать пакет инков 🖋️"
         open_store_button: "🛒 Открыть магазин"
         pack_title:
-          small: "50 кредитов"
-          medium: "100 кредитов"
-          large: "200 кредитов"
+          small: "50 инков 🖋️"
+          medium: "100 инков 🖋️"
+          large: "200 инков 🖋️"
           test: "🧪 Тестовый пакет"
-        pack_description: "%{credits} кредитов"
+        pack_description: "%{credits} инков 🖋️"
         thank_you:
-          one: "🎉 Оплата получена! На твой баланс начислен %{credits} кредит."
-          few: "🎉 Оплата получена! На твой баланс начислено %{credits} кредита."
-          many: "🎉 Оплата получена! На твой баланс начислено %{credits} кредитов."
-          other: "🎉 Оплата получена! На твой баланс начислено %{credits} кредитов."
+          one: "🎉 Оплата получена! На твой баланс начислен %{credits} инк 🖋️."
+          few: "🎉 Оплата получена! На твой баланс начислено %{credits} инка 🖋️."
+          many: "🎉 Оплата получена! На твой баланс начислено %{credits} инков 🖋️."
+          other: "🎉 Оплата получена! На твой баланс начислено %{credits} инков 🖋️."
     message:
       image_message_url: "Вот твое изображение"
       image_message_reply: "Отлично! Теперь ты можешь сгенерировать видео с помощью одного из процессоров (Kling)"
@@ -208,112 +208,112 @@ ru:
       buttons:
         prompt:
           extend_prompt:
-            one: "Расширить промпт (%{count} кредит)"
-            few: "Расширить промпт (%{count} кредита)"
-            many: "Расширить промпт (%{count} кредитов)"
-            other: "Расширить промпт (%{count} кредитов)"
+            one: "Расширить промпт (%{count} инк 🖋️)"
+            few: "Расширить промпт (%{count} инка 🖋️)"
+            many: "Расширить промпт (%{count} инков 🖋️)"
+            other: "Расширить промпт (%{count} инков 🖋️)"
         generate_image:
           flux_image:
-            one: "Flux (%{count} кредит)"
-            few: "Flux (%{count} кредита)"
-            many: "Flux (%{count} кредитов)"
-            other: "Flux (%{count} кредитов)"
+            one: "Flux (%{count} инк 🖋️)"
+            few: "Flux (%{count} инка 🖋️)"
+            many: "Flux (%{count} инков 🖋️)"
+            other: "Flux (%{count} инков 🖋️)"
           nano_banana_image:
-            one: "NanoBanana (%{count} кредит)"
-            few: "NanoBanana (%{count} кредита)"
-            many: "NanoBanana (%{count} кредитов)"
-            other: "NanoBanana (%{count} кредитов)"
+            one: "NanoBanana (%{count} инк 🖋️)"
+            few: "NanoBanana (%{count} инка 🖋️)"
+            many: "NanoBanana (%{count} инков 🖋️)"
+            other: "NanoBanana (%{count} инков 🖋️)"
           nano_banana_edit_image:
-            one: "NanoBanana Edit (%{count} кредит)"
-            few: "NanoBanana Edit (%{count} кредита)"
-            many: "NanoBanana Edit (%{count} кредитов)"
-            other: "NanoBanana Edit (%{count} кредитов)"
+            one: "NanoBanana Edit (%{count} инк 🖋️)"
+            few: "NanoBanana Edit (%{count} инка 🖋️)"
+            many: "NanoBanana Edit (%{count} инков 🖋️)"
+            other: "NanoBanana Edit (%{count} инков 🖋️)"
         generate_audio:
           adam:
-            one: "Adam (%{count} кредит)"
-            few: "Adam (%{count} кредита)"
-            many: "Adam (%{count} кредитов)"
-            other: "Adam (%{count} кредитов)"
+            one: "Adam (%{count} инк 🖋️)"
+            few: "Adam (%{count} инка 🖋️)"
+            many: "Adam (%{count} инков 🖋️)"
+            other: "Adam (%{count} инков 🖋️)"
           victoria:
-            one: "Victoria (%{count} кредит)"
-            few: "Victoria (%{count} кредита)"
-            many: "Victoria (%{count} кредитов)"
-            other: "Victoria (%{count} кредитов)"
+            one: "Victoria (%{count} инк 🖋️)"
+            few: "Victoria (%{count} инка 🖋️)"
+            many: "Victoria (%{count} инков 🖋️)"
+            other: "Victoria (%{count} инков 🖋️)"
           knox:
-            one: "Knox (%{count} кредит)"
-            few: "Knox (%{count} кредита)"
-            many: "Knox (%{count} кредитов)"
-            other: "Knox (%{count} кредитов)"
+            one: "Knox (%{count} инк 🖋️)"
+            few: "Knox (%{count} инка 🖋️)"
+            many: "Knox (%{count} инков 🖋️)"
+            other: "Knox (%{count} инков 🖋️)"
           milo:
-            one: "Milo (%{count} кредит)"
-            few: "Milo (%{count} кредита)"
-            many: "Milo (%{count} кредитов)"
-            other: "Milo (%{count} кредитов)"
+            one: "Milo (%{count} инк 🖋️)"
+            few: "Milo (%{count} инка 🖋️)"
+            many: "Milo (%{count} инков 🖋️)"
+            other: "Milo (%{count} инков 🖋️)"
           hope:
-            one: "Hope (%{count} кредит)"
-            few: "Hope (%{count} кредита)"
-            many: "Hope (%{count} кредитов)"
-            other: "Hope (%{count} кредитов)"
+            one: "Hope (%{count} инк 🖋️)"
+            few: "Hope (%{count} инка 🖋️)"
+            many: "Hope (%{count} инков 🖋️)"
+            other: "Hope (%{count} инков 🖋️)"
           lulu_lollipop:
-            one: "Lulu Lollipop (%{count} кредит)"
-            few: "Lulu Lollipop (%{count} кредита)"
-            many: "Lulu Lollipop (%{count} кредитов)"
-            other: "Lulu Lollipop (%{count} кредитов)"
+            one: "Lulu Lollipop (%{count} инк 🖋️)"
+            few: "Lulu Lollipop (%{count} инка 🖋️)"
+            many: "Lulu Lollipop (%{count} инков 🖋️)"
+            other: "Lulu Lollipop (%{count} инков 🖋️)"
         get_audio_samples: "Примеры голосов"
         send_as_separate_message: "Отправить отдельным сообщением"
         image_to_video:
           provide_prompt: "Указать промпт"
         generate_cartoon_video:
-          one: "Сгенерировать видео (%{count} кредит)"
-          few: "Сгенерировать видео (%{count} кредита)"
-          many: "Сгенерировать видео (%{count} кредитов)"
-          other: "Сгенерировать видео (%{count} кредитов)"
+          one: "Сгенерировать видео (%{count} инк 🖋️)"
+          few: "Сгенерировать видео (%{count} инка 🖋️)"
+          many: "Сгенерировать видео (%{count} инков 🖋️)"
+          other: "Сгенерировать видео (%{count} инков 🖋️)"
         generate_bloomy_complex_videos:
-          one: "Сгенерировать видео (%{count} кредит)"
-          few: "Сгенерировать видео (%{count} кредита)"
-          many: "Сгенерировать видео (%{count} кредитов)"
-          other: "Сгенерировать видео (%{count} кредитов)"
+          one: "Сгенерировать видео (%{count} инк 🖋️)"
+          few: "Сгенерировать видео (%{count} инка 🖋️)"
+          many: "Сгенерировать видео (%{count} инков 🖋️)"
+          other: "Сгенерировать видео (%{count} инков 🖋️)"
         generate_cartoon_audio:
-          one: "Сгенерировать аудио (%{count} кредит)"
-          few: "Сгенерировать аудио (%{count} кредита)"
-          many: "Сгенерировать аудио (%{count} кредитов)"
-          other: "Сгенерировать аудио (%{count} кредитов)"
+          one: "Сгенерировать аудио (%{count} инк 🖋️)"
+          few: "Сгенерировать аудио (%{count} инка 🖋️)"
+          many: "Сгенерировать аудио (%{count} инков 🖋️)"
+          other: "Сгенерировать аудио (%{count} инков 🖋️)"
         merge_cartoon_audio_video:
-          one: "Объединить аудио с видео (%{count} кредит)"
-          few: "Объединить аудио с видео (%{count} кредита)"
-          many: "Объединить аудио с видео (%{count} кредитов)"
-          other: "Объединить аудио с видео (%{count} кредитов)"
+          one: "Объединить аудио с видео (%{count} инк 🖋️)"
+          few: "Объединить аудио с видео (%{count} инка 🖋️)"
+          many: "Объединить аудио с видео (%{count} инков 🖋️)"
+          other: "Объединить аудио с видео (%{count} инков 🖋️)"
         regenerate_cartoon_script_image:
-          one: "Перегенерировать сценарий (%{count} кредит)"
-          few: "Перегенерировать сценарий (%{count} кредита)"
-          many: "Перегенерировать сценарий (%{count} кредитов)"
-          other: "Перегенерировать сценарий (%{count} кредитов)"
+          one: "Перегенерировать сценарий (%{count} инк 🖋️)"
+          few: "Перегенерировать сценарий (%{count} инка 🖋️)"
+          many: "Перегенерировать сценарий (%{count} инков 🖋️)"
+          other: "Перегенерировать сценарий (%{count} инков 🖋️)"
         generate_video:
           kling_2_1_pro_image_to_video:
-            one: "Kling Pro 2.1 (%{count} кредит)"
-            few: "Kling Pro 2.1 (%{count} кредита)"
-            many: "Kling Pro 2.1 (%{count} кредитов)"
-            other: "Kling Pro 2.1 (%{count} кредитов)"
+            one: "Kling Pro 2.1 (%{count} инк 🖋️)"
+            few: "Kling Pro 2.1 (%{count} инка 🖋️)"
+            many: "Kling Pro 2.1 (%{count} инков 🖋️)"
+            other: "Kling Pro 2.1 (%{count} инков 🖋️)"
           kling_3_standard_image_to_video:
-            one: "Kling 3 Standard (%{count} кредит)"
-            few: "Kling 3 Standard (%{count} кредита)"
-            many: "Kling 3 Standard (%{count} кредитов)"
-            other: "Kling 3 Standard (%{count} кредитов)"
+            one: "Kling 3 Standard (%{count} инк 🖋️)"
+            few: "Kling 3 Standard (%{count} инка 🖋️)"
+            many: "Kling 3 Standard (%{count} инков 🖋️)"
+            other: "Kling 3 Standard (%{count} инков 🖋️)"
           hailuo_02_standard_image_to_video:
-            one: "Hailuo 02 Standard (%{count} кредит)"
-            few: "Hailuo 02 Standard (%{count} кредита)"
-            many: "Hailuo 02 Standard (%{count} кредитов)"
-            other: "Hailuo 02 Standard (%{count} кредитов)"
+            one: "Hailuo 02 Standard (%{count} инк 🖋️)"
+            few: "Hailuo 02 Standard (%{count} инка 🖋️)"
+            many: "Hailuo 02 Standard (%{count} инков 🖋️)"
+            other: "Hailuo 02 Standard (%{count} инков 🖋️)"
           veo3_1_lite_image_to_video:
-            one: "Veo 3.1 Lite (%{count} кредит)"
-            few: "Veo 3.1 Lite (%{count} кредита)"
-            many: "Veo 3.1 Lite (%{count} кредитов)"
-            other: "Veo 3.1 Lite (%{count} кредитов)"
+            one: "Veo 3.1 Lite (%{count} инк 🖋️)"
+            few: "Veo 3.1 Lite (%{count} инка 🖋️)"
+            many: "Veo 3.1 Lite (%{count} инков 🖋️)"
+            other: "Veo 3.1 Lite (%{count} инков 🖋️)"
         regenerate:
-          one: "Сгенерировать снова (%{count} кредит)"
-          few: "Сгенерировать снова (%{count} кредита)"
-          many: "Сгенерировать снова (%{count} кредитов)"
-          other: "Сгенерировать снова (%{count} кредитов)"
+          one: "Сгенерировать снова (%{count} инк 🖋️)"
+          few: "Сгенерировать снова (%{count} инка 🖋️)"
+          many: "Сгенерировать снова (%{count} инков 🖋️)"
+          other: "Сгенерировать снова (%{count} инков 🖋️)"
         set_locale:
           en: "English"
           ru: "Русский"
@@ -380,12 +380,12 @@ ru:
     token_not_found: "К сожалению, указанный токен недействителен. Ты можешь запросить действительный токен у администратора."
     token_used: "К сожалению, указанный токен уже был использован."
     token_expired: "К сожалению, срок действия указанного токена истёк."
-    insufficient_credits: "К сожалению, на балансе недостаточно кредитов для выполнения этого действия :("
+    insufficient_credits: "К сожалению, на балансе недостаточно инков 🖋️ для выполнения этого действия :("
     moderation: "Ваше сообщение не может быть обработано, так как нарушает правила контента. Смотрите правила: /prompt_policy"
     script_generator_request_failed: "Не удалось выполнить запрос к API генератора скриптов."
     template_name_missing: "Пожалуйста, укажи имя шаблона. Пример: /generate_cats_script my_template."
     daily_limit_exceeded: "К сожалению, дневной лимит для этого процессора исчерпан. Попробуй снова завтра или выбери другой процессор."
-    pack_not_found: "К сожалению, этот пакет кредитов больше недоступен. Попробуй снова через /buy_credits."
+    pack_not_found: "К сожалению, этот пакет инков 🖋️ больше недоступен. Попробуй снова через /buy_inks."
   telegram:
     generation:
       processing: "Генерируется %{process_name}, пожалуйста, подожди…"
@@ -412,8 +412,8 @@ ru:
             hope: "аудио Hope"
             lulu_lollipop: "аудио Lulu Lollipop"
   mini_app:
-    buy_credits:
-      error: "Что-то пошло не так. Попробуй снова через /buy_credits в боте."
+    buy_inks:
+      error: "Что-то пошло не так. Попробуй снова через /buy_inks в боте."
       buy_button: "Купить"
       pack_estimate:
         small: "~5–10 видео или ~50 изображений"

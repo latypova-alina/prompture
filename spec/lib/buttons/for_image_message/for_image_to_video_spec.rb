@@ -8,11 +8,11 @@ describe Buttons::ForImageMessage::ForImageToVideo do
       [
         [{ callback_data: "provide_prompt", text: "Provide Prompt" }],
         [{ callback_data: "kling_2_1_pro_image_to_video",
-           text: "Kling Pro 2.1 (10 credits)" }],
+           text: "Kling Pro 2.1 (10 inks 🖋️)" }],
         [{ callback_data: "hailuo_02_standard_image_to_video",
-           text: "Hailuo 02 Standard (6 credits)" }],
+           text: "Hailuo 02 Standard (6 inks 🖋️)" }],
         [{ callback_data: "veo3_1_lite_image_to_video",
-           text: "Veo 3.1 Lite (5 credits)" }]
+           text: "Veo 3.1 Lite (5 inks 🖋️)" }]
       ]
     )
   end
@@ -25,11 +25,11 @@ describe Buttons::ForImageMessage::ForImageToVideo do
         [
           [{ callback_data: "provide_prompt", text: "Указать промпт" }],
           [{ callback_data: "kling_2_1_pro_image_to_video",
-             text: "Kling Pro 2.1 (10 кредитов)" }],
+             text: "Kling Pro 2.1 (10 инков 🖋️)" }],
           [{ callback_data: "hailuo_02_standard_image_to_video",
-             text: "Hailuo 02 Standard (6 кредитов)" }],
+             text: "Hailuo 02 Standard (6 инков 🖋️)" }],
           [{ callback_data: "veo3_1_lite_image_to_video",
-             text: "Veo 3.1 Lite (5 кредитов)" }]
+             text: "Veo 3.1 Lite (5 инков 🖋️)" }]
         ]
       )
     end
