@@ -94,13 +94,22 @@ describe TelegramWebhooksController, telegram_bot: :rails do
 
   describe "#help!" do
     subject { -> { dispatch_command(:help) } }
-    let!(:user) { create(:user, :with_balance, chat_id: 456) }
 
     let(:expected_text) do
       I18n.t("telegram_webhooks.commands.help")
     end
 
-    it { should respond_with_message(expected_text) }
+    context "when chat is authorized" do
+      let!(:user) { create(:user, :with_balance, chat_id: 456) }
+
+      it { should respond_with_message(expected_text) }
+    end
+
+    context "when chat is not authorized" do
+      let(:chat_id) { 999 }
+
+      it { should respond_with_message(expected_text) }
+    end
   end
 
   describe "#prompt_policy!" do
@@ -110,15 +119,27 @@ describe TelegramWebhooksController, telegram_bot: :rails do
       I18n.t("telegram_webhooks.commands.prompt_policy")
     end
 
-    it_behaves_like "command handling",
-                    command: :prompt_policy
+    context "when chat is authorized" do
+      let!(:user) { create(:user, :with_balance, chat_id: 456) }
+
+      it { should respond_with_message(expected_text) }
+    end
+
+    context "when chat is not authorized" do
+      let(:chat_id) { 999 }
+
+      it { should respond_with_message(expected_text) }
+    end
   end
 
   describe "#contact_support!" do
     subject { -> { dispatch_command(:contact_support) } }
 
     let(:expected_text) do
-      I18n.t("telegram_webhooks.commands.contact_support")
+      I18n.t(
+        "telegram_webhooks.commands.contact_support",
+        support_email: Rails.application.config.x.support_email
+      )
     end
 
     context "when chat is authorized" do
