@@ -23,8 +23,8 @@ RSpec.shared_examples "message handling" do
       {
         inline_keyboard: [
           [{ text: "Extend prompt (1 ink 🖋️)", callback_data: "extend_prompt" }],
-          [{ text: "Flux (1 ink 🖋️)", callback_data: "flux_image" }],
-          [{ text: "NanoBanana (1 ink 🖋️)", callback_data: "nano_banana_image" }]
+          [{ text: "Flux 2 Pro (1 ink 🖋️)", callback_data: "flux_image" }],
+          [{ text: "NanoBanana 2 (1 ink 🖋️)", callback_data: "nano_banana_image" }]
         ]
       }
     end
