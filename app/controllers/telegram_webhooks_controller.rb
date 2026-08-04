@@ -33,7 +33,7 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
   end
 
   def contact_support!(*)
-    respond_with :message, text: I18n.t("telegram_webhooks.commands.contact_support")
+    respond_with :message, text: t("telegram_webhooks.commands.contact_support", support_email:)
   end
 
   def message(user_message)

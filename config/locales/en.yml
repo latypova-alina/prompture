@@ -149,7 +149,7 @@ en:
         ♦️ Do not request graphic violence, self-harm, or dangerous wrongdoing.
 
         ♦️ Do not request hateful or harassing content.
-      contact_support: "📩 Need help? Write to us at support@prompturebot.com and we'll get back to you."
+      contact_support: "📩 Need help? Write to us at %{support_email} and we'll get back to you."
       balance:
         one: "Your current balance is %{balance} credit."
         other: "Your current balance is %{balance} credits."

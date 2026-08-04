@@ -149,7 +149,7 @@ es:
         ♦️ No solicites violencia grafica, autolesiones o actos peligrosos e ilegales.
 
         ♦️ No solicites contenido de odio o acoso.
-      contact_support: "📩 ¿Necesitas ayuda? Escríbenos a support@prompturebot.com y te responderemos."
+      contact_support: "📩 ¿Necesitas ayuda? Escríbenos a %{support_email} y te responderemos."
       balance:
         one: "Tu saldo actual es de %{balance} crédito."
         other: "Tu saldo actual es de %{balance} créditos."
