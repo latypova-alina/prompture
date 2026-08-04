@@ -1,7 +1,7 @@
 module StarsPayments
   extend ActiveSupport::Concern
 
-  def buy_credits!(*)
+  def buy_inks!(*)
     raise FeatureUnderDevelopmentError unless Flipper.enabled?(:stars_payments, user)
 
     StarsPayment::CommandHandler::HandleCommand.call(

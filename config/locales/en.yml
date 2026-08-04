@@ -12,7 +12,7 @@ en:
         prompt_policy: "🛡 View prompt policy rules"
         contact_support: "📩 Contact support"
         set_locale: "🌐 Set language"
-        buy_credits: "⭐ Buy inks 🖋️✨ with Telegram Stars"
+        buy_inks: "⭐ Buy inks 🖋️✨ with Telegram Stars"
         image_to_video: "🖼🎬 Picture → video"
         first_last_frame_to_video: "🖼🎬 Start & end frame → video"
         edit_image: "🖼✏️ Edit image"
@@ -162,7 +162,7 @@ en:
       set_locale:
         ask: "Please select your preferred language:"
         locale_updated: "Your language has been updated 🌐"
-      buy_credits:
+      buy_inks:
         ask: "💳 Tap below to choose your ink 🖋️✨ pack"
         open_store_button: "🛒 Open Store"
         pack_title:
@@ -342,7 +342,7 @@ en:
     script_generator_request_failed: "Script generator API request failed."
     template_name_missing: "Please provide a template name. Example: /generate_cats_script my_template."
     daily_limit_exceeded: "Sorry, the daily limit for this processor has been exceeded. Please try again tomorrow or choose another processor."
-    pack_not_found: "Sorry, this ink 🖋️✨ pack is no longer available. Please try /buy_credits again."
+    pack_not_found: "Sorry, this ink 🖋️✨ pack is no longer available. Please try /buy_inks again."
   telegram:
     generation:
       processing: Generating %{process_name}, please wait…
@@ -370,8 +370,8 @@ en:
             lulu_lollipop: "Lulu Lollipop audio"
 
   mini_app:
-    buy_credits:
-      error: "Something went wrong. Please try /buy_credits again from the bot."
+    buy_inks:
+      error: "Something went wrong. Please try /buy_inks again from the bot."
       buy_button: "Buy"
       pack_estimate:
         small: "~5–10 videos or ~50 images"

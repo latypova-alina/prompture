@@ -12,7 +12,7 @@ es:
         prompt_policy: "🛡 Ver reglas de prompts"
         contact_support: "📩 Contactar con soporte"
         set_locale: "🌐 Cambiar idioma"
-        buy_credits: "⭐ Comprar tintas 🖋️✨ con Telegram Stars"
+        buy_inks: "⭐ Comprar tintas 🖋️✨ con Telegram Stars"
         image_to_video: "🖼🎬 Imagen → video"
         first_last_frame_to_video: "🖼🎬 Primer y último fotograma → video"
         edit_image: "🖼✏️ Editar imagen"
@@ -162,7 +162,7 @@ es:
       set_locale:
         ask: "Por favor, selecciona tu idioma preferido:"
         locale_updated: "Tu idioma ha sido actualizado 🌐"
-      buy_credits:
+      buy_inks:
         ask: "💳 Toca abajo para elegir tu paquete de tintas 🖋️✨"
         open_store_button: "🛒 Abrir tienda"
         pack_title:
@@ -342,7 +342,7 @@ es:
     script_generator_request_failed: "La solicitud al API del generador de scripts falló."
     template_name_missing: "Por favor, proporciona un nombre de plantilla. Ejemplo: /generate_cats_script my_template."
     daily_limit_exceeded: "Lo siento, se ha superado el limite diario para este procesador. Intentalo de nuevo manana o elige otro procesador."
-    pack_not_found: "Lo sentimos, este paquete de tintas 🖋️✨ ya no está disponible. Por favor, inténtalo de nuevo con /buy_credits."
+    pack_not_found: "Lo sentimos, este paquete de tintas 🖋️✨ ya no está disponible. Por favor, inténtalo de nuevo con /buy_inks."
   telegram:
     generation:
       processing: "Generando %{process_name}, por favor espera…"
@@ -378,8 +378,8 @@ es:
 
 
   mini_app:
-    buy_credits:
-      error: "Algo salió mal. Por favor, inténtalo de nuevo con /buy_credits en el bot."
+    buy_inks:
+      error: "Algo salió mal. Por favor, inténtalo de nuevo con /buy_inks en el bot."
       buy_button: "Comprar"
       pack_estimate:
         small: "~5–10 vídeos o ~50 imágenes"

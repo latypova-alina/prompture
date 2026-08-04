@@ -24,15 +24,15 @@ module StarsPayment
     attr_reader :pack_key, :pack, :locale, :invoice_url
 
     def title
-      I18n.t("telegram_webhooks.commands.buy_credits.pack_title.#{pack_key}", locale:)
+      I18n.t("telegram_webhooks.commands.buy_inks.pack_title.#{pack_key}", locale:)
     end
 
     def description
-      I18n.t("telegram_webhooks.commands.buy_credits.pack_description", credits: pack[:credits], locale:)
+      I18n.t("telegram_webhooks.commands.buy_inks.pack_description", credits: pack[:credits], locale:)
     end
 
     def estimate
-      I18n.t("mini_app.buy_credits.pack_estimate.#{pack_key}", locale:)
+      I18n.t("mini_app.buy_inks.pack_estimate.#{pack_key}", locale:)
     end
   end
 end

@@ -25,11 +25,11 @@ module StarsPayment
     end
 
     def title
-      I18n.t("telegram_webhooks.commands.buy_credits.pack_title.#{pack_key}")
+      I18n.t("telegram_webhooks.commands.buy_inks.pack_title.#{pack_key}")
     end
 
     def description
-      I18n.t("telegram_webhooks.commands.buy_credits.pack_description", credits: pack[:credits])
+      I18n.t("telegram_webhooks.commands.buy_inks.pack_description", credits: pack[:credits])
     end
   end
 end

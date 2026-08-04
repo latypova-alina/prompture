@@ -1,5 +1,5 @@
 module MiniApp
-  class BuyCreditsController < ApplicationController
+  class BuyInksController < ApplicationController
     include Memery
 
     layout false
@@ -11,7 +11,7 @@ module MiniApp
     def packs
       return render_unauthorized unless validator.valid?
 
-      render json: { buy_button: I18n.t("mini_app.buy_credits.buy_button", locale:), packs: pack_data }
+      render json: { buy_button: I18n.t("mini_app.buy_inks.buy_button", locale:), packs: pack_data }
     end
 
     private
@@ -48,7 +48,7 @@ module MiniApp
     end
 
     def render_unauthorized
-      render json: { error: I18n.t("mini_app.buy_credits.error", locale: I18n.default_locale) }, status: :unauthorized
+      render json: { error: I18n.t("mini_app.buy_inks.error", locale: I18n.default_locale) }, status: :unauthorized
     end
   end
 end

@@ -12,7 +12,7 @@ ru:
         prompt_policy: "🛡 Правила промптов"
         contact_support: "📩 Связаться с поддержкой"
         set_locale: "🌐 Выбрать язык"
-        buy_credits: "⭐ Купить инки 🖋️✨ за Telegram Stars"
+        buy_inks: "⭐ Купить инки 🖋️✨ за Telegram Stars"
         image_to_video: "🖼🎬 Изображение → видео"
         first_last_frame_to_video: "🖼🎬 Начальный и конечный кадр → видео"
         edit_image: "🖼✏️ Редактировать изображение"
@@ -163,7 +163,7 @@ ru:
       set_locale:
         ask: "Пожалуйста, выбери язык:"
         locale_updated: "Ваш язык был обновлён 🌐"
-      buy_credits:
+      buy_inks:
         ask: "💳 Нажми ниже, чтобы выбрать пакет инков 🖋️✨"
         open_store_button: "🛒 Открыть магазин"
         pack_title:
@@ -385,7 +385,7 @@ ru:
     script_generator_request_failed: "Не удалось выполнить запрос к API генератора скриптов."
     template_name_missing: "Пожалуйста, укажи имя шаблона. Пример: /generate_cats_script my_template."
     daily_limit_exceeded: "К сожалению, дневной лимит для этого процессора исчерпан. Попробуй снова завтра или выбери другой процессор."
-    pack_not_found: "К сожалению, этот пакет инков 🖋️✨ больше недоступен. Попробуй снова через /buy_credits."
+    pack_not_found: "К сожалению, этот пакет инков 🖋️✨ больше недоступен. Попробуй снова через /buy_inks."
   telegram:
     generation:
       processing: "Генерируется %{process_name}, пожалуйста, подожди…"
@@ -412,8 +412,8 @@ ru:
             hope: "аудио Hope"
             lulu_lollipop: "аудио Lulu Lollipop"
   mini_app:
-    buy_credits:
-      error: "Что-то пошло не так. Попробуй снова через /buy_credits в боте."
+    buy_inks:
+      error: "Что-то пошло не так. Попробуй снова через /buy_inks в боте."
       buy_button: "Купить"
       pack_estimate:
         small: "~5–10 видео или ~50 изображений"

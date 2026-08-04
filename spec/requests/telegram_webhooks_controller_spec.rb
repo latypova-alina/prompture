@@ -468,15 +468,15 @@ describe TelegramWebhooksController, telegram_bot: :rails do
     it_behaves_like "message handling"
   end
 
-  describe "#buy_credits!" do
-    subject { -> { dispatch_command(:buy_credits) } }
+  describe "#buy_inks!" do
+    subject { -> { dispatch_command(:buy_inks) } }
 
     context "when the feature is enabled" do
       before { Flipper.enable(:stars_payments) }
 
-      let(:expected_text) { I18n.t("telegram_webhooks.commands.buy_credits.ask") }
+      let(:expected_text) { I18n.t("telegram_webhooks.commands.buy_inks.ask") }
 
-      it_behaves_like "command handling", command: :buy_credits
+      it_behaves_like "command handling", command: :buy_inks
     end
 
     context "when the feature is disabled" do
@@ -569,7 +569,7 @@ describe TelegramWebhooksController, telegram_bot: :rails do
 
     it "sends a thank you message" do
       expected_text = I18n.t(
-        "telegram_webhooks.commands.buy_credits.thank_you",
+        "telegram_webhooks.commands.buy_inks.thank_you",
         credits: pack[:credits],
         count: pack[:credits]
       )

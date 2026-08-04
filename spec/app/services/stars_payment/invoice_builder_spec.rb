@@ -8,7 +8,7 @@ describe StarsPayment::InvoiceBuilder do
 
   let(:bot) { instance_double(Telegram::Bot::Client) }
   let(:result_url) { "https://t.me/$abc123" }
-  let(:title) { I18n.t("telegram_webhooks.commands.buy_credits.pack_title.medium") }
+  let(:title) { I18n.t("telegram_webhooks.commands.buy_inks.pack_title.medium") }
 
   before do
     allow(Telegram).to receive(:bot).and_return(bot)
@@ -19,7 +19,7 @@ describe StarsPayment::InvoiceBuilder do
     it "requests an invoice link with the correct arguments" do
       expect(bot).to receive(:create_invoice_link).with(
         title:,
-        description: I18n.t("telegram_webhooks.commands.buy_credits.pack_description", credits: pack[:credits]),
+        description: I18n.t("telegram_webhooks.commands.buy_inks.pack_description", credits: pack[:credits]),
         payload: "medium",
         provider_token: "",
         currency: "XTR",
