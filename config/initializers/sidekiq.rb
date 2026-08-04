@@ -1,3 +1,7 @@
+if Rails.env.production? && (ENV["SIDEKIQ_WEB_USERNAME"].blank? || ENV["SIDEKIQ_WEB_PASSWORD"].blank?)
+  raise "SIDEKIQ_WEB_USERNAME and SIDEKIQ_WEB_PASSWORD must be set in production to protect the Sidekiq web UI"
+end
+
 Sidekiq.configure_server do |config|
   config.redis = {
     url: ENV["REDIS_URL"],
