@@ -231,20 +231,20 @@ ru:
             other: "Расширить промпт (%{count} инков 🖋️)"
         generate_image:
           flux_image:
-            one: "Flux (%{count} инк 🖋️)"
-            few: "Flux (%{count} инка 🖋️)"
-            many: "Flux (%{count} инков 🖋️)"
-            other: "Flux (%{count} инков 🖋️)"
+            one: "Flux 2 Pro (%{count} инк 🖋️)"
+            few: "Flux 2 Pro (%{count} инка 🖋️)"
+            many: "Flux 2 Pro (%{count} инков 🖋️)"
+            other: "Flux 2 Pro (%{count} инков 🖋️)"
           nano_banana_image:
-            one: "NanoBanana (%{count} инк 🖋️)"
-            few: "NanoBanana (%{count} инка 🖋️)"
-            many: "NanoBanana (%{count} инков 🖋️)"
-            other: "NanoBanana (%{count} инков 🖋️)"
+            one: "NanoBanana 2 (%{count} инк 🖋️)"
+            few: "NanoBanana 2 (%{count} инка 🖋️)"
+            many: "NanoBanana 2 (%{count} инков 🖋️)"
+            other: "NanoBanana 2 (%{count} инков 🖋️)"
           nano_banana_edit_image:
-            one: "NanoBanana Edit (%{count} инк 🖋️)"
-            few: "NanoBanana Edit (%{count} инка 🖋️)"
-            many: "NanoBanana Edit (%{count} инков 🖋️)"
-            other: "NanoBanana Edit (%{count} инков 🖋️)"
+            one: "NanoBanana 2 Edit (%{count} инк 🖋️)"
+            few: "NanoBanana 2 Edit (%{count} инка 🖋️)"
+            many: "NanoBanana 2 Edit (%{count} инков 🖋️)"
+            other: "NanoBanana 2 Edit (%{count} инков 🖋️)"
         generate_audio:
           adam:
             one: "Adam (%{count} инк 🖋️)"

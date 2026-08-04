@@ -226,14 +226,14 @@ es:
             other: "Extender prompt (%{count} tintas 🖋️)"
         generate_image:
           flux_image:
-            one: "Flux (%{count} tinta 🖋️)"
-            other: "Flux (%{count} tintas 🖋️)"
+            one: "Flux 2 Pro (%{count} tinta 🖋️)"
+            other: "Flux 2 Pro (%{count} tintas 🖋️)"
           nano_banana_image:
-            one: "NanoBanana (%{count} tinta 🖋️)"
-            other: "NanoBanana (%{count} tintas 🖋️)"
+            one: "NanoBanana 2 (%{count} tinta 🖋️)"
+            other: "NanoBanana 2 (%{count} tintas 🖋️)"
           nano_banana_edit_image:
-            one: "NanoBanana Edit (%{count} tinta 🖋️)"
-            other: "NanoBanana Edit (%{count} tintas 🖋️)"
+            one: "NanoBanana 2 Edit (%{count} tinta 🖋️)"
+            other: "NanoBanana 2 Edit (%{count} tintas 🖋️)"
         generate_audio:
           adam:
             one: "Adam (%{count} tinta 🖋️)"
