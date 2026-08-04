@@ -16,6 +16,7 @@ module TelegramIntegration
       start
       help
       prompt_policy
+      contact_support
     ].freeze
 
     DESCRIPTION_I18N_SCOPE = "telegram_webhooks.commands.description".freeze

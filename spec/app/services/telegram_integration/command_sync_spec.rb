@@ -62,7 +62,8 @@ describe TelegramIntegration::CommandSync do
         { command: "activate_token", description: "desc" },
         { command: "start", description: "desc" },
         { command: "help", description: "desc" },
-        { command: "prompt_policy", description: "desc" }
+        { command: "prompt_policy", description: "desc" },
+        { command: "contact_support", description: "desc" }
       ]
 
       expect(bot).to have_received(:set_my_commands).with(commands: expected_commands)

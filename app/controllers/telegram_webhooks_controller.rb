@@ -32,6 +32,10 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
     respond_with :message, text: I18n.t("telegram_webhooks.commands.prompt_policy")
   end
 
+  def contact_support!(*)
+    respond_with :message, text: I18n.t("telegram_webhooks.commands.contact_support")
+  end
+
   def message(user_message)
     TelegramIntegration::MessageDispatcher.call(
       command: session[:command],

@@ -10,6 +10,7 @@ en:
         prompt_to_image: "🖼 Prompt → image"
         prompt_to_audio: "🔊 Prompt → audio"
         prompt_policy: "🛡 View prompt policy rules"
+        contact_support: "📩 Contact support"
         set_locale: "🌐 Set language"
         buy_credits: "⭐ Buy credits with Telegram Stars"
         image_to_video: "🖼🎬 Picture → video"
@@ -148,6 +149,7 @@ en:
         ♦️ Do not request graphic violence, self-harm, or dangerous wrongdoing.
 
         ♦️ Do not request hateful or harassing content.
+      contact_support: "📩 Need help? Write to us at support@prompturebot.com and we'll get back to you."
       balance:
         one: "Your current balance is %{balance} credit."
         other: "Your current balance is %{balance} credits."
