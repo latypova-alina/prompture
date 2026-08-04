@@ -6,6 +6,7 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
   include ErrorHandler
   include TgChatAuthorization
   include StarsPayments
+  include SupportCommands
 
   def start!(token_code = nil)
     handled_token = TokenHandler::HandleToken.call(
@@ -22,14 +23,6 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
     session[:command] = "activate_token"
 
     respond_with :message, text: I18n.t("telegram_webhooks.commands.activate_token.ask")
-  end
-
-  def help!
-    respond_with :message, text: I18n.t("telegram_webhooks.commands.help")
-  end
-
-  def prompt_policy!(*)
-    respond_with :message, text: I18n.t("telegram_webhooks.commands.prompt_policy")
   end
 
   def message(user_message)
