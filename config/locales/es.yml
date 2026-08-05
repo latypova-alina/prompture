@@ -17,6 +17,10 @@ es:
         first_last_frame_to_video: "🖼🎬 Primer y último fotograma → video"
         edit_image: "🖼✏️ Editar imagen"
       start:
+        welcome_bonus: |
+          👋 ¡Hola! Qué bueno verte por aquí.
+
+          🎉 Como uno de nuestros primeros usuarios, ¡has recibido 100 tintas 🖋️ gratis para probar el bot!
         no_token: |
           👋 ¡Hola! Me alegra verte por aquí.
 

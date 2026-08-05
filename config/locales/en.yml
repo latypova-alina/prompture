@@ -16,7 +16,11 @@ en:
         image_to_video: "🖼🎬 Picture → video"
         first_last_frame_to_video: "🖼🎬 Start & end frame → video"
         edit_image: "🖼✏️ Edit image"
-      start: 
+      start:
+        welcome_bonus: |
+          👋 Hi! Great to see you here.
+
+          🎉 As one of our first users, you've received 100 free inks 🖋️ to try out the bot!
         no_token: |
           👋 Hi! Great to see you here.
 
