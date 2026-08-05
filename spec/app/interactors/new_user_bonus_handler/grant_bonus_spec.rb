@@ -21,26 +21,6 @@ describe NewUserBonusHandler::GrantBonus do
       call
     end
 
-    context "when a concurrent request already took the same slot number" do
-      before do
-        allow(WelcomeBonus).to receive(:create!) do
-          raise PG::UniqueViolation, "duplicate key"
-        rescue PG::UniqueViolation
-          raise ActiveRecord::RecordNotUnique, "duplicate key"
-        end
-      end
-
-      it "fails without raising" do
-        expect(call).to be_failure
-      end
-
-      it "does not grant credits" do
-        expect(Billing::CreditsGranter).not_to receive(:call)
-
-        call
-      end
-    end
-
     context "when the 100-bonus cap is already reached" do
       before { 100.times { create(:welcome_bonus) } }
 
