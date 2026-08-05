@@ -1,6 +1,6 @@
 require "rails_helper"
 
-describe NewUserBonus::CheckEligibility do
+describe NewUserBonusHandler::CheckEligibility do
   subject(:call) { described_class.call(user:, token_code:) }
 
   let(:user) { create(:user) }

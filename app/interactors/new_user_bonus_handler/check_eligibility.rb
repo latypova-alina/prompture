@@ -1,4 +1,4 @@
-module NewUserBonus
+module NewUserBonusHandler
   class CheckEligibility
     include Interactor
 

@@ -1,4 +1,4 @@
-module NewUserBonus
+module NewUserBonusHandler
   class NotifyUser
     include Interactor
 

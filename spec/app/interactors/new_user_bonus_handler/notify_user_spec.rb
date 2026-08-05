@@ -1,6 +1,6 @@
 require "rails_helper"
 
-describe NewUserBonus::NotifyUser do
+describe NewUserBonusHandler::NotifyUser do
   subject(:call) { described_class.call(chat_id:) }
 
   let(:chat_id) { 456 }
