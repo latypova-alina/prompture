@@ -4,9 +4,7 @@ module NewUserBonusHandler
     include Memery
 
     CREDITS_AMOUNT = 100
-    # Arbitrary fixed key for the Postgres advisory lock that serializes concurrent
-    # welcome-bonus grants, so slot numbers are always assigned one at a time and no
-    # eligible user loses out to a timing collision while slots remain.
+    # Arbitrary key for the Postgres advisory lock that serializes concurrent grants.
     LOCK_KEY = 20_260_805_01
 
     delegate :user, to: :context
