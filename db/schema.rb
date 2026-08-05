@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2026_08_04_164449) do
+ActiveRecord::Schema[8.0].define(version: 2026_08_05_164405) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -420,6 +420,16 @@ ActiveRecord::Schema[8.0].define(version: 2026_08_04_164449) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "welcome_bonuses", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.integer "slot_number", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["slot_number"], name: "index_welcome_bonuses_on_slot_number", unique: true
+    t.index ["user_id"], name: "index_welcome_bonuses_on_user_id", unique: true
+    t.check_constraint "slot_number <= 100", name: "welcome_bonuses_slot_number_cap"
+  end
+
   add_foreign_key "audio_prompts", "video_prompts"
   add_foreign_key "balance_transactions", "users"
   add_foreign_key "balances", "users"
@@ -438,4 +448,5 @@ ActiveRecord::Schema[8.0].define(version: 2026_08_04_164449) do
   add_foreign_key "stars_purchases", "users"
   add_foreign_key "stored_images", "image_prompts"
   add_foreign_key "tokens", "users"
+  add_foreign_key "welcome_bonuses", "users"
 end

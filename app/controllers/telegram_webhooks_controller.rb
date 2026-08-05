@@ -16,6 +16,8 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
       locale: normalized_locale
     )
 
+    NewUserBonusHandler::HandleNewUser.call(user: handled_token.user, chat_id: chat["id"], token_code:)
+
     respond_with :message, text: start_message_for(handled_token)
   end
 

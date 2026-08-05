@@ -68,6 +68,35 @@ describe TelegramWebhooksController, telegram_bot: :rails do
         it "still creates a user" do
           expect { subject.call }.to change(User, :count).by(1)
         end
+
+        context "when welcome bonus flag is enabled" do
+          let(:expected_bonus_text) { I18n.t("telegram_webhooks.commands.start.welcome_bonus") }
+
+          before { Flipper.enable(:welcome_bonus) }
+
+          it { should respond_with_message(expected_bonus_text) }
+
+          it "grants 100 credits" do
+            subject.call
+
+            expect(User.find_by(chat_id: 456).balance.credits).to eq(100)
+          end
+
+          context "when the bonus cap is already reached" do
+            before { 100.times { create(:welcome_bonus) } }
+
+            it "does not send the bonus message" do
+              expect { subject.call }
+                .not_to make_telegram_request(bot, :sendMessage).with(text: expected_bonus_text)
+            end
+
+            it "does not grant credits" do
+              subject.call
+
+              expect(User.find_by(chat_id: 456).balance).to be_nil
+            end
+          end
+        end
       end
 
       context "when token is expired" do
