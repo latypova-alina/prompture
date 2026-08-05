@@ -1,20 +1,20 @@
 default: &default
   generate_image:
-    flux_image: 1
-    nano_banana_image: 1
+    flux_image: 2
+    nano_banana_image: 2
   edit_image:
-    nano_banana_edit_image: 1
+    nano_banana_edit_image: 2
   generate_video:
-    kling_2_1_pro_image_to_video: 10
-    kling_3_standard_image_to_video: 6
-    hailuo_02_standard_image_to_video: 6
-    veo3_1_lite_image_to_video: 5
+    kling_2_1_pro_image_to_video: 20
+    kling_3_standard_image_to_video: 12
+    hailuo_02_standard_image_to_video: 12
+    veo3_1_lite_image_to_video: 10
   generate_audio:
-    elevenlabs_v3_audio: 1
+    elevenlabs_v3_audio: 2
   merge_audio_video:
-    local_ffmpeg_merge: 1
+    local_ffmpeg_merge: 2
   prompt:
-    extend_prompt: 1
+    extend_prompt: 2
 
 development:
   <<: *default
