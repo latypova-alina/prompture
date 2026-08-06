@@ -7,7 +7,7 @@ describe NewUserBonusHandler::CheckEligibility do
   let(:token_code) { nil }
 
   before do
-    allow(Flipper).to receive(:enabled?).with(:welcome_bonus, user).and_return(true)
+    allow(Flipper).to receive(:enabled?).with(:flipper_welcome_bonus, user).and_return(true)
   end
 
   context "when user is newly created, no token_code, and flag enabled" do
@@ -39,7 +39,7 @@ describe NewUserBonusHandler::CheckEligibility do
   context "when flag is disabled" do
     before do
       allow(user).to receive(:previously_new_record?).and_return(true)
-      allow(Flipper).to receive(:enabled?).with(:welcome_bonus, user).and_return(false)
+      allow(Flipper).to receive(:enabled?).with(:flipper_welcome_bonus, user).and_return(false)
     end
 
     it "fails" do

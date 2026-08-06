@@ -81,10 +81,8 @@ describe MiniApp::BuyInksController, type: :request do
       end
     end
 
-    context "when the test_credit_pack flag is enabled for the user" do
-      let!(:user) { create(:user, chat_id: telegram_user_id, locale: "en") }
-
-      before { Flipper.enable(:test_credit_pack, user) }
+    context "when the user is an admin" do
+      let!(:user) { create(:user, chat_id: telegram_user_id, locale: "en", admin: true) }
 
       it "returns the test packs, all priced at 1 star" do
         make_request

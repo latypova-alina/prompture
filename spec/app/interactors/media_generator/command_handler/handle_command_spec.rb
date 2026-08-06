@@ -31,7 +31,7 @@ describe MediaGenerator::CommandHandler::HandleCommand do
   end
 
   context "when command is prompt_to_image and the video workflow flag is enabled for the user" do
-    before { Flipper.enable(:prompt_to_image_video_workflow, user) }
+    before { Flipper.enable(:flipper_prompt_to_image_video_workflow, user) }
 
     it "creates a video command request instead" do
       expect { subject }.to change(CommandPromptToVideoRequest, :count).from(0).to(1)

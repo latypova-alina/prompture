@@ -22,7 +22,7 @@ describe MediaGenerator::CommandRequestClassResolver do
   context "when command is prompt_to_image and the video workflow flag is enabled for the user" do
     let(:command) { "prompt_to_image" }
 
-    before { Flipper.enable(:prompt_to_image_video_workflow, user) }
+    before { Flipper.enable(:flipper_prompt_to_image_video_workflow, user) }
 
     it { is_expected.to eq(CommandPromptToVideoRequest) }
   end
@@ -31,7 +31,7 @@ describe MediaGenerator::CommandRequestClassResolver do
     let(:command) { "prompt_to_image" }
     let(:other_user) { create(:user) }
 
-    before { Flipper.enable(:prompt_to_image_video_workflow, other_user) }
+    before { Flipper.enable(:flipper_prompt_to_image_video_workflow, other_user) }
 
     it { is_expected.to eq(CommandPromptToImageRequest) }
   end

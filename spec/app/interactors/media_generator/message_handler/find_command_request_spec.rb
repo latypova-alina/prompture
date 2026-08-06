@@ -39,7 +39,7 @@ describe MediaGenerator::MessageHandler::FindCommandRequest do
     end
 
     context "when command is prompt_to_image and the video workflow flag is enabled for the user" do
-      before { Flipper.enable(:prompt_to_image_video_workflow, user) }
+      before { Flipper.enable(:flipper_prompt_to_image_video_workflow, user) }
 
       let!(:command_request) { create(:command_prompt_to_video_request, chat_id: 456) }
 
