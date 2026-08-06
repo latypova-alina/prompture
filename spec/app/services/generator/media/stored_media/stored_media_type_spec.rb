@@ -44,7 +44,7 @@ describe Generator::Media::StoredMedia::StoredMediaType do
       let(:processor) { Generator::Processors::VIDEO.first }
       let(:button_request) { create(:button_video_processing_request) }
 
-      it { is_expected.not_to be_needs_to_be_stored }
+      it { is_expected.to be_needs_to_be_stored }
     end
   end
 

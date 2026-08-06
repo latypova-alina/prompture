@@ -28,16 +28,20 @@ describe StoreVideo::Registrar do
                               prompt: "Tears in rain")
     end
 
-    it "does not create stored video" do
-      expect { call_registrar }.not_to change(StoredVideo, :count)
+    it "creates stored video with nil subcategory" do
+      expect { call_registrar }.to change(StoredVideo, :count).by(1)
+
+      expect(StoredVideo.last.subcategory).to be_nil
     end
   end
 
-  context "when category is not storable" do
+  context "when category is nil" do
     let(:command_request) { create(:command_prompt_to_video_request, category: nil) }
 
-    it "does not create stored video" do
-      expect { call_registrar }.not_to change(StoredVideo, :count)
+    it "creates stored video with nil category" do
+      expect { call_registrar }.to change(StoredVideo, :count).by(1)
+
+      expect(StoredVideo.last.category).to be_nil
     end
   end
 end

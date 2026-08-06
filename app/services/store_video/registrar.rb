@@ -12,8 +12,6 @@ module StoreVideo
     end
 
     def call
-      return unless registerable?
-
       stored_video.update!(stored_video_attributes)
     end
 
@@ -23,10 +21,6 @@ module StoreVideo
 
     delegate :command_request, :origin_subcategory, to: :record
     delegate :category, to: :command_request
-
-    def registerable?
-      ContentCategory.store_video?(category) && origin_subcategory.present?
-    end
 
     memoize def stored_video
       ::StoredVideo.find_or_initialize_by(source: record)

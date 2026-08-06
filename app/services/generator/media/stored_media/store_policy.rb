@@ -2,9 +2,8 @@ module Generator
   module Media
     module StoredMedia
       class StorePolicy
-        def initialize(processor:, command_request:)
+        def initialize(processor:)
           @processor = processor
-          @command_request = command_request
         end
 
         def needs_to_be_stored?
@@ -13,7 +12,7 @@ module Generator
 
         private
 
-        attr_reader :processor, :command_request
+        attr_reader :processor
 
         def store_image?
           Generator::Processors::ALL_IMAGE.include?(processor)
@@ -24,10 +23,6 @@ module Generator
         end
 
         def store_video?
-          video_processor? && ContentCategory.store_video?(command_request.try(:category))
-        end
-
-        def video_processor?
           Generator::Processors::VIDEO.include?(processor) ||
             Generator::Processors::MERGE.include?(processor)
         end
