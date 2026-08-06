@@ -15,7 +15,7 @@ RSpec.shared_examples "message handling" do
 
         🔹 extend the prompt
 
-        🔹 generate an image using one of the processors (Flux/NanoBanana)
+        🔹 generate an image using one of the options below
       HTML
     end
 

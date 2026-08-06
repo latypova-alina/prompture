@@ -9,7 +9,7 @@ describe StoreImage::SuccessNotifierJob do
   let(:tg_message_id) { 123_456 }
   let(:presenter_selector) { instance_double(MediaGenerator::UserMessage::ImageMessage::PresenterSelector) }
   let(:presenter) { instance_double(MediaGenerator::UserMessage::ImageMessage::ImageUrlMessagePresenter) }
-  let(:reply_data) { { text: "Great! You can now generate a video using one of the processors (Kling)" } }
+  let(:reply_data) { { text: "Great! You can now generate a video using one of the options below." } }
 
   before do
     allow(MediaGenerator::UserMessage::ImageMessage::PresenterSelector)

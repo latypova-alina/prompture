@@ -35,11 +35,32 @@ es:
           🎬 Para generar un video, escribe:
           /prompt_to_video
 
+          🖼🎬 Para convertir una imagen en video, escribe:
+          /image_to_video
+
+          🖼🎬 Para convertir un fotograma inicial y final en video, escribe:
+          /first_last_frame_to_video
+
+          🖼✏️ Para editar una imagen, escribe:
+          /edit_image
+
           💰 Para consultar tu saldo, escribe:
           /balance
 
           🔑 Para activar un token, escribe:
           /activate_token
+
+          ⭐ Para comprar tintas 🖋️ con Telegram Stars, escribe:
+          /buy_inks
+
+          🌐 Para cambiar de idioma, escribe:
+          /set_locale
+
+          🛡 Para ver las reglas de prompts, escribe:
+          /prompt_policy
+
+          📩 Para contactar con soporte, escribe:
+          /contact_support
 
           ℹ️ Cada generación cuesta tintas 🖋️.
           Para recargar tu saldo, usa /activate_token e introduce un token válido, o usa /buy_inks para comprar tintas con Telegram Stars.
@@ -55,8 +76,32 @@ es:
           🎬 Para generar un video:
           /prompt_to_video
 
+          🖼🎬 Para convertir una imagen en video:
+          /image_to_video
+
+          🖼🎬 Para convertir un fotograma inicial y final en video:
+          /first_last_frame_to_video
+
+          🖼✏️ Para editar una imagen:
+          /edit_image
+
           💰 Para consultar tu saldo:
           /balance
+
+          🔑 Para activar un token:
+          /activate_token
+
+          ⭐ Para comprar tintas 🖋️ con Telegram Stars:
+          /buy_inks
+
+          🌐 Para cambiar de idioma:
+          /set_locale
+
+          🛡 Para ver las reglas de prompts:
+          /prompt_policy
+
+          📩 Para contactar con soporte:
+          /contact_support
       help: |
         🤖 Con este bot puedes generar imágenes, videos y audio usando diferentes modelos de IA.
 
@@ -197,17 +242,17 @@ es:
           other: "🎉 ¡Pago recibido! Se han añadido %{credits} tintas 🖋️ a tu saldo."
     message:
       image_message_url: "Aquí está tu imagen"
-      image_message_reply: "¡Genial! Ahora puedes generar un video usando uno de los procesadores (Kling)"
-      image_to_video_image_reply: "¡Genial! Puedes generar un video con Kling o proporcionar un prompt primero."
+      image_message_reply: "¡Genial! Ahora puedes generar un video usando una de las opciones de abajo."
+      image_to_video_image_reply: "¡Genial! Puedes generar un video usando una de las opciones de abajo o proporcionar un prompt primero."
       first_last_frame_to_video_start_image_reply: "¡Genial! Ahora envía la imagen del fotograma final."
-      first_last_frame_to_video_ready_reply: "Ambos fotogramas están listos. Puedes proporcionar un prompt o generar video con Kling 3 Standard."
+      first_last_frame_to_video_ready_reply: "Ambos fotogramas están listos. Puedes proporcionar un prompt o generar un video usando una de las opciones de abajo."
       image_to_video_prompt_reply: "¡Genial! Ahora, por favor, proporciona un prompt para el video."
       edit_image_prompt_reply: "¡Genial! Ahora envía tu prompt de edición."
       bloomy_complex:
         all_images_generated: "Todas las imágenes fueron generadas. ¿Qué te gustaría hacer a continuación?"
-      extended_prompt_postfix: "Aquí está tu prompt extendido ⬆️ \n\nAhora puedes generar una imagen usando uno de los procesadores (Flux/NanoBanana)"
+      extended_prompt_postfix: "Aquí está tu prompt extendido ⬆️ \n\nAhora puedes generar una imagen usando una de las opciones de abajo."
       image_generated_prefix: "Aquí está tu %{processor_name} 🖼️"
-      image_generated_postfix: "Ahora puedes generar un video usando uno de los procesadores (Kling)"
+      image_generated_postfix: "Ahora puedes generar un video usando una de las opciones de abajo."
       video_generated_prefix: "Aquí está tu %{processor_name} 🎥"
       audio_generated_prefix: "Aquí está tu %{processor_name} 🔊"
       merge_processed_prefix: "Aquí está tu %{processor_name} 🎬"
@@ -217,7 +262,7 @@ es:
 
         🔹 extender el prompt
           
-        🔹 generar una imagen usando uno de los procesadores (Flux/NanoBanana)
+        🔹 generar una imagen usando una de las opciones de abajo
       prompt_suffix_audio: |
         ¿Qué quieres hacer a continuación? Puedes:
 
