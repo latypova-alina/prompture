@@ -20,12 +20,11 @@ module Generator
 
         attr_reader :processor, :media_url, :button_request_id
 
-        delegate :command_request, to: :media_request
         delegate :media_request, to: :media_request_resolver
         delegate :uploader_class, to: :uploader_resolver
 
         memoize def store_policy
-          StorePolicy.new(processor:, command_request:)
+          StorePolicy.new(processor:)
         end
 
         memoize def media_request_resolver

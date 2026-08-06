@@ -67,4 +67,28 @@ describe Generator::Media::StoredMedia::VideoUploader do
       )
     end
   end
+
+  context "when command request has no category" do
+    let(:command_request) { create(:command_prompt_to_video_request, category: nil) }
+    let(:prompt_message) do
+      create(:prompt_message, command_request:, parent_request: command_request, subcategory: nil)
+    end
+
+    before do
+      allow(StoreMedia::Upload::Facade)
+        .to receive(:new)
+        .with(bytes: "video-bytes", filename: "generated.mp4", folder: "videos")
+        .and_return(upload_facade)
+    end
+
+    it "uploads to the default videos folder" do
+      service.call
+
+      expect(StoreMedia::Upload::Facade).to have_received(:new).with(
+        bytes: "video-bytes",
+        filename: "generated.mp4",
+        folder: "videos"
+      )
+    end
+  end
 end
