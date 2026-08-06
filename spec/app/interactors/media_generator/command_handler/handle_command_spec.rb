@@ -29,4 +29,16 @@ describe MediaGenerator::CommandHandler::HandleCommand do
       expect(result.error).to eq(CommandUnknownError)
     end
   end
+
+  context "when command is prompt_to_image and the video workflow flag is enabled for the user" do
+    before { Flipper.enable(:flipper_prompt_to_image_video_workflow, user) }
+
+    it "creates a video command request instead" do
+      expect { subject }.to change(CommandPromptToVideoRequest, :count).from(0).to(1)
+    end
+
+    it "does not create an image command request" do
+      expect { subject }.not_to change(CommandPromptToImageRequest, :count)
+    end
+  end
 end

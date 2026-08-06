@@ -72,7 +72,7 @@ describe TelegramWebhooksController, telegram_bot: :rails do
         context "when welcome bonus flag is enabled" do
           let(:expected_bonus_text) { I18n.t("telegram_webhooks.commands.start.welcome_bonus") }
 
-          before { Flipper.enable(:welcome_bonus) }
+          before { Flipper.enable(:flipper_welcome_bonus) }
 
           it { should respond_with_message(expected_bonus_text) }
 
@@ -501,7 +501,7 @@ describe TelegramWebhooksController, telegram_bot: :rails do
     subject { -> { dispatch_command(:buy_inks) } }
 
     context "when the feature is enabled" do
-      before { Flipper.enable(:stars_payments) }
+      before { Flipper.enable(:flipper_stars_payments) }
 
       let(:expected_text) { I18n.t("telegram_webhooks.commands.buy_inks.ask") }
 

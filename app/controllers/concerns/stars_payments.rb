@@ -2,7 +2,7 @@ module StarsPayments
   extend ActiveSupport::Concern
 
   def buy_inks!(*)
-    raise FeatureUnderDevelopmentError unless Flipper.enabled?(:stars_payments, user)
+    raise FeatureUnderDevelopmentError unless Flipper.enabled?(:flipper_stars_payments, user)
 
     StarsPayment::CommandHandler::HandleCommand.call(
       chat_id: chat["id"],

@@ -1,4 +1,6 @@
 RSpec.shared_examples "message handling" do
+  let!(:user) { create(:user, chat_id: 456) }
+
   context "when command is known" do
     include_context "telegram callback setup"
 
