@@ -1,6 +1,6 @@
 module Audio
   class VoiceSampleUrls
-    SAMPLES_PREFIX = "audio/samples".freeze
+    SAMPLES_PREFIX = "admin/audio/samples".freeze
     DEFAULT_EXTENSION = ".mp3".freeze
 
     class << self
