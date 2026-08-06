@@ -35,11 +35,32 @@ en:
           🎬 To generate a video, type:
           /prompt_to_video
 
+          🖼🎬 To turn a picture into a video, type:
+          /image_to_video
+
+          🖼🎬 To turn a start & end frame into a video, type:
+          /first_last_frame_to_video
+
+          🖼✏️ To edit an image, type:
+          /edit_image
+
           💰 To check your balance, type:
           /balance
 
           🔑 To activate a token, type:
           /activate_token
+
+          ⭐ To buy inks 🖋️ with Telegram Stars, type:
+          /buy_inks
+
+          🌐 To set your language, type:
+          /set_locale
+
+          🛡 To view the prompt policy rules, type:
+          /prompt_policy
+
+          📩 To contact support, type:
+          /contact_support
 
           ℹ️ Each generation costs inks 🖋️.
           To top up your balance, either use /activate_token and enter a valid token, or use /buy_inks to purchase inks with Telegram Stars.
@@ -55,8 +76,32 @@ en:
           🎬 To generate a video:
           /prompt_to_video
 
+          🖼🎬 To turn a picture into a video:
+          /image_to_video
+
+          🖼🎬 To turn a start & end frame into a video:
+          /first_last_frame_to_video
+
+          🖼✏️ To edit an image:
+          /edit_image
+
           💰 To check your balance:
           /balance
+
+          🔑 To activate a token:
+          /activate_token
+
+          ⭐ To buy inks 🖋️ with Telegram Stars:
+          /buy_inks
+
+          🌐 To set your language:
+          /set_locale
+
+          🛡 To view the prompt policy rules:
+          /prompt_policy
+
+          📩 To contact support:
+          /contact_support
       help: |
         🤖 With this bot, you can generate images, videos, and audio using different AI models.
 
@@ -197,17 +242,17 @@ en:
           other: "🎉 Payment received! %{credits} inks 🖋️ have been added to your balance."
     message:
       image_message_url: "Here is your image"
-      image_message_reply: "Great! You can now generate a video using one of the processors (Kling)"
-      image_to_video_image_reply: "Great! You can either generate a video using Kling or provide a prompt first."
+      image_message_reply: "Great! You can now generate a video using one of the options below."
+      image_to_video_image_reply: "Great! You can either generate a video using one of the options below or provide a prompt first."
       first_last_frame_to_video_start_image_reply: "Great! Now please send the end frame image."
-      first_last_frame_to_video_ready_reply: "Both frames are ready. You can provide a prompt or generate video with Kling 3 Standard."
+      first_last_frame_to_video_ready_reply: "Both frames are ready. You can provide a prompt or generate a video using one of the options below."
       image_to_video_prompt_reply: "Great! Now please provide a prompt for the video."
       edit_image_prompt_reply: "Great! Now send your edit prompt."
       bloomy_complex:
         all_images_generated: "All of the images were generated. What would you like to do next?"
-      extended_prompt_postfix: "Here is your extended prompt ⬆️ \n\nYou can now generate an image using one of the processors (Flux/NanoBanana)"
+      extended_prompt_postfix: "Here is your extended prompt ⬆️ \n\nYou can now generate an image using one of the options below."
       image_generated_prefix: "Here is your %{processor_name} 🖼️"
-      image_generated_postfix: "You can now generate a video using one of the processors (Kling)"
+      image_generated_postfix: "You can now generate a video using one of the options below."
       video_generated_prefix: "Here is your %{processor_name} 🎥"
       audio_generated_prefix: "Here is your %{processor_name} 🔊"
       merge_processed_prefix: "Here is your %{processor_name} 🎬"
@@ -217,7 +262,7 @@ en:
         
         🔹 extend the prompt
           
-        🔹 generate an image using one of the processors (Flux/NanoBanana)
+        🔹 generate an image using one of the options below
       prompt_suffix_audio: |
         What do you want to do next? You can:
 
