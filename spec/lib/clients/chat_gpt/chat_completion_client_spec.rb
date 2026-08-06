@@ -6,9 +6,7 @@ describe Clients::ChatGpt::ChatCompletionClient do
   let(:prompt) { "cute white kitten" }
 
   let(:system_prompt) do
-    "You are a prompt enhancer. Take the user’s short idea and rewrite it into a detailed, "\
-                  "vivid English prompt suitable for an image generator. Focus on subject, setting, mood, and visual "\
-                  "details, in one or two sentences."
+    File.read(Rails.root.join("config/prompts/prompt_generator_system_content.txt")).strip
   end
 
   let(:messages) do

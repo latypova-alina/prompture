@@ -5,13 +5,11 @@ shared_context "stub chat_gpt success request" do
     stub_request(:post, "https://api.openai.com/v1/chat/completions")
       .with(
         body: hash_including(
-          model: "gpt-4o-mini",
+          model: "gpt-4o",
           messages: [
             {
               "role" => "system",
-              "content" => "You are a prompt enhancer. Take the user’s short idea and rewrite it into a detailed, "\
-              "vivid English prompt suitable for an image generator. Focus on subject, setting, mood, and visual "\
-              "details, in one or two sentences."
+              "content" => File.read(Rails.root.join("config/prompts/prompt_generator_system_content.txt")).strip
             },
             {
               "role" => "user",
