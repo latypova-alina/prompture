@@ -16,6 +16,11 @@ gem "puma", "~> 6.0"
 gem "rails", "~> 8.0.3"
 gem "rails-i18n"
 gem "ruby-openai"
+# rubocop:disable Bundler/OrderedGems -- stackprof must load before sentry-ruby for Sentry's profiling to work
+gem "stackprof"
+gem "sentry-ruby"
+gem "sentry-rails"
+# rubocop:enable Bundler/OrderedGems
 gem "sidekiq", "~> 8.0"
 gem "telegram-bot"
 
