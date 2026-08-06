@@ -11,7 +11,7 @@ module NewUserBonusHandler
     private
 
     def eligible?
-      token_code.blank? && user.previously_new_record? && Flipper.enabled?(:welcome_bonus, user)
+      token_code.blank? && user.previously_new_record? && Flipper.enabled?(:flipper_welcome_bonus, user)
     end
   end
 end

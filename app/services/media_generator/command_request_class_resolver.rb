@@ -25,7 +25,7 @@ module MediaGenerator
     attr_reader :command, :user
 
     def prompt_to_image_uses_video_workflow?
-      command == "prompt_to_image" && Flipper.enabled?(:prompt_to_image_video_workflow, user)
+      command == "prompt_to_image" && Flipper.enabled?(:flipper_prompt_to_image_video_workflow, user)
     end
   end
 end

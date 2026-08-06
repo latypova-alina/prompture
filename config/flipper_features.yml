@@ -1,0 +1,4 @@
+flipper_prompt_to_image_video_workflow: "prompt_to_image command points at the prompt_to_video flow (video-continuation buttons shown after the image)"
+flipper_welcome_bonus: "new users get 100 free credits, capped at the first 100 signups"
+flipper_stars_payments: "master switch for the /buy_inks Telegram Stars payment feature"
+flipper_test_credit_pack: "use StarsPayment::TestPackDataBuilder (1-star test pack) instead of real credit packs"

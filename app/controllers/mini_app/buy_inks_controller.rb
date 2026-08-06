@@ -26,7 +26,7 @@ module MiniApp
     end
 
     def pack_data_builder_class
-      return StarsPayment::TestPackDataBuilder if Flipper.enabled?(:test_credit_pack, user)
+      return StarsPayment::TestPackDataBuilder if Flipper.enabled?(:flipper_test_credit_pack, user)
 
       StarsPayment::PackDataBuilder
     end
