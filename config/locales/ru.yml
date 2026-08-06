@@ -254,11 +254,11 @@ ru:
       bloomy_complex:
         all_images_generated: "Все изображения сгенерированы. Что хочешь сделать дальше?"
       extended_prompt_postfix: "Вот твой расширенный промпт ⬆️ \n\nТеперь ты можешь сгенерировать изображение с помощью одного из вариантов ниже."
-      image_generated_prefix: "Вот твое %{processor_name} 🖼️"
+      image_generated_prefix: "Вот твое %{processor_name} 🖼️\n\n⏳ Хранится 15 дней"
       image_generated_postfix: "Теперь ты можешь сгенерировать видео с помощью одного из вариантов ниже."
-      video_generated_prefix: "Вот твое %{processor_name} 🎥"
-      audio_generated_prefix: "Вот твое %{processor_name} 🔊"
-      merge_processed_prefix: "Вот твое %{processor_name} 🎬"
+      video_generated_prefix: "Вот твое %{processor_name} 🎥\n\n⏳ Хранится 15 дней"
+      audio_generated_prefix: "Вот твое %{processor_name} 🔊\n\n⏳ Хранится 15 дней"
+      merge_processed_prefix: "Вот твое %{processor_name} 🎬\n\n⏳ Хранится 15 дней"
       merge_processed: "Открыть объединённое видео"
       prompt_suffix: | 
         Что ты хочешь сделать дальше? Ты можешь:

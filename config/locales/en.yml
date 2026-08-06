@@ -251,11 +251,11 @@ en:
       bloomy_complex:
         all_images_generated: "All of the images were generated. What would you like to do next?"
       extended_prompt_postfix: "Here is your extended prompt ⬆️ \n\nYou can now generate an image using one of the options below."
-      image_generated_prefix: "Here is your %{processor_name} 🖼️"
+      image_generated_prefix: "Here is your %{processor_name} 🖼️\n\n⏳ Stored for 15 days"
       image_generated_postfix: "You can now generate a video using one of the options below."
-      video_generated_prefix: "Here is your %{processor_name} 🎥"
-      audio_generated_prefix: "Here is your %{processor_name} 🔊"
-      merge_processed_prefix: "Here is your %{processor_name} 🎬"
+      video_generated_prefix: "Here is your %{processor_name} 🎥\n\n⏳ Stored for 15 days"
+      audio_generated_prefix: "Here is your %{processor_name} 🔊\n\n⏳ Stored for 15 days"
+      merge_processed_prefix: "Here is your %{processor_name} 🎬\n\n⏳ Stored for 15 days"
       merge_processed: "Open merged video"
       prompt_suffix: |
         What do you want to do next? You can: 

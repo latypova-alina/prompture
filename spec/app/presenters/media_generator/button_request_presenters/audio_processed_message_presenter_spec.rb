@@ -15,6 +15,8 @@ describe MediaGenerator::ButtonRequestPresenters::AudioProcessedMessagePresenter
           <<~TEXT
             Here is your #{processor_name} 🔊
 
+            ⏳ Stored for 15 days
+
             <a href="#{message}">Open audio</a>
 
             ────────────
