@@ -6,15 +6,6 @@ module MediaGenerator
 
       delegate :chat_id, :command, to: :context
 
-      COMMAND_REQUESTS = {
-        "prompt_to_image" => CommandPromptToImageRequest,
-        "prompt_to_audio" => CommandPromptToAudioRequest,
-        "prompt_to_video" => CommandPromptToVideoRequest,
-        "image_to_video" => CommandImageToVideoRequest,
-        "first_last_frame_to_video" => CommandTwoFrameToVideoRequest,
-        "edit_image" => CommandEditImageRequest
-      }.freeze
-
       def call
         context.fail!(error: CommandUnknownError) unless command_request_class
         context.fail!(error: CommandRequestForgottenError) unless command_request
@@ -28,8 +19,14 @@ module MediaGenerator
         command_request_class.where(chat_id:).order(created_at: :desc).first
       end
 
-      def command_request_class
-        COMMAND_REQUESTS[command]
+      memoize def command_request_class
+        return unless user
+
+        CommandRequestClassResolver.new(command:, user:).call
+      end
+
+      memoize def user
+        User.find_by(chat_id:)
       end
     end
   end

@@ -11,6 +11,7 @@ describe MediaGenerator::MessageHandler::ImageToVideoMessageHandler::HandlePromp
   let(:prompt_text) { "ocean waves at sunset" }
   let(:command_request) { create(:command_image_to_video_request, awaiting_video_prompt: true) }
   let(:chat_id) { command_request.chat_id }
+  let!(:user) { create(:user, chat_id:) }
 
   before do
     picture_message = create(
