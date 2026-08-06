@@ -10,17 +10,17 @@ describe ContentCategory do
   describe ".image_bucket_folder" do
     it "returns bloomy cartoon image folder for bloomy cartoon script" do
       expect(described_class.image_bucket_folder(ContentCategory::BLOOMY_CARTOON_SCRIPT))
-        .to eq("cartoon/bloomy/images")
+        .to eq("admin/cartoon/bloomy/images")
     end
 
     it "returns bloomy shorts image folder for bloomy shorts script" do
       expect(described_class.image_bucket_folder(ContentCategory::CARTOON_BLOOMY_SHORTS_SCRIPT))
-        .to eq("cartoon/bloomy/shorts/images")
+        .to eq("admin/cartoon/bloomy/shorts/images")
     end
 
     it "returns bloomy shorts image folder for complex bloomy shorts script" do
       expect(described_class.image_bucket_folder(ContentCategory::CARTOON_BLOOMY_SHORTS_COMPLEX_SCRIPT))
-        .to eq("cartoon/bloomy/shorts/images")
+        .to eq("admin/cartoon/bloomy/shorts/images")
     end
 
     it "returns images for other categories" do
@@ -32,22 +32,22 @@ describe ContentCategory do
   describe ".video_bucket_folder" do
     it "returns bloomy cartoon video folder for bloomy cartoon script" do
       expect(described_class.video_bucket_folder(ContentCategory::BLOOMY_CARTOON_SCRIPT))
-        .to eq("cartoon/bloomy/videos")
+        .to eq("admin/cartoon/bloomy/videos")
     end
 
     it "returns bloomy shorts video folder for bloomy shorts script" do
       expect(described_class.video_bucket_folder(ContentCategory::CARTOON_BLOOMY_SHORTS_SCRIPT))
-        .to eq("cartoon/bloomy/shorts/videos")
+        .to eq("admin/cartoon/bloomy/shorts/videos")
     end
 
     it "returns bloomy shorts video folder for complex bloomy shorts script" do
       expect(described_class.video_bucket_folder(ContentCategory::CARTOON_BLOOMY_SHORTS_COMPLEX_SCRIPT))
-        .to eq("cartoon/bloomy/shorts/videos")
+        .to eq("admin/cartoon/bloomy/shorts/videos")
     end
 
-    it "returns videos/motivation for motivation" do
+    it "returns admin/videos/motivation for motivation" do
       expect(described_class.video_bucket_folder(ContentCategory::MOTIVATION))
-        .to eq("videos/motivation")
+        .to eq("admin/videos/motivation")
     end
 
     it "returns videos for other categories" do
@@ -63,17 +63,17 @@ describe ContentCategory do
   describe ".audio_bucket_folder" do
     it "returns bloomy cartoon audio folder for bloomy cartoon script" do
       expect(described_class.audio_bucket_folder(ContentCategory::BLOOMY_CARTOON_SCRIPT))
-        .to eq("cartoon/bloomy/audio")
+        .to eq("admin/cartoon/bloomy/audio")
     end
 
     it "returns bloomy shorts audio folder for bloomy shorts script" do
       expect(described_class.audio_bucket_folder(ContentCategory::CARTOON_BLOOMY_SHORTS_SCRIPT))
-        .to eq("cartoon/bloomy/shorts/audio")
+        .to eq("admin/cartoon/bloomy/shorts/audio")
     end
 
     it "returns bloomy shorts audio folder for complex bloomy shorts script" do
       expect(described_class.audio_bucket_folder(ContentCategory::CARTOON_BLOOMY_SHORTS_COMPLEX_SCRIPT))
-        .to eq("cartoon/bloomy/shorts/audio")
+        .to eq("admin/cartoon/bloomy/shorts/audio")
     end
 
     it "returns audio for other categories" do
@@ -84,17 +84,17 @@ describe ContentCategory do
   describe ".merged_video_bucket_folder" do
     it "returns bloomy cartoon merged video folder for bloomy cartoon script" do
       expect(described_class.merged_video_bucket_folder(ContentCategory::BLOOMY_CARTOON_SCRIPT))
-        .to eq("cartoon/bloomy/videos/with_audio")
+        .to eq("admin/cartoon/bloomy/videos/with_audio")
     end
 
     it "returns bloomy shorts merged video folder for bloomy shorts script" do
       expect(described_class.merged_video_bucket_folder(ContentCategory::CARTOON_BLOOMY_SHORTS_SCRIPT))
-        .to eq("cartoon/bloomy/shorts/videos/with_audio")
+        .to eq("admin/cartoon/bloomy/shorts/videos/with_audio")
     end
 
     it "returns bloomy shorts merged video folder for complex bloomy shorts script" do
       expect(described_class.merged_video_bucket_folder(ContentCategory::CARTOON_BLOOMY_SHORTS_COMPLEX_SCRIPT))
-        .to eq("cartoon/bloomy/shorts/videos/with_audio")
+        .to eq("admin/cartoon/bloomy/shorts/videos/with_audio")
     end
 
     it "returns videos/with_audio for other categories" do

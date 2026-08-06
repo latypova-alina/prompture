@@ -3,7 +3,7 @@ require "rails_helper"
 describe StoreVideo::Registrar do
   subject(:call_registrar) { described_class.call(record:, video_url:) }
 
-  let(:video_url) { "https://internal.example/videos/motivation/cry/clip.mp4" }
+  let(:video_url) { "https://internal.example/admin/videos/motivation/cry/clip.mp4" }
   let(:command_request) { create(:command_prompt_to_video_request, :motivation) }
   let(:prompt_message) do
     create(:prompt_message, command_request:, parent_request: command_request, subcategory: "cry",

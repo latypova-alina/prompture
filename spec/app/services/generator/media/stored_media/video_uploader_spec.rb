@@ -10,7 +10,7 @@ describe Generator::Media::StoredMedia::VideoUploader do
   end
   let(:parent_request) { create(:button_image_processing_request, command_request:, parent_request: prompt_message) }
   let(:record) { create(:button_video_processing_request, command_request:, parent_request:) }
-  let(:uploaded_url) { "https://internal.example/videos/motivation/generated.mp4" }
+  let(:uploaded_url) { "https://internal.example/admin/videos/motivation/generated.mp4" }
   let(:upload_facade) { instance_double(StoreMedia::Upload::Facade, stored_url: uploaded_url) }
 
   let(:remote_url_downloader) { instance_double(StoreImage::Download::RemoteUrlDownloader, downloaded_bytes: "video-bytes") }
@@ -23,7 +23,7 @@ describe Generator::Media::StoredMedia::VideoUploader do
 
     allow(StoreMedia::Upload::Facade)
       .to receive(:new)
-      .with(bytes: "video-bytes", filename: "generated.mp4", folder: "videos/motivation")
+      .with(bytes: "video-bytes", filename: "generated.mp4", folder: "admin/videos/motivation")
       .and_return(upload_facade)
 
     allow(upload_facade).to receive(:upload)
@@ -53,17 +53,17 @@ describe Generator::Media::StoredMedia::VideoUploader do
     before do
       allow(StoreMedia::Upload::Facade)
         .to receive(:new)
-        .with(bytes: "video-bytes", filename: "generated.mp4", folder: "cartoon/bloomy/videos")
+        .with(bytes: "video-bytes", filename: "generated.mp4", folder: "admin/cartoon/bloomy/videos")
         .and_return(upload_facade)
     end
 
-    it "uploads to cartoon/bloomy/videos folder" do
+    it "uploads to admin/cartoon/bloomy/videos folder" do
       service.call
 
       expect(StoreMedia::Upload::Facade).to have_received(:new).with(
         bytes: "video-bytes",
         filename: "generated.mp4",
-        folder: "cartoon/bloomy/videos"
+        folder: "admin/cartoon/bloomy/videos"
       )
     end
   end

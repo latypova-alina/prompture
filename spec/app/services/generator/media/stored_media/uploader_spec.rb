@@ -42,13 +42,13 @@ describe Generator::Media::StoredMedia::Uploader do
         create(:button_image_processing_request, command_request:, parent_request: command_request)
       end
 
-      it "uploads to cartoon/bloomy/images folder" do
+      it "uploads to admin/cartoon/bloomy/images folder" do
         uploader.call
 
         expect(StoreImage::Upload::Facade).to have_received(:new).with(
           bytes: "image-bytes",
           filename: "generated.png",
-          folder: "cartoon/bloomy/images"
+          folder: "admin/cartoon/bloomy/images"
         )
       end
     end
