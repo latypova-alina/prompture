@@ -4,7 +4,8 @@ module Clients
       include Memery
 
       API_URL = "https://api.openai.com/v1/chat/completions".freeze
-      MODEL = "gpt-4o-mini".freeze
+      MODEL = "gpt-4o".freeze
+      TEMPERATURE = 0.4
 
       def initialize(messages)
         @messages = messages
@@ -27,7 +28,8 @@ module Clients
         connection.post do |req|
           req.body = {
             model: MODEL,
-            messages:
+            messages:,
+            temperature: TEMPERATURE
           }.to_json
         end
       end
