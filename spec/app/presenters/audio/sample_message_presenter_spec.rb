@@ -5,7 +5,7 @@ RSpec.describe Audio::SampleMessagePresenter do
 
   before do
     stub_const("ENV", ENV.to_hash.merge("INTERNAL_BUCKET_BASE_URL" => "https://bucket.example"))
-    all_keys = %w[adam victoria knox milo hope lulu_lollipop].map { |slug| "audio/samples/#{slug}.mp3" }
+    all_keys = %w[adam victoria knox milo hope lulu_lollipop].map { |slug| "audio_samples/#{slug}.mp3" }
     allow(S3::ObjectKeysFetcher).to receive(:new).and_return(
       instance_double(S3::ObjectKeysFetcher, object_keys: all_keys)
     )
@@ -13,7 +13,7 @@ RSpec.describe Audio::SampleMessagePresenter do
 
   it "includes an intro and a link line for each voice" do
     expect(formatted_text).to include("Here are the voice samples 🔊")
-    expect(formatted_text).to include('Adam: <a href="https://bucket.example/audio/samples/adam.mp3">Listen</a>')
-    expect(formatted_text).to include('Hope: <a href="https://bucket.example/audio/samples/hope.mp3">Listen</a>')
+    expect(formatted_text).to include('Adam: <a href="https://bucket.example/audio_samples/adam.mp3">Listen</a>')
+    expect(formatted_text).to include('Hope: <a href="https://bucket.example/audio_samples/hope.mp3">Listen</a>')
   end
 end
