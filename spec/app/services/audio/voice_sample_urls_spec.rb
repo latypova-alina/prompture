@@ -2,7 +2,7 @@ require "rails_helper"
 
 RSpec.describe Audio::VoiceSampleUrls do
   def sample_key(slug)
-    "admin/audio/samples/#{slug}.mp3"
+    "audio_samples/#{slug}.mp3"
   end
 
   before do
@@ -16,7 +16,7 @@ RSpec.describe Audio::VoiceSampleUrls do
     it "builds a public URL for the voice sample object key" do
       stub_const("ENV", ENV.to_hash.merge("INTERNAL_BUCKET_BASE_URL" => "https://bucket.example"))
 
-      expect(described_class.url_for(:adam)).to eq("https://bucket.example/admin/audio/samples/adam.mp3")
+      expect(described_class.url_for(:adam)).to eq("https://bucket.example/audio_samples/adam.mp3")
     end
   end
 
