@@ -6,15 +6,22 @@
 
 ## 📌 Features
 
-- 💬 Extending prompt
-- 🖼️ Generate images from prompt using the following processors:
-  - **Flux**
-  - **NanoBanana**
+- 💬 Extend your prompt automatically before generation
+- 🖼️ Generate images from a prompt using the following processors:
+  - **Flux 2 Pro**
+  - **NanoBanana 2**
+- 🖼✏️ Edit an existing image with **NanoBanana 2 Edit**
+- 🔊 Generate audio from a prompt using **ElevenLabs**
 - 🎥 Generate videos from images using the following processors:
-  - **Kling**
+  - **Kling Pro 2.1**
+  - **Kling 3 Standard**
   - **Hailuo 02 Standard**
   - **Veo 3.1 Lite**
- 
+- 🖼🎬 Turn a single picture into a video
+- 🖼🎬 Turn a start & end frame into a video
+- 🔁 Regenerate any generated result with one tap
+- 🎧 Preview available voices with audio samples before generating audio
+
 ---
 
 ## 📬 Bot Link
@@ -29,13 +36,19 @@
 
 ## 🔑 Credits & Tokens
 
-Each generation costs credits.
+Credits (called **inks 🖋️** in the bot) are spent on every generation, e.g.:
 
-To receive credits, you must activate a token.
+- 🖼️ Image generation / editing — 2 inks
+- 🔊 Audio generation — 2 inks
+- 🎬 Video generation — 10–20 inks, depending on the processor
+- 💬 Prompt extension — 2 inks
 
-If you are on this page, you most likely already have a token.
+Check your balance anytime with `/balance`.
 
-If not, please contact the owner of this repository to obtain one.
+There are two ways to get credits:
+
+- 🔑 **Activate a token** — if you are on this page, you most likely already have one. Use `/start YOUR_TOKEN` (or `/activate_token!` inside the bot) to redeem it. If you don't have a token, please contact the owner of this repository to obtain one.
+- ⭐ **Buy inks with Telegram Stars** — use `/buy_inks` inside the bot to purchase a credit pack directly with Telegram Stars, no token needed.
 
 ---
 
