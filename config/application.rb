@@ -40,6 +40,6 @@ module Prompture
     config.generators.system_tests = nil
     Dotenv.overload(".env.dev") if Rails.env.development?
 
-    config.x.support_email = "support@prompturebot.com"
+    config.x.support_email = "support@caivemanator.com"
   end
 end
