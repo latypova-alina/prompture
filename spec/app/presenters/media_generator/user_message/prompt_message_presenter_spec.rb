@@ -23,9 +23,9 @@ describe MediaGenerator::UserMessage::PromptMessagePresenter do
   describe "#inline_keyboard" do
     let(:expected_buttons) do
       [
-        [{ callback_data: "extend_prompt", text: "Extend prompt (1 ink 🖋️)" }],
-        [{ callback_data: "flux_image", text: "Flux 2 Pro (1 ink 🖋️)" }],
-        [{ callback_data: "nano_banana_image", text: "NanoBanana 2 (1 ink 🖋️)" }]
+        [{ callback_data: "extend_prompt", text: "Extend prompt (1 stone 💎)" }],
+        [{ callback_data: "flux_image", text: "Flux 2 Pro (1 stone 💎)" }],
+        [{ callback_data: "nano_banana_image", text: "NanoBanana 2 (1 stone 💎)" }]
       ]
     end
 
@@ -51,12 +51,12 @@ describe MediaGenerator::UserMessage::PromptMessagePresenter do
       it "returns audio voice buttons" do
         expect(subject.inline_keyboard).to eq(
           [
-            [{ callback_data: "adam", text: "Adam (1 ink 🖋️)" }],
-            [{ callback_data: "victoria", text: "Victoria (1 ink 🖋️)" }],
-            [{ callback_data: "knox", text: "Knox (1 ink 🖋️)" }],
-            [{ callback_data: "milo", text: "Milo (1 ink 🖋️)" }],
-            [{ callback_data: "hope", text: "Hope (1 ink 🖋️)" }],
-            [{ callback_data: "lulu_lollipop", text: "Lulu Lollipop (1 ink 🖋️)" }],
+            [{ callback_data: "adam", text: "Adam (1 stone 💎)" }],
+            [{ callback_data: "victoria", text: "Victoria (1 stone 💎)" }],
+            [{ callback_data: "knox", text: "Knox (1 stone 💎)" }],
+            [{ callback_data: "milo", text: "Milo (1 stone 💎)" }],
+            [{ callback_data: "hope", text: "Hope (1 stone 💎)" }],
+            [{ callback_data: "lulu_lollipop", text: "Lulu Lollipop (1 stone 💎)" }],
             [{ callback_data: "get_audio_samples", text: "Get samples" }]
           ]
         )

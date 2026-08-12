@@ -152,7 +152,7 @@
         }
 
         function loadPacks() {
-          fetch(<%= raw mini_app_buy_inks_packs_path.to_json %>, {
+          fetch(<%= raw mini_app_buy_stones_packs_path.to_json %>, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ init_data: tg ? tg.initData : "" })

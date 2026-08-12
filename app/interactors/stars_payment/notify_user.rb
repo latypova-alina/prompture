@@ -10,7 +10,7 @@ module StarsPayment
 
       ::Telegram.bot.send_message(
         chat_id:,
-        text: I18n.t("telegram_webhooks.commands.buy_inks.thank_you", credits: credits_amount, count: credits_amount)
+        text: I18n.t("telegram_webhooks.commands.buy_stones.thank_you", credits: credits_amount, count: credits_amount)
       )
     end
   end

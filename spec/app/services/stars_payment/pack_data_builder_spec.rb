@@ -21,7 +21,7 @@ describe StarsPayment::PackDataBuilder do
 
     it "localizes the pack title using the given locale" do
       small_pack = pack_data.find { |p| p[:key] == :small }
-      expected_title = I18n.t("telegram_webhooks.commands.buy_inks.pack_title.small", locale: "ru")
+      expected_title = I18n.t("telegram_webhooks.commands.buy_stones.pack_title.small", locale: "ru")
 
       expect(small_pack[:title]).to eq(expected_title)
     end
