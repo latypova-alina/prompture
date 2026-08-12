@@ -20,7 +20,7 @@ describe MediaGenerator::ButtonRequestPresenters::MergeProcessedMessagePresenter
             <a href="#{message}">Open merged video</a>
 
             ────────────
-            Your current balance is #{balance} stones 💎.
+            Your current balance is #{balance} stones 🪨.
           TEXT
         )
     end

@@ -12,7 +12,7 @@ describe TelegramWebhooksController, telegram_bot: :rails do
 
     context "when token is correct" do
       let(:expected_greeting_text) do
-        "Hello, Rihanna!\n\n✅ Your token has been successfully activated!\n\n🎉 You have received 100 stones 💎.\n"
+        "Hello, Rihanna!\n\n✅ Your token has been successfully activated!\n\n🎉 You have received 100 stones 🪨.\n"
       end
 
       let(:expected_default_text) do
@@ -624,7 +624,7 @@ describe TelegramWebhooksController, telegram_bot: :rails do
 
   describe "#balance", :callback_query do
     let(:expected_text) do
-      "Your current balance is 100 stones 💎."
+      "Your current balance is 100 stones 🪨."
     end
 
     it_behaves_like "command handling",

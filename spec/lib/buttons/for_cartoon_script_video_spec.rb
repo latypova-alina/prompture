@@ -9,8 +9,8 @@ describe Buttons::ForCartoonScriptVideo do
   it "builds regenerate and generate audio buttons" do
     expect(result).to eq(
       [
-        [{ callback_data: "veo3_1_lite_image_to_video", text: "Regenerate (5 stones 💎)" }],
-        [{ callback_data: "generate_cartoon_audio", text: "Generate Audio (1 stone 💎)" }]
+        [{ callback_data: "veo3_1_lite_image_to_video", text: "Regenerate (5 stones 🪨)" }],
+        [{ callback_data: "generate_cartoon_audio", text: "Generate Audio (1 stone 🪨)" }]
       ]
     )
   end

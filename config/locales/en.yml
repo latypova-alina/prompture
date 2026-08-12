@@ -12,7 +12,7 @@ en:
         prompt_policy: "🛡 View prompt policy rules"
         contact_support: "📩 Contact support"
         set_locale: "🌐 Set language"
-        buy_stones: "⭐ Buy stones 💎 with Telegram Stars"
+        buy_stones: "⭐ Buy stones 🪨 with Telegram Stars"
         image_to_video: "🖼🎬 Picture → video"
         first_last_frame_to_video: "🖼🎬 Start & end frame → video"
         edit_image: "🖼✏️ Edit image"
@@ -20,7 +20,7 @@ en:
         welcome_bonus: |
           👋 Hi! Great to see you here.
 
-          🎉 As one of our first users, you've received 100 free stones 💎 to try out the bot!
+          🎉 As one of our first users, you've received 100 free stones 🪨 to try out the bot!
         no_token: |
           👋 Hi! Great to see you here.
 
@@ -50,7 +50,7 @@ en:
           🔑 To activate a token, type:
           /activate_token
 
-          ⭐ To buy stones 💎 with Telegram Stars, type:
+          ⭐ To buy stones 🪨 with Telegram Stars, type:
           /buy_stones
 
           🌐 To set your language, type:
@@ -62,7 +62,7 @@ en:
           📩 To contact support, type:
           /contact_support
 
-          ℹ️ Each generation costs stones 💎.
+          ℹ️ Each generation costs stones 🪨.
           To top up your balance, either use /activate_token and enter a valid token, or use /buy_stones to purchase stones with Telegram Stars.
         with_valid_token: |
           🤖 With this bot, you can generate images, videos, and audio using different AI models.
@@ -91,7 +91,7 @@ en:
           🔑 To activate a token:
           /activate_token
 
-          ⭐ To buy stones 💎 with Telegram Stars:
+          ⭐ To buy stones 🪨 with Telegram Stars:
           /buy_stones
 
           🌐 To set your language:
@@ -129,7 +129,7 @@ en:
         🔑 To activate a token, type:
         /activate_token
 
-        ⭐ To buy stones 💎 with Telegram Stars, type:
+        ⭐ To buy stones 🪨 with Telegram Stars, type:
         /buy_stones
 
         🌐 To set your language, type:
@@ -141,7 +141,7 @@ en:
         📩 To contact support, type:
         /contact_support
 
-        ℹ️ Each generation costs stones 💎.
+        ℹ️ Each generation costs stones 🪨.
         To top up your balance, either use /activate_token and enter a valid token, or use /buy_stones to purchase stones with Telegram Stars.
       admin: |
         Here are the possible commands for admin:
@@ -217,29 +217,29 @@ en:
         ♦️ Do not request hateful or harassing content.
       contact_support: "📩 Need help? Write to us at %{support_email} and we'll get back to you."
       balance:
-        one: "Your current balance is %{balance} stone 💎."
-        other: "Your current balance is %{balance} stones 💎."
+        one: "Your current balance is %{balance} stone 🪨."
+        other: "Your current balance is %{balance} stones 🪨."
       activate_token:
         ask: "Please enter your token to activate it:"
         activated: |
           ✅ Your token has been successfully activated!
 
-          🎉 You have received %{credits} stones 💎.
+          🎉 You have received %{credits} stones 🪨.
       set_locale:
         ask: "Please select your preferred language:"
         locale_updated: "Your language has been updated 🌐"
       buy_stones:
-        ask: "💳 Tap below to choose your stone 💎 pack"
+        ask: "💳 Tap below to choose your stone 🪨 pack"
         open_store_button: "🛒 Open Store"
         pack_title:
-          small: "Handful of Stones 💎"
-          medium: "Bag of Stones 💎"
-          large: "Rock Pile 💎"
+          small: "Handful of Stones 🪨"
+          medium: "Bag of Stones 🪨"
+          large: "Rock Pile 🪨"
           test: "🧪 Test Pack"
-        pack_description: "%{credits} stones 💎"
+        pack_description: "%{credits} stones 🪨"
         thank_you:
-          one: "🎉 Payment received! %{credits} stone 💎 has been added to your balance."
-          other: "🎉 Payment received! %{credits} stones 💎 have been added to your balance."
+          one: "🎉 Payment received! %{credits} stone 🪨 has been added to your balance."
+          other: "🎉 Payment received! %{credits} stones 🪨 have been added to your balance."
     message:
       image_message_url: "Here is your image"
       image_message_reply: "Great! You can now generate a video using one of the options below."
@@ -271,72 +271,72 @@ en:
       buttons:
         prompt:
           extend_prompt:
-            one: "Extend prompt (%{count} stone 💎)"
-            other: "Extend prompt (%{count} stones 💎)"
+            one: "Extend prompt (%{count} stone 🪨)"
+            other: "Extend prompt (%{count} stones 🪨)"
         generate_image:
           flux_image:
-            one: "Flux 2 Pro (%{count} stone 💎)"
-            other: "Flux 2 Pro (%{count} stones 💎)"
+            one: "Flux 2 Pro (%{count} stone 🪨)"
+            other: "Flux 2 Pro (%{count} stones 🪨)"
           nano_banana_image:
-            one: "NanoBanana 2 (%{count} stone 💎)"
-            other: "NanoBanana 2 (%{count} stones 💎)"
+            one: "NanoBanana 2 (%{count} stone 🪨)"
+            other: "NanoBanana 2 (%{count} stones 🪨)"
           nano_banana_edit_image:
-            one: "NanoBanana 2 Edit (%{count} stone 💎)"
-            other: "NanoBanana 2 Edit (%{count} stones 💎)"
+            one: "NanoBanana 2 Edit (%{count} stone 🪨)"
+            other: "NanoBanana 2 Edit (%{count} stones 🪨)"
         generate_audio:
           adam:
-            one: "Adam (%{count} stone 💎)"
-            other: "Adam (%{count} stones 💎)"
+            one: "Adam (%{count} stone 🪨)"
+            other: "Adam (%{count} stones 🪨)"
           victoria:
-            one: "Victoria (%{count} stone 💎)"
-            other: "Victoria (%{count} stones 💎)"
+            one: "Victoria (%{count} stone 🪨)"
+            other: "Victoria (%{count} stones 🪨)"
           knox:
-            one: "Knox (%{count} stone 💎)"
-            other: "Knox (%{count} stones 💎)"
+            one: "Knox (%{count} stone 🪨)"
+            other: "Knox (%{count} stones 🪨)"
           milo:
-            one: "Milo (%{count} stone 💎)"
-            other: "Milo (%{count} stones 💎)"
+            one: "Milo (%{count} stone 🪨)"
+            other: "Milo (%{count} stones 🪨)"
           hope:
-            one: "Hope (%{count} stone 💎)"
-            other: "Hope (%{count} stones 💎)"
+            one: "Hope (%{count} stone 🪨)"
+            other: "Hope (%{count} stones 🪨)"
           lulu_lollipop:
-            one: "Lulu Lollipop (%{count} stone 💎)"
-            other: "Lulu Lollipop (%{count} stones 💎)"
+            one: "Lulu Lollipop (%{count} stone 🪨)"
+            other: "Lulu Lollipop (%{count} stones 🪨)"
         get_audio_samples: "Get samples"
         send_as_separate_message: "Send as a separate message"
         image_to_video:
           provide_prompt: "Provide Prompt"
         generate_cartoon_video:
-          one: "Generate Video (%{count} stone 💎)"
-          other: "Generate Video (%{count} stones 💎)"
+          one: "Generate Video (%{count} stone 🪨)"
+          other: "Generate Video (%{count} stones 🪨)"
         generate_bloomy_complex_videos:
-          one: "Generate videos (%{count} stone 💎)"
-          other: "Generate videos (%{count} stones 💎)"
+          one: "Generate videos (%{count} stone 🪨)"
+          other: "Generate videos (%{count} stones 🪨)"
         generate_cartoon_audio:
-          one: "Generate Audio (%{count} stone 💎)"
-          other: "Generate Audio (%{count} stones 💎)"
+          one: "Generate Audio (%{count} stone 🪨)"
+          other: "Generate Audio (%{count} stones 🪨)"
         merge_cartoon_audio_video:
-          one: "Merge Audio to Video (%{count} stone 💎)"
-          other: "Merge Audio to Video (%{count} stones 💎)"
+          one: "Merge Audio to Video (%{count} stone 🪨)"
+          other: "Merge Audio to Video (%{count} stones 🪨)"
         regenerate_cartoon_script_image:
-          one: "Regenerate Script (%{count} stone 💎)"
-          other: "Regenerate Script (%{count} stones 💎)"
+          one: "Regenerate Script (%{count} stone 🪨)"
+          other: "Regenerate Script (%{count} stones 🪨)"
         generate_video:
           kling_2_1_pro_image_to_video:
-            one: "Kling Pro 2.1 (%{count} stone 💎)"
-            other: "Kling Pro 2.1 (%{count} stones 💎)"
+            one: "Kling Pro 2.1 (%{count} stone 🪨)"
+            other: "Kling Pro 2.1 (%{count} stones 🪨)"
           kling_3_standard_image_to_video:
-            one: "Kling 3 Standard (%{count} stone 💎)"
-            other: "Kling 3 Standard (%{count} stones 💎)"
+            one: "Kling 3 Standard (%{count} stone 🪨)"
+            other: "Kling 3 Standard (%{count} stones 🪨)"
           hailuo_02_standard_image_to_video:
-            one: "Hailuo 02 Standard (%{count} stone 💎)"
-            other: "Hailuo 02 Standard (%{count} stones 💎)"
+            one: "Hailuo 02 Standard (%{count} stone 🪨)"
+            other: "Hailuo 02 Standard (%{count} stones 🪨)"
           veo3_1_lite_image_to_video:
-            one: "Veo 3.1 Lite (%{count} stone 💎)"
-            other: "Veo 3.1 Lite (%{count} stones 💎)"
+            one: "Veo 3.1 Lite (%{count} stone 🪨)"
+            other: "Veo 3.1 Lite (%{count} stones 🪨)"
         regenerate:
-          one: "Regenerate (%{count} stone 💎)"
-          other: "Regenerate (%{count} stones 💎)"
+          one: "Regenerate (%{count} stone 🪨)"
+          other: "Regenerate (%{count} stones 🪨)"
         set_locale:
           en: "English"
           ru: "Русский"
@@ -403,12 +403,12 @@ en:
     token_not_found: "Sorry, the token you provided is invalid. You can ask administrator for a valid token."
     token_used: "Sorry, the token you provided has already been used."
     token_expired: "Sorry, the token you provided has expired."
-    insufficient_credits: "Sorry, it looks like you don't have enough stones 💎 to perform this action 💰"
+    insufficient_credits: "Sorry, it looks like you don't have enough stones 🪨 to perform this action 💰"
     moderation: "Your message cannot be processed because it violates our content policy. See the rules: /prompt_policy"
     script_generator_request_failed: "Script generator API request failed."
     template_name_missing: "Please provide a template name. Example: /generate_cats_script my_template."
     daily_limit_exceeded: "Sorry, the daily limit for this processor has been exceeded. Please try again tomorrow or choose another processor."
-    pack_not_found: "Sorry, this stone 💎 pack is no longer available. Please try /buy_stones again."
+    pack_not_found: "Sorry, this stone 🪨 pack is no longer available. Please try /buy_stones again."
   telegram:
     generation:
       processing: Generating %{process_name}, please wait…

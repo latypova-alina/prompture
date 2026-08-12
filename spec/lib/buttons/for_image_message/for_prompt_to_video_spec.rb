@@ -6,13 +6,13 @@ describe Buttons::ForImageMessage::ForPromptToVideo do
   it "builds regenerate, processor, and send-as-separate-message buttons" do
     expect(result).to eq(
       [
-        [{ callback_data: "flux_image", text: "Regenerate (1 stone 💎)" }],
+        [{ callback_data: "flux_image", text: "Regenerate (1 stone 🪨)" }],
         [{ callback_data: "kling_2_1_pro_image_to_video",
-           text: "Kling Pro 2.1 (10 stones 💎)" }],
+           text: "Kling Pro 2.1 (10 stones 🪨)" }],
         [{ callback_data: "hailuo_02_standard_image_to_video",
-           text: "Hailuo 02 Standard (6 stones 💎)" }],
+           text: "Hailuo 02 Standard (6 stones 🪨)" }],
         [{ callback_data: "veo3_1_lite_image_to_video",
-           text: "Veo 3.1 Lite (5 stones 💎)" }],
+           text: "Veo 3.1 Lite (5 stones 🪨)" }],
         [{ callback_data: "send_as_separate_message", text: "Send as a separate message" }]
       ]
     )
@@ -24,13 +24,13 @@ describe Buttons::ForImageMessage::ForPromptToVideo do
     it "builds buttons with russian pluralization" do
       expect(result).to eq(
         [
-          [{ callback_data: "flux_image", text: "Сгенерировать снова (1 камень 💎)" }],
+          [{ callback_data: "flux_image", text: "Сгенерировать снова (1 камень 🪨)" }],
           [{ callback_data: "kling_2_1_pro_image_to_video",
-             text: "Kling Pro 2.1 (10 камней 💎)" }],
+             text: "Kling Pro 2.1 (10 камней 🪨)" }],
           [{ callback_data: "hailuo_02_standard_image_to_video",
-             text: "Hailuo 02 Standard (6 камней 💎)" }],
+             text: "Hailuo 02 Standard (6 камней 🪨)" }],
           [{ callback_data: "veo3_1_lite_image_to_video",
-             text: "Veo 3.1 Lite (5 камней 💎)" }],
+             text: "Veo 3.1 Lite (5 камней 🪨)" }],
           [{ callback_data: "send_as_separate_message", text: "Отправить отдельным сообщением" }]
         ]
       )

@@ -36,7 +36,7 @@
 
 ## 🔑 Credits & Tokens
 
-Credits (called **stones 💎** in the bot) are spent on every generation, e.g.:
+Credits (called **stones 🪨** in the bot) are spent on every generation, e.g.:
 
 - 🖼️ Image generation / editing — 2 stones
 - 🔊 Audio generation — 2 stones

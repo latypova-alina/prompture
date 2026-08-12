@@ -7,11 +7,11 @@ describe Buttons::ForPromptMessage::ForImageToVideo do
     expect(result).to eq(
       [
         [{ callback_data: "kling_2_1_pro_image_to_video",
-           text: "Kling Pro 2.1 (10 stones 💎)" }],
+           text: "Kling Pro 2.1 (10 stones 🪨)" }],
         [{ callback_data: "hailuo_02_standard_image_to_video",
-           text: "Hailuo 02 Standard (6 stones 💎)" }],
+           text: "Hailuo 02 Standard (6 stones 🪨)" }],
         [{ callback_data: "veo3_1_lite_image_to_video",
-           text: "Veo 3.1 Lite (5 stones 💎)" }]
+           text: "Veo 3.1 Lite (5 stones 🪨)" }]
       ]
     )
   end
@@ -23,11 +23,11 @@ describe Buttons::ForPromptMessage::ForImageToVideo do
       expect(result).to eq(
         [
           [{ callback_data: "kling_2_1_pro_image_to_video",
-             text: "Kling Pro 2.1 (10 камней 💎)" }],
+             text: "Kling Pro 2.1 (10 камней 🪨)" }],
           [{ callback_data: "hailuo_02_standard_image_to_video",
-             text: "Hailuo 02 Standard (6 камней 💎)" }],
+             text: "Hailuo 02 Standard (6 камней 🪨)" }],
           [{ callback_data: "veo3_1_lite_image_to_video",
-             text: "Veo 3.1 Lite (5 камней 💎)" }]
+             text: "Veo 3.1 Lite (5 камней 🪨)" }]
         ]
       )
     end

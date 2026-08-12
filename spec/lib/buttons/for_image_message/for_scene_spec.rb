@@ -9,9 +9,9 @@ describe Buttons::ForImageMessage::ForScene do
   it "returns regenerate, regenerate script, and generate video buttons" do
     expect(subject).to eq(
       [
-        [{ callback_data: "nano_banana_edit_image", text: "Regenerate (1 stone 💎)" }],
-        [{ callback_data: "regenerate_single_cartoon_script_image", text: "Regenerate Script (1 stone 💎)" }],
-        [{ callback_data: "generate_cartoon_video", text: "Generate Video (5 stones 💎)" }]
+        [{ callback_data: "nano_banana_edit_image", text: "Regenerate (1 stone 🪨)" }],
+        [{ callback_data: "regenerate_single_cartoon_script_image", text: "Regenerate Script (1 stone 🪨)" }],
+        [{ callback_data: "generate_cartoon_video", text: "Generate Video (5 stones 🪨)" }]
       ]
     )
   end
@@ -22,10 +22,10 @@ describe Buttons::ForImageMessage::ForScene do
     it "returns localized button labels" do
       expect(subject).to eq(
         [
-          [{ callback_data: "nano_banana_edit_image", text: "Сгенерировать снова (1 камень 💎)" }],
+          [{ callback_data: "nano_banana_edit_image", text: "Сгенерировать снова (1 камень 🪨)" }],
           [{ callback_data: "regenerate_single_cartoon_script_image",
-             text: "Перегенерировать сценарий (1 камень 💎)" }],
-          [{ callback_data: "generate_cartoon_video", text: "Сгенерировать видео (5 камней 💎)" }]
+             text: "Перегенерировать сценарий (1 камень 🪨)" }],
+          [{ callback_data: "generate_cartoon_video", text: "Сгенерировать видео (5 камней 🪨)" }]
         ]
       )
     end
