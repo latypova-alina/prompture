@@ -11,7 +11,7 @@ describe StarsPayment::CommandHandlerPresenter do
   end
 
   describe "#formatted_text" do
-    it { expect(presenter.formatted_text).to eq(I18n.t("telegram_webhooks.commands.buy_inks.ask", locale:)) }
+    it { expect(presenter.formatted_text).to eq(I18n.t("telegram_webhooks.commands.buy_stones.ask", locale:)) }
   end
 
   describe "#inline_keyboard" do
@@ -19,8 +19,8 @@ describe StarsPayment::CommandHandlerPresenter do
       expect(presenter.inline_keyboard).to eq(
         [[
           {
-            text: I18n.t("telegram_webhooks.commands.buy_inks.open_store_button", locale:),
-            web_app: { url: "http://localhost:3000/mini_app/buy_inks" }
+            text: I18n.t("telegram_webhooks.commands.buy_stones.open_store_button", locale:),
+            web_app: { url: "http://localhost:3000/mini_app/buy_stones" }
           }
         ]]
       )

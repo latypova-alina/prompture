@@ -9,7 +9,7 @@ describe Buttons::ForImageMessage::ForPromptToImage do
     it "returns regenerate and send-as-separate-message button rows" do
       expect(result).to eq(
         [
-          [{ callback_data: "flux_image", text: "Regenerate (1 ink 🖋️)" }],
+          [{ callback_data: "flux_image", text: "Regenerate (1 stone 🪨)" }],
           [{ callback_data: "send_as_separate_message", text: "Send as a separate message" }]
         ]
       )
@@ -21,7 +21,7 @@ describe Buttons::ForImageMessage::ForPromptToImage do
       it "returns button rows with russian pluralization" do
         expect(result).to eq(
           [
-            [{ callback_data: "flux_image", text: "Сгенерировать снова (1 инк 🖋️)" }],
+            [{ callback_data: "flux_image", text: "Сгенерировать снова (1 камень 🪨)" }],
             [{ callback_data: "send_as_separate_message", text: "Отправить отдельным сообщением" }]
           ]
         )

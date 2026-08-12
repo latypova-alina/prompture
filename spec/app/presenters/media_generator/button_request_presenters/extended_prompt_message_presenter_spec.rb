@@ -15,7 +15,7 @@ describe MediaGenerator::ButtonRequestPresenters::ExtendedPromptMessagePresenter
           #{I18n.t('telegram_webhooks.message.extended_prompt_postfix')}
 
           ────────────
-          Your current balance is #{balance} inks 🖋️.
+          Your current balance is #{balance} stones 🪨.
         TEXT
       )
     end
@@ -25,8 +25,8 @@ describe MediaGenerator::ButtonRequestPresenters::ExtendedPromptMessagePresenter
     subject { super().inline_keyboard }
     let(:expected_buttons) do
       [
-        [{ callback_data: "flux_image", text: "Flux 2 Pro (1 ink 🖋️)" }],
-        [{ callback_data: "nano_banana_image", text: "NanoBanana 2 (1 ink 🖋️)" }]
+        [{ callback_data: "flux_image", text: "Flux 2 Pro (1 stone 🪨)" }],
+        [{ callback_data: "nano_banana_image", text: "NanoBanana 2 (1 stone 🪨)" }]
       ]
     end
 

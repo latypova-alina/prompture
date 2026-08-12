@@ -28,7 +28,7 @@ Rails.application.routes.draw do
   post "/api/fal/webhook", to: "generator_webhooks#receive"
 
   namespace :mini_app do
-    get "buy_inks", to: "buy_inks#show", as: :buy_inks
-    post "buy_inks/packs", to: "buy_inks#packs"
+    get "buy_stones", to: "buy_stones#show", as: :buy_stones
+    post "buy_stones/packs", to: "buy_stones#packs"
   end
 end

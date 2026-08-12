@@ -24,9 +24,9 @@ RSpec.shared_examples "message handling" do
     let(:expected_markup) do
       {
         inline_keyboard: [
-          [{ text: "Extend prompt (1 ink 🖋️)", callback_data: "extend_prompt" }],
-          [{ text: "Flux 2 Pro (1 ink 🖋️)", callback_data: "flux_image" }],
-          [{ text: "NanoBanana 2 (1 ink 🖋️)", callback_data: "nano_banana_image" }]
+          [{ text: "Extend prompt (1 stone 🪨)", callback_data: "extend_prompt" }],
+          [{ text: "Flux 2 Pro (1 stone 🪨)", callback_data: "flux_image" }],
+          [{ text: "NanoBanana 2 (1 stone 🪨)", callback_data: "nano_banana_image" }]
         ]
       }
     end
@@ -74,7 +74,7 @@ RSpec.shared_examples "message handling" do
         let(:prompt) { "valid_token" }
 
         let(:expected_text) do
-          "Hello, Rihanna!\n\n✅ Your token has been successfully activated!\n\n🎉 You have received 100 inks 🖋️.\n"
+          "Hello, Rihanna!\n\n✅ Your token has been successfully activated!\n\n🎉 You have received 100 stones 🪨.\n"
         end
 
         it { is_expected.to respond_with_message(expected_text) }

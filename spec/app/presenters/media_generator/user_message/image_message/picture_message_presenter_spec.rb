@@ -22,11 +22,11 @@ describe MediaGenerator::UserMessage::ImageMessage::PictureMessagePresenter do
       [
         [{ callback_data: "provide_prompt", text: "Provide Prompt" }],
         [{ callback_data: "kling_2_1_pro_image_to_video",
-           text: "Kling Pro 2.1 (10 inks 🖋️)" }],
+           text: "Kling Pro 2.1 (10 stones 🪨)" }],
         [{ callback_data: "hailuo_02_standard_image_to_video",
-           text: "Hailuo 02 Standard (6 inks 🖋️)" }],
+           text: "Hailuo 02 Standard (6 stones 🪨)" }],
         [{ callback_data: "veo3_1_lite_image_to_video",
-           text: "Veo 3.1 Lite (5 inks 🖋️)" }]
+           text: "Veo 3.1 Lite (5 stones 🪨)" }]
       ]
     end
 

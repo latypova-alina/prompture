@@ -15,15 +15,15 @@ describe StarsPayment::PackPresenter do
 
     it "localizes the title, description, and estimate using the given locale" do
       expected_description = I18n.t(
-        "telegram_webhooks.commands.buy_inks.pack_description",
+        "telegram_webhooks.commands.buy_stones.pack_description",
         credits: pack[:credits],
         locale:
       )
 
       expect(pack_hash).to include(
-        title: I18n.t("telegram_webhooks.commands.buy_inks.pack_title.medium", locale:),
+        title: I18n.t("telegram_webhooks.commands.buy_stones.pack_title.medium", locale:),
         description: expected_description,
-        estimate: I18n.t("mini_app.buy_inks.pack_estimate.medium", locale:)
+        estimate: I18n.t("mini_app.buy_stones.pack_estimate.medium", locale:)
       )
     end
 

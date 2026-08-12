@@ -9,7 +9,7 @@ describe Buttons::ForVideoMessage do
     it "returns regenerate and send-as-separate-message button rows" do
       expect(result).to eq(
         [
-          [{ callback_data: "kling_2_1_pro_image_to_video", text: "Regenerate (10 inks 🖋️)" }],
+          [{ callback_data: "kling_2_1_pro_image_to_video", text: "Regenerate (10 stones 🪨)" }],
           [{ callback_data: "send_as_separate_message", text: "Send as a separate message" }]
         ]
       )
@@ -21,7 +21,7 @@ describe Buttons::ForVideoMessage do
       it "returns button rows with russian pluralization" do
         expect(result).to eq(
           [
-            [{ callback_data: "kling_2_1_pro_image_to_video", text: "Сгенерировать снова (10 инков 🖋️)" }],
+            [{ callback_data: "kling_2_1_pro_image_to_video", text: "Сгенерировать снова (10 камней 🪨)" }],
             [{ callback_data: "send_as_separate_message", text: "Отправить отдельным сообщением" }]
           ]
         )

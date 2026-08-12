@@ -36,19 +36,19 @@
 
 ## 🔑 Credits & Tokens
 
-Credits (called **inks 🖋️** in the bot) are spent on every generation, e.g.:
+Credits (called **stones 🪨** in the bot) are spent on every generation, e.g.:
 
-- 🖼️ Image generation / editing — 2 inks
-- 🔊 Audio generation — 2 inks
-- 🎬 Video generation — 10–20 inks, depending on the processor
-- 💬 Prompt extension — 2 inks
+- 🖼️ Image generation / editing — 2 stones
+- 🔊 Audio generation — 2 stones
+- 🎬 Video generation — 10–20 stones, depending on the processor
+- 💬 Prompt extension — 2 stones
 
 Check your balance anytime with `/balance`.
 
 There are two ways to get credits:
 
 - 🔑 **Activate a token** — if you are on this page, you most likely already have one. Use `/start YOUR_TOKEN` (or `/activate_token!` inside the bot) to redeem it. If you don't have a token, please contact the owner of this repository to obtain one.
-- ⭐ **Buy inks with Telegram Stars** — use `/buy_inks` inside the bot to purchase a credit pack directly with Telegram Stars, no token needed.
+- ⭐ **Buy stones with Telegram Stars** — use `/buy_stones` inside the bot to purchase a credit pack directly with Telegram Stars, no token needed.
 
 ---
 

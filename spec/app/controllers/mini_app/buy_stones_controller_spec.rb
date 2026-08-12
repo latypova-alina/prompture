@@ -1,8 +1,8 @@
 require "rails_helper"
 
-describe MiniApp::BuyInksController, type: :request do
+describe MiniApp::BuyStonesController, type: :request do
   describe "#show" do
-    subject(:make_request) { get "/mini_app/buy_inks" }
+    subject(:make_request) { get "/mini_app/buy_stones" }
 
     it "returns http success" do
       make_request
@@ -13,14 +13,14 @@ describe MiniApp::BuyInksController, type: :request do
     it "renders a shell that calls the packs endpoint" do
       make_request
 
-      expect(response.body).to include('fetch("/mini_app/buy_inks/packs"')
+      expect(response.body).to include('fetch("/mini_app/buy_stones/packs"')
       expect(response.body).not_to include("&quot;")
     end
   end
 
   describe "#packs" do
     subject(:make_request) do
-      post "/mini_app/buy_inks/packs",
+      post "/mini_app/buy_stones/packs",
            params: { init_data: }.to_json,
            headers: { "Content-Type" => "application/json" }
     end
@@ -70,9 +70,9 @@ describe MiniApp::BuyInksController, type: :request do
 
         body = JSON.parse(response.body)
 
-        expect(body["buy_button"]).to eq(I18n.t("mini_app.buy_inks.buy_button", locale: "ru"))
+        expect(body["buy_button"]).to eq(I18n.t("mini_app.buy_stones.buy_button", locale: "ru"))
         small_pack = body["packs"].find { |p| p["key"] == "small" }
-        expected_title = I18n.t("telegram_webhooks.commands.buy_inks.pack_title.small", locale: "ru")
+        expected_title = I18n.t("telegram_webhooks.commands.buy_stones.pack_title.small", locale: "ru")
         expect(small_pack["title"]).to eq(expected_title)
       end
 
@@ -102,7 +102,7 @@ describe MiniApp::BuyInksController, type: :request do
 
         body = JSON.parse(response.body)
 
-        expect(body["buy_button"]).to eq(I18n.t("mini_app.buy_inks.buy_button", locale: I18n.default_locale))
+        expect(body["buy_button"]).to eq(I18n.t("mini_app.buy_stones.buy_button", locale: I18n.default_locale))
       end
     end
 

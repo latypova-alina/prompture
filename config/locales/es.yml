@@ -12,7 +12,7 @@ es:
         prompt_policy: "🛡 Ver reglas de prompts"
         contact_support: "📩 Contactar con soporte"
         set_locale: "🌐 Cambiar idioma"
-        buy_inks: "⭐ Comprar tintas 🖋️ con Telegram Stars"
+        buy_stones: "⭐ Comprar piedras 🪨 con Telegram Stars"
         image_to_video: "🖼🎬 Imagen → video"
         first_last_frame_to_video: "🖼🎬 Primer y último fotograma → video"
         edit_image: "🖼✏️ Editar imagen"
@@ -20,7 +20,7 @@ es:
         welcome_bonus: |
           👋 ¡Hola! Qué bueno verte por aquí.
 
-          🎉 Como uno de nuestros primeros usuarios, ¡has recibido 100 tintas 🖋️ gratis para probar el bot!
+          🎉 Como uno de nuestros primeros usuarios, ¡has recibido 100 piedras 🪨 gratis para probar el bot!
         no_token: |
           👋 ¡Hola! Me alegra verte por aquí.
 
@@ -50,8 +50,8 @@ es:
           🔑 Para activar un token, escribe:
           /activate_token
 
-          ⭐ Para comprar tintas 🖋️ con Telegram Stars, escribe:
-          /buy_inks
+          ⭐ Para comprar piedras 🪨 con Telegram Stars, escribe:
+          /buy_stones
 
           🌐 Para cambiar de idioma, escribe:
           /set_locale
@@ -62,8 +62,8 @@ es:
           📩 Para contactar con soporte, escribe:
           /contact_support
 
-          ℹ️ Cada generación cuesta tintas 🖋️.
-          Para recargar tu saldo, usa /activate_token e introduce un token válido, o usa /buy_inks para comprar tintas con Telegram Stars.
+          ℹ️ Cada generación cuesta piedras 🪨.
+          Para recargar tu saldo, usa /activate_token e introduce un token válido, o usa /buy_stones para comprar piedras con Telegram Stars.
         with_valid_token: |
           🤖 Con este bot puedes generar imágenes, videos y audio usando diferentes modelos de IA.
 
@@ -91,8 +91,8 @@ es:
           🔑 Para activar un token:
           /activate_token
 
-          ⭐ Para comprar tintas 🖋️ con Telegram Stars:
-          /buy_inks
+          ⭐ Para comprar piedras 🪨 con Telegram Stars:
+          /buy_stones
 
           🌐 Para cambiar de idioma:
           /set_locale
@@ -129,8 +129,8 @@ es:
         🔑 Para activar un token, escribe:
         /activate_token
 
-        ⭐ Para comprar tintas 🖋️ con Telegram Stars, escribe:
-        /buy_inks
+        ⭐ Para comprar piedras 🪨 con Telegram Stars, escribe:
+        /buy_stones
 
         🌐 Para cambiar de idioma, escribe:
         /set_locale
@@ -141,8 +141,8 @@ es:
         📩 Para contactar con soporte, escribe:
         /contact_support
 
-        ℹ️ Cada generación cuesta tintas 🖋️.
-        Para recargar tu saldo, usa /activate_token e introduce un token válido, o usa /buy_inks para comprar tintas con Telegram Stars.
+        ℹ️ Cada generación cuesta piedras 🪨.
+        Para recargar tu saldo, usa /activate_token e introduce un token válido, o usa /buy_stones para comprar piedras con Telegram Stars.
       admin: |
         Aquí están los comandos disponibles para administradores:
 
@@ -217,29 +217,29 @@ es:
         ♦️ No solicites contenido de odio o acoso.
       contact_support: "📩 ¿Necesitas ayuda? Escríbenos a %{support_email} y te responderemos."
       balance:
-        one: "Tu saldo actual es de %{balance} tinta 🖋️."
-        other: "Tu saldo actual es de %{balance} tintas 🖋️."
+        one: "Tu saldo actual es de %{balance} piedra 🪨."
+        other: "Tu saldo actual es de %{balance} piedras 🪨."
       activate_token:
         ask: "Por favor, introduce tu token para activarlo:"
         activated: |
           ✅ ¡Tu token ha sido activado correctamente!
 
-          🎉 Has recibido %{credits} tintas 🖋️.
+          🎉 Has recibido %{credits} piedras 🪨.
       set_locale:
         ask: "Por favor, selecciona tu idioma preferido:"
         locale_updated: "Tu idioma ha sido actualizado 🌐"
-      buy_inks:
-        ask: "💳 Toca abajo para elegir tu paquete de tintas 🖋️"
+      buy_stones:
+        ask: "💳 Toca abajo para elegir tu paquete de piedras 🪨"
         open_store_button: "🛒 Abrir tienda"
         pack_title:
-          small: "50 Tintas 🖋️"
-          medium: "100 Tintas 🖋️"
-          large: "200 Tintas 🖋️"
+          small: "Puñado de Piedras 🪨"
+          medium: "Bolsa de Piedras 🪨"
+          large: "Montón de Piedras 🪨"
           test: "🧪 Paquete de prueba"
-        pack_description: "%{credits} tintas 🖋️"
+        pack_description: "%{credits} piedras 🪨"
         thank_you:
-          one: "🎉 ¡Pago recibido! Se ha añadido %{credits} tinta 🖋️ a tu saldo."
-          other: "🎉 ¡Pago recibido! Se han añadido %{credits} tintas 🖋️ a tu saldo."
+          one: "🎉 ¡Pago recibido! Se ha añadido %{credits} piedra 🪨 a tu saldo."
+          other: "🎉 ¡Pago recibido! Se han añadido %{credits} piedras 🪨 a tu saldo."
     message:
       image_message_url: "Aquí está tu imagen"
       image_message_reply: "¡Genial! Ahora puedes generar un video usando una de las opciones de abajo."
@@ -271,72 +271,72 @@ es:
       buttons:
         prompt:
           extend_prompt:
-            one: "Extender prompt (%{count} tinta 🖋️)"
-            other: "Extender prompt (%{count} tintas 🖋️)"
+            one: "Extender prompt (%{count} piedra 🪨)"
+            other: "Extender prompt (%{count} piedras 🪨)"
         generate_image:
           flux_image:
-            one: "Flux 2 Pro (%{count} tinta 🖋️)"
-            other: "Flux 2 Pro (%{count} tintas 🖋️)"
+            one: "Flux 2 Pro (%{count} piedra 🪨)"
+            other: "Flux 2 Pro (%{count} piedras 🪨)"
           nano_banana_image:
-            one: "NanoBanana 2 (%{count} tinta 🖋️)"
-            other: "NanoBanana 2 (%{count} tintas 🖋️)"
+            one: "NanoBanana 2 (%{count} piedra 🪨)"
+            other: "NanoBanana 2 (%{count} piedras 🪨)"
           nano_banana_edit_image:
-            one: "NanoBanana 2 Edit (%{count} tinta 🖋️)"
-            other: "NanoBanana 2 Edit (%{count} tintas 🖋️)"
+            one: "NanoBanana 2 Edit (%{count} piedra 🪨)"
+            other: "NanoBanana 2 Edit (%{count} piedras 🪨)"
         generate_audio:
           adam:
-            one: "Adam (%{count} tinta 🖋️)"
-            other: "Adam (%{count} tintas 🖋️)"
+            one: "Adam (%{count} piedra 🪨)"
+            other: "Adam (%{count} piedras 🪨)"
           victoria:
-            one: "Victoria (%{count} tinta 🖋️)"
-            other: "Victoria (%{count} tintas 🖋️)"
+            one: "Victoria (%{count} piedra 🪨)"
+            other: "Victoria (%{count} piedras 🪨)"
           knox:
-            one: "Knox (%{count} tinta 🖋️)"
-            other: "Knox (%{count} tintas 🖋️)"
+            one: "Knox (%{count} piedra 🪨)"
+            other: "Knox (%{count} piedras 🪨)"
           milo:
-            one: "Milo (%{count} tinta 🖋️)"
-            other: "Milo (%{count} tintas 🖋️)"
+            one: "Milo (%{count} piedra 🪨)"
+            other: "Milo (%{count} piedras 🪨)"
           hope:
-            one: "Hope (%{count} tinta 🖋️)"
-            other: "Hope (%{count} tintas 🖋️)"
+            one: "Hope (%{count} piedra 🪨)"
+            other: "Hope (%{count} piedras 🪨)"
           lulu_lollipop:
-            one: "Lulu Lollipop (%{count} tinta 🖋️)"
-            other: "Lulu Lollipop (%{count} tintas 🖋️)"
+            one: "Lulu Lollipop (%{count} piedra 🪨)"
+            other: "Lulu Lollipop (%{count} piedras 🪨)"
         get_audio_samples: "Escuchar muestras"
         send_as_separate_message: "Enviar como mensaje aparte"
         image_to_video:
           provide_prompt: "Proporcionar prompt"
         generate_cartoon_video:
-          one: "Generar video (%{count} tinta 🖋️)"
-          other: "Generar video (%{count} tintas 🖋️)"
+          one: "Generar video (%{count} piedra 🪨)"
+          other: "Generar video (%{count} piedras 🪨)"
         generate_bloomy_complex_videos:
-          one: "Generar videos (%{count} tinta 🖋️)"
-          other: "Generar videos (%{count} tintas 🖋️)"
+          one: "Generar videos (%{count} piedra 🪨)"
+          other: "Generar videos (%{count} piedras 🪨)"
         generate_cartoon_audio:
-          one: "Generar audio (%{count} tinta 🖋️)"
-          other: "Generar audio (%{count} tintas 🖋️)"
+          one: "Generar audio (%{count} piedra 🪨)"
+          other: "Generar audio (%{count} piedras 🪨)"
         merge_cartoon_audio_video:
-          one: "Combinar audio con video (%{count} tinta 🖋️)"
-          other: "Combinar audio con video (%{count} tintas 🖋️)"
+          one: "Combinar audio con video (%{count} piedra 🪨)"
+          other: "Combinar audio con video (%{count} piedras 🪨)"
         regenerate_cartoon_script_image:
-          one: "Regenerar guion (%{count} tinta 🖋️)"
-          other: "Regenerar guion (%{count} tintas 🖋️)"
+          one: "Regenerar guion (%{count} piedra 🪨)"
+          other: "Regenerar guion (%{count} piedras 🪨)"
         generate_video:
           kling_2_1_pro_image_to_video:
-            one: "Kling Pro 2.1 (%{count} tinta 🖋️)"
-            other: "Kling Pro 2.1 (%{count} tintas 🖋️)"
+            one: "Kling Pro 2.1 (%{count} piedra 🪨)"
+            other: "Kling Pro 2.1 (%{count} piedras 🪨)"
           kling_3_standard_image_to_video:
-            one: "Kling 3 Standard (%{count} tinta 🖋️)"
-            other: "Kling 3 Standard (%{count} tintas 🖋️)"
+            one: "Kling 3 Standard (%{count} piedra 🪨)"
+            other: "Kling 3 Standard (%{count} piedras 🪨)"
           hailuo_02_standard_image_to_video:
-            one: "Hailuo 02 Standard (%{count} tinta 🖋️)"
-            other: "Hailuo 02 Standard (%{count} tintas 🖋️)"
+            one: "Hailuo 02 Standard (%{count} piedra 🪨)"
+            other: "Hailuo 02 Standard (%{count} piedras 🪨)"
           veo3_1_lite_image_to_video:
-            one: "Veo 3.1 Lite (%{count} tinta 🖋️)"
-            other: "Veo 3.1 Lite (%{count} tintas 🖋️)"
+            one: "Veo 3.1 Lite (%{count} piedra 🪨)"
+            other: "Veo 3.1 Lite (%{count} piedras 🪨)"
         regenerate:
-          one: "Regenerar (%{count} tinta 🖋️)"
-          other: "Regenerar (%{count} tintas 🖋️)"
+          one: "Regenerar (%{count} piedra 🪨)"
+          other: "Regenerar (%{count} piedras 🪨)"
         set_locale:
           en: "English"
           ru: "Русский"
@@ -403,12 +403,12 @@ es:
     token_not_found: "Lo siento, el token que proporcionaste no es válido. Puedes pedirle al administrador un token válido."
     token_used: "Lo siento, el token que proporcionaste ya ha sido utilizado."
     token_expired: "Lo siento, el token que proporcionaste ha expirado."
-    insufficient_credits: "Lo siento, parece que no tienes suficientes tintas 🖋️ para realizar esta acción 💰"
+    insufficient_credits: "Lo siento, parece que no tienes suficientes piedras 🪨 para realizar esta acción 💰"
     moderation: "Tu mensaje no se puede procesar porque infringe nuestra politica de contenido. Revisa las reglas: /prompt_policy"
     script_generator_request_failed: "La solicitud al API del generador de scripts falló."
     template_name_missing: "Por favor, proporciona un nombre de plantilla. Ejemplo: /generate_cats_script my_template."
     daily_limit_exceeded: "Lo siento, se ha superado el limite diario para este procesador. Intentalo de nuevo manana o elige otro procesador."
-    pack_not_found: "Lo sentimos, este paquete de tintas 🖋️ ya no está disponible. Por favor, inténtalo de nuevo con /buy_inks."
+    pack_not_found: "Lo sentimos, este paquete de piedras 🪨 ya no está disponible. Por favor, inténtalo de nuevo con /buy_stones."
   telegram:
     generation:
       processing: "Generando %{process_name}, por favor espera…"
@@ -444,8 +444,8 @@ es:
 
 
   mini_app:
-    buy_inks:
-      error: "Algo salió mal. Por favor, inténtalo de nuevo con /buy_inks en el bot."
+    buy_stones:
+      error: "Algo salió mal. Por favor, inténtalo de nuevo con /buy_stones en el bot."
       buy_button: "Comprar"
       pack_estimate:
         small: "~5–10 vídeos o ~50 imágenes"
