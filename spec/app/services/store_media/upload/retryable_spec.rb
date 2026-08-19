@@ -1,11 +1,11 @@
 require "rails_helper"
 
-describe Retryable do
+describe StoreMedia::Upload::Retryable do
   subject(:retrier) { retrier_class.new }
 
   let(:retrier_class) do
     Class.new do
-      include Retryable
+      include StoreMedia::Upload::Retryable
 
       def call(max_attempts: 3, on: StandardError, &block)
         with_retries(max_attempts:, on:, &block)
