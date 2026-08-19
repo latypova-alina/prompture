@@ -18,8 +18,6 @@ module Generator
 
         def media_url
           stored_media.internal_media_url || generated_media_url
-        rescue StandardError
-          generated_media_url
         end
 
         def stored_media

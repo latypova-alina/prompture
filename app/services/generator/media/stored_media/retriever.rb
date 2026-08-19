@@ -15,6 +15,9 @@ module Generator
 
           uploader.call
           uploader.stored_url
+        rescue StandardError => e
+          UploadFailureReporter.call(error: e, button_request_id:, processor:, media_url:)
+          media_url
         end
 
         private

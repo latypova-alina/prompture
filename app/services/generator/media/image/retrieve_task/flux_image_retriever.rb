@@ -11,8 +11,6 @@ module Generator
 
           def media_url
             stored_media_retriever.internal_media_url || source_media_url
-          rescue StandardError
-            source_media_url
           end
 
           private

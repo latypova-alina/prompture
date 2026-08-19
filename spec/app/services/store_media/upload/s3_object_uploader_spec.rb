@@ -32,5 +32,36 @@ describe StoreMedia::Upload::S3ObjectUploader do
         expect { uploader.upload }.to raise_error(ArgumentError, "Media bytes are missing")
       end
     end
+
+    context "when the upload fails transiently and then succeeds" do
+      before do
+        allow(uploader).to receive(:sleep)
+
+        attempts = 0
+        allow(s3_client).to receive(:put_object) do
+          attempts += 1
+          raise StandardError, "boom" if attempts == 1
+        end
+      end
+
+      it "retries and eventually uploads successfully" do
+        uploader.upload
+
+        expect(s3_client).to have_received(:put_object).twice
+      end
+    end
+
+    context "when the upload keeps failing" do
+      before do
+        allow(uploader).to receive(:sleep)
+        allow(s3_client).to receive(:put_object).and_raise(StandardError, "boom")
+      end
+
+      it "gives up after 3 attempts and raises" do
+        expect { uploader.upload }.to raise_error(StandardError, "boom")
+
+        expect(s3_client).to have_received(:put_object).exactly(3).times
+      end
+    end
   end
 end
