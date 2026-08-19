@@ -404,6 +404,7 @@ es:
     token_used: "Lo siento, el token que proporcionaste ya ha sido utilizado."
     token_expired: "Lo siento, el token que proporcionaste ha expirado."
     insufficient_credits: "Lo siento, parece que no tienes suficientes piedras 🪨 para realizar esta acción 💰"
+    content_flagged: "⚠️ Lo sentimos, este contenido fue marcado y no se pudo procesar: \"%{message}\"\n\nPuedes probar con otro procesador o una entrada diferente."
     moderation: "Tu mensaje no se puede procesar porque infringe nuestra politica de contenido. Revisa las reglas: /prompt_policy"
     script_generator_request_failed: "La solicitud al API del generador de scripts falló."
     template_name_missing: "Por favor, proporciona un nombre de plantilla. Ejemplo: /generate_cats_script my_template."

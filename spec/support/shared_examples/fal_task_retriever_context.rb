@@ -20,4 +20,20 @@ RSpec.shared_examples "fal task retriever context" do
       end
     end
   end
+
+  describe "#error_reason" do
+    context "when callback status is OK" do
+      it "returns nil" do
+        expect(context.error_reason).to be_nil
+      end
+    end
+  end
+
+  describe "#flagged_message" do
+    context "when callback status is OK" do
+      it "returns nil" do
+        expect(context.flagged_message).to be_nil
+      end
+    end
+  end
 end

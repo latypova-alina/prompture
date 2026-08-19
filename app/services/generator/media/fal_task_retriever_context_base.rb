@@ -27,6 +27,14 @@ module Generator
         media_urls.present? ? media_urls : []
       end
 
+      def error_reason
+        "content_flagged" if content_policy_violation?
+      end
+
+      def flagged_message
+        error_detail[:msg]
+      end
+
       private
 
       attr_reader :params
@@ -37,6 +45,14 @@ module Generator
 
       def media_urls
         raise NotImplementedError
+      end
+
+      def content_policy_violation?
+        error_detail[:type] == "content_policy_violation"
+      end
+
+      def error_detail
+        Array(payload[:detail]).first || {}
       end
     end
   end

@@ -3,9 +3,10 @@ module Generator
     class ErrorNotifierBaseJob < ApplicationJob
       include Memery
 
-      def perform(button_request_id, error_reason = nil)
+      def perform(button_request_id, error_reason = nil, flagged_message = nil)
         @button_request_id = button_request_id
         @error_reason = error_reason
+        @flagged_message = flagged_message
 
         with_locale(locale) do
           Telegram.bot.send_message(**message_data)
@@ -16,14 +17,20 @@ module Generator
 
       private
 
-      attr_reader :button_request_id, :error_reason
+      attr_reader :button_request_id, :error_reason, :flagged_message
 
       delegate :chat_id, :locale, to: :request
 
       def custom_error_text
         return if error_reason.blank?
 
-        I18n.t("errors.#{error_reason}")
+        I18n.t("errors.#{error_reason}", **i18n_interpolations)
+      end
+
+      def i18n_interpolations
+        return {} if flagged_message.blank?
+
+        { message: flagged_message }
       end
 
       def error_text

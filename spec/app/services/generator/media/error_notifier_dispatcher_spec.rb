@@ -2,10 +2,12 @@ require "rails_helper"
 
 describe Generator::Media::ErrorNotifierDispatcher do
   subject(:call_service) do
-    described_class.call(processor:, button_request_id:)
+    described_class.call(processor:, button_request_id:, error_reason:, flagged_message:)
   end
 
   let(:button_request_id) { 123 }
+  let(:error_reason) { nil }
+  let(:flagged_message) { nil }
 
   before do
     allow(Generator::Prompt::ErrorNotifierJob)
@@ -51,7 +53,7 @@ describe Generator::Media::ErrorNotifierDispatcher do
 
         expect(Generator::Media::Image::ErrorNotifierJob)
           .to have_received(:perform_async)
-          .with(button_request_id)
+          .with(button_request_id, error_reason, flagged_message)
 
         expect(Generator::Media::Video::ErrorNotifierJob)
           .not_to have_received(:perform_async)
@@ -69,7 +71,7 @@ describe Generator::Media::ErrorNotifierDispatcher do
 
         expect(Generator::Media::Video::ErrorNotifierJob)
           .to have_received(:perform_async)
-          .with(button_request_id)
+          .with(button_request_id, error_reason, flagged_message)
 
         expect(Generator::Media::Image::ErrorNotifierJob)
           .not_to have_received(:perform_async)
@@ -87,7 +89,7 @@ describe Generator::Media::ErrorNotifierDispatcher do
 
         expect(Generator::Media::Audio::ErrorNotifierJob)
           .to have_received(:perform_async)
-          .with(button_request_id)
+          .with(button_request_id, error_reason, flagged_message)
 
         expect(Generator::Media::Image::ErrorNotifierJob)
           .not_to have_received(:perform_async)
@@ -108,13 +110,29 @@ describe Generator::Media::ErrorNotifierDispatcher do
 
         expect(Generator::Media::Merge::ErrorNotifierJob)
           .to have_received(:perform_async)
-          .with(button_request_id)
+          .with(button_request_id, error_reason, flagged_message)
 
         expect(Generator::Media::Video::ErrorNotifierJob)
           .not_to have_received(:perform_async)
 
         expect(Generator::Media::Audio::ErrorNotifierJob)
           .not_to have_received(:perform_async)
+      end
+    end
+
+    context "when the request was flagged for a content policy violation" do
+      let(:processor) { Generator::Processors::IMAGE.first }
+      let(:error_reason) { "content_flagged" }
+      let(:flagged_message) do
+        "The content could not be processed because it contained material flagged by a content checker."
+      end
+
+      it "forwards the flagged reason and message to the error notifier job" do
+        call_service
+
+        expect(Generator::Media::Image::ErrorNotifierJob)
+          .to have_received(:perform_async)
+          .with(button_request_id, "content_flagged", flagged_message)
       end
     end
 

@@ -13,13 +13,17 @@ describe MediaGenerator::SendReply do
       processor: processor,
       button_request_id: button_request_id,
       task_id: task_id,
-      generated:
+      generated:,
+      error_reason:,
+      flagged_message:
     )
   end
 
   let(:processor) { "kling_2_1_pro_image_to_video" }
   let(:button_request_id) { 123 }
   let(:task_id) { "abc-123" }
+  let(:error_reason) { nil }
+  let(:flagged_message) { nil }
 
   before do
     allow(Generator::Media::TaskRetrieverContext)
@@ -61,7 +65,9 @@ describe MediaGenerator::SendReply do
           .to receive(:call)
           .with(
             processor: processor,
-            button_request_id: button_request_id
+            button_request_id: button_request_id,
+            error_reason: nil,
+            flagged_message: nil
           )
 
         result
@@ -69,6 +75,26 @@ describe MediaGenerator::SendReply do
         expect(Generator::Media::Interim::WebhookMessageDeleter)
           .to have_received(:call)
           .with(processor:, button_request_id:)
+      end
+
+      context "when fal flags the request for a content policy violation" do
+        let(:error_reason) { "content_flagged" }
+        let(:flagged_message) do
+          "The content could not be processed because it contained material flagged by a content checker."
+        end
+
+        it "forwards the flagged reason and message to ErrorNotifierDispatcher" do
+          expect(Generator::Media::ErrorNotifierDispatcher)
+            .to receive(:call)
+            .with(
+              processor: processor,
+              button_request_id: button_request_id,
+              error_reason: error_reason,
+              flagged_message: flagged_message
+            )
+
+          result
+        end
       end
     end
   end
