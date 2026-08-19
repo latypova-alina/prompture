@@ -5,6 +5,8 @@ module StoreMedia
     class S3ObjectUploader
       include Memery
 
+      MAX_UPLOAD_ATTEMPTS = 3
+
       def initialize(bytes:, object_key:, content_type:)
         @bytes = bytes
         @object_key = object_key
@@ -14,6 +16,14 @@ module StoreMedia
       def upload
         raise ArgumentError, "Media bytes are missing" if bytes.blank?
 
+        with_retries { put_object }
+      end
+
+      private
+
+      attr_reader :bytes, :object_key, :content_type
+
+      def put_object
         s3_client.put_object(
           bucket: bucket_name,
           key: object_key,
@@ -22,9 +32,19 @@ module StoreMedia
         )
       end
 
-      private
+      def with_retries
+        attempt = 1
 
-      attr_reader :bytes, :object_key, :content_type
+        begin
+          yield
+        rescue StandardError
+          raise if attempt >= MAX_UPLOAD_ATTEMPTS
+
+          attempt += 1
+          sleep(attempt)
+          retry
+        end
+      end
 
       memoize def s3_client
         Aws::S3::Client.new(region: aws_region)

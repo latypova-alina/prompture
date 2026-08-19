@@ -34,9 +34,9 @@ describe Generator::Media::Video::FalTaskRetrieverJob do
       end
     end
 
-    context "when storing fails" do
+    context "when the internal media url is not available" do
       before do
-        allow(stored_media).to receive(:internal_media_url).and_raise(StandardError)
+        allow(stored_media).to receive(:internal_media_url).and_return(nil)
         allow(Generator::Media::Video::SuccessNotifierJob).to receive(:perform_async)
       end
 

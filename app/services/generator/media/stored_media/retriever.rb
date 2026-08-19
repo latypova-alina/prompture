@@ -15,11 +15,22 @@ module Generator
 
           uploader.call
           uploader.stored_url
+        rescue StandardError => e
+          report_upload_failure(e)
+          media_url
         end
 
         private
 
         attr_reader :media_url, :button_request_id, :processor
+
+        def report_upload_failure(error)
+          Rails.logger.error(
+            "[Generator::Media::StoredMedia::Retriever] internal upload failed for " \
+            "button_request_id=#{button_request_id} processor=#{processor}: #{error.class}: #{error.message}"
+          )
+          Sentry.capture_exception(error, extra: { button_request_id:, processor:, media_url: })
+        end
 
         memoize def uploader
           stored_media_type.uploader

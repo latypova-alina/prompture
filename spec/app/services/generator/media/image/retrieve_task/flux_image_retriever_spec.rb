@@ -32,12 +32,4 @@ describe Generator::Media::Image::RetrieveTask::FluxImageRetriever do
       expect(retrieved_media_url).to eq(media_url)
     end
   end
-
-  context "when storing raises an error" do
-    it "falls back to source media URL" do
-      allow(stored_media_retriever).to receive(:internal_media_url).and_raise(StandardError)
-
-      expect(retrieved_media_url).to eq(media_url)
-    end
-  end
 end

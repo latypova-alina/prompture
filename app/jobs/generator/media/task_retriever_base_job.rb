@@ -30,8 +30,6 @@ module Generator
 
       def media_url
         internal_media_url || generated_media_url
-      rescue StandardError
-        generated_media_url
       end
 
       def task_retriever_class
