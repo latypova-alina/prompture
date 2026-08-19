@@ -4,6 +4,7 @@ module StoreMedia
   module Upload
     class S3ObjectUploader
       include Memery
+      include Retryable
 
       MAX_UPLOAD_ATTEMPTS = 3
 
@@ -16,7 +17,7 @@ module StoreMedia
       def upload
         raise ArgumentError, "Media bytes are missing" if bytes.blank?
 
-        with_retries { put_object }
+        with_retries(max_attempts: MAX_UPLOAD_ATTEMPTS) { put_object }
       end
 
       private
@@ -30,20 +31,6 @@ module StoreMedia
           body: bytes,
           content_type:
         )
-      end
-
-      def with_retries
-        attempt = 1
-
-        begin
-          yield
-        rescue StandardError
-          raise if attempt >= MAX_UPLOAD_ATTEMPTS
-
-          attempt += 1
-          sleep(attempt)
-          retry
-        end
       end
 
       memoize def s3_client

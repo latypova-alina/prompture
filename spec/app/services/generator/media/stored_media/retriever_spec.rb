@@ -38,29 +38,23 @@ describe Generator::Media::StoredMedia::Retriever do
     end
 
     context "when storing fails" do
+      let(:error) { StandardError.new("upload boom") }
+
       before do
-        allow(uploader).to receive(:call).and_raise(StandardError, "upload boom")
-        allow(Rails.logger).to receive(:error)
-        allow(Sentry).to receive(:capture_exception)
+        allow(uploader).to receive(:call).and_raise(error)
+        allow(Generator::Media::StoredMedia::UploadFailureReporter).to receive(:call)
       end
 
       it "falls back to the original media url" do
         expect(retriever.internal_media_url).to eq(media_url)
       end
 
-      it "logs the failure" do
+      it "reports the failure" do
         retriever.internal_media_url
 
-        expect(Rails.logger).to have_received(:error).with(a_string_including("upload boom"))
-      end
-
-      it "reports the failure to Sentry" do
-        retriever.internal_media_url
-
-        expect(Sentry).to have_received(:capture_exception).with(
-          an_instance_of(StandardError),
-          extra: { button_request_id:, processor:, media_url: }
-        )
+        expect(Generator::Media::StoredMedia::UploadFailureReporter)
+          .to have_received(:call)
+          .with(error:, button_request_id:, processor:, media_url:)
       end
     end
   end
