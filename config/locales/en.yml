@@ -404,6 +404,7 @@ en:
     token_used: "Sorry, the token you provided has already been used."
     token_expired: "Sorry, the token you provided has expired."
     insufficient_credits: "Sorry, it looks like you don't have enough stones 🪨 to perform this action 💰"
+    content_flagged: "⚠️ Unfortunately, this content was flagged and couldn't be processed: \"%{message}\"\n\nYou can try another processor or a different input."
     moderation: "Your message cannot be processed because it violates our content policy. See the rules: /prompt_policy"
     script_generator_request_failed: "Script generator API request failed."
     template_name_missing: "Please provide a template name. Example: /generate_cats_script my_template."

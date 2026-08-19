@@ -100,5 +100,22 @@ describe Generator::Media::Video::ErrorNotifierJob do
         perform_job
       end
     end
+
+    context "when the request was flagged for a content policy violation" do
+      let(:flagged_message) do
+        "The content could not be processed because it contained material flagged by a content checker."
+      end
+
+      subject(:perform_job) { described_class.new.perform(button_request.id, "content_flagged", flagged_message) }
+
+      it "uses fal's flagged message in the translated error text" do
+        expect(telegram_bot).to receive(:send_message).with(
+          chat_id: button_request.chat_id,
+          text: I18n.t("errors.content_flagged", message: flagged_message)
+        )
+
+        perform_job
+      end
+    end
   end
 end

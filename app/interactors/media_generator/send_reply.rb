@@ -12,13 +12,14 @@ module MediaGenerator
       when "COMPLETED"
         handle_completed_status
       when "FAILED"
-        Generator::Media::ErrorNotifierDispatcher.call(processor:, button_request_id:)
+        Generator::Media::ErrorNotifierDispatcher.call(processor:, button_request_id:, error_reason:, flagged_message:)
       end
     end
 
     private
 
-    delegate :processor, :status, :button_request_id, :task_id, :generated, to: :task_retriever_context
+    delegate :processor, :status, :button_request_id, :task_id, :generated, :error_reason, :flagged_message,
+             to: :task_retriever_context
 
     memoize def task_retriever_context
       Generator::Media::TaskRetrieverContext.for(params:)

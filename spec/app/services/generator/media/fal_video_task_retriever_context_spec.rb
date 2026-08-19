@@ -49,4 +49,38 @@ describe Generator::Media::FalVideoTaskRetrieverContext do
       end
     end
   end
+
+  context "when fal flags the request for a content policy violation" do
+    let(:params) do
+      ActionController::Parameters.new(
+        processor: "kling_2_1_pro_image_to_video",
+        request_id_token: "token123",
+        request_id: "task_1",
+        status: "ERROR",
+        payload: {
+          detail: [
+            {
+              loc: %w[body prompt],
+              msg: "The content could not be processed because it contained material flagged by a content checker.",
+              type: "content_policy_violation"
+            }
+          ]
+        }
+      )
+    end
+
+    describe "#error_reason" do
+      it "returns content_flagged" do
+        expect(context.error_reason).to eq("content_flagged")
+      end
+    end
+
+    describe "#flagged_message" do
+      it "returns fal's flagged message" do
+        expect(context.flagged_message).to eq(
+          "The content could not be processed because it contained material flagged by a content checker."
+        )
+      end
+    end
+  end
 end
