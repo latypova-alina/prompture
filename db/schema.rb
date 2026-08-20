@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2026_08_12_004459) do
+ActiveRecord::Schema[8.0].define(version: 2026_08_20_153354) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -208,6 +208,8 @@ ActiveRecord::Schema[8.0].define(version: 2026_08_12_004459) do
     t.datetime "updated_at", null: false
     t.bigint "user_id"
     t.boolean "awaiting_video_prompt", default: false, null: false
+    t.string "category"
+    t.index ["category"], name: "index_command_image_to_video_requests_on_category"
     t.index ["user_id"], name: "index_command_image_to_video_requests_on_user_id"
   end
 
@@ -250,6 +252,8 @@ ActiveRecord::Schema[8.0].define(version: 2026_08_12_004459) do
     t.boolean "awaiting_video_prompt", default: false, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "category"
+    t.index ["category"], name: "index_command_two_frame_to_video_requests_on_category"
     t.index ["user_id"], name: "index_command_two_frame_to_video_requests_on_user_id"
   end
 
