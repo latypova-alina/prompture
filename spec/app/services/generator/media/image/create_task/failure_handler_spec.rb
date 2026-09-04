@@ -37,15 +37,15 @@ describe Generator::Media::Image::CreateTask::FailureHandler do
       expect(Sentry).not_to have_received(:capture_message)
     end
 
-    context "when fal.ai balance is exhausted" do
-      let(:error) { Generator::ResponseError.new('{"detail":"User is locked. Reason: Exhausted balance."}') }
+    context "when fal.ai returns 403 Forbidden" do
+      let(:error) { Generator::AccessForbidden.new('{"detail":"User is locked. Reason: Exhausted balance."}') }
 
-      it "reports to Sentry" do
+      it "reports the error message to Sentry" do
         call_handler
 
         expect(Sentry)
           .to have_received(:capture_message)
-          .with(a_string_including("fal.ai balance exhausted"), level: :fatal)
+          .with(error.message, level: :fatal)
       end
 
       it "still refunds and notifies the user the same as any other failure" do
@@ -62,7 +62,7 @@ describe Generator::Media::Image::CreateTask::FailureHandler do
       end
     end
 
-    context "when the request fails for an unrelated reason" do
+    context "when the request fails with a non-403 error" do
       let(:error) { Generator::ResponseError.new('{"detail":"Internal server error"}') }
 
       it "does not report to Sentry" do
