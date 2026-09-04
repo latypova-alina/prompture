@@ -16,6 +16,8 @@ module Generator
         end
 
         def call
+          report_access_forbidden if error.is_a?(Generator::AccessForbidden)
+
           ::Billing::Refunder.call(user:, amount: cost, source: request)
 
           error_notifier_job_class.perform_async(*error_notifier_args)
@@ -31,6 +33,10 @@ module Generator
           return if error.blank?
 
           ERROR_REASONS[error.class]
+        end
+
+        def report_access_forbidden
+          Sentry.capture_message(error.message, level: :fatal)
         end
 
         def error_notifier_args

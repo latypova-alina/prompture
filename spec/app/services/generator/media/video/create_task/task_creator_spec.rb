@@ -78,6 +78,16 @@ describe Generator::Media::Video::CreateTask::TaskCreator do
       end
     end
 
+    context "when response status is 403" do
+      let(:success) { false }
+      let(:status) { 403 }
+
+      it "raises Generator::AccessForbidden" do
+        expect { call_service }
+          .to raise_error(Generator::AccessForbidden)
+      end
+    end
+
     context "when response status is 429" do
       let(:success) { false }
       let(:status) { 429 }

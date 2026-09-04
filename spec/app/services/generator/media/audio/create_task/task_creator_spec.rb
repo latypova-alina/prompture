@@ -12,7 +12,7 @@ describe Generator::Media::Audio::CreateTask::TaskCreator do
   let(:final_payload) { { text: "Hello", voice: "voice-id", webhook_url: "https://example.com/webhook" } }
 
   let(:api_client_instance) { instance_double(Generator::Media::Image::CreateTask::FalApiClient) }
-  let(:response) { instance_double("Response", success?: success, status:) }
+  let(:response) { instance_double("Response", success?: success, status:, body: '{"detail":"error"}') }
 
   let(:api_url) { "https://queue.fal.run/fal-ai/elevenlabs/tts/eleven-v3" }
   let(:status) { 200 }
@@ -62,6 +62,16 @@ describe Generator::Media::Audio::CreateTask::TaskCreator do
       it "raises Generator::ResponseError" do
         expect { call_service }
           .to raise_error(Generator::ResponseError)
+      end
+    end
+
+    context "when response status is 403" do
+      let(:success) { false }
+      let(:status) { 403 }
+
+      it "raises Generator::AccessForbidden" do
+        expect { call_service }
+          .to raise_error(Generator::AccessForbidden)
       end
     end
 

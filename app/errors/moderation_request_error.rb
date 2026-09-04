@@ -1,0 +1,1 @@
+class ModerationRequestError < StandardError; end

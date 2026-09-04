@@ -48,5 +48,8 @@ class Moderation::OpenaiModeration
         input: text
       }
     )
+  rescue Faraday::Error => e
+    Sentry.capture_exception(e)
+    raise ModerationRequestError, e.message
   end
 end

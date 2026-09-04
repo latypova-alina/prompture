@@ -80,6 +80,21 @@ describe Generator::Media::Image::CreateTask::TaskCreator do
         expect { call_service }
           .to raise_error(Generator::ResponseError)
       end
+
+      it "carries the response body on the error message" do
+        expect { call_service }
+          .to raise_error(Generator::ResponseError, response.body)
+      end
+    end
+
+    context "when response status is 403" do
+      let(:success) { false }
+      let(:status) { 403 }
+
+      it "raises Generator::AccessForbidden" do
+        expect { call_service }
+          .to raise_error(Generator::AccessForbidden, response.body)
+      end
     end
 
     context "when response status is 429" do
