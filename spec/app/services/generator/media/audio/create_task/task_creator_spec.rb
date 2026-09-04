@@ -12,7 +12,7 @@ describe Generator::Media::Audio::CreateTask::TaskCreator do
   let(:final_payload) { { text: "Hello", voice: "voice-id", webhook_url: "https://example.com/webhook" } }
 
   let(:api_client_instance) { instance_double(Generator::Media::Image::CreateTask::FalApiClient) }
-  let(:response) { instance_double("Response", success?: success, status:) }
+  let(:response) { instance_double("Response", success?: success, status:, body: '{"detail":"error"}') }
 
   let(:api_url) { "https://queue.fal.run/fal-ai/elevenlabs/tts/eleven-v3" }
   let(:status) { 200 }

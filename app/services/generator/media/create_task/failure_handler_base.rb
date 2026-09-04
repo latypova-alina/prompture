@@ -6,6 +6,8 @@ module Generator
           Generator::DailyLimitExceeded => "daily_limit_exceeded"
         }.freeze
 
+        BALANCE_EXHAUSTED_SIGNAL = "Exhausted balance".freeze
+
         def self.call(...)
           new(...).call
         end
@@ -16,6 +18,8 @@ module Generator
         end
 
         def call
+          report_balance_exhaustion if balance_exhausted?
+
           ::Billing::Refunder.call(user:, amount: cost, source: request)
 
           error_notifier_job_class.perform_async(*error_notifier_args)
@@ -31,6 +35,17 @@ module Generator
           return if error.blank?
 
           ERROR_REASONS[error.class]
+        end
+
+        def balance_exhausted?
+          error.is_a?(Generator::ResponseError) && error.message.include?(BALANCE_EXHAUSTED_SIGNAL)
+        end
+
+        def report_balance_exhaustion
+          Sentry.capture_message(
+            "fal.ai balance exhausted — generation is failing for all users. Top up at fal.ai/dashboard/billing.",
+            level: :fatal
+          )
         end
 
         def error_notifier_args

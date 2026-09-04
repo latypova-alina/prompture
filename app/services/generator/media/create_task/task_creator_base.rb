@@ -14,7 +14,7 @@ module Generator
 
         def call
           raise Generator::DailyLimitExceeded if response.status == 429
-          raise Generator::ResponseError unless response.success?
+          raise Generator::ResponseError, response.body unless response.success?
 
           save_fal_request_id
         end
