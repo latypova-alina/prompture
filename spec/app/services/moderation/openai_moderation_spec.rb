@@ -90,5 +90,24 @@ describe Moderation::OpenaiModeration do
 
       it { expect(subject).to eq(false) }
     end
+
+    context "when the OpenAI request fails" do
+      let(:faraday_error) { Faraday::TooManyRequestsError.new("the server responded with status 429") }
+
+      before do
+        allow(OpenAIClient).to receive(:moderations).and_raise(faraday_error)
+        allow(Sentry).to receive(:capture_exception)
+      end
+
+      it "raises ModerationRequestError" do
+        expect { subject }.to raise_error(ModerationRequestError, "the server responded with status 429")
+      end
+
+      it "reports the failure to Sentry" do
+        expect { subject }.to raise_error(ModerationRequestError)
+
+        expect(Sentry).to have_received(:capture_exception).with(faraday_error)
+      end
+    end
   end
 end

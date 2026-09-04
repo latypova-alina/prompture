@@ -13,6 +13,7 @@ module ErrorI18nResolver
     "TokenExpiredError" => "errors.token_expired",
     "InsufficientCreditsError" => "errors.insufficient_credits",
     "ModerationError" => "errors.moderation",
+    "ModerationRequestError" => "errors.moderation_request_failed",
     "ImageResolutionError" => "errors.image_resolution",
     "ImageNotReadyError" => "errors.image_not_ready",
     "ScriptGeneratorRequestError" => "errors.script_generator_request_failed",

@@ -406,6 +406,7 @@ es:
     insufficient_credits: "Lo siento, parece que no tienes suficientes piedras 🪨 para realizar esta acción 💰"
     content_flagged: "⚠️ Lo sentimos, este contenido fue marcado y no se pudo procesar: \"%{message}\"\n\nPuedes probar con otro procesador o una entrada diferente."
     moderation: "Tu mensaje no se puede procesar porque infringe nuestra politica de contenido. Revisa las reglas: /prompt_policy"
+    moderation_request_failed: "Lo sentimos, no pudimos procesar tu mensaje en este momento. Por favor, inténtalo de nuevo en un momento."
     script_generator_request_failed: "La solicitud al API del generador de scripts falló."
     template_name_missing: "Por favor, proporciona un nombre de plantilla. Ejemplo: /generate_cats_script my_template."
     daily_limit_exceeded: "Lo siento, se ha superado el limite diario para este procesador. Intentalo de nuevo manana o elige otro procesador."

@@ -406,6 +406,7 @@ en:
     insufficient_credits: "Sorry, it looks like you don't have enough stones 🪨 to perform this action 💰"
     content_flagged: "⚠️ Unfortunately, this content was flagged and couldn't be processed: \"%{message}\"\n\nYou can try another processor or a different input."
     moderation: "Your message cannot be processed because it violates our content policy. See the rules: /prompt_policy"
+    moderation_request_failed: "Sorry, we couldn't process your message right now. Please try again in a moment."
     script_generator_request_failed: "Script generator API request failed."
     template_name_missing: "Please provide a template name. Example: /generate_cats_script my_template."
     daily_limit_exceeded: "Sorry, the daily limit for this processor has been exceeded. Please try again tomorrow or choose another processor."
