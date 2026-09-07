@@ -222,6 +222,7 @@
             })
             .then(renderPacks)
             .catch(function (error) {
+              termsCheckbox.checked = false;
               termsCheckbox.disabled = false;
               showError(error.message);
             });
