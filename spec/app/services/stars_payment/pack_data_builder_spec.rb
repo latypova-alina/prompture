@@ -1,9 +1,10 @@
 require "rails_helper"
 
 describe StarsPayment::PackDataBuilder do
-  subject(:pack_data) { described_class.new(locale:).pack_data }
+  subject(:pack_data) { described_class.new(locale:, include_invoice:).pack_data }
 
   let(:locale) { "ru" }
+  let(:include_invoice) { true }
   let(:invoice_url) { "https://t.me/$test" }
 
   before do
@@ -33,6 +34,20 @@ describe StarsPayment::PackDataBuilder do
         credits: CREDIT_PACKS[:medium][:credits],
         stars: CREDIT_PACKS[:medium][:stars]
       )
+    end
+
+    context "when include_invoice is false" do
+      let(:include_invoice) { false }
+
+      it "does not build invoice urls" do
+        expect(pack_data).to all(include(invoice_url: nil))
+      end
+
+      it "does not call StarsPayment::InvoiceBuilder" do
+        pack_data
+
+        expect(StarsPayment::InvoiceBuilder).not_to have_received(:new)
+      end
     end
   end
 end

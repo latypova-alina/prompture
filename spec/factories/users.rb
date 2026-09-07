@@ -19,4 +19,10 @@ FactoryBot.define do
       create(:balance, user:, credits: evaluator.credits)
     end
   end
+
+  trait :terms_accepted do
+    after(:create) do |user|
+      create(:policy_acceptance, user:)
+    end
+  end
 end

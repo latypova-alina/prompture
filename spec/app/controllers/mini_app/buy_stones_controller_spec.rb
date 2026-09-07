@@ -21,13 +21,14 @@ describe MiniApp::BuyStonesController, type: :request do
   describe "#packs" do
     subject(:make_request) do
       post "/mini_app/buy_stones/packs",
-           params: { init_data: }.to_json,
+           params: { init_data:, terms_accepted: }.to_json,
            headers: { "Content-Type" => "application/json" }
     end
 
     let(:bot_token) { "test-bot-token" }
     let(:bot) { instance_double(Telegram::Bot::Client) }
     let(:telegram_user_id) { 110_542_578 }
+    let(:terms_accepted) { false }
 
     let(:signed_params) do
       { "auth_date" => "1700000000", "user" => { id: telegram_user_id, first_name: "Alina" }.to_json }
@@ -47,8 +48,8 @@ describe MiniApp::BuyStonesController, type: :request do
       allow(bot).to receive(:create_invoice_link).and_return({ "ok" => true, "result" => "https://t.me/$test" })
     end
 
-    context "when init_data is valid and the user already exists" do
-      let!(:user) { create(:user, chat_id: telegram_user_id, locale: "ru") }
+    context "when init_data is valid and the user already accepted the terms" do
+      let!(:user) { create(:user, :terms_accepted, chat_id: telegram_user_id, locale: "ru") }
 
       it "returns http success" do
         make_request
@@ -63,6 +64,12 @@ describe MiniApp::BuyStonesController, type: :request do
 
         expect(body["packs"].map { |p| p["key"] }).to match_array(CREDIT_PACKS.keys.map(&:to_s))
         expect(body["packs"]).to all(include("invoice_url" => "https://t.me/$test"))
+      end
+
+      it "reports terms_required as false" do
+        make_request
+
+        expect(JSON.parse(response.body)["terms_required"]).to eq(false)
       end
 
       it "localizes the pack titles and buy button using the user's stored locale" do
@@ -81,8 +88,59 @@ describe MiniApp::BuyStonesController, type: :request do
       end
     end
 
+    context "when the user has not accepted the terms yet" do
+      let!(:user) { create(:user, chat_id: telegram_user_id, locale: "ru") }
+
+      it "reports terms_required as true" do
+        make_request
+
+        expect(JSON.parse(response.body)["terms_required"]).to eq(true)
+      end
+
+      it "returns packs without invoice urls" do
+        make_request
+
+        body = JSON.parse(response.body)
+
+        expect(body["packs"].map { |p| p["key"] }).to match_array(CREDIT_PACKS.keys.map(&:to_s))
+        expect(body["packs"]).to all(include("invoice_url" => nil))
+      end
+
+      it "does not create any invoice links" do
+        make_request
+
+        expect(bot).not_to have_received(:create_invoice_link)
+      end
+
+      it "does not record acceptance" do
+        expect { make_request }.not_to(change { user.policy_acceptances.count })
+      end
+
+      context "and the request accepts the terms" do
+        let(:terms_accepted) { true }
+
+        it "records acceptance on the user" do
+          expect { make_request }.to change { user.policy_acceptances.count }.by(1)
+        end
+
+        it "reports terms_required as false" do
+          make_request
+
+          expect(JSON.parse(response.body)["terms_required"]).to eq(false)
+        end
+
+        it "returns packs with invoice urls" do
+          make_request
+
+          body = JSON.parse(response.body)
+
+          expect(body["packs"]).to all(include("invoice_url" => "https://t.me/$test"))
+        end
+      end
+    end
+
     context "when the user is an admin" do
-      let!(:user) { create(:user, chat_id: telegram_user_id, locale: "en", admin: true) }
+      let!(:user) { create(:user, :terms_accepted, chat_id: telegram_user_id, locale: "en", admin: true) }
 
       it "returns the test packs, all priced at 1 star" do
         make_request
@@ -95,7 +153,7 @@ describe MiniApp::BuyStonesController, type: :request do
     end
 
     context "when the existing user has an unsupported locale" do
-      let!(:user) { create(:user, chat_id: telegram_user_id, locale: "de") }
+      let!(:user) { create(:user, :terms_accepted, chat_id: telegram_user_id, locale: "de") }
 
       it "falls back to the default locale for the buy button" do
         make_request

@@ -441,6 +441,9 @@ en:
     buy_stones:
       error: "Something went wrong. Please try /buy_stones again from the bot."
       buy_button: "Buy"
+      terms_checkbox_html: "I agree with the %{privacy_link} and %{terms_link}."
+      privacy_link_text: "Privacy Policy"
+      terms_link_text: "Terms of Use"
       pack_estimate:
         small: "~5–10 videos or ~50 images"
         medium: "~10–20 videos or ~100 images"

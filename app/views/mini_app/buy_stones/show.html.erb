@@ -73,11 +73,61 @@
         background: var(--tg-button-color);
         color: var(--tg-button-text-color);
       }
+
+      .pack-buy:disabled {
+        opacity: 0.5;
+      }
+
+      .terms {
+        margin-bottom: 16px;
+      }
+
+      .terms-label {
+        display: flex;
+        align-items: flex-start;
+        gap: 10px;
+        font-size: 14px;
+        line-height: 1.4;
+        color: var(--tg-text-color);
+      }
+
+      .terms-label input {
+        flex: none;
+        width: 18px;
+        height: 18px;
+        margin-top: 1px;
+      }
+
+      .terms-label a {
+        color: var(--tg-button-color);
+      }
     </style>
   </head>
 
   <body>
     <div id="status"><div class="spinner"></div></div>
+    <div id="terms" class="terms" style="display: none">
+      <label class="terms-label">
+        <input type="checkbox" id="terms-checkbox">
+        <span><%= t(
+          "mini_app.buy_stones.terms_checkbox_html",
+          privacy_link: link_to(
+            t("mini_app.buy_stones.privacy_link_text"),
+            "https://caivemanator.com/privacy_policy",
+            class: "policy-link",
+            target: "_blank",
+            rel: "noopener"
+          ),
+          terms_link: link_to(
+            t("mini_app.buy_stones.terms_link_text"),
+            "https://www.caivemanator.com/terms_of_use",
+            class: "policy-link",
+            target: "_blank",
+            rel: "noopener"
+          )
+        ) %></span>
+      </label>
+    </div>
     <div id="packs"></div>
 
     <script>
@@ -87,6 +137,9 @@
         var tg = window.Telegram && window.Telegram.WebApp;
         var statusEl = document.getElementById("status");
         var packsEl = document.getElementById("packs");
+        var termsEl = document.getElementById("terms");
+        var termsCheckbox = document.getElementById("terms-checkbox");
+        var policyLinks = document.querySelectorAll(".policy-link");
 
         function applyTheme() {
           if (!tg || !tg.themeParams) return;
@@ -124,6 +177,8 @@
 
         function renderPacks(data) {
           statusEl.style.display = "none";
+          termsEl.style.display = data.terms_required ? "" : "none";
+          packsEl.innerHTML = "";
 
           data.packs.forEach(function (pack) {
             var card = document.createElement("div");
@@ -140,7 +195,9 @@
             var buyButton = document.createElement("button");
             buyButton.className = "pack-buy";
             buyButton.textContent = data.buy_button;
+            buyButton.disabled = !pack.invoice_url;
             buyButton.addEventListener("click", function () {
+              if (!pack.invoice_url) return;
               openInvoice(pack.invoice_url, buyButton);
             });
 
@@ -151,11 +208,11 @@
           });
         }
 
-        function loadPacks() {
+        function loadPacks(termsAccepted) {
           fetch(<%= raw mini_app_buy_stones_packs_path.to_json %>, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ init_data: tg ? tg.initData : "" })
+            body: JSON.stringify({ init_data: tg ? tg.initData : "", terms_accepted: !!termsAccepted })
           })
             .then(function (response) {
               return response.json().then(function (data) {
@@ -165,9 +222,26 @@
             })
             .then(renderPacks)
             .catch(function (error) {
+              termsCheckbox.disabled = false;
               showError(error.message);
             });
         }
+
+        policyLinks.forEach(function (link) {
+          link.addEventListener("click", function (event) {
+            if (!tg) return;
+
+            event.preventDefault();
+            tg.openLink(link.href);
+          });
+        });
+
+        termsCheckbox.addEventListener("change", function () {
+          if (!termsCheckbox.checked) return;
+
+          termsCheckbox.disabled = true;
+          loadPacks(true);
+        });
 
         if (tg) {
           tg.ready();

@@ -449,6 +449,9 @@ es:
     buy_stones:
       error: "Algo salió mal. Por favor, inténtalo de nuevo con /buy_stones en el bot."
       buy_button: "Comprar"
+      terms_checkbox_html: "Acepto la %{privacy_link} y los %{terms_link}."
+      privacy_link_text: "Política de Privacidad"
+      terms_link_text: "Términos de Uso"
       pack_estimate:
         small: "~5–10 vídeos o ~50 imágenes"
         medium: "~10–20 vídeos o ~100 imágenes"

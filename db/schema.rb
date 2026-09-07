@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2026_08_20_153354) do
+ActiveRecord::Schema[8.0].define(version: 2026_09_07_143348) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -286,6 +286,16 @@ ActiveRecord::Schema[8.0].define(version: 2026_08_20_153354) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "policy_acceptances", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.string "privacy_policy_version", null: false
+    t.string "terms_version", null: false
+    t.datetime "accepted_at", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_policy_acceptances_on_user_id"
+  end
+
   create_table "prompt_messages", force: :cascade do |t|
     t.text "prompt"
     t.string "parent_request_type", null: false
@@ -452,6 +462,7 @@ ActiveRecord::Schema[8.0].define(version: 2026_08_20_153354) do
   add_foreign_key "command_prompt_to_image_requests", "users"
   add_foreign_key "command_prompt_to_video_requests", "users"
   add_foreign_key "command_two_frame_to_video_requests", "users"
+  add_foreign_key "policy_acceptances", "users"
   add_foreign_key "prompt_messages", "video_prompts"
   add_foreign_key "scenes", "image_prompts"
   add_foreign_key "scenes", "scripts"
