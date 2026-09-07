@@ -483,6 +483,9 @@ ru:
     buy_stones:
       error: "Что-то пошло не так. Попробуй снова через /buy_stones в боте."
       buy_button: "Купить"
+      terms_checkbox_html: "Принимаю %{privacy_link} и %{terms_link}."
+      privacy_link_text: "политику конфиденциальности"
+      terms_link_text: "условия использования"
       pack_estimate:
         small: "~5–10 видео или ~50 изображений"
         medium: "~10–20 видео или ~100 изображений"

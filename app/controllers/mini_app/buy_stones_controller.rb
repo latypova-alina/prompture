@@ -9,42 +9,17 @@ module MiniApp
     def show; end
 
     def packs
-      return render_unauthorized unless validator.valid?
+      return render_unauthorized if result.failure?
 
-      render json: { buy_button: I18n.t("mini_app.buy_stones.buy_button", locale:), packs: pack_data }
+      render json: { buy_button:, terms_required:, packs: result.packs }
     end
 
     private
 
-    delegate :pack_data, to: :pack_data_builder
-    delegate :user_id, :user_name, to: :parser
-    delegate :user, to: :user_resolver
-    delegate :locale, to: :user, prefix: true
+    delegate :buy_button, :terms_required, to: :result
 
-    memoize def pack_data_builder
-      pack_data_builder_class.new(locale:)
-    end
-
-    def pack_data_builder_class
-      return StarsPayment::TestPackDataBuilder if user.admin?
-
-      StarsPayment::PackDataBuilder
-    end
-
-    memoize def validator
-      MiniApp::InitDataValidator.new(init_data: params[:init_data])
-    end
-
-    memoize def parser
-      MiniApp::InitDataParser.new(init_data: params[:init_data])
-    end
-
-    memoize def user_resolver
-      UserResolver.new(chat_id: user_id, name: user_name, locale: I18n.default_locale.to_s)
-    end
-
-    def locale
-      Rails.application.config.x.supported_locales.include?(user_locale) ? user_locale : I18n.default_locale.to_s
+    memoize def result
+      BuyStones::LoadPacks.call(init_data: params[:init_data], terms_accepted: params[:terms_accepted])
     end
 
     def render_unauthorized

@@ -1,7 +1,7 @@
 require "rails_helper"
 
 describe StarsPayment::TestPackDataBuilder do
-  subject(:pack_data) { described_class.new(locale:).pack_data }
+  subject(:pack_data) { described_class.new(locale:, include_invoice: true).pack_data }
 
   let(:locale) { "en" }
   let(:invoice_url) { "https://t.me/$test" }

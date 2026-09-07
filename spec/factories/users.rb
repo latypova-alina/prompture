@@ -19,4 +19,8 @@ FactoryBot.define do
       create(:balance, user:, credits: evaluator.credits)
     end
   end
+
+  trait :terms_accepted do
+    terms_accepted_at { Time.current }
+  end
 end
