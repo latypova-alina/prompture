@@ -49,6 +49,22 @@ describe MiniApp::BuyStones::BuildPackData do
       end
     end
 
+    context "when the user's latest acceptance is for outdated policy versions" do
+      let(:user) { create(:user) }
+
+      before do
+        create(:policy_acceptance, user:, privacy_policy_version: "2020-01-01", terms_version: "2020-01-01")
+      end
+
+      it "reports terms_required as true" do
+        expect(result.terms_required).to eq(true)
+      end
+
+      it "does not include invoice urls" do
+        expect(result.packs).to all(include(invoice_url: nil))
+      end
+    end
+
     context "when the user is an admin" do
       let(:user) { create(:user, :terms_accepted, admin: true) }
 

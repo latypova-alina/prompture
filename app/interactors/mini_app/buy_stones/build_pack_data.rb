@@ -15,7 +15,7 @@ module MiniApp
       private
 
       def terms_accepted?
-        user.terms_accepted_at.present?
+        MiniApp::CurrentPolicyAcceptance.new(user:).present?
       end
 
       memoize def pack_data_builder

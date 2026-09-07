@@ -21,6 +21,8 @@ FactoryBot.define do
   end
 
   trait :terms_accepted do
-    terms_accepted_at { Time.current }
+    after(:create) do |user|
+      create(:policy_acceptance, user:)
+    end
   end
 end

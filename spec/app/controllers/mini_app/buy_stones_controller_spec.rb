@@ -113,14 +113,14 @@ describe MiniApp::BuyStonesController, type: :request do
       end
 
       it "does not record acceptance" do
-        expect { make_request }.not_to(change { user.reload.terms_accepted_at })
+        expect { make_request }.not_to(change { user.policy_acceptances.count })
       end
 
       context "and the request accepts the terms" do
         let(:terms_accepted) { true }
 
         it "records acceptance on the user" do
-          expect { make_request }.to change { user.reload.terms_accepted_at }.from(nil)
+          expect { make_request }.to change { user.policy_acceptances.count }.by(1)
         end
 
         it "reports terms_required as false" do

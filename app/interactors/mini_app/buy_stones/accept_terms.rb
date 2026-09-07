@@ -7,9 +7,19 @@ module MiniApp
 
       def call
         return unless terms_accepted
-        return if user.terms_accepted_at.present?
+        return if current_policy_acceptance.present?
 
-        user.update!(terms_accepted_at: Time.current)
+        user.policy_acceptances.create!(
+          privacy_policy_version: POLICY_VERSIONS[:privacy_policy],
+          terms_version: POLICY_VERSIONS[:terms_of_use],
+          accepted_at: Time.current
+        )
+      end
+
+      private
+
+      def current_policy_acceptance
+        MiniApp::CurrentPolicyAcceptance.new(user:)
       end
     end
   end
