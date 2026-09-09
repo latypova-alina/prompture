@@ -1,5 +1,5 @@
-if Rails.env.production? && (ENV["SIDEKIQ_WEB_USERNAME"].blank? || ENV["SIDEKIQ_WEB_PASSWORD"].blank?)
-  raise "SIDEKIQ_WEB_USERNAME and SIDEKIQ_WEB_PASSWORD must be set in production to protect the Sidekiq web UI"
+if Rails.env.production? && (ENV["ADMIN_USERNAME"].blank? || ENV["ADMIN_PASSWORD"].blank?)
+  raise "ADMIN_USERNAME and ADMIN_PASSWORD must be set in production to protect the admin subdomain"
 end
 
 Sidekiq.configure_server do |config|
