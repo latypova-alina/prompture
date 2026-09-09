@@ -13,6 +13,10 @@ module SupportCommands
     respond_with :message, text: t("telegram_webhooks.commands.contact_support", support_email:)
   end
 
+  def paysupport!(*)
+    respond_with :message, text: t("telegram_webhooks.commands.paysupport", support_email:)
+  end
+
   private
 
   def support_email

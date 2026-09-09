@@ -184,6 +184,29 @@ describe TelegramWebhooksController, telegram_bot: :rails do
     end
   end
 
+  describe "#paysupport!" do
+    subject { -> { dispatch_command(:paysupport) } }
+
+    let(:expected_text) do
+      I18n.t(
+        "telegram_webhooks.commands.paysupport",
+        support_email: Rails.application.config.x.support_email
+      )
+    end
+
+    context "when chat is authorized" do
+      let!(:user) { create(:user, :with_balance, chat_id: 456) }
+
+      it { should respond_with_message(expected_text) }
+    end
+
+    context "when chat is not authorized" do
+      let(:chat_id) { 999 }
+
+      it { should respond_with_message(expected_text) }
+    end
+  end
+
   describe "#set_locale!" do
     subject { -> { dispatch_command(:set_locale) } }
 

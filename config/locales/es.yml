@@ -216,6 +216,7 @@ es:
 
         ♦️ No solicites contenido de odio o acoso.
       contact_support: "📩 ¿Necesitas ayuda? Escríbenos a %{support_email} y te responderemos."
+      paysupport: "💳 Si tienes algún problema con el pago, escribe a soporte a %{support_email} y describe el problema."
       balance:
         one: "Tu saldo actual es de %{balance} piedra 🪨."
         other: "Tu saldo actual es de %{balance} piedras 🪨."
