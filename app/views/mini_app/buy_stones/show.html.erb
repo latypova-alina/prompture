@@ -175,9 +175,20 @@
           });
         }
 
+        var hasInvoices = false;
+
+        function setBuyButtonsEnabled(enabled) {
+          packsEl.querySelectorAll(".pack-buy").forEach(function (button) {
+            button.disabled = !enabled;
+          });
+        }
+
         function renderPacks(data) {
           statusEl.style.display = "none";
-          termsEl.style.display = data.terms_required ? "" : "none";
+          termsEl.style.display = "";
+          termsCheckbox.disabled = false;
+          termsCheckbox.checked = !data.terms_required;
+          hasInvoices = !data.terms_required;
           packsEl.innerHTML = "";
 
           data.packs.forEach(function (pack) {
@@ -238,7 +249,15 @@
         });
 
         termsCheckbox.addEventListener("change", function () {
-          if (!termsCheckbox.checked) return;
+          if (!termsCheckbox.checked) {
+            setBuyButtonsEnabled(false);
+            return;
+          }
+
+          if (hasInvoices) {
+            setBuyButtonsEnabled(true);
+            return;
+          }
 
           termsCheckbox.disabled = true;
           loadPacks(true);
