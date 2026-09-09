@@ -2,7 +2,7 @@ module TgChatAuthorization
   extend ActiveSupport::Concern
   include Memery
 
-  UNAUTHORIZED_ACTIONS = %i[start! activate_token! message contact_support! help! prompt_policy!].freeze
+  UNAUTHORIZED_ACTIONS = %i[start! activate_token! message contact_support! help! prompt_policy! paysupport!].freeze
 
   included { before_action :authorize_chat!, except: UNAUTHORIZED_ACTIONS }
 
