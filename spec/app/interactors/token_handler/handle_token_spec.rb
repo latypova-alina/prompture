@@ -6,6 +6,7 @@ describe TokenHandler::HandleToken do
       expect(described_class.organized).to eq(
         [
           TokenHandler::FindOrCreateUser,
+          TokenHandler::NotifyAdminOfNewUser,
           TokenHandler::VerifyToken,
           TokenHandler::UpdateToken,
           TokenHandler::GrantCredits,

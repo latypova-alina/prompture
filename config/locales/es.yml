@@ -446,6 +446,9 @@ es:
 
 
 
+  admin_notifications:
+    new_user: "🆕 ¡Nuevo usuario! Total de usuarios: %{count}"
+
   mini_app:
     buy_stones:
       error: "Algo salió mal. Por favor, inténtalo de nuevo con /buy_stones en el bot."

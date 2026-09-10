@@ -480,6 +480,10 @@ ru:
             milo: "аудио Milo"
             hope: "аудио Hope"
             lulu_lollipop: "аудио Lulu Lollipop"
+
+  admin_notifications:
+    new_user: "🆕 Новый пользователь! Всего пользователей: %{count}"
+
   mini_app:
     buy_stones:
       error: "Что-то пошло не так. Попробуй снова через /buy_stones в боте."

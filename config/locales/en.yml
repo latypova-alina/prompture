@@ -438,6 +438,9 @@ en:
             hope: "Hope audio"
             lulu_lollipop: "Lulu Lollipop audio"
 
+  admin_notifications:
+    new_user: "🆕 New user joined! Total users: %{count}"
+
   mini_app:
     buy_stones:
       error: "Something went wrong. Please try /buy_stones again from the bot."
