@@ -23,7 +23,7 @@ module MiniApp
       end
 
       def pack_data_builder_class
-        return StarsPayment::TestPackDataBuilder if user.admin?
+        return StarsPayment::TestPackDataBuilder if user.admin? && !Rails.env.production?
 
         StarsPayment::PackDataBuilder
       end

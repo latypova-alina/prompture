@@ -65,11 +65,23 @@ describe MiniApp::BuyStones::BuildPackData do
       end
     end
 
-    context "when the user is an admin" do
+    context "when the user is an admin outside production" do
       let(:user) { create(:user, :terms_accepted, admin: true) }
 
-      it "returns the test packs" do
-        expect(result.packs.map { |p| p[:key] }).to match_array(TEST_CREDIT_PACKS.keys)
+      before { allow(Rails.env).to receive(:production?).and_return(false) }
+
+      it "returns packs priced at 1 star" do
+        expect(result.packs.map { |p| p[:stars] }).to all(eq(1))
+      end
+    end
+
+    context "when the user is an admin in production" do
+      let(:user) { create(:user, :terms_accepted, admin: true) }
+
+      before { allow(Rails.env).to receive(:production?).and_return(true) }
+
+      it "returns packs priced the same as for regular users" do
+        expect(result.packs.map { |p| p[:stars] }).to eq(CREDIT_PACKS.values.map { |pack| pack[:stars] })
       end
     end
   end
