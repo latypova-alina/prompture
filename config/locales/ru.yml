@@ -326,11 +326,6 @@ ru:
             few: "Lulu Lollipop (%{count} камня 🪨)"
             many: "Lulu Lollipop (%{count} камней 🪨)"
             other: "Lulu Lollipop (%{count} камней 🪨)"
-          caivemanator:
-            one: "cAIvemanator (%{count} камень 🪨)"
-            few: "cAIvemanator (%{count} камня 🪨)"
-            many: "cAIvemanator (%{count} камней 🪨)"
-            other: "cAIvemanator (%{count} камней 🪨)"
         get_audio_samples: "Примеры голосов"
         send_as_separate_message: "Отправить отдельным сообщением"
         image_to_video:
@@ -404,7 +399,6 @@ ru:
           milo: "Milo"
           hope: "Hope"
           lulu_lollipop: "Lulu Lollipop"
-          caivemanator: "cAIvemanator"
   errors:
     prompt_forgotten: "Пожалуйста, введи промпт ещё раз."
     extend_prompt_error: "К сожалению, не удалось обработать запрос. Попробуй позже."
@@ -486,7 +480,6 @@ ru:
             milo: "аудио Milo"
             hope: "аудио Hope"
             lulu_lollipop: "аудио Lulu Lollipop"
-            caivemanator: "аудио cAIvemanator"
 
   admin_notifications:
     new_user: "🆕 Новый пользователь! Всего пользователей: %{count}"
