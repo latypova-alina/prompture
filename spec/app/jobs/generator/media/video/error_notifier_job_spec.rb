@@ -10,6 +10,7 @@ describe Generator::Media::Video::ErrorNotifierJob do
   before do
     allow(Telegram).to receive(:bot).and_return(telegram_bot)
     allow(telegram_bot).to receive(:send_message)
+    allow(Sentry).to receive(:capture_message)
   end
 
   describe "#perform" do
@@ -88,6 +89,12 @@ describe Generator::Media::Video::ErrorNotifierJob do
         .to("FAILED")
     end
 
+    it "does not report to Sentry" do
+      perform_job
+
+      expect(Sentry).not_to have_received(:capture_message)
+    end
+
     context "when custom error reason is provided" do
       subject(:perform_job) { described_class.new.perform(button_request.id, "daily_limit_exceeded") }
 
@@ -98,6 +105,12 @@ describe Generator::Media::Video::ErrorNotifierJob do
         )
 
         perform_job
+      end
+
+      it "does not report to Sentry" do
+        perform_job
+
+        expect(Sentry).not_to have_received(:capture_message)
       end
     end
 
@@ -115,6 +128,26 @@ describe Generator::Media::Video::ErrorNotifierJob do
         )
 
         perform_job
+      end
+
+      it "reports the flagged message to Sentry at info level" do
+        perform_job
+
+        expect(Sentry)
+          .to have_received(:capture_message)
+          .with(flagged_message, level: :info)
+      end
+    end
+
+    context "when fal.ai reports an unrecognized failure reason" do
+      subject(:perform_job) { described_class.new.perform(button_request.id, nil, "Voice not found: xyz") }
+
+      it "reports the flagged message to Sentry" do
+        perform_job
+
+        expect(Sentry)
+          .to have_received(:capture_message)
+          .with("Voice not found: xyz", level: :error)
       end
     end
   end

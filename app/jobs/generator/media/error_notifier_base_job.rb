@@ -3,10 +3,14 @@ module Generator
     class ErrorNotifierBaseJob < ApplicationJob
       include Memery
 
+      CONTENT_FLAGGED_REASON = "content_flagged".freeze
+
       def perform(button_request_id, error_reason = nil, flagged_message = nil)
         @button_request_id = button_request_id
         @error_reason = error_reason
         @flagged_message = flagged_message
+
+        report_error
 
         with_locale(locale) do
           Telegram.bot.send_message(**message_data)
@@ -20,6 +24,16 @@ module Generator
       attr_reader :button_request_id, :error_reason, :flagged_message
 
       delegate :chat_id, :locale, to: :request
+
+      def report_error
+        return if flagged_message.blank?
+
+        Sentry.capture_message(flagged_message, level: sentry_level)
+      end
+
+      def sentry_level
+        error_reason == CONTENT_FLAGGED_REASON ? :info : :error
+      end
 
       def custom_error_text
         return if error_reason.blank?
