@@ -9,7 +9,7 @@ module StoreImage
       upload_image
       update_stored_image
       enqueue_success_notification
-    rescue ImageResolutionError, ModerationError => e
+    rescue ImageResolutionError, ModerationError, ModerationRequestError => e
       enqueue_error_notification(e.class.name)
     end
 
