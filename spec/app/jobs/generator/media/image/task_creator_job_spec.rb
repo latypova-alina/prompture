@@ -48,5 +48,24 @@ describe Generator::Media::Image::TaskCreatorJob do
         perform_job
       end
     end
+
+    context "when Generator::DailyLimitExceeded is raised" do
+      let(:error) { Generator::DailyLimitExceeded.new }
+
+      before do
+        allow(
+          Generator::Media::Image::CreateTask::TaskCreator
+        ).to receive(:call)
+          .and_raise(error)
+      end
+
+      it "calls FailureHandler with request" do
+        expect(
+          Generator::Media::Image::CreateTask::FailureHandler
+        ).to receive(:call).with(button_request, error:)
+
+        perform_job
+      end
+    end
   end
 end

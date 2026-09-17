@@ -9,7 +9,7 @@ module Generator
         return if request.status == "CANCELLED"
 
         task_creator_class.call(request)
-      rescue Generator::ResponseError => e
+      rescue Generator::TaskCreationError => e
         failure_handler_class.call(request, error: e)
       end
 
