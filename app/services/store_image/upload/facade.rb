@@ -11,6 +11,7 @@ module StoreImage
 
       def upload_image
         dimensions_validator.validate!
+        moderation_validator.validate!
 
         object_uploader.upload
       end
@@ -32,6 +33,10 @@ module StoreImage
 
       memoize def dimensions_validator
         ImageDimensionsValidator.new(bytes:)
+      end
+
+      memoize def moderation_validator
+        ModerationValidator.new(bytes:, content_type:)
       end
 
       memoize def stored_url_builder

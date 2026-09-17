@@ -12,6 +12,7 @@ describe StoreImage::Upload::Facade do
   let(:object_uploader) { instance_double(StoreMedia::Upload::S3ObjectUploader, upload: true) }
   let(:url_builder) { instance_double(S3::UrlBuilder, stored_url:) }
   let(:dimensions_validator) { instance_double(StoreImage::Upload::ImageDimensionsValidator, validate!: true) }
+  let(:moderation_validator) { instance_double(StoreImage::Upload::ModerationValidator, validate!: true) }
 
   before do
     allow(StoreMedia::Upload::ObjectKeyBuilder).to receive(:new).with(filename:, folder:).and_return(
@@ -25,14 +26,19 @@ describe StoreImage::Upload::Facade do
       .with(bytes:, object_key:, content_type:)
       .and_return(object_uploader)
     allow(StoreImage::Upload::ImageDimensionsValidator).to receive(:new).with(bytes:).and_return(dimensions_validator)
+    allow(StoreImage::Upload::ModerationValidator)
+      .to receive(:new)
+      .with(bytes:, content_type:)
+      .and_return(moderation_validator)
     allow(S3::UrlBuilder).to receive(:new).with(object_key:).and_return(url_builder)
   end
 
   describe "#upload_image" do
-    it "validates dimensions and uploads object through S3ObjectUploader" do
+    it "validates dimensions, moderates, and uploads object through S3ObjectUploader" do
       facade.upload_image
 
       expect(dimensions_validator).to have_received(:validate!)
+      expect(moderation_validator).to have_received(:validate!)
       expect(object_uploader).to have_received(:upload)
     end
   end
