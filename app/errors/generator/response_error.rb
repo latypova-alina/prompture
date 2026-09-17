@@ -1,3 +1,3 @@
 module Generator
-  class ResponseError < StandardError; end
+  class ResponseError < TaskCreationError; end
 end

@@ -1,3 +1,3 @@
 module Generator
-  class DailyLimitExceeded < StandardError; end
+  class DailyLimitExceeded < TaskCreationError; end
 end

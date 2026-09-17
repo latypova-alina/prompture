@@ -8,6 +8,7 @@ describe Generator::Media::Video::CreateTask::FailureHandler do
   before do
     allow(Billing::Refunder).to receive(:call)
     allow(Generator::Media::Video::ErrorNotifierJob).to receive(:perform_async)
+    allow(Sentry).to receive(:capture_message)
   end
 
   describe ".call" do
@@ -40,6 +41,40 @@ describe Generator::Media::Video::CreateTask::FailureHandler do
           .with(request.id, "daily_limit_exceeded")
 
         call_handler
+      end
+
+      it "does not report to Sentry" do
+        call_handler
+
+        expect(Sentry).not_to have_received(:capture_message)
+      end
+    end
+
+    context "when fal.ai returns 403 Forbidden" do
+      subject(:call_handler) { described_class.call(request, error:) }
+
+      let(:error) { Generator::AccessForbidden.new('{"detail":"User is locked. Reason: Exhausted balance."}') }
+
+      it "reports the error message to Sentry at fatal level" do
+        call_handler
+
+        expect(Sentry)
+          .to have_received(:capture_message)
+          .with(error.message, level: :fatal)
+      end
+    end
+
+    context "when the request fails with a non-403 error" do
+      subject(:call_handler) { described_class.call(request, error:) }
+
+      let(:error) { Generator::ResponseError.new('{"detail":"Internal server error"}') }
+
+      it "reports the error message to Sentry at error level" do
+        call_handler
+
+        expect(Sentry)
+          .to have_received(:capture_message)
+          .with(error.message, level: :error)
       end
     end
   end

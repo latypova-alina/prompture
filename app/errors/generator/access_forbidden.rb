@@ -1,3 +1,3 @@
 module Generator
-  class AccessForbidden < StandardError; end
+  class AccessForbidden < TaskCreationError; end
 end
