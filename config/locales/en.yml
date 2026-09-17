@@ -303,9 +303,6 @@ en:
           lulu_lollipop:
             one: "Lulu Lollipop (%{count} stone 🪨)"
             other: "Lulu Lollipop (%{count} stones 🪨)"
-          caivemanator:
-            one: "cAIvemanator (%{count} stone 🪨)"
-            other: "cAIvemanator (%{count} stones 🪨)"
         get_audio_samples: "Get samples"
         send_as_separate_message: "Send as a separate message"
         image_to_video:
@@ -359,7 +356,6 @@ en:
           milo: "Milo"
           hope: "Hope"
           lulu_lollipop: "Lulu Lollipop"
-          caivemanator: "cAIvemanator"
   errors:
     prompt_forgotten: "Please provide the prompt again"
     extend_prompt_error: "Sorry, I couldn't process your request. Please try again later."
@@ -441,7 +437,6 @@ en:
             milo: "Milo audio"
             hope: "Hope audio"
             lulu_lollipop: "Lulu Lollipop audio"
-            caivemanator: "cAIvemanator audio"
 
   admin_notifications:
     new_user: "🆕 New user joined! Total users: %{count}"
