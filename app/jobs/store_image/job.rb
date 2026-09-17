@@ -9,8 +9,8 @@ module StoreImage
       upload_image
       update_stored_image
       enqueue_success_notification
-    rescue ImageResolutionError
-      enqueue_error_notification
+    rescue ImageResolutionError, ModerationError => e
+      enqueue_error_notification(e.class.name)
     end
 
     private
@@ -40,8 +40,8 @@ module StoreImage
       StoreImage::SuccessNotifierJob.perform_async(record_type, record_id)
     end
 
-    def enqueue_error_notification
-      StoreImage::ErrorNotifierJob.perform_async(record_type, record_id, "ImageResolutionError")
+    def enqueue_error_notification(error_class_name)
+      StoreImage::ErrorNotifierJob.perform_async(record_type, record_id, error_class_name)
     end
   end
 end

@@ -69,5 +69,27 @@ describe StoreImage::Job do
         )
       end
     end
+
+    context "when upload fails with moderation error" do
+      before do
+        allow(upload_facade).to receive(:upload_image).and_raise(ModerationError)
+      end
+
+      it "does not update stored image" do
+        perform_job
+
+        expect(StoreImage::StoredImageUpdater).not_to have_received(:call)
+      end
+
+      it "enqueues notifier with error class name" do
+        perform_job
+
+        expect(StoreImage::ErrorNotifierJob).to have_received(:perform_async).with(
+          record_type,
+          record_id,
+          "ModerationError"
+        )
+      end
+    end
   end
 end
