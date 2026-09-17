@@ -1,14 +1,14 @@
 require "rails_helper"
 
-describe Generator::Media::Image::CreateTask::FailureHandler do
+describe Generator::Media::Audio::CreateTask::FailureHandler do
   subject(:call_handler) { described_class.call(request, error:) }
 
-  let(:request) { create(:button_image_processing_request) }
+  let(:request) { create(:button_audio_processing_request) }
   let(:error) { nil }
 
   before do
     allow(Billing::Refunder).to receive(:call)
-    allow(Generator::Media::Image::ErrorNotifierJob).to receive(:perform_async)
+    allow(Generator::Media::Audio::ErrorNotifierJob).to receive(:perform_async)
     allow(Sentry).to receive(:capture_message)
   end
 
@@ -24,7 +24,7 @@ describe Generator::Media::Image::CreateTask::FailureHandler do
     end
 
     it "enqueues ErrorNotifierJob with request id" do
-      expect(Generator::Media::Image::ErrorNotifierJob)
+      expect(Generator::Media::Audio::ErrorNotifierJob)
         .to receive(:perform_async)
         .with(request.id)
 
@@ -40,12 +40,24 @@ describe Generator::Media::Image::CreateTask::FailureHandler do
     context "when fal.ai returns 403 Forbidden" do
       let(:error) { Generator::AccessForbidden.new('{"detail":"User is locked. Reason: Exhausted balance."}') }
 
-      it "reports the error message to Sentry" do
+      it "reports the error message to Sentry at fatal level" do
         call_handler
 
         expect(Sentry)
           .to have_received(:capture_message)
           .with(error.message, level: :fatal)
+      end
+    end
+
+    context "when the request fails with a 422 or other non-403 error" do
+      let(:error) { Generator::ResponseError.new('{"detail":"content_policy_violation"}') }
+
+      it "reports the error message to Sentry at error level" do
+        call_handler
+
+        expect(Sentry)
+          .to have_received(:capture_message)
+          .with(error.message, level: :error)
       end
 
       it "still refunds and notifies the user the same as any other failure" do
@@ -56,26 +68,22 @@ describe Generator::Media::Image::CreateTask::FailureHandler do
           amount: request.cost,
           source: request
         )
-        expect(Generator::Media::Image::ErrorNotifierJob)
+        expect(Generator::Media::Audio::ErrorNotifierJob)
           .to have_received(:perform_async)
           .with(request.id)
       end
     end
 
-    context "when the request fails with a non-403 error" do
-      let(:error) { Generator::ResponseError.new('{"detail":"Internal server error"}') }
-
-      it "reports the error message to Sentry at error level" do
-        call_handler
-
-        expect(Sentry)
-          .to have_received(:capture_message)
-          .with(error.message, level: :error)
-      end
-    end
-
-    context "when the request fails with daily limit exceeded" do
+    context "when error is daily limit exceeded" do
       let(:error) { Generator::DailyLimitExceeded.new }
+
+      it "enqueues ErrorNotifierJob with daily limit reason" do
+        expect(Generator::Media::Audio::ErrorNotifierJob)
+          .to receive(:perform_async)
+          .with(request.id, "daily_limit_exceeded")
+
+        call_handler
+      end
 
       it "does not report to Sentry" do
         call_handler

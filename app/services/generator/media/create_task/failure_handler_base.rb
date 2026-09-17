@@ -16,7 +16,7 @@ module Generator
         end
 
         def call
-          report_access_forbidden if error.is_a?(Generator::AccessForbidden)
+          report_error
 
           ::Billing::Refunder.call(user:, amount: cost, source: request)
 
@@ -35,8 +35,14 @@ module Generator
           ERROR_REASONS[error.class]
         end
 
-        def report_access_forbidden
-          Sentry.capture_message(error.message, level: :fatal)
+        def report_error
+          return if error.blank? || error.is_a?(Generator::DailyLimitExceeded)
+
+          Sentry.capture_message(error.message, level: sentry_level)
+        end
+
+        def sentry_level
+          error.is_a?(Generator::AccessForbidden) ? :fatal : :error
         end
 
         def error_notifier_args
