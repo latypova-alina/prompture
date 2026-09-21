@@ -1,0 +1,1 @@
+class PromptTooLongError < StandardError; end

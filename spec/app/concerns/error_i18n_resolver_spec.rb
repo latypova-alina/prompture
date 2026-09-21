@@ -34,6 +34,10 @@ describe ErrorI18nResolver do
       expect(resolver.resolve("ModerationRequestError")).to eq("errors.moderation_request_failed")
     end
 
+    it "returns mapped i18n key for prompt too long error class" do
+      expect(resolver.resolve("PromptTooLongError")).to eq("errors.prompt_too_long")
+    end
+
     it "returns fallback key for unknown error class" do
       expect(resolver.resolve("SomeUnknownError")).to eq("errors.unknown")
     end

@@ -14,6 +14,7 @@ module ErrorI18nResolver
     "InsufficientCreditsError" => "errors.insufficient_credits",
     "ModerationError" => "errors.moderation",
     "ModerationRequestError" => "errors.moderation_request_failed",
+    "PromptTooLongError" => "errors.prompt_too_long",
     "ImageResolutionError" => "errors.image_resolution",
     "ImageNotReadyError" => "errors.image_not_ready",
     "ScriptGeneratorRequestError" => "errors.script_generator_request_failed",
