@@ -3,8 +3,8 @@ module MediaGenerator
     class HandleMessage
       include Interactor::Organizer
 
-      organize ParseUserMessage, FindCommandRequest, ValidateMessageType, ModerateMessage, CreatePromptMessage,
-               NotifyUser
+      organize ParseUserMessage, FindCommandRequest, ValidateMessageType, ValidatePromptLength, ModerateMessage,
+               CreatePromptMessage, NotifyUser
     end
   end
 end
