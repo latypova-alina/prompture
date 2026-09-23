@@ -37,4 +37,15 @@ describe MediaGenerator::ButtonHandler::ForBloomy::MultiSceneScript::FindScene d
       expect(result.error).to eq(CommandUnknownError)
     end
   end
+
+  context "when command request is not an edit image request" do
+    let(:command_request) do
+      create(:command_prompt_to_image_request, category: ContentCategory::BLOOMY_CARTOON_SCRIPT)
+    end
+
+    it "fails with CommandUnknownError instead of raising" do
+      expect(result).to be_failure
+      expect(result.error).to eq(CommandUnknownError)
+    end
+  end
 end

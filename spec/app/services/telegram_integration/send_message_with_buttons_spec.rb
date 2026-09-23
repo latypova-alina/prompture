@@ -48,5 +48,17 @@ describe TelegramIntegration::SendMessageWithButtons do
       expect(record.chat_id).to eq(chat_id)
       expect(record.request).to eq(request_record)
     end
+
+    context "when Telegram reuses a tg_message_id already recorded for this chat" do
+      let!(:stale_record) do
+        create(:bot_telegram_message, chat_id:, tg_message_id: 777, request: create(:prompt_message))
+      end
+
+      it "reassigns the existing record to the new request instead of raising" do
+        expect { subject }.not_to change(BotTelegramMessage, :count)
+
+        expect(stale_record.reload.request).to eq(request_record)
+      end
+    end
   end
 end
