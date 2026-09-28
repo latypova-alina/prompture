@@ -62,22 +62,21 @@ describe TelegramIntegration::CallbackQuery::OtherButtonHandler do
   end
 
   context "when button_request is accept_terms" do
-    let(:record) { create(:user_image_url_message) }
-    let(:button_request) { "#{ButtonActions::ACCEPT_TERMS}:#{record.class.name}:#{record.id}" }
+    let(:button_request) { ButtonActions::ACCEPT_TERMS }
 
     before do
-      allow(StoreImage::ButtonHandler::HandleAcceptTermsButton)
+      allow(TermsGate::HandleAcceptButton)
         .to receive(:call)
         .and_return(success_result)
       allow(MediaGenerator::ButtonHandler::HandleButton).to receive(:call)
     end
 
-    it "calls HandleAcceptTermsButton" do
+    it "calls TermsGate::HandleAcceptButton" do
       call_handler
 
-      expect(StoreImage::ButtonHandler::HandleAcceptTermsButton)
+      expect(TermsGate::HandleAcceptButton)
         .to have_received(:call)
-        .with(button_request:, chat_id:, tg_message_id:, callback_query_id:)
+        .with(chat_id:, tg_message_id:, callback_query_id:)
       expect(MediaGenerator::ButtonHandler::HandleButton).not_to have_received(:call)
     end
   end

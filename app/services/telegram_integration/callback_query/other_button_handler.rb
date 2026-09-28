@@ -90,7 +90,7 @@ module TelegramIntegration
       end
 
       def handle_accept_terms_button
-        StoreImage::ButtonHandler::HandleAcceptTermsButton.call(**media_button_handler_params)
+        TermsGate::HandleAcceptButton.call(chat_id:, tg_message_id:, callback_query_id:)
       end
 
       memoize def splitted_button_request

@@ -1,11 +1,9 @@
-module StoreImage
-  class TermsGatePresenter
+module TermsGate
+  class Presenter
     PRIVACY_POLICY_URL = "https://caivemanator.com/privacy_policy".freeze
     TERMS_OF_USE_URL = "https://www.caivemanator.com/terms_of_use".freeze
 
-    def initialize(record_type:, record_id:, locale:)
-      @record_type = record_type
-      @record_id = record_id
+    def initialize(locale:)
       @locale = locale
     end
 
@@ -19,7 +17,7 @@ module StoreImage
 
     private
 
-    attr_reader :record_type, :record_id, :locale
+    attr_reader :locale
 
     def formatted_text
       I18n.t(
@@ -45,7 +43,7 @@ module StoreImage
     def agree_button
       {
         text: I18n.t("telegram_webhooks.message.terms_gate.agree_button", locale:),
-        callback_data: "#{ButtonActions::ACCEPT_TERMS}:#{record_type}:#{record_id}"
+        callback_data: ButtonActions::ACCEPT_TERMS
       }
     end
   end

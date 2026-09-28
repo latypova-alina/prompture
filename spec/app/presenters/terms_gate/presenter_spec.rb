@@ -1,10 +1,8 @@
 require "rails_helper"
 
-describe StoreImage::TermsGatePresenter do
-  subject(:presenter) { described_class.new(record_type:, record_id:, locale:) }
+describe TermsGate::Presenter do
+  subject(:presenter) { described_class.new(locale:) }
 
-  let(:record_type) { "UserPictureMessage" }
-  let(:record_id) { 406 }
   let(:locale) { "en" }
 
   describe "#reply_data" do
@@ -22,7 +20,7 @@ describe StoreImage::TermsGatePresenter do
             [
               {
                 text: I18n.t("telegram_webhooks.message.terms_gate.agree_button", locale:),
-                callback_data: "accept_terms:UserPictureMessage:406"
+                callback_data: "accept_terms"
               }
             ]
           ]

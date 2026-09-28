@@ -1,6 +1,6 @@
 require "rails_helper"
 
-describe StoreImage::ButtonHandler::AcknowledgeCallbackQuery do
+describe TermsGate::AcknowledgeCallbackQuery do
   subject(:call) { described_class.call(callback_query_id:) }
 
   let(:callback_query_id) { "12345" }

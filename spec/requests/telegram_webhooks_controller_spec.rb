@@ -252,6 +252,14 @@ describe TelegramWebhooksController, telegram_bot: :rails do
 
     it_behaves_like "command handling",
                     command: :image_to_video
+
+    context "when the user has not accepted the current terms" do
+      subject { -> { dispatch_command(:image_to_video) } }
+
+      let!(:user) { create(:user, :with_balance, chat_id: 456) }
+
+      it { is_expected.to respond_with_message(TermsGate::Presenter.new(locale: user.locale).reply_data[:text]) }
+    end
   end
 
   describe "#first_last_frame_to_video!" do
@@ -261,6 +269,34 @@ describe TelegramWebhooksController, telegram_bot: :rails do
 
     it_behaves_like "command handling",
                     command: :first_last_frame_to_video
+
+    context "when the user has not accepted the current terms" do
+      subject { -> { dispatch_command(:first_last_frame_to_video) } }
+
+      let!(:user) { create(:user, :with_balance, chat_id: 456) }
+
+      it { is_expected.to respond_with_message(TermsGate::Presenter.new(locale: user.locale).reply_data[:text]) }
+    end
+  end
+
+  describe "#edit_image!" do
+    subject { -> { dispatch_command(:edit_image) } }
+
+    let(:expected_text) do
+      I18n.t("telegram_webhooks.commands.edit_image")
+    end
+
+    context "when the user has accepted the current terms" do
+      let!(:user) { create(:user, :with_balance, :terms_accepted, chat_id: 456) }
+
+      it { is_expected.to respond_with_message(expected_text) }
+    end
+
+    context "when the user has not accepted the current terms" do
+      let!(:user) { create(:user, :with_balance, chat_id: 456) }
+
+      it { is_expected.to respond_with_message(TermsGate::Presenter.new(locale: user.locale).reply_data[:text]) }
+    end
   end
 
   describe "#generate_random_cats_script!" do

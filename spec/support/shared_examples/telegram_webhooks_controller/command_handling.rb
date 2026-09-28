@@ -1,7 +1,7 @@
 RSpec.shared_examples "command handling" do |command:|
   subject { -> { dispatch_command command } }
 
-  let!(:user) { create(:user, :with_balance, chat_id: 456) }
+  let!(:user) { create(:user, :with_balance, :terms_accepted, chat_id: 456) }
 
   it { is_expected.to respond_with_message(expected_text) }
 

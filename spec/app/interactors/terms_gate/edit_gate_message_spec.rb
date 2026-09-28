@@ -1,6 +1,6 @@
 require "rails_helper"
 
-describe StoreImage::ButtonHandler::EditGateMessage do
+describe TermsGate::EditGateMessage do
   subject(:call) { described_class.call(chat_id:, tg_message_id:, user:) }
 
   let(:chat_id) { 456 }
@@ -13,7 +13,7 @@ describe StoreImage::ButtonHandler::EditGateMessage do
     allow(telegram_bot).to receive(:edit_message_text)
   end
 
-  it "edits the message to a confirmation and removes the button" do
+  it "edits the message asking the user to send the command again, and removes the button" do
     call
 
     expect(telegram_bot).to have_received(:edit_message_text).with(

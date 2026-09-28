@@ -1,9 +1,8 @@
 require "rails_helper"
 
-describe StoreImage::ButtonHandler::HandleAcceptTermsButton do
+describe TermsGate::HandleAcceptButton do
   subject(:call) do
     described_class.call(
-      button_request:,
       chat_id:,
       tg_message_id:,
       callback_query_id:
@@ -11,9 +10,6 @@ describe StoreImage::ButtonHandler::HandleAcceptTermsButton do
   end
 
   let(:user) { create(:user) }
-  let(:command_request) { create(:command_prompt_to_image_request, user:) }
-  let(:record) { create(:user_image_url_message, command_request:, parent_request: command_request) }
-  let(:button_request) { "accept_terms:#{record.class.name}:#{record.id}" }
   let(:chat_id) { user.chat_id }
   let(:tg_message_id) { 789 }
   let(:callback_query_id) { "12345" }
@@ -23,7 +19,6 @@ describe StoreImage::ButtonHandler::HandleAcceptTermsButton do
     allow(Telegram).to receive(:bot).and_return(telegram_bot)
     allow(telegram_bot).to receive(:answer_callback_query)
     allow(telegram_bot).to receive(:edit_message_text)
-    allow(StoreImage::SuccessNotifierJob).to receive(:perform_async)
   end
 
   it "creates a policy acceptance for the user" do
@@ -47,13 +42,6 @@ describe StoreImage::ButtonHandler::HandleAcceptTermsButton do
     )
   end
 
-  it "re-enqueues the success notifier job to resume processing the same record" do
-    call
-
-    expect(StoreImage::SuccessNotifierJob)
-      .to have_received(:perform_async).with(record.class.name, record.id.to_s)
-  end
-
   it "succeeds" do
     expect(call).to be_success
   end
@@ -62,11 +50,10 @@ describe StoreImage::ButtonHandler::HandleAcceptTermsButton do
     it "organizes interactors in correct order" do
       expect(described_class.organized).to eq(
         [
-          StoreImage::ButtonHandler::ParseButtonRequest,
-          StoreImage::ButtonHandler::AcknowledgeCallbackQuery,
+          TermsGate::FindUser,
+          TermsGate::AcknowledgeCallbackQuery,
           MiniApp::BuyStones::AcceptTerms,
-          StoreImage::ButtonHandler::EditGateMessage,
-          StoreImage::ButtonHandler::ResumeNotification
+          TermsGate::EditGateMessage
         ]
       )
     end

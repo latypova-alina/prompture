@@ -3,11 +3,7 @@ require "rails_helper"
 describe StoreImage::SuccessNotifierJob do
   subject(:perform_job) { described_class.new.perform(record_type, record_id) }
 
-  let(:user) { create(:user, :terms_accepted) }
-  let(:command_request) { create(:command_prompt_to_image_request, user:) }
-  let!(:record) do
-    create(:user_image_url_message, tg_message_id:, command_request:, parent_request: command_request)
-  end
+  let!(:record) { create(:user_image_url_message, tg_message_id: tg_message_id) }
   let(:record_type) { record.class.name }
   let(:record_id) { record.id }
   let(:tg_message_id) { 123_456 }
@@ -24,53 +20,24 @@ describe StoreImage::SuccessNotifierJob do
   end
 
   describe "#perform" do
-    context "when the user has accepted the current terms" do
-      it "sends success message with reply_to_message_id" do
-        perform_job
+    it "sends success message with reply_to_message_id" do
+      perform_job
 
-        expect(TelegramIntegration::SendMessageWithButtons).to have_received(:call).with(
-          reply_data: reply_data.merge(reply_to_message_id: tg_message_id),
-          request: record
-        )
-      end
-
-      context "when tg_message_id is nil" do
-        let(:tg_message_id) { nil }
-
-        it "sends success message without reply_to_message_id" do
-          perform_job
-
-          expect(TelegramIntegration::SendMessageWithButtons).to have_received(:call).with(
-            reply_data:,
-            request: record
-          )
-        end
-      end
+      expect(TelegramIntegration::SendMessageWithButtons).to have_received(:call).with(
+        reply_data: reply_data.merge(reply_to_message_id: tg_message_id),
+        request: record
+      )
     end
 
-    context "when the user has not accepted the current terms" do
-      let(:user) { create(:user) }
+    context "when tg_message_id is nil" do
+      let!(:record) { create(:user_image_url_message, tg_message_id: nil) }
+      let(:tg_message_id) { nil }
 
-      it "sends a reply built from StoreImage::TermsGatePresenter" do
-        gate_presenter = instance_double(StoreImage::TermsGatePresenter, reply_data: { text: "please agree" })
-        allow(StoreImage::TermsGatePresenter)
-          .to receive(:new)
-          .with(record_type:, record_id:, locale: "en")
-          .and_return(gate_presenter)
-
+      it "sends success message without reply_to_message_id" do
         perform_job
 
         expect(TelegramIntegration::SendMessageWithButtons).to have_received(:call).with(
-          reply_data: { text: "please agree", reply_to_message_id: tg_message_id },
-          request: record
-        )
-      end
-
-      it "does not send the normal presenter-built reply" do
-        perform_job
-
-        expect(TelegramIntegration::SendMessageWithButtons).not_to have_received(:call).with(
-          reply_data: hash_including(reply_data),
+          reply_data:,
           request: record
         )
       end
