@@ -22,6 +22,10 @@ describe UserImageUrlMessage, type: :model do
     it "delegates chat_id to command_request" do
       expect(user_image_url_message.chat_id).to eq(123)
     end
+
+    it "delegates user to command_request" do
+      expect(user_image_url_message.user).to eq(command_request.user)
+    end
   end
 
   describe "#resolved_image_url" do

@@ -345,6 +345,12 @@ en:
       image_processed: "Open image"
       video_processed: "Open video"
       audio_processed: "Open audio"
+      terms_gate:
+        prompt: "Before we can process what you send, please review our %{privacy_link} and %{terms_link}. By tapping \"Agree\", you confirm you've read them and that you have all rights needed to use any content you submit."
+        privacy_link_text: "Privacy Policy"
+        terms_link_text: "Terms of Use"
+        agree_button: "✅ Agree, continue"
+        accepted: "✅ Terms accepted"
       audio_samples:
         intro: "Here are the voice samples 🔊"
         listen: "Listen"
