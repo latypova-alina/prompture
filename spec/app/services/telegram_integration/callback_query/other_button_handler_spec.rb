@@ -61,6 +61,26 @@ describe TelegramIntegration::CallbackQuery::OtherButtonHandler do
     end
   end
 
+  context "when button_request is accept_terms" do
+    let(:button_request) { ButtonActions::ACCEPT_TERMS }
+
+    before do
+      allow(TermsGate::HandleAcceptButton)
+        .to receive(:call)
+        .and_return(success_result)
+      allow(MediaGenerator::ButtonHandler::HandleButton).to receive(:call)
+    end
+
+    it "calls TermsGate::HandleAcceptButton" do
+      call_handler
+
+      expect(TermsGate::HandleAcceptButton)
+        .to have_received(:call)
+        .with(chat_id:, tg_message_id:, callback_query_id:)
+      expect(MediaGenerator::ButtonHandler::HandleButton).not_to have_received(:call)
+    end
+  end
+
   context "when button_request is send_as_separate_message" do
     let(:button_request) { ButtonActions::SEND_AS_SEPARATE_MESSAGE }
 

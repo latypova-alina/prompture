@@ -15,7 +15,8 @@ module TelegramIntegration
         ButtonActions::GENERATE_BLOOMY_COMPLEX_VIDEOS => :handle_generate_bloomy_complex_videos_button,
         ButtonActions::CHECK_GENERATION_STATUS => :handle_check_generation_status,
         ButtonActions::CANCEL_GENERATION => :handle_cancel_generation,
-        ButtonActions::SEND_AS_SEPARATE_MESSAGE => :handle_send_as_separate_message
+        ButtonActions::SEND_AS_SEPARATE_MESSAGE => :handle_send_as_separate_message,
+        ButtonActions::ACCEPT_TERMS => :handle_accept_terms_button
       }.freeze
       DEFAULT_HANDLER = :handle_media_button
 
@@ -86,6 +87,10 @@ module TelegramIntegration
           tg_message_id:,
           callback_query_id:
         )
+      end
+
+      def handle_accept_terms_button
+        TermsGate::HandleAcceptButton.call(chat_id:, tg_message_id:, callback_query_id:)
       end
 
       memoize def splitted_button_request

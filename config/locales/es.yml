@@ -345,6 +345,12 @@ es:
         image_processed: "Abrir imagen"
         video_processed: "Abrir video"
         audio_processed: "Abrir audio"
+      terms_gate:
+        prompt: "Antes de usar este comando, revisa nuestra %{privacy_link} y %{terms_link}. Al pulsar «De acuerdo», confirmas que las has leído y que tienes todos los derechos necesarios para usar cualquier contenido que envíes."
+        privacy_link_text: "Política de Privacidad"
+        terms_link_text: "Términos de Uso"
+        agree_button: "✅ De acuerdo, continuar"
+        accepted: "✅ ¡Gracias! Por favor, envía el comando de nuevo."
       audio_samples:
         intro: "Aquí están las muestras de voz 🔊"
         listen: "Escuchar"

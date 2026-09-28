@@ -74,6 +74,8 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
   end
 
   def image_to_video!(*)
+    return unless terms_accepted?
+
     session[:command] = "image_to_video"
 
     MediaGenerator::CommandHandler::HandleCommand.call(command: session[:command], chat_id: chat["id"])
@@ -82,6 +84,8 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
   end
 
   def first_last_frame_to_video!(*)
+    return unless terms_accepted?
+
     session[:command] = "first_last_frame_to_video"
 
     MediaGenerator::CommandHandler::HandleCommand.call(command: session[:command], chat_id: chat["id"])
@@ -90,6 +94,8 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
   end
 
   def edit_image!(*)
+    return unless terms_accepted?
+
     session[:command] = "edit_image"
 
     MediaGenerator::CommandHandler::HandleCommand.call(command: session[:command], chat_id: chat["id"])
@@ -118,6 +124,12 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
 
   memoize def user
     User.eager_load(:balance).find_by(chat_id: chat&.dig("id") || from["id"])
+  end
+
+  def terms_accepted?
+    return true if user.nil?
+
+    TermsGate::Check.call(user:, chat_id: chat["id"], locale: user.locale)
   end
 
   def start_message_for(handled_token)

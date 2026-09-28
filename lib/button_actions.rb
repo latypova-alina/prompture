@@ -8,4 +8,5 @@ module ButtonActions
   CHECK_GENERATION_STATUS = "check_generation_status".freeze
   CANCEL_GENERATION = "cancel_generation".freeze
   SEND_AS_SEPARATE_MESSAGE = "send_as_separate_message".freeze
+  ACCEPT_TERMS = "accept_terms".freeze
 end
