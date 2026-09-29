@@ -43,12 +43,14 @@ describe "Admin users" do
       expect(response).to have_http_status(:unauthorized)
     end
 
-    it "shows the user's generation history" do
+    it "shows the user's generation history counts with links to the detail pages" do
       get "/users/#{user.id}", headers: auth_headers
 
       expect(response.body).to include("Rihanna")
-      expect(response.body).to include(command_request.class.name)
-      expect(response.body).to include(button_request.humanized_process_name)
+      expect(response.body).to include("Command requests (1)")
+      expect(response.body).to include("Button requests (1)")
+      expect(response.body).to include("/users/#{user.id}/command_requests")
+      expect(response.body).to include("/users/#{user.id}/button_requests")
     end
   end
 end

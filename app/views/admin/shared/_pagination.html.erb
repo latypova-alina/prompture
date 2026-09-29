@@ -1,0 +1,17 @@
+<% if result.total_pages > 1 %>
+  <nav class="pagination">
+    <% if result.current_page > 1 %>
+      <%= link_to "← Prev", "#{request.path}?#{request.query_parameters.merge(page: result.current_page - 1).to_query}" %>
+    <% else %>
+      <span class="pagination-disabled">← Prev</span>
+    <% end %>
+
+    <span class="pagination-status">Page <%= result.current_page %> of <%= result.total_pages %> (<%= result.total_count %> total)</span>
+
+    <% if result.current_page < result.total_pages %>
+      <%= link_to "Next →", "#{request.path}?#{request.query_parameters.merge(page: result.current_page + 1).to_query}" %>
+    <% else %>
+      <span class="pagination-disabled">Next →</span>
+    <% end %>
+  </nav>
+<% end %>

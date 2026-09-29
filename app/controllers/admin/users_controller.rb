@@ -8,7 +8,8 @@ module Admin
 
     def show
       @user = User.includes(:balance).find(params[:id])
-      @entries = Admin::UserGenerationHistory.call(user: @user)
+      @command_request_count = Admin::CommandRequestsQuery.call(user: @user).total_count
+      @button_request_count = Admin::ButtonRequestsQuery.call(user: @user).total_count
     end
   end
 end
