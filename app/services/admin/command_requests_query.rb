@@ -9,6 +9,8 @@ module Admin
       CommandPromptToAudioRequest
     ].freeze
 
+    Ref = Struct.new(:klass, :id, :created_at)
+
     def self.call(...)
       new(...).call
     end
@@ -25,7 +27,9 @@ module Admin
     end
 
     def call
-      Admin::Page.call(records, page:)
+      page_result = Admin::Page.call(refs, page:)
+      page_result.records = hydrate(page_result.records)
+      page_result
     end
 
     def count
@@ -36,10 +40,18 @@ module Admin
 
     attr_reader :user, :type, :date_range, :page
 
-    def records
-      classes.flat_map { |klass| scoped(klass).to_a }
-             .sort_by(&:created_at)
-             .reverse
+    # Only id/created_at are pulled here so pagination/sorting across the (potentially
+    # hundreds of) matching rows per type doesn't instantiate full records for rows that
+    # get discarded once sliced to a page.
+    def refs
+      classes.flat_map do |klass|
+        scoped(klass).pluck(:id, :created_at).map { |id, created_at| Ref.new(klass, id, created_at) }
+      end.sort_by(&:created_at).reverse
+    end
+
+    def hydrate(refs)
+      records = refs.group_by(&:klass).flat_map { |klass, klass_refs| klass.where(id: klass_refs.map(&:id)) }
+      records.sort_by(&:created_at).reverse
     end
 
     def scoped(klass)

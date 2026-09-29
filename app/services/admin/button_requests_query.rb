@@ -14,6 +14,8 @@ module Admin
       ButtonMergeAudioVideoProcessingRequest => :stored_video
     }.freeze
 
+    Ref = Struct.new(:klass, :id, :created_at)
+
     def self.call(...)
       new(...).call
     end
@@ -30,21 +32,35 @@ module Admin
     end
 
     def call
-      Admin::Page.call(records, page:)
+      page_result = Admin::Page.call(refs, page:)
+      page_result.records = hydrate(page_result.records)
+      page_result
     end
 
     def count
-      classes.sum { |klass| date_range.apply(scoped(klass)).count }
+      classes.sum { |klass| date_range.apply(filtered(klass)).count }
     end
 
     private
 
     attr_reader :user, :type, :date_range, :page
 
-    def records
-      classes.flat_map { |klass| date_range.apply(scoped(klass)).to_a }
-             .sort_by(&:created_at)
-             .reverse
+    # Only id/created_at are pulled here so pagination/sorting across the (potentially
+    # hundreds of) matching rows per type doesn't instantiate full records - or, worse,
+    # eager-load their associations - for rows that get discarded once sliced to a page.
+    def refs
+      classes.flat_map do |klass|
+        date_range.apply(filtered(klass)).pluck(:id, :created_at).map do |id, created_at|
+          Ref.new(klass, id, created_at)
+        end
+      end.sort_by(&:created_at).reverse
+    end
+
+    def hydrate(refs)
+      records = refs.group_by(&:klass).flat_map do |klass, klass_refs|
+        eager(klass).where(id: klass_refs.map(&:id))
+      end
+      records.sort_by(&:created_at).reverse
     end
 
     def classes
@@ -52,14 +68,17 @@ module Admin
       matched.presence || TYPES
     end
 
-    def scoped(klass)
-      relation = Admin::CommandRequestsQuery::TYPES.reduce(klass.none) do |rel, command_klass|
+    def filtered(klass)
+      Admin::CommandRequestsQuery::TYPES.reduce(klass.none) do |rel, command_klass|
         rel.or(
           klass.where(command_request_type: command_klass.name,
                       command_request_id: command_klass.where(user:).select(:id))
         )
       end
-      relation = relation.includes(command_request: :user)
+    end
+
+    def eager(klass)
+      relation = klass.includes(command_request: :user)
       relation = relation.includes(MEDIA_ASSOCIATIONS[klass]) if MEDIA_ASSOCIATIONS[klass]
       relation
     end
