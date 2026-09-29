@@ -28,7 +28,7 @@ module Admin
     attr_reader :user, :type, :date_range, :page
 
     def records
-      classes.flat_map { |klass| date_range.apply(klass.where(command_request: user_command_requests)).to_a }
+      classes.flat_map { |klass| date_range.apply(scoped(klass)).to_a }
              .sort_by(&:created_at)
              .reverse
     end
@@ -38,8 +38,13 @@ module Admin
       matched.presence || TYPES
     end
 
-    def user_command_requests
-      @user_command_requests ||= Admin::CommandRequestsQuery::TYPES.flat_map { |klass| klass.where(user:).to_a }
+    def scoped(klass)
+      Admin::CommandRequestsQuery::TYPES.reduce(klass.none) do |relation, command_klass|
+        relation.or(
+          klass.where(command_request_type: command_klass.name,
+                      command_request_id: command_klass.where(user:).select(:id))
+        )
+      end
     end
   end
 end
