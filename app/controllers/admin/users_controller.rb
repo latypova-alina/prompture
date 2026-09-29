@@ -1,5 +1,7 @@
 module Admin
   class UsersController < ApplicationController
+    layout "admin"
+
     def index
       @users = User.includes(:balance).order(created_at: :desc)
     end
