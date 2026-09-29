@@ -1,0 +1,41 @@
+<%= link_to "← #{@user.name}", user_path(@user), class: "back-link" %>
+
+<h1>Button requests</h1>
+
+<%= render "admin/shared/filters", types: Admin::ButtonRequestsQuery::TYPES, type_prefix: "Button" %>
+
+<% if @result.records.empty? %>
+  <p class="empty-state">No button requests found.</p>
+<% else %>
+  <table>
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Processor</th>
+        <th>Status</th>
+        <th>Cost</th>
+        <th>Media</th>
+        <th>Command</th>
+        <th>Created</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @result.records.each do |button_request| %>
+        <tr>
+          <td><%= button_request.class.name %></td>
+          <td><%= button_request.humanized_process_name %></td>
+          <td><span class="badge badge-<%= button_request.status %>"><%= button_request.status %></span></td>
+          <td><%= button_request.cost %></td>
+          <td>
+            <% media_url = button_request.try(:resolved_media_url) %>
+            <%= link_to "Open", media_url if media_url.present? %>
+          </td>
+          <td><%= button_request.command_request_type %> #<%= button_request.command_request_id %></td>
+          <td><%= button_request.created_at %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% end %>
+
+<%= render "admin/shared/pagination", result: @result %>

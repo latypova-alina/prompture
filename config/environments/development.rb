@@ -31,4 +31,10 @@ Rails.application.configure do
 
   config.telegram_updates_controller.session_store = :memory_store
   config.host_authorization = { exclude: ->(_request) { true } }
+
+  # "admin.localhost" is only 2 dot-segments, so Rails' default tld_length (1)
+  # extracts no subdomain for it (it expects domain+tld to take 2 segments,
+  # like caivemanator.com). Lowering it to 0 lets "admin.localhost" resolve
+  # to subdomain "admin" for local testing of the admin subdomain routes.
+  config.action_dispatch.tld_length = 0
 end

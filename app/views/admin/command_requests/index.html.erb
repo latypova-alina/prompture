@@ -1,0 +1,30 @@
+<%= link_to "← #{@user.name}", user_path(@user), class: "back-link" %>
+
+<h1>Command requests</h1>
+
+<%= render "admin/shared/filters", types: Admin::CommandRequestsQuery::TYPES, type_prefix: "Command" %>
+
+<% if @result.records.empty? %>
+  <p class="empty-state">No command requests found.</p>
+<% else %>
+  <table>
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Category</th>
+        <th>Created</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @result.records.each do |command_request| %>
+        <tr>
+          <td><%= command_request.class.name %> #<%= command_request.id %></td>
+          <td><%= command_request.category %></td>
+          <td><%= command_request.created_at %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% end %>
+
+<%= render "admin/shared/pagination", result: @result %>

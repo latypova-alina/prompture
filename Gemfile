@@ -26,6 +26,7 @@ gem "sidekiq-cron"
 gem "telegram-bot"
 
 group :development, :test do
+  gem "bullet"
   gem "byebug"
   gem "factory_bot_rails"
   gem "rubocop", require: false
@@ -38,6 +39,5 @@ group :test do
 end
 
 group :development do
-  gem "bullet"
   gem "web-console"
 end
