@@ -56,4 +56,16 @@ describe Admin::CommandRequestsQuery do
       it { expect(call.records.size).to eq(2) }
     end
   end
+
+  describe ".count" do
+    subject(:count) { described_class.count(user:, type:, date_from:, date_to:) }
+
+    it { is_expected.to eq(2) }
+
+    context "when filtering by type" do
+      let(:type) { "CommandPromptToAudioRequest" }
+
+      it { is_expected.to eq(1) }
+    end
+  end
 end

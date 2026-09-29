@@ -8,8 +8,18 @@ module Admin
       ButtonExtendPromptRequest
     ].freeze
 
+    MEDIA_ASSOCIATIONS = {
+      ButtonImageProcessingRequest => :stored_image,
+      ButtonVideoProcessingRequest => :stored_video,
+      ButtonMergeAudioVideoProcessingRequest => :stored_video
+    }.freeze
+
     def self.call(...)
       new(...).call
+    end
+
+    def self.count(...)
+      new(...).count
     end
 
     def initialize(user:, type: nil, date_from: nil, date_to: nil, page: 1)
@@ -21,6 +31,10 @@ module Admin
 
     def call
       Admin::Page.call(records, page:)
+    end
+
+    def count
+      classes.sum { |klass| date_range.apply(scoped(klass)).count }
     end
 
     private
@@ -39,12 +53,15 @@ module Admin
     end
 
     def scoped(klass)
-      Admin::CommandRequestsQuery::TYPES.reduce(klass.none) do |relation, command_klass|
-        relation.or(
+      relation = Admin::CommandRequestsQuery::TYPES.reduce(klass.none) do |rel, command_klass|
+        rel.or(
           klass.where(command_request_type: command_klass.name,
                       command_request_id: command_klass.where(user:).select(:id))
         )
       end
+      relation = relation.includes(command_request: :user)
+      relation = relation.includes(MEDIA_ASSOCIATIONS[klass]) if MEDIA_ASSOCIATIONS[klass]
+      relation
     end
   end
 end

@@ -50,5 +50,19 @@ describe "Admin button requests" do
 
       expect(response.body).to include("Page 1 of 2")
     end
+
+    it "does not N+1 query command_request, user, or stored media across rows" do
+      create(:stored_image, source_message: image_request)
+      other_image_command = create(:command_prompt_to_image_request, user:)
+      other_image_request = create(:button_image_processing_request, :completed, command_request: other_image_command)
+      create(:stored_image, source_message: other_image_request)
+      video_command = create(:command_prompt_to_video_request, user:)
+      video_request = create(:button_video_processing_request, command_request: video_command)
+      create(:stored_video, source: video_request)
+
+      get "/users/#{user.id}/button_requests", headers: auth_headers
+
+      expect(response).to have_http_status(:ok)
+    end
   end
 end

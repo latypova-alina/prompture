@@ -13,6 +13,10 @@ module Admin
       new(...).call
     end
 
+    def self.count(...)
+      new(...).count
+    end
+
     def initialize(user:, type: nil, date_from: nil, date_to: nil, page: 1)
       @user = user
       @type = type
@@ -24,14 +28,22 @@ module Admin
       Admin::Page.call(records, page:)
     end
 
+    def count
+      classes.sum { |klass| scoped(klass).count }
+    end
+
     private
 
     attr_reader :user, :type, :date_range, :page
 
     def records
-      classes.flat_map { |klass| date_range.apply(klass.where(user:)).to_a }
+      classes.flat_map { |klass| scoped(klass).to_a }
              .sort_by(&:created_at)
              .reverse
+    end
+
+    def scoped(klass)
+      date_range.apply(klass.where(user:))
     end
 
     def classes
