@@ -1,0 +1,62 @@
+<p><%= link_to "← Users", users_path %></p>
+
+<h1><%= @user.name %></h1>
+<ul>
+  <li>Chat ID: <%= @user.chat_id %></li>
+  <li>Locale: <%= @user.locale %></li>
+  <li>Balance: <%= @user.balance&.credits || 0 %></li>
+  <li>Admin: <%= @user.admin? ? "yes" : "no" %></li>
+</ul>
+
+<h2>Generation history</h2>
+
+<% if @entries.empty? %>
+  <p>No commands yet.</p>
+<% end %>
+
+<% @entries.each do |entry| %>
+  <% command_request = entry.command_request %>
+  <section>
+    <h3>
+      <%= command_request.class.name %> #<%= command_request.id %>
+      <% if command_request.category.present? %>
+        (<%= command_request.category %>)
+      <% end %>
+    </h3>
+    <p><%= command_request.created_at %></p>
+
+    <% if entry.button_requests.empty? %>
+      <p>No generation requests yet.</p>
+    <% else %>
+      <table>
+        <thead>
+          <tr>
+            <th>Type</th>
+            <th>Processor</th>
+            <th>Status</th>
+            <th>Cost</th>
+            <th>Media</th>
+            <th>Created</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% entry.button_requests.each do |button_request| %>
+            <tr>
+              <td><%= button_request.class.name %></td>
+              <td><%= button_request.humanized_process_name %></td>
+              <td><%= button_request.status %></td>
+              <td><%= button_request.cost %></td>
+              <td>
+                <% media_url = button_request.try(:resolved_media_url) %>
+                <% if media_url.present? %>
+                  <%= link_to "Open", media_url %>
+                <% end %>
+              </td>
+              <td><%= button_request.created_at %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    <% end %>
+  </section>
+<% end %>

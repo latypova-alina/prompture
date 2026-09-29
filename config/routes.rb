@@ -5,6 +5,7 @@ Rails.application.routes.draw do
 
   constraints subdomain: "admin" do
     root to: "admin#index"
+    resources :users, controller: "admin/users", only: %i[index show]
     get "/blazer", to: redirect("/blazer/dashboards/1"), as: :admin_blazer_root
     mount Blazer::Engine, at: "/blazer"
     mount Sidekiq::Web => "/sidekiq"

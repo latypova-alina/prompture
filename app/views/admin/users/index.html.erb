@@ -1,0 +1,22 @@
+<h1>Users</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Locale</th>
+      <th>Balance</th>
+      <th>Admin</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @users.each do |user| %>
+      <tr>
+        <td><%= link_to user.name, user_path(user) %></td>
+        <td><%= user.locale %></td>
+        <td><%= user.balance&.credits || 0 %></td>
+        <td><%= user.admin? ? "yes" : "no" %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
