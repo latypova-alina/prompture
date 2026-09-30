@@ -119,12 +119,4 @@ describe Admin::ButtonRequestsQuery do
       it { is_expected.to eq(1) }
     end
   end
-
-  describe ".processor_options" do
-    subject(:processor_options) { described_class.processor_options }
-
-    it "includes processors from types that have them" do
-      expect(processor_options).to include("flux_image", "elevenlabs_v3_audio", "local_ffmpeg_merge")
-    end
-  end
 end

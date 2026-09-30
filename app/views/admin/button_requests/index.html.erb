@@ -59,9 +59,9 @@
   </div>
 
   <%= render "admin/shared/filters",
-             types: Admin::ButtonRequestsQuery::TYPES,
+             types: Admin::ButtonRequestTypes::ALL,
              type_prefix: "Button",
              command_types: Admin::CommandRequestsQuery::TYPES,
-             statuses: Admin::ButtonRequestsQuery::STATUSES,
-             processors: Admin::ButtonRequestsQuery.processor_options %>
+             statuses: Admin::ButtonRequestTypes::STATUSES,
+             processors: Admin::ButtonRequestTypes.processor_options %>
 </div>
