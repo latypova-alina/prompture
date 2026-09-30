@@ -1,0 +1,16 @@
+h1 Users
+
+table
+  thead
+    tr
+      th Name
+      th Locale
+      th Balance
+      th Admin
+  tbody
+    - @users.each do |user|
+      tr
+        td = link_to user.name, user_path(user)
+        td = user.locale
+        td = user.balance&.credits || 0
+        td = user.admin? ? "yes" : "no"

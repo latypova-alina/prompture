@@ -1,0 +1,13 @@
+- if result.total_pages > 1
+  nav.pagination
+    - if result.current_page > 1
+      = link_to "← Prev", "#{request.path}?#{request.query_parameters.merge(page: result.current_page - 1).to_query}"
+    - else
+      span.pagination-disabled ← Prev
+
+    span.pagination-status Page #{result.current_page} of #{result.total_pages} (#{result.total_count} total)
+
+    - if result.current_page < result.total_pages
+      = link_to "Next →", "#{request.path}?#{request.query_parameters.merge(page: result.current_page + 1).to_query}"
+    - else
+      span.pagination-disabled Next →

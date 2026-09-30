@@ -1,12 +1,12 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <title><%= content_for(:title) || "Admin — Prompture" %></title>
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <%= csrf_meta_tags %>
-    <%= csp_meta_tag %>
+doctype html
+html
+  head
+    title = content_for(:title) || "Admin — Prompture"
+    meta name="viewport" content="width=device-width,initial-scale=1"
+    = csrf_meta_tags
+    = csp_meta_tag
 
-    <style>
+    css:
       :root {
         --bg: #f6f7f9;
         --surface: #ffffff;
@@ -256,23 +256,15 @@
       .badge-pending, .badge-processing { background: var(--status-pending-bg); color: var(--status-pending-text); }
 
       .empty-state { color: var(--text-muted); padding: 24px 0; }
-    </style>
-  </head>
 
-  <body>
-    <header class="admin-nav">
-      <div class="admin-nav-inner">
-        <span class="brand">cAIvemanator Admin</span>
-        <nav>
-          <%= link_to "Users", users_path %>
-          <%= link_to "Blazer", "/blazer" %>
-          <%= link_to "Sidekiq", "/sidekiq" %>
-        </nav>
-      </div>
-    </header>
+  body
+    header.admin-nav
+      .admin-nav-inner
+        span.brand cAIvemanator Admin
+        nav
+          = link_to "Users", users_path
+          = link_to "Blazer", "/blazer"
+          = link_to "Sidekiq", "/sidekiq"
 
-    <main class="admin-container">
-      <%= yield %>
-    </main>
-  </body>
-</html>
+    main.admin-container
+      = yield
