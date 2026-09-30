@@ -2,7 +2,12 @@
 
 <h1>Button requests</h1>
 
-<%= render "admin/shared/filters", types: Admin::ButtonRequestsQuery::TYPES, type_prefix: "Button" %>
+<%= render "admin/shared/filters",
+           types: Admin::ButtonRequestsQuery::TYPES,
+           type_prefix: "Button",
+           command_types: Admin::CommandRequestsQuery::TYPES,
+           statuses: Admin::ButtonRequestsQuery::STATUSES,
+           processors: Admin::ButtonRequestsQuery.processor_options %>
 
 <% if @result.records.empty? %>
   <p class="empty-state">No button requests found.</p>
@@ -24,7 +29,9 @@
         <tr>
           <td><%= button_request.class.name %></td>
           <td><%= button_request.humanized_process_name %></td>
-          <td><span class="badge badge-<%= button_request.status %>"><%= button_request.status %></span></td>
+          <td>
+            <span class="badge badge-<%= button_request.status.to_s.downcase %>"><%= button_request.status %></span>
+          </td>
           <td><%= button_request.cost %></td>
           <td>
             <% media_url = button_request.try(:resolved_media_url) %>

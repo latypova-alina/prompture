@@ -14,6 +14,12 @@ module Admin
       ButtonMergeAudioVideoProcessingRequest => :stored_video
     }.freeze
 
+    # The DB default is lowercase "pending", but application code (success/failure
+    # notifiers) writes these uppercase values - #apply_status matches case-insensitively
+    # so rows still on the DB default aren't silently excluded.
+    STATUSES = %w[PENDING COMPLETED FAILED CANCELLED].freeze
+
+    Filters = Struct.new(:type, :status, :processor, :command_type, :date_from, :date_to, keyword_init: true)
     Ref = Struct.new(:klass, :id, :created_at)
 
     def self.call(...)
@@ -24,10 +30,16 @@ module Admin
       new(...).count
     end
 
-    def initialize(user:, type: nil, date_from: nil, date_to: nil, page: 1)
+    def self.processor_options
+      TYPES.select { |klass| klass.column_names.include?("processor") }
+           .flat_map { |klass| klass::PROCESSOR_TYPES }
+           .uniq
+    end
+
+    def initialize(user:, filters: Filters.new, page: 1)
       @user = user
-      @type = type
-      @date_range = Admin::DateRangeFilter.new(date_from:, date_to:)
+      @filters = filters
+      @date_range = Admin::DateRangeFilter.new(date_from: filters.date_from, date_to: filters.date_to)
       @page = page
     end
 
@@ -43,7 +55,9 @@ module Admin
 
     private
 
-    attr_reader :user, :type, :date_range, :page
+    attr_reader :user, :filters, :date_range, :page
+
+    delegate :type, :status, :processor, :command_type, to: :filters
 
     # Only id/created_at are pulled here so pagination/sorting across the (potentially
     # hundreds of) matching rows per type doesn't instantiate full records - or, worse,
@@ -63,18 +77,49 @@ module Admin
       records.sort_by(&:created_at).reverse
     end
 
+    # ButtonExtendPromptRequest has no processor column, so a processor filter excludes
+    # it entirely rather than falling back to "all types" the way an unmatched type does.
     def classes
+      return matching_types unless processor.present?
+
+      matching_types.select { |klass| klass.column_names.include?("processor") }
+    end
+
+    def matching_types
       matched = TYPES.select { |klass| klass.name == type }
       matched.presence || TYPES
     end
 
+    def command_types
+      matched = Admin::CommandRequestsQuery::TYPES.select { |klass| klass.name == command_type }
+      matched.presence || Admin::CommandRequestsQuery::TYPES
+    end
+
     def filtered(klass)
-      Admin::CommandRequestsQuery::TYPES.reduce(klass.none) do |rel, command_klass|
+      relation = scoped_by_command_type(klass)
+      relation = apply_status(relation)
+      apply_processor(relation)
+    end
+
+    def scoped_by_command_type(klass)
+      command_types.reduce(klass.none) do |rel, command_klass|
         rel.or(
           klass.where(command_request_type: command_klass.name,
                       command_request_id: command_klass.where(user:).select(:id))
         )
       end
+    end
+
+    def apply_status(relation)
+      return relation unless status.present?
+
+      relation.where("upper(status) = ?", status.upcase)
+    end
+
+    def apply_processor(relation)
+      return relation unless processor.present?
+
+      relation.where(processor:)
     end
 
     def eager(klass)
