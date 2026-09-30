@@ -107,5 +107,44 @@ describe "Admin button requests" do
 
       expect(response).to have_http_status(:ok)
     end
+
+    it "does not show the user search filter" do
+      get "/users/#{user.id}/button_requests", headers: auth_headers
+
+      expect(response.body).not_to include('name="user"')
+    end
+  end
+
+  describe "GET /button_requests (global)" do
+    it "requires authentication" do
+      get "/button_requests"
+
+      expect(response).to have_http_status(:unauthorized)
+    end
+
+    it "lists button requests across all users, with a User column" do
+      other_user = create(:user, :with_balance, name: "Beyonce")
+      other_command = create(:command_prompt_to_image_request, user: other_user)
+      other_request = create(:button_image_processing_request, :completed, command_request: other_command,
+                                                                           parent_request: other_command)
+
+      get "/button_requests", headers: auth_headers
+
+      expect(response.body).to include(image_request.created_at.to_s)
+      expect(response.body).to include(other_request.created_at.to_s)
+      expect(response.body).to include("Rihanna").and include("Beyonce")
+    end
+
+    it "filters by user search" do
+      other_user = create(:user, :with_balance, name: "Beyonce")
+      other_command = create(:command_prompt_to_image_request, user: other_user)
+      other_request = create(:button_image_processing_request, :completed, command_request: other_command,
+                                                                           parent_request: other_command)
+
+      get "/button_requests", params: { user: "Rihanna" }, headers: auth_headers
+
+      expect(response.body).to include(image_request.created_at.to_s)
+      expect(response.body).not_to include(other_request.created_at.to_s)
+    end
   end
 end

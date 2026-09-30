@@ -1,6 +1,7 @@
 module Admin
   class ButtonRequestsQuery
-    Filters = Struct.new(:type, :status, :processor, :command_type, :date_from, :date_to, keyword_init: true)
+    Filters = Struct.new(:type, :status, :processor, :command_type, :user_search, :date_from, :date_to,
+                         keyword_init: true)
     Ref = Struct.new(:klass, :id, :created_at)
 
     def self.call(...)
@@ -11,7 +12,7 @@ module Admin
       new(...).count
     end
 
-    def initialize(user:, filters: Filters.new, page: 1)
+    def initialize(user: nil, filters: Filters.new, page: 1)
       @user = user
       @filters = filters
       @date_range = Admin::DateRangeFilter.new(date_from: filters.date_from, date_to: filters.date_to)

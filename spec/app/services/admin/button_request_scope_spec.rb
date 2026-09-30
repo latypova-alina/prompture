@@ -1,14 +1,18 @@
 require "rails_helper"
 
 describe Admin::ButtonRequestScope do
-  subject(:call) { described_class.call(klass: ButtonImageProcessingRequest, user:, filters:) }
+  subject(:call) { described_class.call(klass: ButtonImageProcessingRequest, user: query_user, filters:) }
 
-  let(:filters) { Admin::ButtonRequestsQuery::Filters.new(status:, processor:, command_type:) }
+  let(:filters) do
+    Admin::ButtonRequestsQuery::Filters.new(status:, processor:, command_type:, user_search:)
+  end
   let(:status) { nil }
   let(:processor) { nil }
   let(:command_type) { nil }
+  let(:user_search) { nil }
 
   let(:user) { create(:user, :with_balance) }
+  let(:query_user) { user }
   let(:image_command) { create(:command_prompt_to_image_request, user:) }
   let(:audio_command) { create(:command_prompt_to_audio_request, user:) }
 
@@ -75,6 +79,31 @@ describe Admin::ButtonRequestScope do
       let(:command_type) { "CommandPromptToVideoRequest" }
 
       it { is_expected.to contain_exactly(other_type_request) }
+    end
+  end
+
+  context "when no user is given" do
+    let(:query_user) { nil }
+
+    it "scopes across all users' button requests" do
+      other_user = create(:user, :with_balance)
+      other_command = create(:command_prompt_to_image_request, user: other_user)
+      other_request = create(:button_image_processing_request, :completed, command_request: other_command)
+
+      expect(call).to include(completed_request, pending_request, other_request)
+    end
+
+    context "when filtering by user search" do
+      let(:user_search) { user.name }
+      let!(:other_request) do
+        other_user = create(:user, :with_balance, name: "Someone Else")
+        other_command = create(:command_prompt_to_image_request, user: other_user)
+        create(:button_image_processing_request, :completed, command_request: other_command)
+      end
+
+      it "only returns button requests belonging to matching users" do
+        expect(call).to contain_exactly(completed_request, pending_request)
+      end
     end
   end
 end

@@ -1,17 +1,20 @@
 require "rails_helper"
 
 describe Admin::ButtonRequestsQuery do
-  subject(:call) { described_class.call(user:, filters:, page:) }
+  subject(:call) { described_class.call(user: query_user, filters:, page:) }
 
   let(:filters) do
-    Admin::ButtonRequestsQuery::Filters.new(type:, status:, processor:, command_type:, date_from:, date_to:)
+    Admin::ButtonRequestsQuery::Filters.new(type:, status:, processor:, command_type:, user_search:, date_from:,
+                                            date_to:)
   end
 
   let(:user) { create(:user, :with_balance) }
+  let(:query_user) { user }
   let(:type) { nil }
   let(:status) { nil }
   let(:processor) { nil }
   let(:command_type) { nil }
+  let(:user_search) { nil }
   let(:date_from) { nil }
   let(:date_to) { nil }
   let(:page) { 1 }
@@ -91,6 +94,31 @@ describe Admin::ButtonRequestsQuery do
       let(:command_type) { "CommandPromptToImageRequest" }
 
       it { expect(call.records).to contain_exactly(image_request, extend_prompt_request) }
+    end
+  end
+
+  context "when no user is given" do
+    let(:query_user) { nil }
+
+    it "returns button requests across all users" do
+      other_user = create(:user, :with_balance)
+      other_command = create(:command_prompt_to_image_request, user: other_user)
+      other_request = create(:button_image_processing_request, :completed, command_request: other_command)
+
+      expect(call.records).to include(image_request, extend_prompt_request, other_request)
+    end
+
+    context "when filtering by user search" do
+      let(:user_search) { user.name }
+      let!(:other_request) do
+        other_user = create(:user, :with_balance, name: "Someone Else")
+        other_command = create(:command_prompt_to_image_request, user: other_user)
+        create(:button_image_processing_request, :completed, command_request: other_command)
+      end
+
+      it "only returns button requests belonging to matching users" do
+        expect(call.records).to contain_exactly(image_request, extend_prompt_request)
+      end
     end
   end
 
