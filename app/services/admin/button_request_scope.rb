@@ -39,7 +39,7 @@ module Admin
     def apply_status(relation)
       return relation unless status.present?
 
-      relation.where("upper(status) = ?", status.upcase)
+      relation.where("upper(status) = ?", status.to_s.upcase)
     end
 
     def apply_processor(relation)

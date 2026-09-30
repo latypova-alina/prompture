@@ -54,6 +54,12 @@ describe "Admin button requests" do
       expect(response.body).not_to include(extend_prompt_request.created_at.to_s)
     end
 
+    it "does not error when status is given as an array" do
+      get "/users/#{user.id}/button_requests", params: { status: %w[x y] }, headers: auth_headers
+
+      expect(response).to have_http_status(:ok)
+    end
+
     it "filters by processor" do
       get "/users/#{user.id}/button_requests", params: { processor: image_request.processor }, headers: auth_headers
 

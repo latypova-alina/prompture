@@ -43,6 +43,15 @@ describe Admin::ButtonRequestScope do
         expect(call).to contain_exactly(completed_request)
       end
     end
+
+    context "given an array (e.g. a status[]=x&status[]=y query string)" do
+      let(:status) { %w[x y] }
+
+      it "does not raise and matches nothing" do
+        expect { call }.not_to raise_error
+        expect(call).to be_empty
+      end
+    end
   end
 
   context "when filtering by processor" do
