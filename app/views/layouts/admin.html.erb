@@ -66,9 +66,8 @@
       }
 
       main.admin-container {
-        max-width: 1200px;
         margin: 32px auto;
-        padding: 0 24px 48px;
+        padding: 0 104px 48px;
       }
 
       h1 {
@@ -108,8 +107,7 @@
       .meta-list li strong { display: block; font-size: 12px; text-transform: uppercase; letter-spacing: 0.04em; color: var(--text-muted); margin-bottom: 2px; }
 
       table {
-        width: 100%;
-        table-layout: fixed;
+        min-width: 100%;
         border-collapse: collapse;
         background: var(--surface);
         border: 1px solid var(--border);
@@ -136,8 +134,12 @@
         border-bottom: 1px solid var(--border);
         font-variant-numeric: tabular-nums;
         vertical-align: top;
-        overflow-wrap: anywhere;
+        white-space: nowrap;
       }
+
+      /* Only the Processor cell wraps - it's capped to a fixed width so one
+         long value (e.g. a missing translation key) can't blow up the column. */
+      .wrap-cell { white-space: normal; overflow-wrap: anywhere; }
 
       tbody tr:last-child td { border-bottom: none; }
       tbody tr:hover { background: var(--row-hover); }
@@ -165,7 +167,7 @@
       .page-with-filters {
         display: flex;
         align-items: flex-start;
-        gap: 48px;
+        gap: 72px;
         flex-wrap: wrap;
       }
 

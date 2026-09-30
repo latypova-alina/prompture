@@ -10,9 +10,9 @@
       <div class="table-scroll">
         <table>
           <colgroup>
-            <col style="width: 45%">
-            <col style="width: 25%">
-            <col style="width: 30%">
+            <col style="width: 200px">
+            <col>
+            <col style="width: 150px">
           </colgroup>
           <thead>
             <tr>
@@ -24,9 +24,11 @@
           <tbody>
             <% @result.records.each do |command_request| %>
               <tr>
-                <td><%= command_request.class.name %> #<%= command_request.id %></td>
+                <td class="wrap-cell">
+                  <%= command_request.class.name %> #<%= command_request.id %>
+                </td>
                 <td><%= command_request.category %></td>
-                <td><%= command_request.created_at %></td>
+                <td class="wrap-cell"><%= command_request.created_at %></td>
               </tr>
             <% end %>
           </tbody>
