@@ -66,7 +66,7 @@
       }
 
       main.admin-container {
-        max-width: 1080px;
+        max-width: 1200px;
         margin: 32px auto;
         padding: 0 24px 48px;
       }
@@ -159,16 +159,35 @@
 
       .history-links a:hover { border-color: var(--accent); color: var(--accent); text-decoration: none; }
 
+      .page-with-filters {
+        display: flex;
+        align-items: flex-start;
+        gap: 24px;
+        flex-wrap: wrap;
+      }
+
+      .page-content { flex: 1 1 420px; min-width: 0; }
+
+      .table-scroll { overflow-x: auto; }
+
+      .filters-panel { flex: 0 0 260px; width: 260px; }
+
+      .filters-title {
+        font-size: 12px;
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
+        color: var(--text-muted);
+        margin: 0 0 12px;
+      }
+
       .filters {
         display: flex;
-        align-items: flex-end;
-        gap: 16px;
-        flex-wrap: wrap;
+        flex-direction: column;
+        gap: 14px;
         background: var(--surface);
         border: 1px solid var(--border);
         border-radius: 8px;
-        padding: 14px 18px;
-        margin-bottom: 20px;
+        padding: 16px 18px;
       }
 
       .filters label {
@@ -183,6 +202,7 @@
 
       .filters select,
       .filters input {
+        width: 100%;
         font-size: 14px;
         padding: 6px 8px;
         border: 1px solid var(--border);
@@ -192,8 +212,9 @@
       }
 
       .filters button {
+        width: 100%;
         font-size: 14px;
-        padding: 7px 16px;
+        padding: 8px 16px;
         border: none;
         border-radius: 6px;
         background: var(--accent);
@@ -203,7 +224,7 @@
       }
 
       .filters button:hover { background: var(--accent-hover); }
-      .filters-reset { font-size: 13px; align-self: center; }
+      .filters-reset { display: block; text-align: center; font-size: 13px; }
 
       .pagination {
         display: flex;

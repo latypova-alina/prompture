@@ -1,66 +1,72 @@
-<%= form_with url: request.path, method: :get, class: "filters" do %>
-  <label>
-    Type
-    <select name="type">
-      <option value="">All types</option>
-      <% types.each do |klass| %>
-        <option value="<%= klass.name %>" <%= "selected" if params[:type] == klass.name %>>
-          <%= klass.name.sub(/^#{type_prefix}/, "").underscore.humanize %>
-        </option>
-      <% end %>
-    </select>
-  </label>
+<aside class="filters-panel">
+  <h2 class="filters-title">Filters</h2>
 
-  <% if local_assigns[:command_types].present? %>
+  <%= form_with url: request.path, method: :get, class: "filters" do %>
     <label>
-      Command type
-      <select name="command_type">
-        <option value="">All commands</option>
-        <% command_types.each do |klass| %>
-          <option value="<%= klass.name %>" <%= "selected" if params[:command_type] == klass.name %>>
-            <%= klass.name.sub(/^Command/, "").underscore.humanize %>
+      Type
+      <select name="type">
+        <option value="">All types</option>
+        <% types.each do |klass| %>
+          <option value="<%= klass.name %>" <%= "selected" if params[:type] == klass.name %>>
+            <%= klass.name.sub(/^#{type_prefix}/, "").underscore.humanize %>
           </option>
         <% end %>
       </select>
     </label>
-  <% end %>
 
-  <% if local_assigns[:statuses].present? %>
+    <% if local_assigns[:command_types].present? %>
+      <label>
+        Command type
+        <select name="command_type">
+          <option value="">All commands</option>
+          <% command_types.each do |klass| %>
+            <option value="<%= klass.name %>" <%= "selected" if params[:command_type] == klass.name %>>
+              <%= klass.name.sub(/^Command/, "").underscore.humanize %>
+            </option>
+          <% end %>
+        </select>
+      </label>
+    <% end %>
+
+    <% if local_assigns[:statuses].present? %>
+      <label>
+        Status
+        <select name="status">
+          <option value="">All statuses</option>
+          <% statuses.each do |status| %>
+            <option value="<%= status %>" <%= "selected" if params[:status] == status %>>
+              <%= status.titleize %>
+            </option>
+          <% end %>
+        </select>
+      </label>
+    <% end %>
+
+    <% if local_assigns[:processors].present? %>
+      <label>
+        Processor
+        <select name="processor">
+          <option value="">All processors</option>
+          <% processors.each do |processor| %>
+            <option value="<%= processor %>" <%= "selected" if params[:processor] == processor %>>
+              <%= processor.titleize %>
+            </option>
+          <% end %>
+        </select>
+      </label>
+    <% end %>
+
     <label>
-      Status
-      <select name="status">
-        <option value="">All statuses</option>
-        <% statuses.each do |status| %>
-          <option value="<%= status %>" <%= "selected" if params[:status] == status %>><%= status.titleize %></option>
-        <% end %>
-      </select>
+      From
+      <input type="date" name="date_from" value="<%= params[:date_from] %>">
     </label>
-  <% end %>
 
-  <% if local_assigns[:processors].present? %>
     <label>
-      Processor
-      <select name="processor">
-        <option value="">All processors</option>
-        <% processors.each do |processor| %>
-          <option value="<%= processor %>" <%= "selected" if params[:processor] == processor %>>
-            <%= processor.titleize %>
-          </option>
-        <% end %>
-      </select>
+      To
+      <input type="date" name="date_to" value="<%= params[:date_to] %>">
     </label>
+
+    <button type="submit">Filter</button>
+    <%= link_to "Reset", request.path, class: "filters-reset" %>
   <% end %>
-
-  <label>
-    From
-    <input type="date" name="date_from" value="<%= params[:date_from] %>">
-  </label>
-
-  <label>
-    To
-    <input type="date" name="date_to" value="<%= params[:date_to] %>">
-  </label>
-
-  <button type="submit">Filter</button>
-  <%= link_to "Reset", request.path, class: "filters-reset" %>
-<% end %>
+</aside>
