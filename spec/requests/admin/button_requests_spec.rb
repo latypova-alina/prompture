@@ -18,8 +18,12 @@ describe "Admin button requests" do
 
   let(:user) { create(:user, :with_balance, name: "Rihanna") }
   let(:command) { create(:command_prompt_to_image_request, user:) }
-  let!(:image_request) { create(:button_image_processing_request, :completed, command_request: command) }
-  let!(:extend_prompt_request) { create(:button_extend_prompt_request, command_request: command) }
+  let!(:image_request) do
+    create(:button_image_processing_request, :completed, command_request: command, created_at: 2.days.ago)
+  end
+  let!(:extend_prompt_request) do
+    create(:button_extend_prompt_request, command_request: command, created_at: 1.day.ago)
+  end
 
   describe "GET /users/:user_id/button_requests" do
     it "requires authentication" do
@@ -41,6 +45,45 @@ describe "Admin button requests" do
 
       expect(response.body).to include(extend_prompt_request.humanized_process_name)
       expect(response.body).not_to include(image_request.humanized_process_name)
+    end
+
+    it "filters by status" do
+      get "/users/#{user.id}/button_requests", params: { status: "COMPLETED" }, headers: auth_headers
+
+      expect(response.body).to include(image_request.created_at.to_s)
+      expect(response.body).not_to include(extend_prompt_request.created_at.to_s)
+    end
+
+    it "does not error when status is given as an array" do
+      get "/users/#{user.id}/button_requests", params: { status: %w[x y] }, headers: auth_headers
+
+      expect(response).to have_http_status(:ok)
+    end
+
+    it "filters by processor" do
+      get "/users/#{user.id}/button_requests", params: { processor: image_request.processor }, headers: auth_headers
+
+      expect(response.body).to include(image_request.created_at.to_s)
+      expect(response.body).not_to include(extend_prompt_request.created_at.to_s)
+    end
+
+    it "filters by command type" do
+      audio_command = create(:command_prompt_to_audio_request, user:)
+      audio_request = create(:button_audio_processing_request, command_request: audio_command)
+
+      get "/users/#{user.id}/button_requests",
+          params: { command_type: "CommandPromptToAudioRequest" }, headers: auth_headers
+
+      expect(response.body).to include(audio_request.humanized_process_name)
+      expect(response.body).not_to include(image_request.humanized_process_name)
+    end
+
+    it "renders the status, processor, and command type filter selects" do
+      get "/users/#{user.id}/button_requests", headers: auth_headers
+
+      expect(response.body).to include('name="status"')
+      expect(response.body).to include('name="processor"')
+      expect(response.body).to include('name="command_type"')
     end
 
     it "paginates results" do

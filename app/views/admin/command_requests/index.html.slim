@@ -1,0 +1,30 @@
+= link_to "← #{@user.name}", user_path(@user), class: "back-link"
+
+h1 Command requests
+
+.page-with-filters
+  .page-content
+    - if @result.records.empty?
+      p.empty-state No command requests found.
+    - else
+      .table-scroll
+        table
+          colgroup
+            col style="width: 200px"
+            col
+            col style="width: 150px"
+          thead
+            tr
+              th Type
+              th Category
+              th Created
+          tbody
+            - @result.records.each do |command_request|
+              tr
+                td.wrap-cell = "#{command_request.class.name} ##{command_request.id}"
+                td = command_request.category
+                td.wrap-cell = command_request.created_at
+
+    = render "admin/shared/pagination", result: @result
+
+  = render "admin/shared/filters", types: Admin::CommandRequestsQuery::TYPES, type_prefix: "Command"

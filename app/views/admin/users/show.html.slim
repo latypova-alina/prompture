@@ -1,0 +1,21 @@
+= link_to "← Users", users_path, class: "back-link"
+
+h1 = @user.name
+ul.meta-list
+  li
+    strong Chat ID
+    = @user.chat_id
+  li
+    strong Locale
+    = @user.locale
+  li
+    strong Balance
+    = @user.balance&.credits || 0
+  li
+    strong Admin
+    = @user.admin? ? "yes" : "no"
+
+h2 Generation history
+ul.history-links
+  li = link_to "Command requests (#{@command_request_count})", user_command_requests_path(@user)
+  li = link_to "Button requests (#{@button_request_count})", user_button_requests_path(@user)

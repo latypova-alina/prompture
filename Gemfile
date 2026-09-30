@@ -23,6 +23,7 @@ gem "sentry-rails"
 # rubocop:enable Bundler/OrderedGems
 gem "sidekiq", "~> 8.0"
 gem "sidekiq-cron"
+gem "slim-rails"
 gem "telegram-bot"
 
 group :development, :test do

@@ -1,0 +1,49 @@
+aside.filters-panel
+  h2.filters-title Filters
+
+  = form_with url: request.path, method: :get, class: "filters" do
+    label
+      | Type
+      select name="type"
+        option value="" All types
+        - types.each do |klass|
+          option value=klass.name selected=(params[:type] == klass.name)
+            = klass.name.sub(/^#{type_prefix}/, "").underscore.humanize
+
+    - if local_assigns[:command_types].present?
+      label
+        | Command type
+        select name="command_type"
+          option value="" All commands
+          - command_types.each do |klass|
+            option value=klass.name selected=(params[:command_type] == klass.name)
+              = klass.name.sub(/^Command/, "").underscore.humanize
+
+    - if local_assigns[:statuses].present?
+      label
+        | Status
+        select name="status"
+          option value="" All statuses
+          - statuses.each do |status|
+            option value=status selected=(params[:status] == status)
+              = status.titleize
+
+    - if local_assigns[:processors].present?
+      label
+        | Processor
+        select name="processor"
+          option value="" All processors
+          - processors.each do |processor|
+            option value=processor selected=(params[:processor] == processor)
+              = processor.titleize
+
+    label
+      | From
+      input type="date" name="date_from" value=params[:date_from]
+
+    label
+      | To
+      input type="date" name="date_to" value=params[:date_to]
+
+    button type="submit" Filter
+    = link_to "Reset", request.path, class: "filters-reset"
