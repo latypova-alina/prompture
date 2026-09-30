@@ -2,13 +2,19 @@ aside.filters-panel
   h2.filters-title Filters
 
   = form_with url: request.path, method: :get, class: "filters" do
-    label
-      | Type
-      select name="type"
-        option value="" All types
-        - types.each do |klass|
-          option value=klass.name selected=(params[:type] == klass.name)
-            = klass.name.sub(/^#{type_prefix}/, "").underscore.humanize
+    - if local_assigns[:user_search].present?
+      label
+        | User
+        input type="text" name="user" value=params[:user] placeholder="name, chat id, or id"
+
+    - if local_assigns[:types].present?
+      label
+        | Type
+        select name="type"
+          option value="" All types
+          - types.each do |klass|
+            option value=klass.name selected=(params[:type] == klass.name)
+              = klass.name.sub(/^#{type_prefix}/, "").underscore.humanize
 
     - if local_assigns[:command_types].present?
       label
@@ -36,6 +42,14 @@ aside.filters-panel
           - processors.each do |processor|
             option value=processor selected=(params[:processor] == processor)
               = processor.titleize
+
+    - if local_assigns[:has_button_requests].present?
+      label
+        | Button requests
+        select name="has_button_requests"
+          option value="" All
+          option value="with" selected=(params[:has_button_requests] == "with") With button requests
+          option value="without" selected=(params[:has_button_requests] == "without") Without button requests
 
     label
       | From

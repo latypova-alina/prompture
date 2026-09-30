@@ -9,6 +9,7 @@ module Admin
       CommandPromptToAudioRequest
     ].freeze
 
+    Filters = Struct.new(:type, :user_search, :has_button_requests, :date_from, :date_to, keyword_init: true)
     Ref = Struct.new(:klass, :id, :created_at)
 
     def self.call(...)
@@ -19,10 +20,11 @@ module Admin
       new(...).count
     end
 
-    def initialize(user:, type: nil, date_from: nil, date_to: nil, page: 1)
+    def initialize(user: nil, filters: Filters.new, page: 1)
       @user = user
-      @type = type
-      @date_range = Admin::DateRangeFilter.new(date_from:, date_to:)
+      @filters = filters
+      @date_range = Admin::DateRangeFilter.new(date_from: filters.date_from, date_to: filters.date_to)
+      @has_button_requests_filter = Admin::HasButtonRequestsFilter.new(filters.has_button_requests)
       @page = page
     end
 
@@ -38,7 +40,9 @@ module Admin
 
     private
 
-    attr_reader :user, :type, :date_range, :page
+    attr_reader :user, :filters, :date_range, :has_button_requests_filter, :page
+
+    delegate :type, :user_search, to: :filters
 
     # Only id/created_at are pulled here so pagination/sorting across the (potentially
     # hundreds of) matching rows per type doesn't instantiate full records for rows that
@@ -50,12 +54,22 @@ module Admin
     end
 
     def hydrate(refs)
-      records = refs.group_by(&:klass).flat_map { |klass, klass_refs| klass.where(id: klass_refs.map(&:id)) }
+      records = refs.group_by(&:klass).flat_map do |klass, klass_refs|
+        klass.includes(:user).where(id: klass_refs.map(&:id))
+      end
       records.sort_by(&:created_at).reverse
     end
 
     def scoped(klass)
-      date_range.apply(klass.where(user:))
+      relation = date_range.apply(apply_user_scope(klass.all))
+      has_button_requests_filter.apply(relation, klass)
+    end
+
+    def apply_user_scope(relation)
+      return relation.where(user:) if user.present?
+      return relation.where(user: Admin::UserSearch.call(user_search)) if user_search.present?
+
+      relation
     end
 
     def classes
