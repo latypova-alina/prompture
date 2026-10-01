@@ -39,7 +39,11 @@ describe Admin::ButtonRequestMedia do
     context "when it is a video request" do
       let(:button_request) { create(:button_video_processing_request) }
 
-      it { is_expected.to contain_exactly(have_attributes(kind: :image, url: "http://example.com/image.png")) }
+      it do
+        is_expected.to contain_exactly(
+          have_attributes(label: "Input image", kind: :image, url: "http://example.com/image.png")
+        )
+      end
     end
 
     context "when it is a merge request" do
@@ -61,6 +65,12 @@ describe Admin::ButtonRequestMedia do
     let(:button_request) { create(:button_image_processing_request, :completed) }
 
     it { is_expected.to eq("Provider URL" => "http://example.com/image.png") }
+
+    context "when the request has input media" do
+      let(:button_request) { create(:button_video_processing_request) }
+
+      it { is_expected.to eq("Input image" => "http://example.com/image.png") }
+    end
 
     context "when there is a stored copy" do
       before { create(:stored_image, source_message: button_request, image_url: "https://bucket.example.com/a.png") }

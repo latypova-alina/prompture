@@ -7,4 +7,4 @@ figure.media-preview
     video controls=true preload="metadata" src=item.url
   - when :audio
     audio controls=true preload="metadata" src=item.url
-  = link_to item.url, item.url, target: "_blank", rel: "noopener", class: "media-url"
+  = link_to "Open", item.url, target: "_blank", rel: "noopener", class: "media-url"

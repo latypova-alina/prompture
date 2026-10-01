@@ -65,6 +65,12 @@ describe "Admin button request show page" do
     it { expect(response.body).to include(%(href="/command_requests/prompt_to_image/#{command_request.id}")) }
     it { expect(response.body).to include(%(href="/button_requests/video_processing/#{child.id}")) }
 
+    it "shows the provider URL as a full link" do
+      expect(response.body).to include(
+        %(<a target="_blank" rel="noopener" href="http://example.com/image.png">http://example.com/image.png</a>)
+      )
+    end
+
     it "previews the image" do
       expect(response.body).to include(%(<img alt="Result" src="http://example.com/image.png"))
     end
@@ -81,7 +87,7 @@ describe "Admin button request show page" do
       expect(response.body).to include(%(href="/button_requests/image_processing/#{parent.id}"))
     end
 
-    it { expect(response.body).to include(%(<img alt="Image url" src="http://example.com/image.png")) }
+    it { expect(response.body).to include(%(<img alt="Input image" src="http://example.com/image.png")) }
   end
 
   context "when the parent is a message record" do

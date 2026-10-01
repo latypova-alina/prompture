@@ -22,6 +22,8 @@ module Admin
       ButtonMergeAudioVideoProcessingRequest => { source_video_url: :video, source_audio_url: :audio }
     }.freeze
 
+    INPUT_LABELS = { image: "Input image", video: "Input video", audio: "Input audio" }.freeze
+
     def initialize(button_request)
       @button_request = button_request
     end
@@ -37,17 +39,21 @@ module Admin
     def inputs
       INPUT_COLUMNS.fetch(button_request.class, {}).filter_map do |column, kind|
         url = button_request.public_send(column)
-        Item.new(label: column.to_s.humanize, kind:, url:) if url.present?
+        Item.new(label: INPUT_LABELS.fetch(kind), kind:, url:) if url.present?
       end
     end
 
     def links
-      { "Provider URL" => raw_url, "Stored copy" => stored_url }.compact_blank
+      { "Provider URL" => raw_url, "Stored copy" => stored_url }.compact_blank.merge(input_links)
     end
 
     private
 
     attr_reader :button_request
+
+    def input_links
+      inputs.to_h { |item| [item.label, item.url] }
+    end
 
     def raw_url
       column = RAW_URL_COLUMNS[button_request.class]
