@@ -30,15 +30,15 @@ describe "Admin command requests" do
     it "lists the user's command requests" do
       get "/users/#{user.id}/command_requests", headers: auth_headers
 
-      expect(response.body).to include("#{image_command.class.name} ##{image_command.id}")
-      expect(response.body).to include("#{audio_command.class.name} ##{audio_command.id}")
+      expect(response.body).to include("#{image_command.class.name}##{image_command.id}")
+      expect(response.body).to include("#{audio_command.class.name}##{audio_command.id}")
     end
 
     it "filters by type" do
       get "/users/#{user.id}/command_requests", params: { type: "CommandPromptToAudioRequest" }, headers: auth_headers
 
-      expect(response.body).to include("#{audio_command.class.name} ##{audio_command.id}")
-      expect(response.body).not_to include("#{image_command.class.name} ##{image_command.id}")
+      expect(response.body).to include("#{audio_command.class.name}##{audio_command.id}")
+      expect(response.body).not_to include("#{image_command.class.name}##{image_command.id}")
     end
 
     it "paginates results" do
@@ -57,7 +57,9 @@ describe "Admin command requests" do
 
       get "/users/#{user.id}/command_requests", headers: auth_headers
 
-      expect(response.body).to match(/Extend prompt #\d+.*badge-completed.*Image processing ##{image_request.id}/m)
+      expect(response.body).to match(
+        /ButtonExtendPromptRequest#\d+.*badge-completed.*ButtonImageProcessingRequest##{image_request.id}/m
+      )
     end
 
     it "loads button requests for many rows without N+1 queries" do
@@ -81,8 +83,8 @@ describe "Admin command requests" do
 
       get "/users/#{user.id}/command_requests", params: { has_button_requests: "without" }, headers: auth_headers
 
-      expect(response.body).to include("#{image_command.class.name} ##{image_command.id}")
-      expect(response.body).not_to include("#{audio_command.class.name} ##{audio_command.id}")
+      expect(response.body).to include("#{image_command.class.name}##{image_command.id}")
+      expect(response.body).not_to include("#{audio_command.class.name}##{audio_command.id}")
     end
 
     it "does not show the user search filter" do
@@ -105,8 +107,8 @@ describe "Admin command requests" do
 
       get "/command_requests", headers: auth_headers
 
-      expect(response.body).to include("#{image_command.class.name} ##{image_command.id}")
-      expect(response.body).to include("#{other_command.class.name} ##{other_command.id}")
+      expect(response.body).to include("#{image_command.class.name}##{image_command.id}")
+      expect(response.body).to include("#{other_command.class.name}##{other_command.id}")
       expect(response.body).to include("Rihanna").and include("Beyonce")
     end
 
@@ -116,8 +118,8 @@ describe "Admin command requests" do
 
       get "/command_requests", params: { user: "Rihanna" }, headers: auth_headers
 
-      expect(response.body).to include("#{image_command.class.name} ##{image_command.id}")
-      expect(response.body).not_to include("#{other_command.class.name} ##{other_command.id}")
+      expect(response.body).to include("#{image_command.class.name}##{image_command.id}")
+      expect(response.body).not_to include("#{other_command.class.name}##{other_command.id}")
     end
 
     it "filters by has_button_requests" do
@@ -126,8 +128,8 @@ describe "Admin command requests" do
 
       get "/command_requests", params: { has_button_requests: "with" }, headers: auth_headers
 
-      expect(response.body).to include("#{image_command.class.name} ##{image_command.id}")
-      expect(response.body).not_to include("#{audio_command.class.name} ##{audio_command.id}")
+      expect(response.body).to include("#{image_command.class.name}##{image_command.id}")
+      expect(response.body).not_to include("#{audio_command.class.name}##{audio_command.id}")
     end
   end
 end

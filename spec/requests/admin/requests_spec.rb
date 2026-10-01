@@ -32,7 +32,7 @@ describe "Admin requests" do
     it "lists command and button requests together, with kind, user, and status" do
       get "/requests", headers: auth_headers
 
-      expect(response.body).to include("#{command_request.class.name} ##{command_request.id}")
+      expect(response.body).to include("#{command_request.class.name}##{command_request.id}")
       expect(response.body).to include(button_request.created_at.to_s)
       expect(response.body).to include("Rihanna")
       expect(response.body).to include("badge-completed")
@@ -44,8 +44,8 @@ describe "Admin requests" do
 
       get "/requests", params: { user: "Rihanna" }, headers: auth_headers
 
-      expect(response.body).to include("#{command_request.class.name} ##{command_request.id}")
-      expect(response.body).not_to include("#{other_command.class.name} ##{other_command.id}")
+      expect(response.body).to include("#{command_request.class.name}##{command_request.id}")
+      expect(response.body).not_to include("#{other_command.class.name}##{other_command.id}")
     end
 
     it "filters by date range" do
@@ -53,8 +53,8 @@ describe "Admin requests" do
 
       get "/requests", params: { date_from: 2.days.ago.to_date.to_s }, headers: auth_headers
 
-      expect(response.body).to include("#{command_request.class.name} ##{command_request.id}")
-      expect(response.body).not_to include("#{old_command.class.name} ##{old_command.id}")
+      expect(response.body).to include("#{command_request.class.name}##{command_request.id}")
+      expect(response.body).not_to include("#{old_command.class.name}##{old_command.id}")
     end
 
     it "does not show type/status/processor filters" do
