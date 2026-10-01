@@ -193,4 +193,31 @@ describe "Admin button requests" do
       expect(response.body).to include('<input name="sort" type="hidden" value="cost" />')
     end
   end
+
+  describe "fal column" do
+    let(:audio_command) { create(:command_prompt_to_audio_request, user:) }
+
+    let!(:fal_image) { create(:button_image_processing_request, command_request: command, fal_request_id: "img-1") }
+    let!(:fal_video) do
+      create(:button_video_processing_request, command_request: command, processor: "veo3_1_lite_image_to_video",
+                                               fal_request_id: "vid-1")
+    end
+    let!(:fal_audio) do
+      create(:button_audio_processing_request, command_request: audio_command, fal_request_id: "aud-1")
+    end
+
+    before do
+      create(:button_merge_audio_video_processing_request, command_request: command)
+
+      get "/users/#{user.id}/button_requests", headers: auth_headers
+    end
+
+    it { expect(response.body).to include("https://fal.ai/models/fal-ai/flux-2-pro/requests/img-1") }
+    it { expect(response.body).to include("https://fal.ai/models/fal-ai/veo3.1/lite/image-to-video/requests/vid-1") }
+    it { expect(response.body).to include("https://fal.ai/models/fal-ai/elevenlabs/tts/eleven-v3/requests/aud-1") }
+
+    it "shows a dash for rows without a fal request (old rows, merge, extend prompt)" do
+      expect(response.body.scan('<td><span class="muted">—</span></td>').size).to be >= 3
+    end
+  end
 end

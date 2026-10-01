@@ -18,6 +18,7 @@ h1 Button requests
             col
             col
             col
+            col style="width: 60px"
             col style="width: 200px"
             col style="width: 150px"
           thead
@@ -29,6 +30,7 @@ h1 Button requests
               th = sortable_header("Status", "status", @sort)
               th = sortable_header("Cost", "cost", @sort)
               th Media
+              th fal
               th = sortable_header("Command", "command", @sort)
               th = sortable_header("Created", "created", @sort)
           tbody
@@ -43,6 +45,12 @@ h1 Button requests
                 td
                   - media_url = button_request.try(:resolved_media_url)
                   = link_to "Open", media_url if media_url.present?
+                td
+                  - fal_url = Admin::FalDashboardUrl.new(button_request).url
+                  - if fal_url
+                    = link_to "Open", fal_url, target: "_blank", rel: "noopener"
+                  - else
+                    span.muted —
                 td.wrap-cell = admin_request_link_for(button_request.command_request_type, button_request.command_request_id)
                 td.wrap-cell = button_request.created_at
 

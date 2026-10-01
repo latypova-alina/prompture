@@ -8,7 +8,15 @@ module Admin
 
     def admin_field_value(name, value)
       return tag.span("—", class: "muted") if value.nil? || value == ""
-      return link_to("Open", value, target: "_blank", rel: "noopener") if url?(value)
+      return external_link(value.text, value.url) if value.is_a?(Admin::FieldLink)
+      return external_link("Open", value) if url?(value)
+
+      named_field_value(name, value)
+    end
+
+    private
+
+    def named_field_value(name, value)
       return truncated_value(value) if truncate?(name, value)
       return file_size(value) if name == "size"
       return "#{value} px" if PIXEL_FIELDS.include?(name)
@@ -16,7 +24,9 @@ module Admin
       value.to_s
     end
 
-    private
+    def external_link(text, url)
+      link_to(text, url, target: "_blank", rel: "noopener")
+    end
 
     def url?(value)
       value.is_a?(String) && value.start_with?("http://", "https://")

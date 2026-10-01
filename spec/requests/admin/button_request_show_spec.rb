@@ -55,7 +55,8 @@ describe "Admin button request show page" do
     let(:user) { create(:user, :with_balance, name: "Rihanna") }
     let(:command_request) { create(:command_prompt_to_image_request, user:) }
     let(:image_request) do
-      create(:button_image_processing_request, :completed, command_request:, parent_request: command_request)
+      create(:button_image_processing_request, :completed, command_request:, parent_request: command_request,
+                                                           fal_request_id: "fal-1")
     end
     let!(:child) { create(:button_video_processing_request, command_request:, parent_request: image_request) }
 
@@ -64,6 +65,8 @@ describe "Admin button request show page" do
     it { expect(response.body).to include(%(href="/users/#{user.id}")) }
     it { expect(response.body).to include(%(href="/command_requests/prompt_to_image/#{command_request.id}")) }
     it { expect(response.body).to include(%(href="/button_requests/video_processing/#{child.id}")) }
+
+    it { expect(response.body).to include(%(href="https://fal.ai/models/fal-ai/flux-2-pro/requests/fal-1">fal-1</a>)) }
 
     it "shows the result URL as a full link" do
       expect(response.body).to include(
