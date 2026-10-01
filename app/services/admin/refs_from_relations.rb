@@ -26,11 +26,11 @@ module Admin
     end
 
     def refs_for(klass, relation)
-      sort_values = Admin::RefSortValues.new(klass:, key: sort.key)
-      columns = [:id, :created_at, sort_values.expression].compact
+      sort_key = Admin::RefSortKeys.for(sort.key, klass)
+      columns = [:id, :created_at, sort_key.expression].compact
 
       relation.pluck(*columns).map do |id, created_at, plucked|
-        Admin::RequestRef.new(klass, id, created_at, sort_values.value(plucked, created_at))
+        Admin::RequestRef.new(klass, id, created_at, sort_key.value(plucked, created_at))
       end
     end
   end

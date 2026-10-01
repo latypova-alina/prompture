@@ -3,7 +3,7 @@ h1 Users
 table
   thead
     tr
-      th ID
+      th = sortable_header("ID", "id", @sort)
       th = sortable_header("Name", "name", @sort)
       th = sortable_header("Locale", "locale", @sort)
       th = sortable_header("Balance", "balance", @sort)

@@ -31,6 +31,13 @@ describe Admin::UsersQuery do
     end
   end
 
+  context "when sorting by id descending" do
+    let(:key) { "id" }
+    let(:direction) { "desc" }
+
+    it { is_expected.to eq([no_balance, poor, rich]) }
+  end
+
   context "when sorting by name" do
     let(:key) { "name" }
 

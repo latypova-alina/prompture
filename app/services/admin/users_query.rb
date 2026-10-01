@@ -1,6 +1,6 @@
 module Admin
   class UsersQuery
-    SORT_KEYS = %w[name locale balance admin].freeze
+    SORT_KEYS = %w[id name locale balance admin].freeze
 
     def self.call(...)
       new(...).call
@@ -25,6 +25,7 @@ module Admin
     # Only whitelisted keys and ASC/DESC from Admin::Sort ever reach the SQL.
     def order_sql
       case sort.key
+      when "id" then "users.id #{sql_direction}"
       when "name" then "LOWER(users.name) #{sql_direction}"
       when "locale" then "users.locale #{sql_direction}"
       when "balance" then "COALESCE(balances.credits, 0) #{sql_direction}"
