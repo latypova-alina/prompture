@@ -49,6 +49,42 @@ describe "Admin command requests" do
       expect(response.body).to include("Page 1 of 2")
     end
 
+    it "lists each command's button requests with a status badge, oldest first" do
+      create(:button_extend_prompt_request, :completed, command_request: image_command, parent_request: image_command,
+                                                        created_at: 2.days.ago)
+      image_request = create(:button_image_processing_request, command_request: image_command,
+                                                               parent_request: image_command, created_at: 1.day.ago)
+
+      get "/users/#{user.id}/command_requests", headers: auth_headers
+
+      expect(response.body).to match(/Extend prompt #\d+.*badge-completed.*Image processing ##{image_request.id}/m)
+    end
+
+    it "loads button requests for many rows without N+1 queries" do
+      create_list(:command_prompt_to_image_request, 3, user:).each do |command|
+        create(:button_image_processing_request, command_request: command, parent_request: command)
+      end
+
+      get "/users/#{user.id}/command_requests", headers: auth_headers
+
+      expect(response).to have_http_status(:ok)
+    end
+
+    it "shows a dash for commands without button requests" do
+      get "/users/#{user.id}/command_requests", headers: auth_headers
+
+      expect(response.body).to include('<span class="muted">—</span>')
+    end
+
+    it "filters by has_button_requests" do
+      create(:button_extend_prompt_request, command_request: audio_command, parent_request: audio_command)
+
+      get "/users/#{user.id}/command_requests", params: { has_button_requests: "without" }, headers: auth_headers
+
+      expect(response.body).to include("#{image_command.class.name} ##{image_command.id}")
+      expect(response.body).not_to include("#{audio_command.class.name} ##{audio_command.id}")
+    end
+
     it "does not show the user search filter" do
       get "/users/#{user.id}/command_requests", headers: auth_headers
 

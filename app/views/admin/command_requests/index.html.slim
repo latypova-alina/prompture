@@ -15,6 +15,7 @@ h1 Command requests
               col style="width: 160px"
             col style="width: 200px"
             col
+            col
             col style="width: 150px"
           thead
             tr
@@ -22,6 +23,7 @@ h1 Command requests
                 th User
               th Type
               th Category
+              th Button requests
               th Created
           tbody
             - @result.records.each do |command_request|
@@ -30,6 +32,18 @@ h1 Command requests
                   td.wrap-cell = link_to command_request.user.name, user_path(command_request.user)
                 td.wrap-cell = "#{command_request.class.name} ##{command_request.id}"
                 td = command_request.category
+                td.wrap-cell
+                  - button_requests = @button_requests.fetch([command_request.class.name, command_request.id], [])
+                  - if button_requests.empty?
+                    span.muted —
+                  - else
+                    ul.button-request-list
+                      - button_requests.each do |button_request|
+                        li
+                          = Admin::ButtonRequestLabel.call(button_request)
+                          = " "
+                          span class="badge badge-#{button_request.status.to_s.downcase}"
+                            = button_request.status
                 td.wrap-cell = command_request.created_at
 
     = render "admin/shared/pagination", result: @result
