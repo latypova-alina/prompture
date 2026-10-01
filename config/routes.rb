@@ -12,6 +12,8 @@ Rails.application.routes.draw do
     resources :requests, controller: "admin/requests", only: :index
     resources :command_requests, controller: "admin/command_requests", only: :index
     resources :button_requests, controller: "admin/button_requests", only: :index
+    get "/command_requests/:type/:id", to: "admin/command_requests#show", as: :command_request
+    get "/button_requests/:type/:id", to: "admin/button_requests#show", as: :button_request
     get "/blazer", to: redirect("/blazer/dashboards/1"), as: :admin_blazer_root
     mount Blazer::Engine, at: "/blazer"
     mount Sidekiq::Web => "/sidekiq"

@@ -30,6 +30,8 @@ describe "Admin command requests" do
     it "lists the user's command requests" do
       get "/users/#{user.id}/command_requests", headers: auth_headers
 
+      expect(response.body).to include(%(href="/command_requests/prompt_to_image/#{image_command.id}"))
+
       expect(response.body).to include("#{image_command.class.name}##{image_command.id}")
       expect(response.body).to include("#{audio_command.class.name}##{audio_command.id}")
     end

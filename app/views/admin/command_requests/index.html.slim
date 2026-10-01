@@ -30,7 +30,7 @@ h1 Command requests
               tr
                 - if @user.nil?
                   td.wrap-cell = link_to command_request.user.name, user_path(command_request.user)
-                td.wrap-cell = Admin::RecordLabel.call(command_request)
+                td.wrap-cell = admin_request_link(command_request)
                 td = command_request.category
                 td.wrap-cell
                   - button_requests = @button_requests.fetch([command_request.class.name, command_request.id], [])
@@ -40,10 +40,9 @@ h1 Command requests
                     ul.button-request-list
                       - button_requests.each do |button_request|
                         li
-                          = Admin::RecordLabel.call(button_request)
+                          = admin_request_link(button_request)
                           = " "
-                          span class="badge badge-#{button_request.status.to_s.downcase}"
-                            = button_request.status
+                          = render "admin/shared/status_badge", status: button_request.status
                 td.wrap-cell = command_request.created_at
 
     = render "admin/shared/pagination", result: @result

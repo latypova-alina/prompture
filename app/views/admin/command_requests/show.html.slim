@@ -1,0 +1,24 @@
+- user = @command_request.user
+
+= link_to "← #{user.name}'s command requests", user_command_requests_path(user), class: "back-link"
+
+h1 = Admin::RecordLabel.call(@command_request)
+
+ul.meta-list
+  li
+    strong User
+    = link_to user.name, user_path(user)
+
+h2 Fields
+= render "admin/shared/fields", fields: Admin::RecordFields.call(@command_request)
+
+h2 Inputs
+- if @inputs.empty?
+  p.empty-state No inputs.
+- else
+  - @inputs.each do |input|
+    h3 = Admin::RecordLabel.call(input)
+    = render "admin/shared/fields", fields: Admin::RecordFields.call(input)
+
+h2 Button requests
+= render "admin/shared/button_requests_table", button_requests: @button_requests, empty_message: "No button requests."

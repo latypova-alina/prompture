@@ -1,0 +1,10 @@
+figure.media-preview
+  figcaption = item.label
+  - case item.kind
+  - when :image
+    = image_tag item.url, alt: item.label
+  - when :video
+    video controls=true preload="metadata" src=item.url
+  - when :audio
+    audio controls=true preload="metadata" src=item.url
+  = link_to item.url, item.url, target: "_blank", rel: "noopener", class: "media-url"
