@@ -4,10 +4,10 @@ table
   thead
     tr
       th ID
-      th Name
-      th Locale
-      th Balance
-      th Admin
+      th = sortable_header("Name", "name", @sort)
+      th = sortable_header("Locale", "locale", @sort)
+      th = sortable_header("Balance", "balance", @sort)
+      th = sortable_header("Admin", "admin", @sort)
   tbody
     - @users.each do |user|
       tr

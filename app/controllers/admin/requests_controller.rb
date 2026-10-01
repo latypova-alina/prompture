@@ -3,7 +3,8 @@ module Admin
     layout "admin"
 
     def index
-      @result = Admin::RequestsQuery.call(filters:, page: params[:page] || 1)
+      @sort = Admin::SortParams.call(params, keys: Admin::RequestsQuery::SORT_KEYS)
+      @result = Admin::RequestsQuery.call(filters:, sort: @sort, page: params[:page] || 1)
     end
 
     private

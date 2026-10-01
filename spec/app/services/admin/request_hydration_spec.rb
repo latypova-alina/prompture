@@ -17,8 +17,8 @@ describe Admin::RequestHydration do
     ]
   end
 
-  it "hydrates each ref into its real record, most recent first" do
-    expect(call).to eq([button_request, command_request])
+  it "hydrates each ref into its real record, keeping the refs' order" do
+    expect(call).to eq([command_request, button_request])
   end
 
   it "eager-loads the user on command requests" do

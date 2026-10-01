@@ -4,37 +4,32 @@ module Admin
       new(...).call
     end
 
-    def initialize(filters:)
+    def initialize(filters:, sort:)
       @filters = filters
-      @date_range = Admin::DateRangeFilter.new(date_from: filters.date_from, date_to: filters.date_to)
+      @sort = sort
+      @date_range = Admin::DateRangeFilter.new(date_from:, date_to:)
     end
 
     def call
-      (command_refs + button_refs).sort_by(&:created_at).reverse
+      Admin::RefsFromRelations.call(command_relations.merge(button_relations), sort:)
     end
 
     private
 
-    attr_reader :filters, :date_range
+    attr_reader :filters, :sort, :date_range
 
-    delegate :user_search, to: :filters
+    delegate :user_search, :date_from, :date_to, to: :filters
 
-    def command_refs
-      Admin::CommandRequestsQuery::TYPES.flat_map { |klass| refs_for(klass, scoped_command(klass)) }
+    def command_relations
+      Admin::CommandRequestsQuery::TYPES.index_with { |klass| date_range.apply(scoped_command(klass)) }
     end
 
-    def button_refs
-      Admin::ButtonRequestTypes::ALL.flat_map { |klass| refs_for(klass, scoped_button(klass)) }
-    end
-
-    def refs_for(klass, relation)
-      date_range.apply(relation).pluck(:id, :created_at).map do |id, created_at|
-        Admin::RequestRef.new(klass, id, created_at)
-      end
+    def button_relations
+      Admin::ButtonRequestTypes::ALL.index_with { |klass| date_range.apply(scoped_button(klass)) }
     end
 
     def scoped_command(klass)
-      return klass.all unless user_search.present?
+      return klass.all if user_search.blank?
 
       klass.where(user: Admin::UserSearch.call(user_search))
     end

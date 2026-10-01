@@ -3,7 +3,8 @@ module Admin
     layout "admin"
 
     def index
-      @users = User.includes(:balance).order(created_at: :desc)
+      @sort = Admin::SortParams.call(params, keys: Admin::UsersQuery::SORT_KEYS)
+      @users = Admin::UsersQuery.call(sort: @sort)
     end
 
     def show

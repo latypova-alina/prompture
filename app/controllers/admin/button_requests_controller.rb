@@ -6,7 +6,8 @@ module Admin
 
     def index
       @user = User.find(params[:user_id]) if params[:user_id]
-      @result = Admin::ButtonRequestsQuery.call(user: @user, filters:, page: params[:page] || 1)
+      @sort = Admin::SortParams.call(params, keys: Admin::ButtonRequestsQuery::SORT_KEYS)
+      @result = Admin::ButtonRequestsQuery.call(user: @user, filters:, sort: @sort, page: params[:page] || 1)
     end
 
     def show
