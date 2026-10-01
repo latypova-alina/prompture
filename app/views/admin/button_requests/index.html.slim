@@ -36,16 +36,14 @@ h1 Button requests
               tr
                 - if @user.nil?
                   td.wrap-cell = link_to button_request.user.name, user_path(button_request.user)
-                td.wrap-cell = Admin::RecordLabel.call(button_request)
+                td.wrap-cell = admin_request_link(button_request)
                 td.wrap-cell = button_request.humanized_process_name
-                td
-                  span class="badge badge-#{button_request.status.to_s.downcase}"
-                    = button_request.status
+                td = render "admin/shared/status_badge", status: button_request.status
                 td = button_request.cost
                 td
                   - media_url = button_request.try(:resolved_media_url)
                   = link_to "Open", media_url if media_url.present?
-                td.wrap-cell = "#{button_request.command_request_type}##{button_request.command_request_id}"
+                td.wrap-cell = admin_request_link_for(button_request.command_request_type, button_request.command_request_id)
                 td.wrap-cell = button_request.created_at
 
     = render "admin/shared/pagination", result: @result

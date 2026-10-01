@@ -1,0 +1,5 @@
+ul.meta-list.field-grid
+  - fields.each do |name, value|
+    li
+      strong = name
+      span.field-value = admin_field_value(name, value)

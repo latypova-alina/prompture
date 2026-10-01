@@ -1,0 +1,26 @@
+- if button_requests.empty?
+  p.empty-state = empty_message
+- else
+  .table-scroll
+    table
+      colgroup
+        col style="width: 320px"
+        col
+        col style="width: 120px"
+        col style="width: 80px"
+        col style="width: 150px"
+      thead
+        tr
+          th Type
+          th Processor
+          th Status
+          th Cost
+          th Created
+      tbody
+        - button_requests.each do |button_request|
+          tr
+            td.wrap-cell = admin_request_link(button_request)
+            td.wrap-cell = button_request.processor
+            td = render "admin/shared/status_badge", status: button_request.status
+            td = button_request.cost
+            td.wrap-cell = button_request.created_at

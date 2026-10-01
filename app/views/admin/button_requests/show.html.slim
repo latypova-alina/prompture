@@ -1,0 +1,37 @@
+- user = @button_request.user
+
+= link_to "← #{user.name}'s button requests", user_button_requests_path(user), class: "back-link"
+
+h1
+  = Admin::RecordLabel.call(@button_request)
+  = " "
+  = render "admin/shared/status_badge", status: @button_request.status
+
+ul.meta-list
+  li
+    strong User
+    = link_to user.name, user_path(user)
+  li
+    strong Command request
+    = admin_request_link_for(@button_request.command_request_type, @button_request.command_request_id)
+  li
+    strong Parent
+    = admin_request_link_for(@button_request.parent_request_type, @button_request.parent_request_id)
+
+h2 Fields
+= render "admin/shared/fields", fields: Admin::ButtonRequestFields.call(@button_request)
+
+h2 Media
+- if @media.output.nil? && @media.inputs.empty? && @media.links.empty?
+  p.empty-state No media.
+- else
+  .media-grid
+    - if @media.output
+      = render "admin/shared/media_preview", item: @media.output
+    - @media.inputs.each do |item|
+      = render "admin/shared/media_preview", item: item
+  - if @media.links.any?
+    = render "admin/shared/url_links", links: @media.links
+
+h2 Children
+= render "admin/shared/button_requests_table", button_requests: @children, empty_message: "No child button requests."

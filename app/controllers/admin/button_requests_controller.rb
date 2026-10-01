@@ -1,10 +1,19 @@
 module Admin
   class ButtonRequestsController < ApplicationController
+    include Admin::NotFoundHandling
+
     layout "admin"
 
     def index
       @user = User.find(params[:user_id]) if params[:user_id]
       @result = Admin::ButtonRequestsQuery.call(user: @user, filters:, page: params[:page] || 1)
+    end
+
+    def show
+      @button_request = Admin::RequestLookup.call(types: Admin::ButtonRequestTypes::ALL, slug: params[:type],
+                                                  id: params[:id])
+      @children = Admin::ButtonRequestChildren.call(@button_request)
+      @media = Admin::ButtonRequestMedia.new(@button_request)
     end
 
     private

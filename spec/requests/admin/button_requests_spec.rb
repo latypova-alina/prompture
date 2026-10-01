@@ -43,6 +43,8 @@ describe "Admin button requests" do
       get "/users/#{user.id}/button_requests", headers: auth_headers
 
       expect(response.body).to include("ButtonImageProcessingRequest##{image_request.id}")
+      expect(response.body).to include(%(href="/button_requests/image_processing/#{image_request.id}"))
+      expect(response.body).to include(%(href="/command_requests/prompt_to_image/#{image_request.command_request_id}"))
     end
 
     it "filters by type" do
