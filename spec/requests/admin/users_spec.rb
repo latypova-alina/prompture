@@ -59,4 +59,22 @@ describe "Admin users" do
       expect(response.body).to include("/users/#{user.id}/button_requests")
     end
   end
+
+  describe "sorting GET /users" do
+    let!(:rich) { create(:user, name: "Zed").tap { |user| create(:balance, user:, credits: 900) } }
+    let!(:poor) { create(:user, name: "Amy").tap { |user| create(:balance, user:, credits: 1) } }
+
+    it "sorts by balance" do
+      get "/users", params: { sort: "balance", direction: "desc" }, headers: auth_headers
+
+      expect(response.body.index(">Zed<")).to be < response.body.index(">Amy<")
+      expect(response.body).to include("Balance ▼")
+    end
+
+    it "sorts by name" do
+      get "/users", params: { sort: "name" }, headers: auth_headers
+
+      expect(response.body.index(">Amy<")).to be < response.body.index(">Zed<")
+    end
+  end
 end

@@ -15,11 +15,11 @@ h1 Requests
             col style="width: 150px"
           thead
             tr
-              th Kind
-              th Type
-              th User
-              th Status
-              th Created
+              th = sortable_header("Kind", "kind", @sort)
+              th = sortable_header("Type", "type", @sort)
+              th = sortable_header("User", "user", @sort)
+              th = sortable_header("Status", "status", @sort)
+              th = sortable_header("Created", "created", @sort)
           tbody
             - @result.records.each do |record|
               tr

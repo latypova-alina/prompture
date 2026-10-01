@@ -155,4 +155,42 @@ describe "Admin button requests" do
       expect(response.body).not_to include(other_request.created_at.to_s)
     end
   end
+
+  describe "sorting" do
+    def position(record)
+      response.body.index("#{record.class.name}##{record.id}")
+    end
+
+    it "sorts newest first by default" do
+      get "/users/#{user.id}/button_requests", headers: auth_headers
+
+      expect(position(extend_prompt_request)).to be < position(image_request)
+      expect(response.body).to include("Created ▼")
+    end
+
+    it "sorts by the clicked column" do
+      get "/users/#{user.id}/button_requests", params: { sort: "status", direction: "asc" }, headers: auth_headers
+
+      expect(position(image_request)).to be < position(extend_prompt_request)
+      expect(response.body).to include("Status ▲")
+    end
+
+    it "keeps filters in header links and drops the page" do
+      get "/users/#{user.id}/button_requests", params: { status: "COMPLETED", page: 1 }, headers: auth_headers
+
+      expect(response.body).to include(
+        "/users/#{user.id}/button_requests?direction=asc&amp;sort=cost&amp;status=COMPLETED"
+      )
+    end
+
+    it "keeps sort and filters in pagination links and the filters form" do
+      create_list(:button_image_processing_request, 20, :completed, command_request: command)
+
+      get "/users/#{user.id}/button_requests", params: { status: "COMPLETED", sort: "cost", direction: "desc" },
+                                               headers: auth_headers
+
+      expect(response.body).to include("direction=desc&amp;page=2&amp;sort=cost&amp;status=COMPLETED")
+      expect(response.body).to include('<input name="sort" type="hidden" value="cost" />')
+    end
+  end
 end

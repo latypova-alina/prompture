@@ -20,11 +20,11 @@ h1 Command requests
           thead
             tr
               - if @user.nil?
-                th User
-              th Type
-              th Category
+                th = sortable_header("User", "user", @sort)
+              th = sortable_header("Type", "type", @sort)
+              th = sortable_header("Category", "category", @sort)
               th Button requests
-              th Created
+              th = sortable_header("Created", "created", @sort)
           tbody
             - @result.records.each do |command_request|
               tr

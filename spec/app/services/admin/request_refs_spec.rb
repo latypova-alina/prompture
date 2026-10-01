@@ -4,7 +4,9 @@ require "rails_helper"
 # unrelated command_prompt_to_image_request as a side effect, which would leak into this spec's
 # assertions since Admin::RequestRefs is always global. Passing parent_request: explicitly avoids that.
 describe Admin::RequestRefs do
-  subject(:call) { described_class.call(filters:) }
+  subject(:call) { described_class.call(filters:, sort:) }
+
+  let(:sort) { Admin::SortParams::DEFAULT }
 
   let(:filters) { Admin::RequestsQuery::Filters.new(user_search:, date_from:, date_to:) }
   let(:user_search) { nil }
@@ -42,5 +44,11 @@ describe Admin::RequestRefs do
     it "excludes refs outside the range" do
       expect(call.map(&:id)).to contain_exactly(button_request.id)
     end
+  end
+
+  context "when sorting by kind" do
+    let(:sort) { Admin::Sort.new("kind", "asc") }
+
+    it { expect(call.map(&:klass)).to eq([ButtonImageProcessingRequest, CommandPromptToImageRequest]) }
   end
 end

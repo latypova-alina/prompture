@@ -73,4 +73,22 @@ describe "Admin requests" do
       expect(response.body).to include("Page 1 of 2")
     end
   end
+
+  describe "sorting" do
+    def position(record)
+      response.body.index("#{record.class.name}##{record.id}")
+    end
+
+    it "sorts by kind" do
+      get "/requests", params: { sort: "kind", direction: "asc" }, headers: auth_headers
+
+      expect(position(button_request)).to be < position(command_request)
+    end
+
+    it "puts command rows (no status) last when sorting by status" do
+      get "/requests", params: { sort: "status", direction: "desc" }, headers: auth_headers
+
+      expect(position(button_request)).to be < position(command_request)
+    end
+  end
 end

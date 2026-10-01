@@ -134,4 +134,28 @@ describe "Admin command requests" do
       expect(response.body).not_to include("#{audio_command.class.name}##{audio_command.id}")
     end
   end
+
+  describe "sorting" do
+    def position(record)
+      response.body.index("#{record.class.name}##{record.id}")
+    end
+
+    it "sorts by type when asked" do
+      get "/command_requests", params: { sort: "type", direction: "asc" }, headers: auth_headers
+
+      expect(position(audio_command)).to be < position(image_command)
+    end
+
+    it "sorts by type descending" do
+      get "/command_requests", params: { sort: "type", direction: "desc" }, headers: auth_headers
+
+      expect(position(image_command)).to be < position(audio_command)
+    end
+
+    it "keeps the has_button_requests filter in header links" do
+      get "/users/#{user.id}/command_requests", params: { has_button_requests: "without" }, headers: auth_headers
+
+      expect(response.body).to include("direction=asc&amp;has_button_requests=without&amp;sort=category")
+    end
+  end
 end

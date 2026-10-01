@@ -23,14 +23,14 @@ h1 Button requests
           thead
             tr
               - if @user.nil?
-                th User
-              th Type
-              th Processor
-              th Status
-              th Cost
+                th = sortable_header("User", "user", @sort)
+              th = sortable_header("Type", "type", @sort)
+              th = sortable_header("Processor", "processor", @sort)
+              th = sortable_header("Status", "status", @sort)
+              th = sortable_header("Cost", "cost", @sort)
               th Media
-              th Command
-              th Created
+              th = sortable_header("Command", "command", @sort)
+              th = sortable_header("Created", "created", @sort)
           tbody
             - @result.records.each do |button_request|
               tr

@@ -2,6 +2,10 @@ aside.filters-panel
   h2.filters-title Filters
 
   = form_with url: request.path, method: :get, class: "filters" do
+    - %w[sort direction].each do |name|
+      - if params[name].is_a?(String)
+        input type="hidden" name=name value=params[name]
+
     - if local_assigns[:user_search].present?
       label
         | User
