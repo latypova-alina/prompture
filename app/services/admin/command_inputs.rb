@@ -20,7 +20,8 @@ module Admin
     attr_reader :command_request
 
     def matching(klass)
-      klass.where(command_request_type: command_request.class.name, command_request_id: command_request.id)
+      relation = klass.where(command_request_type: command_request.class.name, command_request_id: command_request.id)
+      Admin::InputMedia::IMAGE_MESSAGE_TYPES.include?(klass) ? relation.includes(:stored_image) : relation
     end
   end
 end

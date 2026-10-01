@@ -65,7 +65,7 @@ describe "Admin button request show page" do
     it { expect(response.body).to include(%(href="/command_requests/prompt_to_image/#{command_request.id}")) }
     it { expect(response.body).to include(%(href="/button_requests/video_processing/#{child.id}")) }
 
-    it "shows the provider URL as a full link" do
+    it "shows the result URL as a full link" do
       expect(response.body).to include(
         %(<a target="_blank" rel="noopener" href="http://example.com/image.png">http://example.com/image.png</a>)
       )

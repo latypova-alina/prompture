@@ -19,6 +19,11 @@ h2 Inputs
   - @inputs.each do |input|
     h3 = Admin::RecordLabel.call(input)
     = render "admin/shared/fields", fields: Admin::RecordFields.call(input)
+    - media = Admin::InputMedia.call(input)
+    - if media
+      .media-grid
+        = render "admin/shared/media_preview", item: media
+      = render "admin/shared/url_links", links: { media.label => media.url }
 
 h2 Button requests
 = render "admin/shared/button_requests_table", button_requests: @button_requests, empty_message: "No button requests."

@@ -57,6 +57,24 @@ describe Admin::ButtonRequestMedia do
 
       it { is_expected.to be_empty }
     end
+
+    context "when it is an image edit request" do
+      let(:command_request) { create(:command_edit_image_request) }
+      let(:image_message) do
+        create(:user_image_url_message, command_request:, parent_request: command_request,
+                                        image_url: "https://example.com/source.png")
+      end
+      let(:button_request) do
+        create(:button_image_processing_request, :completed, processor: "nano_banana_edit_image",
+                                                             command_request:, parent_request: image_message)
+      end
+
+      it do
+        is_expected.to contain_exactly(
+          have_attributes(label: "Input image", kind: :image, url: "https://example.com/source.png")
+        )
+      end
+    end
   end
 
   describe "#links" do
@@ -64,7 +82,7 @@ describe Admin::ButtonRequestMedia do
 
     let(:button_request) { create(:button_image_processing_request, :completed) }
 
-    it { is_expected.to eq("Provider URL" => "http://example.com/image.png") }
+    it { is_expected.to eq("Result URL" => "http://example.com/image.png") }
 
     context "when the request has input media" do
       let(:button_request) { create(:button_video_processing_request) }
@@ -76,7 +94,7 @@ describe Admin::ButtonRequestMedia do
       before { create(:stored_image, source_message: button_request, image_url: "https://bucket.example.com/a.png") }
 
       it do
-        is_expected.to eq("Provider URL" => "http://example.com/image.png",
+        is_expected.to eq("Result URL" => "http://example.com/image.png",
                           "Stored copy" => "https://bucket.example.com/a.png")
       end
     end

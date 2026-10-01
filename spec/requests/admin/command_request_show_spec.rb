@@ -82,6 +82,20 @@ describe "Admin command request show page" do
       expect(response.body).to include("AgACpic").and include("make it move")
     end
 
+    it "shows each picture input's stored image as a preview and a full link, without N+1 queries" do
+      2.times do |i|
+        picture = create(:user_picture_message, command_request:, parent_request: command_request)
+        create(:stored_image, source_message: picture, image_url: "https://bucket.example.com/p#{i}.jpg")
+      end
+
+      get "/command_requests/image_to_video/#{command_request.id}", headers: auth_headers
+
+      expect(response.body).to include(%(<img alt="Input image" src="https://bucket.example.com/p0.jpg"))
+      expect(response.body).to include(
+        %(href="https://bucket.example.com/p1.jpg">https://bucket.example.com/p1.jpg</a>)
+      )
+    end
+
     it "lists button requests linking to their show pages, without N+1 queries" do
       ButtonVideoProcessingRequest.find_each do |button_request|
         expect(response.body).to include(%(href="/button_requests/video_processing/#{button_request.id}"))

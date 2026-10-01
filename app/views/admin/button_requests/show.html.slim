@@ -31,11 +31,7 @@ h2 Media
     - @media.inputs.each do |item|
       = render "admin/shared/media_preview", item: item
   - if @media.links.any?
-    ul.meta-list
-      - @media.links.each do |name, url|
-        li
-          strong = name
-          span.field-value = link_to url, url, target: "_blank", rel: "noopener"
+    = render "admin/shared/url_links", links: @media.links
 
 h2 Children
 = render "admin/shared/button_requests_table", button_requests: @children, empty_message: "No child button requests."

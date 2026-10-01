@@ -1,0 +1,5 @@
+ul.meta-list
+  - links.each do |name, url|
+    li
+      strong = name
+      span.field-value = link_to url, url, target: "_blank", rel: "noopener"

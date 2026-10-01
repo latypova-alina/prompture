@@ -1,7 +1,7 @@
 module Admin
   # What media a button request produced and consumed, for inline previews and raw/stored links.
   class ButtonRequestMedia
-    Item = Struct.new(:label, :kind, :url, keyword_init: true)
+    include Memery
 
     OUTPUT_KINDS = {
       ButtonImageProcessingRequest => :image,
@@ -10,7 +10,7 @@ module Admin
       ButtonAudioProcessingRequest => :audio
     }.freeze
 
-    RAW_URL_COLUMNS = {
+    RESULT_URL_COLUMNS = {
       ButtonImageProcessingRequest => :image_url,
       ButtonVideoProcessingRequest => :video_url,
       ButtonMergeAudioVideoProcessingRequest => :video_url,
@@ -33,30 +33,44 @@ module Admin
       url = button_request.try(:resolved_media_url)
       return if kind.nil? || url.blank?
 
-      Item.new(label: "Result", kind:, url:)
+      Admin::MediaItem.new(label: "Result", kind:, url:)
     end
 
-    def inputs
-      INPUT_COLUMNS.fetch(button_request.class, {}).filter_map do |column, kind|
-        url = button_request.public_send(column)
-        Item.new(label: INPUT_LABELS.fetch(kind), kind:, url:) if url.present?
-      end
+    memoize def inputs
+      column_inputs + edit_image_inputs
     end
 
     def links
-      { "Provider URL" => raw_url, "Stored copy" => stored_url }.compact_blank.merge(input_links)
+      { "Result URL" => result_url, "Stored copy" => stored_url }.compact_blank.merge(input_links)
     end
 
     private
 
     attr_reader :button_request
 
+    def column_inputs
+      INPUT_COLUMNS.fetch(button_request.class, {}).filter_map do |column, kind|
+        input_item(kind, button_request.public_send(column))
+      end
+    end
+
+    # An image edit's source picture lives on its parent message (the same URL sent to fal as image_urls).
+    def edit_image_inputs
+      return [] unless Generator::Media::Image::CreateTask::PayloadEnhancers::EditImage.applies_to?(button_request)
+
+      [input_item(:image, button_request.parent_request.try(:resolved_image_url))].compact
+    end
+
+    def input_item(kind, url)
+      Admin::MediaItem.new(label: INPUT_LABELS.fetch(kind), kind:, url:) if url.present?
+    end
+
     def input_links
       inputs.to_h { |item| [item.label, item.url] }
     end
 
-    def raw_url
-      column = RAW_URL_COLUMNS[button_request.class]
+    def result_url
+      column = RESULT_URL_COLUMNS[button_request.class]
       button_request.public_send(column) if column
     end
 

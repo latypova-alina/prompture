@@ -260,6 +260,14 @@ html
       .button-request-list { list-style: none; margin: 0; padding: 0; }
       .button-request-list li + li { margin-top: 4px; }
       .field-value { overflow-wrap: anywhere; }
+      .meta-list.field-grid { padding: 0; gap: 1px; overflow: hidden; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); }
+      .meta-list.field-grid li strong { overflow-wrap: anywhere; }
+      .meta-list.field-grid li { padding: 10px 14px; box-shadow: 0 0 0 1px var(--border); }
+      .truncated details { display: inline; margin-left: 6px; }
+      .truncated summary { display: inline; cursor: pointer; color: var(--accent); font-size: 12px; list-style: none; }
+      .truncated summary::-webkit-details-marker { display: none; }
+      .truncated:has(details[open]) .truncated-short, .truncated details[open] summary { display: none; }
+      .truncated details[open] { margin-left: 0; }
       .media-grid { display: flex; flex-wrap: wrap; gap: 16px; margin-bottom: 16px; }
       .media-preview { margin: 0; max-width: 360px; }
       .media-preview figcaption { font-size: 12px; text-transform: uppercase; letter-spacing: 0.04em; color: var(--text-muted); margin-bottom: 6px; }
