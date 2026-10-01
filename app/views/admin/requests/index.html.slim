@@ -24,7 +24,7 @@ h1 Requests
             - @result.records.each do |record|
               tr
                 td = Admin::CommandRequestsQuery::TYPES.include?(record.class) ? "Command" : "Button"
-                td.wrap-cell = "#{record.class.name} ##{record.id}"
+                td.wrap-cell = Admin::RecordLabel.call(record)
                 td.wrap-cell = link_to record.user.name, user_path(record.user)
                 td
                   - status = record.try(:status)

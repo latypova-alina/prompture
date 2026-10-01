@@ -39,6 +39,12 @@ describe "Admin button requests" do
       expect(response.body).to include(extend_prompt_request.humanized_process_name)
     end
 
+    it "shows each button request's class name and id" do
+      get "/users/#{user.id}/button_requests", headers: auth_headers
+
+      expect(response.body).to include("ButtonImageProcessingRequest##{image_request.id}")
+    end
+
     it "filters by type" do
       get "/users/#{user.id}/button_requests",
           params: { type: "ButtonExtendPromptRequest" }, headers: auth_headers

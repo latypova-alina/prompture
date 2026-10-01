@@ -30,6 +30,12 @@ describe "Admin users" do
 
       expect(response.body).to include("Rihanna")
     end
+
+    it "shows each user's id" do
+      get "/users", headers: auth_headers
+
+      expect(response.body).to include("<td>#{user.id}</td>")
+    end
   end
 
   describe "GET /users/:id" do
