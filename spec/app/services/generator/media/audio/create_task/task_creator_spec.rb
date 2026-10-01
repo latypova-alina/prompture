@@ -55,6 +55,25 @@ describe Generator::Media::Audio::CreateTask::TaskCreator do
       end
     end
 
+    context "when the response carries a fal request id" do
+      let(:success) { true }
+      let(:response) { instance_double("Response", success?: true, status: 200, body: '{"request_id":"fal-audio-1"}') }
+
+      it "saves it on the audio request" do
+        expect { call_service }.to change { request.reload.fal_request_id }.from(nil).to("fal-audio-1")
+      end
+
+      # Storing the id changes RequestStatusResolver / Interim::CancellationHandler behaviour, but those are
+      # only reachable through the interim "check status"/"cancel" message, which audio never sends.
+      it "does not send the interim message with status/cancel buttons" do
+        allow(Generator::Media::Interim::MessageSender).to receive(:call)
+
+        call_service
+
+        expect(Generator::Media::Interim::MessageSender).not_to have_received(:call)
+      end
+    end
+
     context "when response is not successful" do
       let(:success) { false }
       let(:status) { 500 }

@@ -53,4 +53,11 @@ describe Admin::FieldsHelper do
 
     it { is_expected.to eq("1280 px") }
   end
+
+  context "when the value is a field link" do
+    let(:name) { "fal_request_id" }
+    let(:value) { Admin::FieldLink.new("abc-123", "https://fal.ai/models/x/requests/abc-123") }
+
+    it { is_expected.to eq('<a target="_blank" rel="noopener" href="https://fal.ai/models/x/requests/abc-123">abc-123</a>') }
+  end
 end

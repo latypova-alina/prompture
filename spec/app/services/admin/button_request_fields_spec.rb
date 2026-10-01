@@ -20,4 +20,14 @@ describe Admin::ButtonRequestFields do
 
     it { is_expected.to include("audio_prompt" => "Hello there", "voice" => "adam") }
   end
+
+  context "when it has a fal request id" do
+    let(:button_request) { create(:button_image_processing_request, :completed, fal_request_id: "abc-123") }
+
+    it do
+      is_expected.to include(
+        "fal_request_id" => Admin::FieldLink.new("abc-123", "https://fal.ai/models/fal-ai/flux-2-pro/requests/abc-123")
+      )
+    end
+  end
 end

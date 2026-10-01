@@ -11,7 +11,7 @@ module Admin
     end
 
     def call
-      Admin::RecordFields.call(button_request).merge(computed_fields, audio_prompt_fields, telegram_fields)
+      Admin::RecordFields.call(button_request).merge(fal_fields, computed_fields, audio_prompt_fields, telegram_fields)
     end
 
     private
@@ -19,6 +19,14 @@ module Admin
     attr_reader :button_request
 
     delegate :processor, :humanized_process_name, :cost, :bot_telegram_message, to: :button_request
+
+    # Replaces the plain id in place (same key keeps its position) with a link to the fal dashboard.
+    def fal_fields
+      url = Admin::FalDashboardUrl.new(button_request).url
+      return {} if url.nil?
+
+      { "fal_request_id" => Admin::FieldLink.new(button_request.fal_request_id, url) }
+    end
 
     def computed_fields
       { "processor" => processor, "process_name" => humanized_process_name, "cost" => cost }
