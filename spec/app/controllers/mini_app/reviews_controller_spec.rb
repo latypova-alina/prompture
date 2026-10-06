@@ -3,6 +3,8 @@ require "rails_helper"
 describe MiniApp::ReviewsController, type: :request do
   include_context "signed mini app init data"
 
+  subject { response }
+
   let(:bot) { instance_double(Telegram::Bot::Client, send_message: true) }
   let!(:user) { create(:user, chat_id: telegram_user_id, locale: "ru") }
 
@@ -28,17 +30,17 @@ describe MiniApp::ReviewsController, type: :request do
   describe "GET /mini_app/review" do
     before { get "/mini_app/review" }
 
-    it { expect(response).to have_http_status(:ok) }
-    it { expect(response.body).to include("fetch(path").and include('"/mini_app/review/survey"') }
+    it { is_expected.to have_http_status(:ok) }
+    it { expect(response.body).to include('"/mini_app/review/survey"') }
   end
 
   describe "POST /mini_app/review/survey" do
     before { post_json("/mini_app/review/survey", init_data:) }
 
-    it { expect(response).to have_http_status(:ok) }
+    it { is_expected.to have_http_status(:ok) }
     it { expect(response.parsed_body["already_reviewed"]).to be(false) }
 
-    it "returns the survey in the user's language" do
+    it do
       expect(response.parsed_body.dig("survey", "questions", 0, "title"))
         .to eq(I18n.t("reviews.survey.v1.questions.rating.title", locale: :ru))
     end
@@ -52,96 +54,100 @@ describe MiniApp::ReviewsController, type: :request do
     context "when init_data is invalid" do
       let(:init_data) { "user=%7B%7D&hash=forged" }
 
-      it { expect(response).to have_http_status(:unauthorized) }
+      it { is_expected.to have_http_status(:unauthorized) }
     end
   end
 
   describe "POST /mini_app/review" do
-    subject(:submit) { post_json("/mini_app/review", init_data:, answers:) }
+    let(:submitted_answers) { answers }
 
-    it "creates the review with normalized answers" do
-      expect { submit }.to change(Review, :count).by(1)
+    before { post_json("/mini_app/review", init_data:, answers: submitted_answers) }
 
-      expect(user.reload.review).to have_attributes(rating: 4, survey_version: 1, locale: "ru")
-      expect(user.review.answers["use_cases"]).to eq("selected" => %w[fun other],
-                                                     "other" => "making birthday cards for friends")
-    end
+    context "with complete answers" do
+      it { is_expected.to have_http_status(:created) }
+      it { expect(response.parsed_body["message"]).to eq(I18n.t("reviews.mini_app.success", locale: :ru)) }
+      it { expect(user.reload.review).to have_attributes(rating: 4, survey_version: 1, locale: "ru") }
 
-    it "responds 201 with a thank you" do
-      submit
+      it do
+        expect(user.reload.review.answers["use_cases"])
+          .to eq("selected" => %w[fun other], "other" => "making birthday cards for friends")
+      end
 
-      expect(response).to have_http_status(:created)
-      expect(response.parsed_body["message"]).to eq(I18n.t("reviews.mini_app.success", locale: :ru))
-    end
+      it { expect(AdminNewReviewNotifierJob).to have_received(:perform_async).with(Review.last.id) }
 
-    it "enqueues the admin notification" do
-      submit
-
-      expect(AdminNewReviewNotifierJob).to have_received(:perform_async).with(Review.last.id)
-    end
-
-    it "sends a thank you message in the chat" do
-      submit
-
-      expect(bot).to have_received(:send_message)
-        .with(chat_id: telegram_user_id, text: I18n.t("reviews.thank_you", locale: :ru))
+      it do
+        expect(bot).to have_received(:send_message)
+          .with(chat_id: telegram_user_id, text: I18n.t("reviews.thank_you", locale: :ru))
+      end
     end
 
     context "when an answer is missing" do
-      let(:answers) { super().except(:frustrations) }
+      let(:submitted_answers) { answers.except(:frustrations) }
 
-      it { expect { submit }.not_to change(Review, :count) }
+      it { is_expected.to have_http_status(:unprocessable_content) }
+      it { expect(Review.count).to eq(0) }
 
-      it "responds 422 with per-question errors" do
-        submit
-
-        expect(response).to have_http_status(:unprocessable_content)
+      it do
         expect(response.parsed_body["errors"])
           .to eq("frustrations" => I18n.t("reviews.mini_app.errors.required", locale: :ru))
       end
     end
 
     context "when a text answer is too short" do
-      let(:answers) { super().merge(missing: "videos") }
+      let(:submitted_answers) { answers.merge(missing: "videos") }
 
-      it { expect { submit }.not_to change(Review, :count) }
-
-      it "responds 422" do
-        submit
-
-        expect(response).to have_http_status(:unprocessable_content)
-        expect(response.parsed_body["errors"].keys).to eq(["missing"])
-      end
+      it { is_expected.to have_http_status(:unprocessable_content) }
+      it { expect(Review.count).to eq(0) }
+      it { expect(response.parsed_body["errors"].keys).to eq(["missing"]) }
     end
 
     context "when an option is not in the survey" do
-      let(:answers) { super().merge(features: { selected: %w[video teleportation] }) }
+      let(:submitted_answers) { answers.merge(features: { selected: %w[video teleportation] }) }
 
-      it { expect { submit }.not_to change(Review, :count) }
+      it { is_expected.to have_http_status(:unprocessable_content) }
+      it { expect(Review.count).to eq(0) }
+    end
+
+    ["nope", [1]].each do |raw_answers|
+      context "when answers is #{raw_answers.inspect} instead of an object" do
+        let(:submitted_answers) { raw_answers }
+
+        it { is_expected.to have_http_status(:unprocessable_content) }
+        it { expect(Review.count).to eq(0) }
+
+        context "and init_data is invalid" do
+          let(:init_data) { "user=%7B%7D&hash=forged" }
+
+          it { is_expected.to have_http_status(:unauthorized) }
+        end
+      end
     end
 
     context "when the user already reviewed" do
-      before { create(:review, user:) }
+      let!(:user) { create(:user, chat_id: telegram_user_id).tap { |user| create(:review, user:) } }
 
-      it { expect { submit }.not_to change(Review, :count) }
-
-      it "responds 409" do
-        submit
-
-        expect(response).to have_http_status(:conflict)
-      end
+      it { is_expected.to have_http_status(:conflict) }
+      it { expect(Review.count).to eq(1) }
     end
 
     context "when init_data is invalid" do
       let(:init_data) { "user=%7B%7D&hash=forged" }
 
-      it { expect { submit }.not_to change(Review, :count) }
-
-      it "responds 401" do
-        submit
-
-        expect(response).to have_http_status(:unauthorized)
-      end
+      it { is_expected.to have_http_status(:unauthorized) }
+      it { expect(Review.count).to eq(0) }
     end
+  end
+
+  describe "POST /mini_app/review when the thank you message can't be sent" do
+    before do
+      allow(bot).to receive(:send_message).and_raise(Telegram::Bot::Forbidden)
+      allow(Sentry).to receive(:capture_exception)
+
+      post_json("/mini_app/review", init_data:, answers:)
+    end
+
+    it { is_expected.to have_http_status(:created) }
+    it { expect(user.reload.review).to be_present }
+    it { expect(Sentry).to have_received(:capture_exception).with(Telegram::Bot::Forbidden, extra: { review_id: Review.last.id }) }
   end
 end

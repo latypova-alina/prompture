@@ -24,24 +24,23 @@ module Reviews
     end
 
     def body
-      { error: I18n.t(MESSAGE_KEYS.fetch(error), locale:), errors: answer_errors }.compact
+      { error: I18n.t(MESSAGE_KEYS.fetch(error), locale:), errors: localized_answer_errors }.compact
     end
 
     private
 
     attr_reader :result
 
-    memoize def error
-      result.error
-    end
+    delegate :error, :answer_errors, to: :result
+    delegate :locale, to: :result, prefix: true
 
     # Unauthenticated requests have no user, hence no locale yet.
     memoize def locale
-      result.locale || I18n.default_locale
+      result_locale || I18n.default_locale
     end
 
-    def answer_errors
-      result.answer_errors&.transform_values do |key|
+    def localized_answer_errors
+      answer_errors&.transform_values do |key|
         I18n.t("reviews.mini_app.errors.#{key}", locale:, count: min_length, max: max_length)
       end
     end

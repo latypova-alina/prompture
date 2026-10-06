@@ -22,9 +22,11 @@ module MiniApp
 
     private
 
-    # Shape is checked by Reviews::AnswersValidator, which also drops anything unexpected.
+    # Anything that isn't an object becomes {} so it fails validation (or auth) instead of raising.
+    # The shape is checked by Reviews::AnswersValidator, which also drops anything unexpected.
     def answers_param
-      params.fetch(:answers, {}).to_unsafe_h
+      answers = params[:answers]
+      answers.respond_to?(:to_unsafe_h) ? answers.to_unsafe_h : {}
     end
 
     def render_error(result)

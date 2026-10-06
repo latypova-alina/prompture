@@ -25,7 +25,6 @@ ul.history-links
 
 h2 Review
 - if @user.review
-  p.muted = "Submitted #{@user.review.created_at} (survey v#{@user.review.survey_version}, #{@user.review.locale})"
-  = render "admin/shared/fields", fields: Reviews::ReadableAnswers.call(@user.review).to_h
+  = render "admin/users/review", review: @user.review
 - else
   p.empty-state No review yet.
