@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2026_10_06_131650) do
+ActiveRecord::Schema[8.0].define(version: 2026_10_06_145900) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -188,6 +188,27 @@ ActiveRecord::Schema[8.0].define(version: 2026_10_06_131650) do
     t.bigint "interim_tg_message_id"
     t.index ["command_request_type", "command_request_id"], name: "index_button_video_processing_requests_on_command_request"
     t.index ["parent_request_type", "parent_request_id"], name: "index_button_video_processing_requests_on_parent_request"
+  end
+
+  create_table "chat_events", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "chat_id", null: false
+    t.string "direction", null: false
+    t.string "kind", null: false
+    t.bigint "tg_message_id"
+    t.bigint "reply_to_message_id"
+    t.bigint "update_id"
+    t.datetime "occurred_at", null: false
+    t.text "text"
+    t.jsonb "payload", default: {}, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index "((payload ->> 'callback_query_id'::text))", name: "index_chat_events_on_callback_query_id", where: "((kind)::text = 'callback_query'::text)"
+    t.index ["chat_id", "occurred_at"], name: "index_chat_events_on_chat_id_and_occurred_at"
+    t.index ["occurred_at"], name: "index_chat_events_on_occurred_at"
+    t.index ["update_id"], name: "index_chat_events_on_update_id", unique: true
+    t.index ["user_id", "occurred_at"], name: "index_chat_events_on_user_id_and_occurred_at"
+    t.check_constraint "direction::text = ANY (ARRAY['incoming'::character varying, 'outgoing'::character varying]::text[])", name: "chat_events_direction"
   end
 
   create_table "command_edit_image_requests", force: :cascade do |t|
@@ -468,6 +489,7 @@ ActiveRecord::Schema[8.0].define(version: 2026_10_06_131650) do
   add_foreign_key "balance_transactions", "users"
   add_foreign_key "balances", "users"
   add_foreign_key "button_audio_processing_requests", "audio_prompts"
+  add_foreign_key "chat_events", "users"
   add_foreign_key "command_edit_image_requests", "image_prompts"
   add_foreign_key "command_edit_image_requests", "users"
   add_foreign_key "command_image_to_video_requests", "users"

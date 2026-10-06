@@ -8,5 +8,11 @@ Sidekiq.configure_server do |config|
       cron: "0 3 * * *",
       class: "DatabaseBackupJob"
     )
+
+    Sidekiq::Cron::Job.create(
+      name: "Chat history retention - daily",
+      cron: "30 3 * * *",
+      class: "ChatEvents::RetentionJob"
+    )
   end
 end
