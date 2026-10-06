@@ -28,7 +28,7 @@ describe Admin::ButtonRequestRelations do
   end
 
   context "when filtering by date range" do
-    let(:date_from) { 1.5.days.ago.to_date.to_s }
+    let(:date_from) { 1.day.ago.to_date.to_s }
 
     it { expect(call.values.flat_map(&:to_a)).to contain_exactly(extend_prompt_request) }
   end

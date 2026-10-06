@@ -67,6 +67,15 @@ describe TelegramIntegration::MessageDispatcher do
 
           expect { subject }.to raise_error(error_class)
         end
+
+        # Re-running a failed flow just to read its error can fail differently the second time
+        # (e.g. edit image has already saved the prompt), so the user would get the wrong message.
+        it "runs the flow only once" do
+          allow(TokenHandler::HandleToken).to receive(:call).and_return(result)
+
+          expect { subject }.to raise_error(error_class)
+          expect(TokenHandler::HandleToken).to have_received(:call).once
+        end
       end
     end
 
