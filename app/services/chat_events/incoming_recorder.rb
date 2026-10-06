@@ -32,7 +32,7 @@ module ChatEvents
     end
 
     def user_id
-      User.where(chat_id: attributes[:chat_id]).pick(:id)
+      ChatEvents::UserLookup.call(attributes[:chat_id])
     end
   end
 end

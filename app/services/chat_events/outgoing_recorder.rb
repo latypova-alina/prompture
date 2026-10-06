@@ -1,14 +1,8 @@
 module ChatEvents
-  # Records one outgoing Bot API call, for chat-scoped methods only. Infrastructure calls
-  # (setMyCommands, setWebhook, createInvoiceLink...) and messages to the admin chat are skipped.
-  # Never raises: a failed history row must not break the send.
+  # Records one outgoing Bot API call into the conversation history. Never raises: a failed history
+  # row must not break the send, so failures go to Sentry instead.
   class OutgoingRecorder
     include Memery
-
-    RECORDED_METHODS = %w[
-      sendMessage sendPhoto sendVideo sendAudio sendVoice sendDocument sendAnimation sendMediaGroup sendInvoice
-      editMessageText editMessageCaption editMessageReplyMarkup editMessageMedia deleteMessage answerCallbackQuery
-    ].freeze
 
     def self.call(...)
       new(...).call
@@ -22,9 +16,10 @@ module ChatEvents
     end
 
     def call
-      return unless recordable?
+      return unless ChatEvents::OutgoingFilter.recorded_method?(action)
+      return unless ChatEvents::OutgoingFilter.recorded_chat?(chat_id)
 
-      ChatEvent.insert(outgoing_call.attributes(chat_id:).merge(user_id:))
+      ChatEvent.insert(attributes)
     rescue StandardError => e
       Sentry.capture_exception(e)
     end
@@ -33,33 +28,13 @@ module ChatEvents
 
     attr_reader :action, :body, :result, :error
 
-    def recordable?
-      RECORDED_METHODS.include?(action) && chat_id.present? && !admin_chat?
-    end
-
-    memoize def outgoing_call
-      ChatEvents::OutgoingCall.new(action:, body:, result:, error:)
-    end
-
     memoize def chat_id
-      return callback_chat_id if action == "answerCallbackQuery"
-
-      Integer(body[:chat_id], exception: false)
+      ChatEvents::OutgoingChat.new(action:, body:).chat_id
     end
 
-    # answerCallbackQuery has no chat_id; find it through the callback_query we recorded on the way in.
-    def callback_chat_id
-      ChatEvent.where(direction: "incoming", kind: "callback_query")
-               .where("payload->>'callback_query_id' = ?", body[:callback_query_id].to_s)
-               .pick(:chat_id)
-    end
-
-    def admin_chat?
-      chat_id.to_s == ENV["ADMIN_CHAT_ID"].to_s
-    end
-
-    def user_id
-      User.where(chat_id:).pick(:id)
+    def attributes
+      ChatEvents::OutgoingCall.new(action:, body:, result:, error:).attributes(chat_id:)
+                              .merge(user_id: ChatEvents::UserLookup.call(chat_id))
     end
   end
 end
