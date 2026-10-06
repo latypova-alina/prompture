@@ -7,7 +7,7 @@ module Reviews
 
       def call
         context.already_reviewed = Review.exists?(user:)
-        context.survey = Reviews::SurveyPresenter.new(locale:).as_json
+        context.survey = Reviews::SurveyPresenter.new(locale:, reward: Reviews::Reward.enabled_for?(user)).as_json
       end
     end
   end

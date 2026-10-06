@@ -24,6 +24,14 @@ describe TelegramWebhooksController, telegram_bot: :rails do
     )
   end
 
+  context "when the review bonus is on" do
+    before { Flipper.enable_actor(:flipper_review_bonus, user) }
+
+    it do
+      is_expected.to include(text: I18n.t("telegram_webhooks.commands.review.ask_with_reward", count: 50))
+    end
+  end
+
   context "when the user already left a review" do
     before { create(:review, user:) }
 

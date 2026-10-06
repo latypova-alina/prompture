@@ -3,14 +3,23 @@ en:
     commands:
       review:
         ask: "📝 We'd love your honest feedback! It takes about 2 minutes and helps us make the bot better."
+        ask_with_reward:
+          one: "📝 We'd love your honest feedback! Answer a few questions and get %{count} stone 🪨 as a thank you. It takes about 2 minutes."
+          other: "📝 We'd love your honest feedback! Answer a few questions and get %{count} stones 🪨 as a thank you. It takes about 2 minutes."
         button: "📝 Leave a review"
         already_reviewed: "🙏 Thanks, you've already left a review!"
   admin_notifications:
     new_review: "📝 New review from %{name} (user %{user_id}): %{stars} %{rating}/5"
   reviews:
     thank_you: "🙏 Thank you for your review! Your feedback really helps us improve the bot."
+    thank_you_with_reward:
+      one: "🎉 Congratulations! Thank you for your review, %{credits} stone 🪨 has been added to your balance."
+      other: "🎉 Congratulations! Thank you for your review, %{credits} stones 🪨 have been added to your balance."
     mini_app:
       title: "Your feedback"
+      reward:
+        one: "🎁 Complete the survey and get %{count} stone 🪨 as a thank you!"
+        other: "🎁 Complete the survey and get %{count} stones 🪨 as a thank you!"
       intro: "Please answer all questions. It takes about 2 minutes."
       submit: "Send review"
       sending: "Sending..."

@@ -2,6 +2,8 @@ module Reviews
   # Admin chat message for a new review: who, the rating, short answers, and a link to the user
   # in the admin.
   class AdminNotificationPresenter
+    include Memery
+
     MAX_ANSWER_LENGTH = 200
 
     def initialize(review)
@@ -9,7 +11,7 @@ module Reviews
     end
 
     def text
-      [header, *answer_lines, admin_link].join("\n\n")
+      [header, reward_line, *answer_lines, admin_link].compact.join("\n\n")
     end
 
     private
@@ -28,6 +30,16 @@ module Reviews
       ReadableAnswers.call(review).drop(1).map do |title, answer|
         "#{title}\n#{answer.truncate(MAX_ANSWER_LENGTH)}"
       end
+    end
+
+    def reward_line
+      return if granted_credits.nil?
+
+      "🎁 Granted #{granted_credits} stones for this review"
+    end
+
+    memoize def granted_credits
+      BalanceTransaction.find_by(source: review, transaction_type: "GRANT")&.amount
     end
 
     def admin_link
