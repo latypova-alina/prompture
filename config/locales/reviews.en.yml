@@ -1,0 +1,53 @@
+en:
+  telegram_webhooks:
+    commands:
+      review:
+        ask: "📝 We'd love your honest feedback! It takes about 2 minutes and helps us make the bot better."
+        button: "📝 Leave a review"
+        already_reviewed: "🙏 Thanks, you've already left a review!"
+  admin_notifications:
+    new_review: "📝 New review from %{name} (user %{user_id}): %{stars} %{rating}/5"
+  reviews:
+    thank_you: "🙏 Thank you for your review! Your feedback really helps us improve the bot."
+    mini_app:
+      title: "Your feedback"
+      intro: "Please answer all questions. It takes about 2 minutes."
+      submit: "Send review"
+      sending: "Sending..."
+      success: "Thank you for your review! 🙏"
+      other_label: "Other"
+      other_placeholder: "Tell us more"
+      text_placeholder: "Your answer"
+      errors:
+        required: "Please answer this question."
+        too_short: "Please write at least %{count} characters."
+        too_long: "Please keep it under %{max} characters."
+        invalid_option: "Please choose from the options."
+        other_too_short: "Please describe \"Other\" in at least %{count} characters."
+        fix_answers: "Please check the highlighted answers."
+        generic: "Something went wrong. Please try /review again from the bot."
+        already_reviewed: "You've already left a review. Thank you!"
+    survey:
+      v1:
+        questions:
+          rating:
+            title: "How would you rate the bot overall?"
+          use_cases:
+            title: "What do you use the bot for?"
+            options:
+              social_media: "Social media content and shorts"
+              cartoons: "Cartoons and animation"
+              work: "Work or business"
+              fun: "Personal fun"
+          features:
+            title: "Which features do you use most?"
+            options:
+              image_generation: "Image generation"
+              video: "Video"
+              audio: "Audio and voice"
+              image_editing: "Image editing"
+              cartoon_scripts: "Cartoon scripts"
+          missing:
+            title: "What's missing in the bot?"
+          frustrations:
+            title: "What doesn't satisfy you or annoys you?"

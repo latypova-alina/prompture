@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2026_10_01_165120) do
+ActiveRecord::Schema[8.0].define(version: 2026_10_06_131650) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -313,6 +313,18 @@ ActiveRecord::Schema[8.0].define(version: 2026_10_01_165120) do
     t.index ["video_prompt_id"], name: "index_prompt_messages_on_video_prompt_id"
   end
 
+  create_table "reviews", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.integer "rating", null: false
+    t.jsonb "answers", default: {}, null: false
+    t.integer "survey_version", null: false
+    t.string "locale", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_reviews_on_user_id", unique: true
+    t.check_constraint "rating >= 1 AND rating <= 5", name: "reviews_rating_range"
+  end
+
   create_table "scenes", force: :cascade do |t|
     t.text "scene_text", null: false
     t.bigint "video_prompt_id"
@@ -465,6 +477,7 @@ ActiveRecord::Schema[8.0].define(version: 2026_10_01_165120) do
   add_foreign_key "command_two_frame_to_video_requests", "users"
   add_foreign_key "policy_acceptances", "users"
   add_foreign_key "prompt_messages", "video_prompts"
+  add_foreign_key "reviews", "users"
   add_foreign_key "scenes", "image_prompts"
   add_foreign_key "scenes", "scripts"
   add_foreign_key "scenes", "video_prompts"

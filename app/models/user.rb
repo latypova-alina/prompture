@@ -3,6 +3,7 @@ class User < ApplicationRecord
   has_many :tokens, dependent: :destroy
   has_many :balance_transactions, dependent: :destroy
   has_many :policy_acceptances, dependent: :destroy
+  has_one :review, dependent: :destroy
 
   has_many :command_prompt_to_video_requests, dependent: :destroy
   has_many :command_prompt_to_image_requests, dependent: :destroy

@@ -77,4 +77,23 @@ describe "Admin users" do
       expect(response.body.index(">Amy<")).to be < response.body.index(">Zed<")
     end
   end
+
+  describe "review on GET /users/:id" do
+    let(:user) { create(:user, :with_balance) }
+
+    it "shows the user's review answers with question labels" do
+      create(:review, user:)
+
+      get "/users/#{user.id}", headers: auth_headers
+
+      expect(response.body).to include("What&#39;s missing in the bot?")
+      expect(response.body).to include("more voices for the audio feature")
+    end
+
+    it "says when there is no review" do
+      get "/users/#{user.id}", headers: auth_headers
+
+      expect(response.body).to include("No review yet.")
+    end
+  end
 end
