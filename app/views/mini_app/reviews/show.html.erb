@@ -50,6 +50,15 @@
 
       .intro { color: var(--tg-hint-color); font-size: 14px; margin: 0 0 16px; }
 
+      .reward {
+        background: var(--tg-secondary-bg-color);
+        border-radius: 10px;
+        padding: 10px 12px;
+        font-size: 15px;
+        font-weight: 600;
+        margin: 0 0 10px;
+      }
+
       .question {
         background: var(--tg-secondary-bg-color);
         border-radius: 12px;
@@ -130,6 +139,7 @@
     <div id="status"><div class="spinner"></div></div>
     <form id="survey" style="display: none" novalidate>
       <h1 id="title"></h1>
+      <p class="reward" id="reward" style="display: none"></p>
       <p class="intro" id="intro"></p>
       <div id="questions"></div>
       <div id="form-error"></div>
@@ -299,6 +309,12 @@
         function renderSurvey() {
           document.getElementById("title").textContent = survey.ui.title;
           document.getElementById("intro").textContent = survey.ui.intro;
+
+          if (survey.ui.reward) {
+            var rewardEl = document.getElementById("reward");
+            rewardEl.textContent = survey.ui.reward;
+            rewardEl.style.display = "";
+          }
           submitEl.textContent = survey.ui.submit;
           questionsEl.innerHTML = "";
 

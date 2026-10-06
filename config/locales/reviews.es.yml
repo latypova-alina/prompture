@@ -3,14 +3,23 @@ es:
     commands:
       review:
         ask: "📝 ¡Nos encantaría conocer tu opinión sincera! Te llevará unos 2 minutos y nos ayudará a mejorar el bot."
+        ask_with_reward:
+          one: "📝 ¡Nos encantaría conocer tu opinión sincera! Responde unas preguntas y recibe %{count} piedra 🪨 como agradecimiento. Te llevará unos 2 minutos."
+          other: "📝 ¡Nos encantaría conocer tu opinión sincera! Responde unas preguntas y recibe %{count} piedras 🪨 como agradecimiento. Te llevará unos 2 minutos."
         button: "📝 Dejar una reseña"
         already_reviewed: "🙏 ¡Gracias, ya dejaste una reseña!"
   admin_notifications:
     new_review: "📝 New review from %{name} (user %{user_id}): %{stars} %{rating}/5"
   reviews:
     thank_you: "🙏 ¡Gracias por tu reseña! Tu opinión nos ayuda mucho a mejorar el bot."
+    thank_you_with_reward:
+      one: "🎉 ¡Felicidades! Gracias por tu reseña, se ha añadido %{credits} piedra 🪨 a tu saldo."
+      other: "🎉 ¡Felicidades! Gracias por tu reseña, se han añadido %{credits} piedras 🪨 a tu saldo."
     mini_app:
       title: "Tu opinión"
+      reward:
+        one: "🎁 ¡Completa la encuesta y recibe %{count} piedra 🪨 como agradecimiento!"
+        other: "🎁 ¡Completa la encuesta y recibe %{count} piedras 🪨 como agradecimiento!"
       intro: "Por favor, responde todas las preguntas. Te llevará unos 2 minutos."
       submit: "Enviar reseña"
       sending: "Enviando..."

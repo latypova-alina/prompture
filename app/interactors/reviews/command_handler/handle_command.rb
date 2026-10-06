@@ -23,7 +23,7 @@ module Reviews
       end
 
       memoize def presenter
-        Reviews::CommandHandlerPresenter.new(locale:)
+        Reviews::CommandHandlerPresenter.new(locale:, reward: Reviews::Reward.enabled_for?(user))
       end
     end
   end

@@ -5,15 +5,16 @@ module Reviews
     UI_KEYS = %i[title intro submit sending success other_placeholder text_placeholder].freeze
     ERROR_KEYS = %i[required too_short too_long invalid_option other_too_short generic already_reviewed].freeze
 
-    def initialize(locale:, version: Survey::CURRENT_VERSION)
+    def initialize(locale:, reward: false, version: Survey::CURRENT_VERSION)
       @locale = locale
+      @reward = reward
       @version = version
     end
 
     def as_json(*)
       {
         version:,
-        ui: UI_KEYS.index_with { |key| t("reviews.mini_app.#{key}") },
+        ui: UI_KEYS.index_with { |key| t("reviews.mini_app.#{key}") }.merge(reward_ui),
         errors: ERROR_KEYS.index_with { |key| t("reviews.mini_app.errors.#{key}", count: min_length, max:) },
         max_length: max,
         questions: Survey.questions(version).map { |question| question_json(question) }
@@ -22,7 +23,12 @@ module Reviews
 
     private
 
-    attr_reader :locale, :version
+    attr_reader :locale, :reward, :version
+
+    # The page shows this line at the top only when present.
+    def reward_ui
+      reward ? { reward: t("reviews.mini_app.reward", count: Reviews::Reward::CREDITS) } : {}
+    end
 
     def question_json(question)
       {

@@ -1,3 +1,4 @@
 flipper_prompt_to_image_video_workflow: "prompt_to_image command points at the prompt_to_video flow (video-continuation buttons shown after the image)"
 flipper_welcome_bonus: "new users get 100 free credits, capped at the first 100 signups"
 flipper_stars_payments: "master switch for the /buy_stones Telegram Stars payment feature"
+flipper_review_bonus: "a completed /review grants 50 free stones (and the /review intro + mini app mention it)"
