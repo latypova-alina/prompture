@@ -27,7 +27,7 @@ module TelegramIntegration
 
     delegate :pack_key, :telegram_payment_charge_id, :stars_amount, to: :successful_payment
 
-    def result
+    memoize def result
       return handle_successful_payment if successful_payment.present?
 
       case command

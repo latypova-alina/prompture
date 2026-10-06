@@ -39,7 +39,8 @@ module ErrorHandler
   def message_data(error)
     {
       text: I18n.t(error_i18n_key(error.class.name)),
-      reply_to_message_id: error_reply_message_id
+      reply_to_message_id: error_reply_message_id,
+      reply_markup: ErrorReplyMarkup.call(error:, user:, locale: I18n.locale)
     }.compact
   end
 

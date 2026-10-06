@@ -7,15 +7,7 @@ module StarsPayment
     end
 
     def inline_keyboard
-      button_text = I18n.t("telegram_webhooks.commands.buy_stones.open_store_button", locale:)
-
-      [[{ text: button_text, web_app: { url: mini_app_url } }]]
-    end
-
-    private
-
-    def mini_app_url
-      "#{PublicBaseUrl.resolve}#{Rails.application.routes.url_helpers.mini_app_buy_stones_path}"
+      [[StarsPayment::OpenStoreButton.call(locale:)]]
     end
   end
 end
