@@ -102,7 +102,7 @@ describe MiniApp::ReviewsController, type: :request do
     end
 
     context "when a text answer is too short" do
-      let(:answers) { super().merge(missing: "more videos") }
+      let(:answers) { super().merge(missing: "videos") }
 
       it { expect { submit }.not_to change(Review, :count) }
 

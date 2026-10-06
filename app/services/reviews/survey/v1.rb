@@ -2,7 +2,7 @@ module Reviews
   module Survey
     module V1
       VERSION = 1
-      MIN_TEXT_LENGTH = 20
+      MIN_TEXT_LENGTH = 10
 
       QUESTIONS = [
         Question.new(id: "rating", type: :rating, required: true),

@@ -9,7 +9,7 @@ describe Reviews::SurveyPresenter do
     end).to eq(%w[rating use_cases features missing frustrations])
   }
   it { expect(survey[:ui][:submit]).to eq(I18n.t("reviews.mini_app.submit", locale: :es)) }
-  it { expect(survey[:errors][:too_short]).to include("20") }
+  it { expect(survey[:errors][:too_short]).to include("10") }
 
   it "localizes options and adds other where the question allows it" do
     use_cases = survey[:questions].find { |question| question[:id] == "use_cases" }
@@ -17,6 +17,6 @@ describe Reviews::SurveyPresenter do
     expect(use_cases[:options].first).to eq(id: "social_media",
                                             label: I18n.t("reviews.survey.v1.questions.use_cases.options.social_media",
                                                           locale: :es))
-    expect(use_cases[:other]).to eq(label: I18n.t("reviews.mini_app.other_label", locale: :es), min_length: 20)
+    expect(use_cases[:other]).to eq(label: I18n.t("reviews.mini_app.other_label", locale: :es), min_length: 10)
   end
 end

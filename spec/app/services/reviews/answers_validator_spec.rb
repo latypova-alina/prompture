@@ -41,10 +41,16 @@ describe Reviews::AnswersValidator do
         it { is_expected.to eq("missing" => :required) }
       end
 
-      context "when shorter than 20 characters after trimming" do
-        let(:answers) { super().merge("missing" => "  more videos pls   ") }
+      context "when shorter than 10 characters after trimming" do
+        let(:answers) { super().merge("missing" => "  more vids   ") }
 
         it { is_expected.to eq("missing" => :too_short) }
+      end
+
+      context "when exactly 10 characters" do
+        let(:answers) { super().merge("missing" => "more vids!") }
+
+        it { is_expected.to be_empty }
       end
 
       context "when longer than the maximum" do
