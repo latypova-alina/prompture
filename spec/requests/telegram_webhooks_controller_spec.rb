@@ -655,12 +655,10 @@ describe TelegramWebhooksController, telegram_bot: :rails do
       expect { dispatch(update) }.to change(StarsPurchase, :count).by(1)
     end
 
-    it "sends a thank you message" do
-      expected_text = I18n.t(
-        "telegram_webhooks.commands.buy_stones.thank_you",
-        credits: pack[:credits],
-        count: pack[:credits]
-      )
+    it "sends a thank you message with the balance after the purchase" do
+      expected_text = StarsPayment::PaymentReceivedPresenter.new(
+        credits: pack[:credits], balance: pack[:credits], locale: I18n.default_locale
+      ).text
 
       expect { dispatch(update) }
         .to send_telegram_message(bot, expected_text, chat_id:)
