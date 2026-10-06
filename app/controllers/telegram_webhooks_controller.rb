@@ -1,6 +1,7 @@
 class TelegramWebhooksController < Telegram::Bot::UpdatesController
   include Telegram::Bot::UpdatesController::MessageContext
   include AdminCommands
+  include ChatHistoryRecording
   include TelegramLocale
   include SessionAccessor
   include ErrorHandler
