@@ -1,0 +1,53 @@
+ru:
+  telegram_webhooks:
+    commands:
+      review:
+        ask: "📝 Нам очень важен ваш честный отзыв! Это займёт около 2 минут и поможет сделать бота лучше."
+        button: "📝 Оставить отзыв"
+        already_reviewed: "🙏 Спасибо, вы уже оставили отзыв!"
+  admin_notifications:
+    new_review: "📝 New review from %{name} (user %{user_id}): %{stars} %{rating}/5"
+  reviews:
+    thank_you: "🙏 Спасибо за отзыв! Ваше мнение очень помогает нам улучшать бота."
+    mini_app:
+      title: "Ваш отзыв"
+      intro: "Пожалуйста, ответьте на все вопросы. Это займёт около 2 минут."
+      submit: "Отправить отзыв"
+      sending: "Отправляем..."
+      success: "Спасибо за отзыв! 🙏"
+      other_label: "Другое"
+      other_placeholder: "Расскажите подробнее"
+      text_placeholder: "Ваш ответ"
+      errors:
+        required: "Пожалуйста, ответьте на этот вопрос."
+        too_short: "Пожалуйста, напишите не меньше %{count} символов."
+        too_long: "Пожалуйста, уложитесь в %{max} символов."
+        invalid_option: "Пожалуйста, выберите из предложенных вариантов."
+        other_too_short: "Пожалуйста, опишите «Другое» хотя бы в %{count} символах."
+        fix_answers: "Пожалуйста, проверьте отмеченные ответы."
+        generic: "Что-то пошло не так. Попробуйте снова отправить /review в боте."
+        already_reviewed: "Вы уже оставили отзыв. Спасибо!"
+    survey:
+      v1:
+        questions:
+          rating:
+            title: "Как вы в целом оцениваете бота?"
+          use_cases:
+            title: "Для чего вы используете бота?"
+            options:
+              social_media: "Контент для соцсетей и шортсы"
+              cartoons: "Мультфильмы и анимация"
+              work: "Работа или бизнес"
+              fun: "Для себя, ради удовольствия"
+          features:
+            title: "Какими функциями вы пользуетесь чаще всего?"
+            options:
+              image_generation: "Генерация картинок"
+              video: "Видео"
+              audio: "Аудио и озвучка"
+              image_editing: "Редактирование картинок"
+              cartoon_scripts: "Сценарии мультфильмов"
+          missing:
+            title: "Чего не хватает в боте?"
+          frustrations:
+            title: "Что вас не устраивает или раздражает?"

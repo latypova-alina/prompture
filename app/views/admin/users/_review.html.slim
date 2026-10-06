@@ -1,0 +1,2 @@
+p.muted = "Submitted #{review.created_at} (survey v#{review.survey_version}, #{review.locale})"
+= render "admin/shared/fields", fields: Reviews::ReadableAnswers.call(review).to_h

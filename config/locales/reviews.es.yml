@@ -1,0 +1,53 @@
+es:
+  telegram_webhooks:
+    commands:
+      review:
+        ask: "📝 ¡Nos encantaría conocer tu opinión sincera! Te llevará unos 2 minutos y nos ayudará a mejorar el bot."
+        button: "📝 Dejar una reseña"
+        already_reviewed: "🙏 ¡Gracias, ya dejaste una reseña!"
+  admin_notifications:
+    new_review: "📝 New review from %{name} (user %{user_id}): %{stars} %{rating}/5"
+  reviews:
+    thank_you: "🙏 ¡Gracias por tu reseña! Tu opinión nos ayuda mucho a mejorar el bot."
+    mini_app:
+      title: "Tu opinión"
+      intro: "Por favor, responde todas las preguntas. Te llevará unos 2 minutos."
+      submit: "Enviar reseña"
+      sending: "Enviando..."
+      success: "¡Gracias por tu reseña! 🙏"
+      other_label: "Otro"
+      other_placeholder: "Cuéntanos más"
+      text_placeholder: "Tu respuesta"
+      errors:
+        required: "Por favor, responde esta pregunta."
+        too_short: "Por favor, escribe al menos %{count} caracteres."
+        too_long: "Por favor, no superes los %{max} caracteres."
+        invalid_option: "Por favor, elige entre las opciones."
+        other_too_short: "Por favor, describe \"Otro\" con al menos %{count} caracteres."
+        fix_answers: "Por favor, revisa las respuestas marcadas."
+        generic: "Algo salió mal. Vuelve a intentarlo con /review desde el bot."
+        already_reviewed: "Ya dejaste una reseña. ¡Gracias!"
+    survey:
+      v1:
+        questions:
+          rating:
+            title: "¿Cómo valoras el bot en general?"
+          use_cases:
+            title: "¿Para qué usas el bot?"
+            options:
+              social_media: "Contenido para redes sociales y shorts"
+              cartoons: "Dibujos animados y animación"
+              work: "Trabajo o negocio"
+              fun: "Diversión personal"
+          features:
+            title: "¿Qué funciones usas más?"
+            options:
+              image_generation: "Generación de imágenes"
+              video: "Video"
+              audio: "Audio y voz"
+              image_editing: "Edición de imágenes"
+              cartoon_scripts: "Guiones de dibujos animados"
+          missing:
+            title: "¿Qué le falta al bot?"
+          frustrations:
+            title: "¿Qué no te convence o te molesta?"

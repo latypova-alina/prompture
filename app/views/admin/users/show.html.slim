@@ -22,3 +22,9 @@ h2 Generation history
 ul.history-links
   li = link_to "Command requests (#{@command_request_count})", user_command_requests_path(@user)
   li = link_to "Button requests (#{@button_request_count})", user_button_requests_path(@user)
+
+h2 Review
+- if @user.review
+  = render "admin/users/review", review: @user.review
+- else
+  p.empty-state No review yet.

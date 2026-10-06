@@ -7,6 +7,8 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
   include TgChatAuthorization
   include StarsPayments
   include SupportCommands
+  include ReviewCommands
+  include GenerationCommands
 
   def start!(token_code = nil)
     handled_token = TokenHandler::HandleToken.call(
@@ -37,14 +39,6 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
     )
   end
 
-  def prompt_to_video!(*)
-    session[:command] = "prompt_to_video"
-
-    MediaGenerator::CommandHandler::HandleCommand.call(command: session[:command], chat_id: chat["id"])
-
-    respond_with :message, text: t("telegram_webhooks.commands.prompt_to_video")
-  end
-
   def set_locale!(*)
     SetLocale::CommandHandler::HandleCommand.call(
       chat_id: chat["id"],
@@ -55,52 +49,6 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
   def balance!(*)
     credits = user.balance.credits
     respond_with :message, text: t("telegram_webhooks.commands.balance", balance: credits, count: credits)
-  end
-
-  def prompt_to_image!(*)
-    session[:command] = "prompt_to_image"
-
-    MediaGenerator::CommandHandler::HandleCommand.call(command: session[:command], chat_id: chat["id"])
-
-    respond_with :message, text: t("telegram_webhooks.commands.prompt_to_image")
-  end
-
-  def prompt_to_audio!(*)
-    session[:command] = "prompt_to_audio"
-
-    MediaGenerator::CommandHandler::HandleCommand.call(command: session[:command], chat_id: chat["id"])
-
-    respond_with :message, text: t("telegram_webhooks.commands.prompt_to_audio")
-  end
-
-  def image_to_video!(*)
-    return unless terms_accepted?
-
-    session[:command] = "image_to_video"
-
-    MediaGenerator::CommandHandler::HandleCommand.call(command: session[:command], chat_id: chat["id"])
-
-    respond_with :message, text: t("telegram_webhooks.commands.image_to_video")
-  end
-
-  def first_last_frame_to_video!(*)
-    return unless terms_accepted?
-
-    session[:command] = "first_last_frame_to_video"
-
-    MediaGenerator::CommandHandler::HandleCommand.call(command: session[:command], chat_id: chat["id"])
-
-    respond_with :message, text: t("telegram_webhooks.commands.first_last_frame_to_video")
-  end
-
-  def edit_image!(*)
-    return unless terms_accepted?
-
-    session[:command] = "edit_image"
-
-    MediaGenerator::CommandHandler::HandleCommand.call(command: session[:command], chat_id: chat["id"])
-
-    respond_with :message, text: t("telegram_webhooks.commands.edit_image")
   end
 
   def callback_query(button_request)

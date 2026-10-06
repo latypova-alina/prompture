@@ -24,5 +24,8 @@ Rails.application.routes.draw do
   namespace :mini_app do
     get "buy_stones", to: "buy_stones#show", as: :buy_stones
     post "buy_stones/packs", to: "buy_stones#packs"
+    get "review", to: "reviews#show", as: :review
+    post "review/survey", to: "reviews#survey", as: :review_survey
+    post "review", to: "reviews#create"
   end
 end

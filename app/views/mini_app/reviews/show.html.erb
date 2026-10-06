@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Prompture</title>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <style>
+      :root {
+        --tg-bg-color: #ffffff;
+        --tg-text-color: #000000;
+        --tg-hint-color: #999999;
+        --tg-button-color: #2481cc;
+        --tg-button-text-color: #ffffff;
+        --tg-secondary-bg-color: #f0f0f0;
+        --error-color: #d93025;
+      }
+
+      * { box-sizing: border-box; }
+
+      body {
+        margin: 0;
+        padding: 16px;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        background: var(--tg-bg-color);
+        color: var(--tg-text-color);
+      }
+
+      #status {
+        display: flex;
+        justify-content: center;
+        padding: 32px 0;
+        text-align: center;
+      }
+
+      .spinner {
+        width: 28px;
+        height: 28px;
+        border-radius: 50%;
+        border: 3px solid var(--tg-secondary-bg-color);
+        border-top-color: var(--tg-button-color);
+        animation: spin 0.8s linear infinite;
+      }
+
+      @keyframes spin {
+        to { transform: rotate(360deg); }
+      }
+
+      h1 { font-size: 20px; margin: 0 0 6px; }
+
+      .intro { color: var(--tg-hint-color); font-size: 14px; margin: 0 0 16px; }
+
+      .question {
+        background: var(--tg-secondary-bg-color);
+        border-radius: 12px;
+        padding: 14px 16px;
+        margin-bottom: 12px;
+      }
+
+      .question-title { font-size: 16px; font-weight: 600; margin-bottom: 10px; }
+
+      .question.invalid { outline: 2px solid var(--error-color); }
+
+      .question-error { color: var(--error-color); font-size: 13px; margin-top: 8px; display: none; }
+
+      .question.invalid .question-error { display: block; }
+
+      .stars { display: flex; gap: 6px; }
+
+      .star {
+        flex: 1;
+        border: none;
+        border-radius: 10px;
+        padding: 10px 0;
+        font-size: 24px;
+        background: var(--tg-bg-color);
+        opacity: 0.35;
+      }
+
+      .star.active { opacity: 1; }
+
+      .option {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 6px 0;
+        font-size: 15px;
+      }
+
+      .option input { width: 18px; height: 18px; flex: none; }
+
+      textarea {
+        width: 100%;
+        min-height: 88px;
+        border: 1px solid var(--tg-hint-color);
+        border-radius: 10px;
+        padding: 10px;
+        font: inherit;
+        font-size: 15px;
+        background: var(--tg-bg-color);
+        color: var(--tg-text-color);
+        resize: vertical;
+      }
+
+      .other-text { margin-top: 8px; display: none; }
+
+      .other-text.visible { display: block; }
+
+      .counter { color: var(--tg-hint-color); font-size: 12px; text-align: right; margin-top: 4px; }
+
+      #submit {
+        width: 100%;
+        border: none;
+        border-radius: 10px;
+        padding: 14px;
+        font-size: 16px;
+        font-weight: 600;
+        background: var(--tg-button-color);
+        color: var(--tg-button-text-color);
+        margin-top: 4px;
+      }
+
+      #submit:disabled { opacity: 0.5; }
+
+      #form-error { color: var(--error-color); font-size: 14px; margin: 8px 0; }
+    </style>
+  </head>
+
+  <body>
+    <div id="status"><div class="spinner"></div></div>
+    <form id="survey" style="display: none" novalidate>
+      <h1 id="title"></h1>
+      <p class="intro" id="intro"></p>
+      <div id="questions"></div>
+      <div id="form-error"></div>
+      <button type="submit" id="submit"></button>
+    </form>
+
+    <script>
+      (function () {
+        var FALLBACK_ERROR = "Something went wrong. Please try /review again from the bot.";
+
+        var tg = window.Telegram && window.Telegram.WebApp;
+        var initData = tg ? tg.initData : "";
+        var statusEl = document.getElementById("status");
+        var formEl = document.getElementById("survey");
+        var questionsEl = document.getElementById("questions");
+        var formErrorEl = document.getElementById("form-error");
+        var submitEl = document.getElementById("submit");
+
+        var survey = null;
+        var answers = {};
+        var draftKey = "review-draft-" + (tg && tg.initDataUnsafe && tg.initDataUnsafe.user ? tg.initDataUnsafe.user.id : "anon");
+
+        function applyTheme() {
+          if (!tg || !tg.themeParams) return;
+
+          var theme = tg.themeParams;
+          var root = document.documentElement;
+
+          if (theme.bg_color) root.style.setProperty("--tg-bg-color", theme.bg_color);
+          if (theme.text_color) root.style.setProperty("--tg-text-color", theme.text_color);
+          if (theme.hint_color) root.style.setProperty("--tg-hint-color", theme.hint_color);
+          if (theme.button_color) root.style.setProperty("--tg-button-color", theme.button_color);
+          if (theme.button_text_color) root.style.setProperty("--tg-button-text-color", theme.button_text_color);
+          if (theme.secondary_bg_color) root.style.setProperty("--tg-secondary-bg-color", theme.secondary_bg_color);
+        }
+
+        function showStatus(message) {
+          formEl.style.display = "none";
+          statusEl.style.display = "flex";
+          statusEl.textContent = message || FALLBACK_ERROR;
+        }
+
+        // Drafts survive accidentally closing the mini app. Storage can be unavailable, so never let it break the form.
+        function loadDraft() {
+          try { return JSON.parse(localStorage.getItem(draftKey)) || {}; } catch (e) { return {}; }
+        }
+
+        function saveDraft() {
+          try { localStorage.setItem(draftKey, JSON.stringify(answers)); } catch (e) {}
+        }
+
+        function clearDraft() {
+          try { localStorage.removeItem(draftKey); } catch (e) {}
+        }
+
+        function post(path, payload) {
+          return fetch(path, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(payload)
+          }).then(function (response) {
+            return response.json().then(function (data) {
+              return { ok: response.ok, status: response.status, data: data };
+            });
+          });
+        }
+
+        function el(tag, className, text) {
+          var node = document.createElement(tag);
+          if (className) node.className = className;
+          if (text) node.textContent = text;
+          return node;
+        }
+
+        function textLength(value) {
+          return (value || "").trim().length;
+        }
+
+        function counter(textarea, minLength) {
+          var node = el("div", "counter");
+          function update() { node.textContent = textLength(textarea.value) + " / " + minLength + "+"; }
+          textarea.addEventListener("input", update);
+          update();
+          return node;
+        }
+
+        function renderRating(question, container) {
+          var stars = el("div", "stars");
+
+          for (var value = 1; value <= 5; value++) {
+            (function (value) {
+              var star = el("button", "star", "⭐");
+              star.type = "button";
+              star.addEventListener("click", function () {
+                answers[question.id] = value;
+                saveDraft();
+                paintStars();
+              });
+              stars.appendChild(star);
+            })(value);
+          }
+
+          function paintStars() {
+            Array.prototype.forEach.call(stars.children, function (star, index) {
+              star.classList.toggle("active", index < (answers[question.id] || 0));
+            });
+          }
+
+          paintStars();
+          container.appendChild(stars);
+        }
+
+        function renderChoice(question, container) {
+          var answer = answers[question.id] || { selected: [] };
+          answers[question.id] = answer;
+          var inputType = question.type === "single_choice" ? "radio" : "checkbox";
+          var options = question.options.slice();
+          if (question.other) options.push({ id: "other", label: question.other.label });
+
+          var otherText = document.createElement("textarea");
+          otherText.className = "other-text";
+          otherText.placeholder = survey.ui.other_placeholder;
+          otherText.value = answer.other || "";
+          otherText.addEventListener("input", function () {
+            answer.other = otherText.value;
+            saveDraft();
+          });
+
+          options.forEach(function (option) {
+            var label = el("label", "option");
+            var input = document.createElement("input");
+            input.type = inputType;
+            input.name = question.id;
+            input.checked = answer.selected.indexOf(option.id) !== -1;
+            input.addEventListener("change", function () {
+              if (inputType === "radio") answer.selected = [];
+              answer.selected = answer.selected.filter(function (id) { return id !== option.id; });
+              if (input.checked) answer.selected.push(option.id);
+              otherText.classList.toggle("visible", answer.selected.indexOf("other") !== -1);
+              saveDraft();
+            });
+            label.appendChild(input);
+            label.appendChild(document.createTextNode(option.label));
+            container.appendChild(label);
+          });
+
+          if (question.other) {
+            otherText.classList.toggle("visible", answer.selected.indexOf("other") !== -1);
+            container.appendChild(otherText);
+          }
+        }
+
+        function renderText(question, container) {
+          var textarea = document.createElement("textarea");
+          textarea.placeholder = survey.ui.text_placeholder;
+          textarea.value = answers[question.id] || "";
+          textarea.addEventListener("input", function () {
+            answers[question.id] = textarea.value;
+            saveDraft();
+          });
+          container.appendChild(textarea);
+          container.appendChild(counter(textarea, question.min_length));
+        }
+
+        var RENDERERS = { rating: renderRating, single_choice: renderChoice, multi_choice: renderChoice, text: renderText };
+
+        function renderSurvey() {
+          document.getElementById("title").textContent = survey.ui.title;
+          document.getElementById("intro").textContent = survey.ui.intro;
+          submitEl.textContent = survey.ui.submit;
+          questionsEl.innerHTML = "";
+
+          survey.questions.forEach(function (question) {
+            var container = el("div", "question");
+            container.dataset.questionId = question.id;
+            container.appendChild(el("div", "question-title", question.title));
+            RENDERERS[question.type](question, container);
+            container.appendChild(el("div", "question-error"));
+            questionsEl.appendChild(container);
+          });
+
+          statusEl.style.display = "none";
+          formEl.style.display = "";
+        }
+
+        // Mirrors Reviews::AnswersValidator on the server, for UX only - the server is the authority.
+        function errorFor(question) {
+          var answer = answers[question.id];
+          var max = survey.max_length;
+
+          if (question.type === "rating") return answer >= 1 && answer <= 5 ? null : "required";
+
+          if (question.type === "text") {
+            if (!textLength(answer)) return "required";
+            if (textLength(answer) < question.min_length) return "too_short";
+            return textLength(answer) > max ? "too_long" : null;
+          }
+
+          if (!answer || !answer.selected.length) return "required";
+          if (answer.selected.indexOf("other") === -1) return null;
+          if (textLength(answer.other) < question.other.min_length) return "other_too_short";
+          return textLength(answer.other) > max ? "too_long" : null;
+        }
+
+        function showErrors(errors) {
+          Array.prototype.forEach.call(questionsEl.children, function (container) {
+            var message = errors[container.dataset.questionId];
+            container.classList.toggle("invalid", !!message);
+            container.querySelector(".question-error").textContent = message || "";
+          });
+
+          var firstInvalid = questionsEl.querySelector(".question.invalid");
+          if (firstInvalid) firstInvalid.scrollIntoView({ behavior: "smooth", block: "center" });
+        }
+
+        function localErrors() {
+          var errors = {};
+          survey.questions.forEach(function (question) {
+            var key = errorFor(question);
+            if (key) errors[question.id] = survey.errors[key];
+          });
+          return errors;
+        }
+
+        function submit(event) {
+          event.preventDefault();
+          formErrorEl.textContent = "";
+
+          var errors = localErrors();
+          showErrors(errors);
+          if (Object.keys(errors).length) return;
+
+          submitEl.disabled = true;
+          submitEl.textContent = survey.ui.sending;
+
+          post(<%= raw mini_app_review_path.to_json %>, { init_data: initData, answers: answers })
+            .then(function (result) {
+              if (result.ok) {
+                clearDraft();
+                showStatus(result.data.message);
+                setTimeout(function () { if (tg) tg.close(); }, 1500);
+                return;
+              }
+
+              if (result.status === 422) {
+                showErrors(result.data.errors || {});
+                formErrorEl.textContent = result.data.error || "";
+              } else {
+                showStatus(result.data.error);
+              }
+            })
+            .catch(function () { formErrorEl.textContent = FALLBACK_ERROR; })
+            .finally(function () {
+              submitEl.disabled = false;
+              submitEl.textContent = survey.ui.submit;
+            });
+        }
+
+        function load() {
+          post(<%= raw mini_app_review_survey_path.to_json %>, { init_data: initData })
+            .then(function (result) {
+              if (!result.ok) return showStatus(result.data.error);
+              if (result.data.already_reviewed) return showStatus(result.data.survey.errors.already_reviewed || FALLBACK_ERROR);
+
+              survey = result.data.survey;
+              answers = loadDraft();
+              renderSurvey();
+            })
+            .catch(function () { showStatus(FALLBACK_ERROR); });
+        }
+
+        formEl.addEventListener("submit", submit);
+
+        if (tg) {
+          tg.ready();
+          tg.expand();
+        }
+
+        applyTheme();
+        load();
+      })();
+    </script>
+  </body>
+</html>
