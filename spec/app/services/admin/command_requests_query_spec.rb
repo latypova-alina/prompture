@@ -45,7 +45,7 @@ describe Admin::CommandRequestsQuery do
   end
 
   context "when filtering by date range" do
-    let(:date_from) { 1.5.days.ago.to_date.to_s }
+    let(:date_from) { 1.day.ago.to_date.to_s }
 
     it { expect(call.records).to contain_exactly(audio_command) }
   end
