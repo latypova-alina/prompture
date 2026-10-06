@@ -1,49 +1,48 @@
 require "rails_helper"
 
 describe StarsPayment::NotifyUser do
-  subject(:result) { described_class.call(chat_id:, stars_purchase:, newly_recorded:) }
+  subject(:result) { described_class.call(chat_id:, user:, locale: "en", stars_purchase:, newly_recorded:) }
 
   let(:chat_id) { 456 }
-  let(:stars_purchase) { create(:stars_purchase, credits_amount: 250) }
+  let(:user) { create(:user, chat_id:).tap { |user| create(:balance, user:, credits: 2) } }
+  let(:stars_purchase) { create(:stars_purchase, user:, credits_amount: 50) }
+  let(:newly_recorded) { true }
 
-  let(:bot) { instance_double(Telegram::Bot::Client) }
-
-  let(:expected_text) do
-    I18n.t(
-      "telegram_webhooks.commands.buy_stones.thank_you",
-      credits: stars_purchase.credits_amount,
-      count: stars_purchase.credits_amount
-    )
-  end
+  let(:bot) { instance_double(Telegram::Bot::Client, send_message: true) }
 
   before do
     allow(Telegram).to receive(:bot).and_return(bot)
-    allow(bot).to receive(:send_message)
+    Billing::CreditsGranter.call(user:, amount: 50, source: stars_purchase)
   end
 
-  describe "#call" do
-    context "when newly recorded" do
-      let(:newly_recorded) { true }
+  it { is_expected.to be_success }
 
-      it "sends the thank you message via Telegram" do
-        expect(bot).to receive(:send_message).with(chat_id:, text: expected_text)
+  it "sends the credited amount and the balance after the purchase" do
+    result
 
-        result
-      end
+    expect(bot).to have_received(:send_message).with(
+      chat_id:,
+      text: "🎉 Payment received! 50 stones 🪨 have been added to your balance.\nYour current balance is 52 stones 🪨."
+    )
+  end
 
-      it "is successful" do
-        expect(result).to be_success
-      end
+  context "when the user had no balance before the purchase" do
+    let(:user) { create(:user, chat_id:) }
+
+    it "shows the balance the purchase created" do
+      result
+
+      expect(bot).to have_received(:send_message).with(chat_id:, text: end_with("Your current balance is 50 stones 🪨."))
     end
+  end
 
-    context "when not newly recorded (replayed update)" do
-      let(:newly_recorded) { false }
+  context "when not newly recorded (replayed update)" do
+    let(:newly_recorded) { false }
 
-      it "does not send a message" do
-        expect(bot).not_to receive(:send_message)
+    it "does not send a message" do
+      result
 
-        result
-      end
+      expect(bot).not_to have_received(:send_message)
     end
   end
 end
