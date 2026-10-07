@@ -52,6 +52,11 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
     respond_with :message, text: t("telegram_webhooks.commands.balance", balance: credits, count: credits)
   end
 
+  # Telegram reports a private chat being blocked/unblocked here. Nothing is sent back.
+  def my_chat_member(chat_member)
+    UserBlocks::ChatMemberHandler.call(chat_member)
+  end
+
   def callback_query(button_request)
     TelegramIntegration::CallbackQuery::CallbackQueryDispatcher.call(
       button_request:,

@@ -70,6 +70,7 @@ module ChatEvents
       when "callback_query" then callback_payload
       when "pre_checkout_query" then payment_payload(body).merge("pre_checkout_query_id" => body["id"])
       when "successful_payment" then payment_payload(body["successful_payment"])
+      when "my_chat_member" then { "status" => body.dig("new_chat_member", "status") }
       else {}
       end
     end

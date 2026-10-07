@@ -1,7 +1,7 @@
 module TelegramLocale
   extend ActiveSupport::Concern
 
-  included { before_action :set_locale, except: %i[pre_checkout_query] }
+  included { before_action :set_locale, except: %i[pre_checkout_query my_chat_member] }
 
   def normalized_locale
     return I18n.default_locale unless language_code

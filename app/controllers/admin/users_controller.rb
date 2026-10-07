@@ -4,7 +4,7 @@ module Admin
 
     def index
       @sort = Admin::SortParams.call(params, keys: Admin::UsersQuery::SORT_KEYS)
-      @users = Admin::UsersQuery.call(sort: @sort)
+      @users = Admin::UsersQuery.call(sort: @sort, blocked: params[:blocked])
     end
 
     def show

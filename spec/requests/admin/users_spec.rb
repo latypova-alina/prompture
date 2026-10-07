@@ -60,6 +60,43 @@ describe "Admin users" do
     end
   end
 
+  describe "blocked users" do
+    let!(:blocked) { create(:user, name: "Zed", blocked_at: Time.zone.parse("2026-10-01 12:00")) }
+    let!(:active) { create(:user, name: "Amy") }
+
+    it "shows a badge on the user page" do
+      get "/users/#{blocked.id}", headers: auth_headers
+
+      expect(response.body).to include("Blocked the bot since October 01, 2026")
+    end
+
+    it "doesn't show the badge for a user who didn't block the bot" do
+      get "/users/#{active.id}", headers: auth_headers
+
+      expect(response.body).not_to include("Blocked the bot since")
+    end
+
+    it "marks blocked users in the list" do
+      get "/users", headers: auth_headers
+
+      expect(response.body).to include("badge-blocked")
+    end
+
+    it "filters to blocked users" do
+      get "/users", params: { blocked: "blocked" }, headers: auth_headers
+
+      expect(response.body).to include(">Zed<")
+      expect(response.body).not_to include(">Amy<")
+    end
+
+    it "filters to users who didn't block the bot" do
+      get "/users", params: { blocked: "not_blocked" }, headers: auth_headers
+
+      expect(response.body).to include(">Amy<")
+      expect(response.body).not_to include(">Zed<")
+    end
+  end
+
   describe "sorting GET /users" do
     let!(:rich) { create(:user, name: "Zed").tap { |user| create(:balance, user:, credits: 900) } }
     let!(:poor) { create(:user, name: "Amy").tap { |user| create(:balance, user:, credits: 1) } }

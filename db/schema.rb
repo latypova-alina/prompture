@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2026_10_06_145900) do
+ActiveRecord::Schema[8.0].define(version: 2026_10_07_141620) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -466,6 +466,7 @@ ActiveRecord::Schema[8.0].define(version: 2026_10_06_145900) do
     t.datetime "updated_at", null: false
     t.string "locale", default: "en", null: false
     t.boolean "admin", default: false, null: false
+    t.datetime "blocked_at"
     t.index ["chat_id"], name: "index_users_on_chat_id", unique: true
   end
 
