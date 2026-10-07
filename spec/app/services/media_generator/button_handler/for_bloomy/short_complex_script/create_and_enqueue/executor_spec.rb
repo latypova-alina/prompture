@@ -5,7 +5,8 @@ describe MediaGenerator::ButtonHandler::ForBloomy::ShortComplexScript::CreateAnd
     described_class.call(start_scene:, end_scene:, command_request:)
   end
 
-  let(:user) { create(:user, :with_custom_balance, credits: 50) }
+  let(:credits) { 50 }
+  let(:user) { create(:user, :with_custom_balance, credits:) }
   let(:command_request) do
     create(
       :command_edit_image_request,
@@ -44,5 +45,24 @@ describe MediaGenerator::ButtonHandler::ForBloomy::ShortComplexScript::CreateAnd
     expect(Generator::Media::Video::EnqueueVideoTask).to have_received(:call).with(
       an_instance_of(ButtonVideoProcessingRequest)
     )
+  end
+
+  context "when the user can't afford the video" do
+    let(:credits) { 0 }
+    let(:insufficient_credits_failure) { { status: "FAILED", failure_reason: "insufficient_credits" } }
+
+    it { expect { call_service }.to raise_error(InsufficientCreditsError) }
+
+    it "marks the created video request as failed" do
+      expect { call_service }.to raise_error(InsufficientCreditsError)
+
+      expect(ButtonVideoProcessingRequest.sole).to have_attributes(insufficient_credits_failure)
+    end
+
+    it "doesn't enqueue the video" do
+      expect { call_service }.to raise_error(InsufficientCreditsError)
+
+      expect(Generator::Media::Video::EnqueueVideoTask).not_to have_received(:call)
+    end
   end
 end

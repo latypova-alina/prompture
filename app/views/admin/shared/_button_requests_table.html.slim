@@ -21,6 +21,6 @@
           tr
             td.wrap-cell = admin_request_link(button_request)
             td.wrap-cell = button_request.processor
-            td = render "admin/shared/status_badge", status: button_request.status
+            td = render "admin/shared/status_badge", status: button_request.status, reason: button_request.failure_reason
             td = button_request.cost
             td.wrap-cell = button_request.created_at

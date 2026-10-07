@@ -26,7 +26,7 @@ h1 Requests
                 td = Admin::CommandRequestsQuery::TYPES.include?(record.class) ? "Command" : "Button"
                 td.wrap-cell = admin_request_link(record)
                 td.wrap-cell = link_to record.user.name, user_path(record.user)
-                td = render "admin/shared/status_badge", status: record.try(:status)
+                td = render "admin/shared/status_badge", status: record.try(:status), reason: record.try(:failure_reason)
                 td.wrap-cell = record.created_at
 
     = render "admin/shared/pagination", result: @result

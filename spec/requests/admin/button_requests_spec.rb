@@ -25,6 +25,25 @@ describe "Admin button requests" do
     create(:button_extend_prompt_request, command_request: command, created_at: 1.day.ago)
   end
 
+  describe "failure reason" do
+    let!(:failed_request) do
+      create(:button_image_processing_request, command_request: command, status: "FAILED",
+                                               failure_reason: "insufficient_credits")
+    end
+
+    it "shows it next to the status in the list" do
+      get "/users/#{user.id}/button_requests", headers: auth_headers
+
+      expect(response.body).to include("Insufficient credits")
+    end
+
+    it "shows it on the request page" do
+      get "/button_requests/image_processing/#{failed_request.id}", headers: auth_headers
+
+      expect(response.body).to include("insufficient_credits")
+    end
+  end
+
   describe "GET /users/:user_id/button_requests" do
     it "requires authentication" do
       get "/users/#{user.id}/button_requests"

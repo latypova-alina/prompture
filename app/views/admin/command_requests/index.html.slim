@@ -42,7 +42,7 @@ h1 Command requests
                         li
                           = admin_request_link(button_request)
                           = " "
-                          = render "admin/shared/status_badge", status: button_request.status
+                          = render "admin/shared/status_badge", status: button_request.status, reason: button_request.failure_reason
                 td.wrap-cell = command_request.created_at
 
     = render "admin/shared/pagination", result: @result

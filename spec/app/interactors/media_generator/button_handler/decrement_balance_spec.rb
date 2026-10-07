@@ -48,4 +48,27 @@ describe MediaGenerator::ButtonHandler::DecrementBalance do
       end
     end
   end
+
+  describe "with a real balance" do
+    let(:user) { create(:user, :with_custom_balance, credits:) }
+    let(:button_request_record) { create(:button_image_processing_request, user:) }
+    let(:insufficient_credits_failure) { { status: "FAILED", failure_reason: "insufficient_credits" } }
+
+    before { subject }
+
+    context "when the user can't afford the request" do
+      let(:credits) { 0 }
+
+      it { is_expected.to be_failure }
+      it { expect(subject.error).to eq(InsufficientCreditsError) }
+      it { expect(button_request_record.reload).to have_attributes(insufficient_credits_failure) }
+    end
+
+    context "when the user can afford the request" do
+      let(:credits) { 100 }
+
+      it { is_expected.to be_success }
+      it { expect(button_request_record.reload).to have_attributes(status: "PENDING", failure_reason: nil) }
+    end
+  end
 end

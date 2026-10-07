@@ -40,7 +40,7 @@ h1 Button requests
                   td.wrap-cell = link_to button_request.user.name, user_path(button_request.user)
                 td.wrap-cell = admin_request_link(button_request)
                 td.wrap-cell = button_request.humanized_process_name
-                td = render "admin/shared/status_badge", status: button_request.status
+                td = render "admin/shared/status_badge", status: button_request.status, reason: button_request.failure_reason
                 td = button_request.cost
                 td
                   - media_url = button_request.try(:resolved_media_url)
