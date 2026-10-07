@@ -1,6 +1,9 @@
 = link_to "← Users", users_path, class: "back-link"
 
 h1 = @user.name
+- if @user.blocked_at
+  p
+    span.badge.badge-blocked = "Blocked the bot since #{l(@user.blocked_at, format: :long)}"
 ul.meta-list
   li
     strong ID

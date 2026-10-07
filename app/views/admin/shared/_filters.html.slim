@@ -55,13 +55,22 @@ aside.filters-panel
           option value="with" selected=(params[:has_button_requests] == "with") With button requests
           option value="without" selected=(params[:has_button_requests] == "without") Without button requests
 
-    label
-      | From
-      input type="date" name="date_from" value=params[:date_from]
+    - if local_assigns[:blocked].present?
+      label
+        | Blocked the bot
+        select name="blocked"
+          option value="" All
+          option value="blocked" selected=(params[:blocked] == "blocked") Blocked
+          option value="not_blocked" selected=(params[:blocked] == "not_blocked") Not blocked
 
-    label
-      | To
-      input type="date" name="date_to" value=params[:date_to]
+    - if local_assigns.fetch(:dates, true)
+      label
+        | From
+        input type="date" name="date_from" value=params[:date_from]
+
+      label
+        | To
+        input type="date" name="date_to" value=params[:date_to]
 
     button type="submit" Filter
     = link_to "Reset", request.path, class: "filters-reset"

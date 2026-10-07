@@ -72,6 +72,22 @@ describe ChatEvents::ClientInstrumentation do
       expect(outgoing.sole.payload["error"])
         .to eq("class" => "Telegram::Bot::Forbidden", "message" => "Forbidden: bot was blocked by the user")
     end
+
+    it "marks the user as blocked" do
+      client.send_message(chat_id:, text: "hi")
+    rescue Telegram::Bot::Forbidden
+      expect(user.reload.blocked_at).to be_present
+    end
+  end
+
+  describe "when Telegram rejects a send for another reason" do
+    before { stub_api("sendMessage", result: "Forbidden: user is deactivated", status: 403) }
+
+    it "doesn't mark the user as blocked" do
+      client.send_message(chat_id:, text: "hi")
+    rescue Telegram::Bot::Forbidden
+      expect(user.reload.blocked_at).to be_nil
+    end
   end
 
   describe "calls that aren't part of a user's conversation" do

@@ -1,18 +1,26 @@
 h1 Users
 
-table
-  thead
-    tr
-      th = sortable_header("ID", "id", @sort)
-      th = sortable_header("Name", "name", @sort)
-      th = sortable_header("Locale", "locale", @sort)
-      th = sortable_header("Balance", "balance", @sort)
-      th = sortable_header("Admin", "admin", @sort)
-  tbody
-    - @users.each do |user|
-      tr
-        td = user.id
-        td = link_to user.name, user_path(user)
-        td = user.locale
-        td = user.balance&.credits || 0
-        td = user.admin? ? "yes" : "no"
+.page-with-filters
+  .page-content
+    table
+      thead
+        tr
+          th = sortable_header("ID", "id", @sort)
+          th = sortable_header("Name", "name", @sort)
+          th = sortable_header("Locale", "locale", @sort)
+          th = sortable_header("Balance", "balance", @sort)
+          th = sortable_header("Admin", "admin", @sort)
+          th Blocked
+      tbody
+        - @users.each do |user|
+          tr
+            td = user.id
+            td = link_to user.name, user_path(user)
+            td = user.locale
+            td = user.balance&.credits || 0
+            td = user.admin? ? "yes" : "no"
+            td
+              - if user.blocked_at
+                span.badge.badge-blocked blocked
+
+  = render "admin/shared/filters", blocked: true, dates: false
