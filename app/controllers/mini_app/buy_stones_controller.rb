@@ -1,8 +1,6 @@
 module MiniApp
-  class BuyStonesController < ApplicationController
+  class BuyStonesController < BaseController
     include Memery
-
-    layout false
 
     skip_before_action :verify_authenticity_token, only: :packs
 

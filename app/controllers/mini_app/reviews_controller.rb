@@ -1,7 +1,5 @@
 module MiniApp
-  class ReviewsController < ApplicationController
-    layout false
-
+  class ReviewsController < BaseController
     skip_before_action :verify_authenticity_token, only: %i[survey create]
 
     def show; end
