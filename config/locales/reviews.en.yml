@@ -2,10 +2,10 @@ en:
   telegram_webhooks:
     commands:
       review:
-        ask: "📝 We'd love your honest feedback! It takes about 2 minutes and helps us make the bot better."
+        ask: "📝 We're a very small team, so your feedback really matters to us! It takes about 2 minutes and helps us make the bot better."
         ask_with_reward:
-          one: "📝 We'd love your honest feedback! Answer a few questions and get %{count} stone 🪨 as a thank you. It takes about 2 minutes."
-          other: "📝 We'd love your honest feedback! Answer a few questions and get %{count} stones 🪨 as a thank you. It takes about 2 minutes."
+          one: "📝 We're a very small team, so your feedback really matters to us! Answer a few questions and get %{count} stone 🪨 as a thank you. It takes about 2 minutes."
+          other: "📝 We're a very small team, so your feedback really matters to us! Answer a few questions and get %{count} stones 🪨 as a thank you. It takes about 2 minutes."
         button: "📝 Leave a review"
         already_reviewed: "🙏 Thanks, you've already left a review!"
   admin_notifications:

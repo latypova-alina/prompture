@@ -2,10 +2,10 @@ es:
   telegram_webhooks:
     commands:
       review:
-        ask: "📝 ¡Nos encantaría conocer tu opinión sincera! Te llevará unos 2 minutos y nos ayudará a mejorar el bot."
+        ask: "📝 ¡Somos un equipo muy pequeño, así que tu opinión es muy importante para nosotros! Te llevará unos 2 minutos y nos ayudará a mejorar el bot."
         ask_with_reward:
-          one: "📝 ¡Nos encantaría conocer tu opinión sincera! Responde unas preguntas y recibe %{count} piedra 🪨 como agradecimiento. Te llevará unos 2 minutos."
-          other: "📝 ¡Nos encantaría conocer tu opinión sincera! Responde unas preguntas y recibe %{count} piedras 🪨 como agradecimiento. Te llevará unos 2 minutos."
+          one: "📝 ¡Somos un equipo muy pequeño, así que tu opinión es muy importante para nosotros! Responde unas preguntas y recibe %{count} piedra 🪨 como agradecimiento. Te llevará unos 2 minutos."
+          other: "📝 ¡Somos un equipo muy pequeño, así que tu opinión es muy importante para nosotros! Responde unas preguntas y recibe %{count} piedras 🪨 como agradecimiento. Te llevará unos 2 minutos."
         button: "📝 Dejar una reseña"
         already_reviewed: "🙏 ¡Gracias, ya dejaste una reseña!"
   admin_notifications:
