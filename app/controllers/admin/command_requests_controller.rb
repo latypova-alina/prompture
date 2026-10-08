@@ -15,6 +15,7 @@ module Admin
       @command_request = Admin::RequestLookup.call(types: Admin::CommandRequestsQuery::TYPES, slug: params[:type],
                                                    id: params[:id])
       @inputs = Admin::CommandInputs.call(@command_request)
+      @moderations = Admin::InputModerations.new(@command_request)
       @button_requests = Admin::CommandButtonRequestsLoader.call([@command_request]).values.flatten
     end
 

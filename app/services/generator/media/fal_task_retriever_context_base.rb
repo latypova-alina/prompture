@@ -32,7 +32,7 @@ module Generator
       end
 
       def flagged_message
-        error_detail[:msg]
+        fal_error_detail.message
       end
 
       private
@@ -47,12 +47,10 @@ module Generator
         raise NotImplementedError
       end
 
-      def content_policy_violation?
-        error_detail[:type] == "content_policy_violation"
-      end
+      delegate :content_policy_violation?, to: :fal_error_detail
 
-      def error_detail
-        Array(payload[:detail]).first || {}
+      def fal_error_detail
+        Generator::Media::FalErrorDetail.new(payload)
       end
     end
   end

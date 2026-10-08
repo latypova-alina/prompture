@@ -13,6 +13,8 @@ module Generator
         end
 
         def call
+          record_payload
+
           raise Generator::DailyLimitExceeded if response.status == 429
           raise Generator::AccessForbidden, response.body if response.status == 403
           raise Generator::ResponseError, response.body unless response.success?
@@ -32,7 +34,12 @@ module Generator
           api_client_class.new(api_url, final_payload)
         end
 
-        def payload_composer
+        # Saved before submitting, so it's kept even when fal rejects the task.
+        def record_payload
+          Generator::Media::CreateTask::PayloadRecorder.call(request:, payload: final_payload)
+        end
+
+        memoize def payload_composer
           payload_composer_class.new(request, strategy)
         end
 

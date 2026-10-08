@@ -17,6 +17,7 @@ module Generator
 
         def call
           report_error
+          record_failure
 
           ::Billing::Refunder.call(user:, amount: cost, source: request)
 
@@ -33,6 +34,16 @@ module Generator
           return if error.blank?
 
           ERROR_REASONS[error.class]
+        end
+
+        def record_failure
+          return if error.blank?
+
+          details = Generator::Media::CreateTask::FailureDetails.new(error)
+
+          ButtonRequests::FailureRecorder.call(
+            button_request: request, reason: details.reason, message: details.message
+          )
         end
 
         def report_error

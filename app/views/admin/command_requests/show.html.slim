@@ -13,17 +13,24 @@ h2 Fields
 = render "admin/shared/fields", fields: Admin::RecordFields.call(@command_request)
 
 h2 Inputs
-- if @inputs.empty?
+- if @inputs.empty? && @moderations.unlinked_prompts.empty?
   p.empty-state No inputs.
 - else
   - @inputs.each do |input|
     h3 = Admin::RecordLabel.call(input)
+    - @moderations.for(input).each do |result|
+      = render "admin/shared/moderation_result", result:
     = render "admin/shared/fields", fields: Admin::RecordFields.call(input)
     - media = Admin::InputMedia.call(input)
     - if media
       .media-grid
         = render "admin/shared/media_preview", item: media
       = render "admin/shared/url_links", links: { media.label => media.url }
+
+  - @moderations.unlinked_prompts.each do |result|
+    h3 = result.blocked ? "Blocked prompt" : "Prompt"
+    = render "admin/shared/moderation_result", result:
+    = render "admin/shared/fields", fields: { "prompt" => result.input_text, "created_at" => result.created_at }
 
 h2 Button requests
 = render "admin/shared/button_requests_table", button_requests: @button_requests, empty_message: "No button requests."

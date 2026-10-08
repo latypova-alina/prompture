@@ -6,7 +6,7 @@ RSpec.shared_examples "message handling" do
 
     before do
       setup_parent_message
-      allow(Moderation::OpenaiModeration).to receive(:flagged?).and_return(false)
+      stub_openai_moderation(blocked: false)
     end
 
     let(:expected_message) do
@@ -55,7 +55,7 @@ RSpec.shared_examples "message handling" do
 
     context "when message is flagged by moderation" do
       before do
-        allow(Moderation::OpenaiModeration).to receive(:flagged?).and_return(true)
+        stub_openai_moderation(blocked: true)
       end
 
       let(:expected_text) do

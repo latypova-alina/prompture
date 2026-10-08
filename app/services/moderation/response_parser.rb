@@ -19,17 +19,23 @@ Moderation::ResponseParser = Struct.new(:response) do
     categories["sexual/minors"]
   end
 
-  private
+  # OpenAI's own verdict, which our rules don't use.
+  def openai_flagged
+    result["flagged"]
+  end
 
-  def results
+  # The whole results[0] object: categories, category_scores, category_applied_input_types, flagged.
+  def result
     response.dig("results", 0) || {}
   end
 
+  private
+
   def category_scores
-    results["category_scores"] || {}
+    result["category_scores"] || {}
   end
 
   def categories
-    results["categories"] || {}
+    result["categories"] || {}
   end
 end

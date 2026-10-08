@@ -1,9 +1,10 @@
 require "rails_helper"
 
 describe StoreImage::Upload::Facade do
-  subject(:facade) { described_class.new(bytes:, filename:, folder:) }
+  subject(:facade) { described_class.new(bytes:, filename:, folder:, moderatable:) }
 
   let(:bytes) { "image-bytes" }
+  let(:moderatable) { create(:user_picture_message) }
   let(:filename) { "image.jpg" }
   let(:folder) { StoreMedia::Upload::ObjectKeyBuilder::DEFAULT_FOLDER }
   let(:object_key) { "images/20260409/uuid-image.jpg" }
@@ -28,7 +29,7 @@ describe StoreImage::Upload::Facade do
     allow(StoreImage::Upload::ImageDimensionsValidator).to receive(:new).with(bytes:).and_return(dimensions_validator)
     allow(StoreImage::Upload::ModerationValidator)
       .to receive(:new)
-      .with(bytes:, content_type:)
+      .with(bytes:, content_type:, moderatable:)
       .and_return(moderation_validator)
     allow(S3::UrlBuilder).to receive(:new).with(object_key:).and_return(url_builder)
   end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2026_10_07_155050) do
+ActiveRecord::Schema[8.0].define(version: 2026_10_08_154739) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -125,6 +125,7 @@ ActiveRecord::Schema[8.0].define(version: 2026_10_07_155050) do
     t.string "fal_request_id"
     t.string "failure_reason"
     t.text "failure_message"
+    t.jsonb "fal_payload"
     t.index ["audio_prompt_id"], name: "index_button_audio_processing_requests_on_audio_prompt_id"
     t.index ["command_request_type", "command_request_id"], name: "index_button_audio_processing_requests_on_command_request"
     t.index ["parent_request_type", "parent_request_id"], name: "index_button_audio_processing_requests_on_parent_request"
@@ -159,6 +160,7 @@ ActiveRecord::Schema[8.0].define(version: 2026_10_07_155050) do
     t.bigint "interim_tg_message_id"
     t.string "failure_reason"
     t.text "failure_message"
+    t.jsonb "fal_payload"
     t.index ["command_request_type", "command_request_id"], name: "index_button_image_processing_requests_on_command_request"
     t.index ["parent_request_type", "parent_request_id"], name: "index_button_image_processing_requests_on_parent_request"
   end
@@ -196,6 +198,7 @@ ActiveRecord::Schema[8.0].define(version: 2026_10_07_155050) do
     t.bigint "interim_tg_message_id"
     t.string "failure_reason"
     t.text "failure_message"
+    t.jsonb "fal_payload"
     t.index ["command_request_type", "command_request_id"], name: "index_button_video_processing_requests_on_command_request"
     t.index ["parent_request_type", "parent_request_id"], name: "index_button_video_processing_requests_on_parent_request"
   end
@@ -316,6 +319,26 @@ ActiveRecord::Schema[8.0].define(version: 2026_10_07_155050) do
     t.text "prompt"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "moderation_results", force: :cascade do |t|
+    t.string "moderatable_type"
+    t.bigint "moderatable_id"
+    t.string "command_request_type", null: false
+    t.bigint "command_request_id", null: false
+    t.string "input_kind", null: false
+    t.text "input_text"
+    t.string "model", null: false
+    t.boolean "blocked", default: false, null: false
+    t.string "blocked_by"
+    t.boolean "openai_flagged"
+    t.jsonb "result"
+    t.text "error"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["blocked"], name: "index_moderation_results_on_blocked"
+    t.index ["command_request_type", "command_request_id"], name: "index_moderation_results_on_command_request"
+    t.index ["moderatable_type", "moderatable_id"], name: "index_moderation_results_on_moderatable"
   end
 
   create_table "policy_acceptances", force: :cascade do |t|

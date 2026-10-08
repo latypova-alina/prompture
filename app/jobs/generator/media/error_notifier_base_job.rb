@@ -16,7 +16,7 @@ module Generator
           Telegram.bot.send_message(**message_data)
         end
 
-        request.update!(status: "FAILED")
+        record_failure
       end
 
       private
@@ -24,6 +24,12 @@ module Generator
       attr_reader :button_request_id, :error_reason, :flagged_message
 
       delegate :chat_id, :locale, to: :request
+
+      # A submit-time failure was already recorded with fal's response (CreateTask::FailureHandlerBase),
+      # so only what this job knows is written: the webhook's reason and fal's message.
+      def record_failure
+        ButtonRequests::FailureRecorder.call(button_request: request, reason: error_reason, message: flagged_message)
+      end
 
       def report_error
         return if flagged_message.blank?

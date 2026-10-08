@@ -103,4 +103,18 @@ describe "Admin button request show page" do
       expect(response.body).not_to include("/prompt_messages/")
     end
   end
+
+  describe "a generation fal rejected" do
+    let(:button_request) do
+      create(:button_image_processing_request, status: "FAILED", failure_reason: "content_flagged",
+                                               failure_message: "flagged by a content checker",
+                                               fal_payload: { prompt: "a cat", image_size: "square_hd" })
+    end
+
+    before { get "/button_requests/image_processing/#{button_request.id}", headers: auth_headers }
+
+    it { expect(response.body).to include("content_flagged") }
+    it { expect(response.body).to include("flagged by a content checker") }
+    it { expect(response.body).to include("&quot;prompt&quot;: &quot;a cat&quot;") }
+  end
 end

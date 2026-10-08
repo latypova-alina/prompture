@@ -30,7 +30,8 @@ describe Generator::Media::StoredMedia::Uploader do
       expect(StoreImage::Upload::Facade).to have_received(:new).with(
         bytes: "image-bytes",
         filename: "generated.png",
-        folder: "images"
+        folder: "images",
+        moderatable: record
       )
     end
 
@@ -48,7 +49,8 @@ describe Generator::Media::StoredMedia::Uploader do
         expect(StoreImage::Upload::Facade).to have_received(:new).with(
           bytes: "image-bytes",
           filename: "generated.png",
-          folder: "admin/cartoon/bloomy/images"
+          folder: "admin/cartoon/bloomy/images",
+          moderatable: record
         )
       end
     end

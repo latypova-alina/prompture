@@ -103,4 +103,23 @@ describe "Admin command request show page" do
       expect(response.body).to include("/button_requests/extend_prompt/")
     end
   end
+
+  describe "moderation of the inputs" do
+    let(:command_request) { create(:command_prompt_to_image_request, user:) }
+    let(:prompt_message) { create(:prompt_message, prompt: "a cat", command_request:, parent_request: command_request) }
+
+    before do
+      create(:moderation_result, command_request:, moderatable: prompt_message, input_text: "a cat",
+                                 result: { "category_scores" => { "violence" => 0.1234 } })
+      create(:moderation_result, :blocked, command_request:, input_text: "something nasty")
+
+      get "/command_requests/prompt_to_image/#{command_request.id}", headers: auth_headers
+    end
+
+    it { expect(response.body).to include("passed") }
+    it { expect(response.body).to include("0.1234") }
+    it { expect(response.body).to include("Blocked prompt") }
+    it { expect(response.body).to include("blocked: violence_score") }
+    it { expect(response.body).to include("something nasty") }
+  end
 end

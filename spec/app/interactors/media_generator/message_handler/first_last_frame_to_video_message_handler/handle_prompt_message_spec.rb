@@ -10,6 +10,7 @@ describe MediaGenerator::MessageHandler::FirstLastFrameToVideoMessageHandler::Ha
           MediaGenerator::MessageHandler::FirstLastFrameToVideoMessageHandler::ValidatePromptMessageType,
           MediaGenerator::MessageHandler::ModerateMessage,
           MediaGenerator::MessageHandler::ImageToVideoMessageHandler::CreatePromptMessage,
+          MediaGenerator::MessageHandler::LinkModerationResult,
           MediaGenerator::MessageHandler::FirstLastFrameToVideoMessageHandler::NotifyUser
         ]
       )

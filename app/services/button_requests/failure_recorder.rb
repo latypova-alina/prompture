@@ -1,5 +1,6 @@
 module ButtonRequests
-  # Finalizes a button request that will never be processed: FAILED plus why.
+  # Finalizes a button request that will never be processed: FAILED plus why. A nil reason or
+  # message keeps what was recorded earlier instead of erasing it.
   class FailureRecorder
     STATUS = "FAILED".freeze
 
@@ -17,7 +18,11 @@ module ButtonRequests
     end
 
     def call
-      button_request.update!(status: STATUS, failure_reason: reason, failure_message: message)
+      button_request.update!(
+        status: STATUS,
+        failure_reason: reason || button_request.failure_reason,
+        failure_message: message || button_request.failure_message
+      )
     end
 
     private

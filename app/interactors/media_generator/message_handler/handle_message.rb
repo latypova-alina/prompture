@@ -4,7 +4,7 @@ module MediaGenerator
       include Interactor::Organizer
 
       organize ParseUserMessage, FindCommandRequest, ValidateMessageType, ValidatePromptLength, ModerateMessage,
-               CreatePromptMessage, NotifyUser
+               CreatePromptMessage, LinkModerationResult, NotifyUser
     end
   end
 end
