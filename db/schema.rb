@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2026_10_07_141620) do
+ActiveRecord::Schema[8.0].define(version: 2026_10_07_155050) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -123,6 +123,8 @@ ActiveRecord::Schema[8.0].define(version: 2026_10_07_141620) do
     t.string "voice", default: "adam", null: false
     t.bigint "audio_prompt_id"
     t.string "fal_request_id"
+    t.string "failure_reason"
+    t.text "failure_message"
     t.index ["audio_prompt_id"], name: "index_button_audio_processing_requests_on_audio_prompt_id"
     t.index ["command_request_type", "command_request_id"], name: "index_button_audio_processing_requests_on_command_request"
     t.index ["parent_request_type", "parent_request_id"], name: "index_button_audio_processing_requests_on_parent_request"
@@ -137,6 +139,8 @@ ActiveRecord::Schema[8.0].define(version: 2026_10_07_141620) do
     t.bigint "command_request_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "failure_reason"
+    t.text "failure_message"
     t.index ["command_request_type", "command_request_id"], name: "index_button_extend_prompt_requests_on_command_request"
     t.index ["parent_request_type", "parent_request_id"], name: "index_button_extend_prompt_requests_on_parent_request"
   end
@@ -153,6 +157,8 @@ ActiveRecord::Schema[8.0].define(version: 2026_10_07_141620) do
     t.datetime "updated_at", null: false
     t.string "fal_request_id"
     t.bigint "interim_tg_message_id"
+    t.string "failure_reason"
+    t.text "failure_message"
     t.index ["command_request_type", "command_request_id"], name: "index_button_image_processing_requests_on_command_request"
     t.index ["parent_request_type", "parent_request_id"], name: "index_button_image_processing_requests_on_parent_request"
   end
@@ -169,6 +175,8 @@ ActiveRecord::Schema[8.0].define(version: 2026_10_07_141620) do
     t.bigint "command_request_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "failure_reason"
+    t.text "failure_message"
     t.index ["command_request_type", "command_request_id"], name: "index_btn_merge_av_requests_on_command"
     t.index ["parent_request_type", "parent_request_id"], name: "index_btn_merge_av_requests_on_parent"
   end
@@ -186,6 +194,8 @@ ActiveRecord::Schema[8.0].define(version: 2026_10_07_141620) do
     t.string "image_url", null: false
     t.string "fal_request_id"
     t.bigint "interim_tg_message_id"
+    t.string "failure_reason"
+    t.text "failure_message"
     t.index ["command_request_type", "command_request_id"], name: "index_button_video_processing_requests_on_command_request"
     t.index ["parent_request_type", "parent_request_id"], name: "index_button_video_processing_requests_on_parent_request"
   end

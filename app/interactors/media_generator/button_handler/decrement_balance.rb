@@ -13,7 +13,18 @@ module MediaGenerator
 
         Billing::Charger.call(user:, amount: cost, source: button_request_record)
       rescue InsufficientCreditsError => e
+        record_failure
         context.fail!(error: e.class)
+      end
+
+      private
+
+      # The request was already created, so finalize it instead of leaving it PENDING forever.
+      def record_failure
+        ButtonRequests::FailureRecorder.call(
+          button_request: button_request_record,
+          reason: ButtonRequests::FailureRecorder::INSUFFICIENT_CREDITS
+        )
       end
     end
   end

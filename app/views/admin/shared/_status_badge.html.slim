@@ -1,2 +1,4 @@
 - if status.present?
-  span class="badge badge-#{status.to_s.downcase}" = status
+  span class="badge badge-#{status.to_s.downcase}" title=local_assigns[:reason] = status
+  - if local_assigns[:reason].present?
+    span.failure-reason = reason.humanize
