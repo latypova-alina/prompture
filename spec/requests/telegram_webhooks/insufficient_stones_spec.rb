@@ -69,7 +69,7 @@ describe TelegramWebhooksController, telegram_bot: :rails do
       create(:user_image_url_message, command_request:, parent_request: command_request,
                                       image_url: "https://example.com/cat.png")
       allow_any_instance_of(described_class).to receive(:session).and_return(session)
-      allow(Moderation::OpenaiModeration).to receive(:flagged?).and_return(false)
+      stub_openai_moderation(blocked: false)
     end
 
     it_behaves_like "an insufficient stones reply"

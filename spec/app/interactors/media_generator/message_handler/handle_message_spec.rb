@@ -11,6 +11,7 @@ describe MediaGenerator::MessageHandler::HandleMessage do
           MediaGenerator::MessageHandler::ValidatePromptLength,
           MediaGenerator::MessageHandler::ModerateMessage,
           MediaGenerator::MessageHandler::CreatePromptMessage,
+          MediaGenerator::MessageHandler::LinkModerationResult,
           MediaGenerator::MessageHandler::NotifyUser
         ]
       )

@@ -11,8 +11,8 @@ describe StoreImage::Job do
 
   before do
     allow(StoreImage::Download::Facade).to receive(:new).with(record).and_return(download_facade)
-    allow(StoreImage::Upload::Facade).to receive(:new).with(bytes: "image-bytes",
-                                                            filename: "image.jpg").and_return(upload_facade)
+    allow(StoreImage::Upload::Facade).to receive(:new)
+      .with(bytes: "image-bytes", filename: "image.jpg", moderatable: record).and_return(upload_facade)
     allow(upload_facade).to receive(:upload_image)
     allow(StoreImage::StoredImageUpdater).to receive(:call)
     allow(StoreImage::SuccessNotifierJob).to receive(:perform_async)
@@ -24,7 +24,8 @@ describe StoreImage::Job do
       perform_job
 
       expect(StoreImage::Download::Facade).to have_received(:new).with(record)
-      expect(StoreImage::Upload::Facade).to have_received(:new).with(bytes: "image-bytes", filename: "image.jpg")
+      expect(StoreImage::Upload::Facade)
+        .to have_received(:new).with(bytes: "image-bytes", filename: "image.jpg", moderatable: record)
     end
 
     it "uploads image using upload facade" do

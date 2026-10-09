@@ -3,9 +3,11 @@ module StoreImage
     class Facade
       include Memery
 
-      def initialize(bytes:, filename:, folder: StoreMedia::Upload::ObjectKeyBuilder::DEFAULT_FOLDER)
+      # moderatable: the record the image belongs to; its moderation result is saved against it.
+      def initialize(bytes:, filename:, moderatable:, folder: StoreMedia::Upload::ObjectKeyBuilder::DEFAULT_FOLDER)
         @bytes = bytes
         @filename = filename
+        @moderatable = moderatable
         @folder = folder
       end
 
@@ -22,7 +24,7 @@ module StoreImage
 
       private
 
-      attr_reader :bytes, :filename, :folder
+      attr_reader :bytes, :filename, :moderatable, :folder
 
       delegate :object_key, to: :object_key_builder
       delegate :content_type, to: :content_type_resolver
@@ -36,7 +38,7 @@ module StoreImage
       end
 
       memoize def moderation_validator
-        ModerationValidator.new(bytes:, content_type:)
+        ModerationValidator.new(bytes:, content_type:, moderatable:)
       end
 
       memoize def stored_url_builder

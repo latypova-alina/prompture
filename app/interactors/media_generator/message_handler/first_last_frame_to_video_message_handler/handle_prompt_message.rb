@@ -9,6 +9,7 @@ module MediaGenerator
                  ValidatePromptMessageType,
                  MediaGenerator::MessageHandler::ModerateMessage,
                  ImageToVideoMessageHandler::CreatePromptMessage,
+                 MediaGenerator::MessageHandler::LinkModerationResult,
                  NotifyUser
       end
     end

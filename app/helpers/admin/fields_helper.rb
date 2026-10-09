@@ -10,6 +10,7 @@ module Admin
       return tag.span("—", class: "muted") if value.nil? || value == ""
       return external_link(value.text, value.url) if value.is_a?(Admin::FieldLink)
       return external_link("Open", value) if url?(value)
+      return tag.pre(JSON.pretty_generate(value), class: "json-value") if value.is_a?(Hash) || value.is_a?(Array)
 
       named_field_value(name, value)
     end

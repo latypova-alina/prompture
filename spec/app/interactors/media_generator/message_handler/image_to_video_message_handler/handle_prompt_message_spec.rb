@@ -20,7 +20,7 @@ describe MediaGenerator::MessageHandler::ImageToVideoMessageHandler::HandlePromp
       parent_request: command_request
     )
     create(:stored_image, source_message: picture_message, image_url: "https://example.com/image.png")
-    allow(Moderation::OpenaiModeration).to receive(:flagged?).and_return(false)
+    stub_openai_moderation(blocked: false)
     allow(TelegramIntegration::SendMessageWithButtons).to receive(:call)
   end
 

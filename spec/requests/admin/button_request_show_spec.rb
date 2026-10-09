@@ -103,4 +103,61 @@ describe "Admin button request show page" do
       expect(response.body).not_to include("/prompt_messages/")
     end
   end
+
+  describe "a generation fal rejected" do
+    let(:button_request) do
+      create(:button_image_processing_request, status: "FAILED", failure_reason: "content_flagged",
+                                               failure_message: "flagged by a content checker",
+                                               fal_payload: { prompt: "a cat", image_size: "square_hd" })
+    end
+
+    before { get "/button_requests/image_processing/#{button_request.id}", headers: auth_headers }
+
+    it { expect(response.body).to include("content_flagged") }
+    it { expect(response.body).to include("flagged by a content checker") }
+    it { expect(response.body).to include("&quot;prompt&quot;: &quot;a cat&quot;") }
+  end
+
+  describe "input moderation" do
+    subject(:body) do
+      get "/button_requests/image_processing/#{button_request.id}", headers: auth_headers
+      response.body
+    end
+
+    let(:button_request) { create(:button_image_processing_request) }
+
+    it { is_expected.not_to include("Input moderation") }
+
+    context "when the prompt was moderated" do
+      before do
+        create(:moderation_result, :blocked, command_request: button_request.command_request,
+                                             moderatable: button_request.parent_request)
+      end
+
+      it { is_expected.to include("Input moderation") }
+      it { is_expected.to include("PromptMessage##{button_request.parent_request_id}") }
+      it { is_expected.to include("blocked: violence_score") }
+    end
+  end
+
+  describe "generated image moderation" do
+    subject(:body) do
+      get "/button_requests/image_processing/#{button_request.id}", headers: auth_headers
+      response.body
+    end
+
+    let(:button_request) { create(:button_image_processing_request) }
+
+    it { is_expected.not_to include("Generated image moderation") }
+
+    context "when the generated image was moderated" do
+      before do
+        create(:moderation_result, :blocked, input_kind: "image", input_text: nil, moderatable: button_request,
+                                             command_request: button_request.command_request)
+      end
+
+      it { is_expected.to include("Generated image moderation") }
+      it { is_expected.to include("blocked: violence_score") }
+    end
+  end
 end

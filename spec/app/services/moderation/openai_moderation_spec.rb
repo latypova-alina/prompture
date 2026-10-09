@@ -1,8 +1,8 @@
 require "rails_helper"
 
 describe Moderation::OpenaiModeration do
-  describe ".flagged?" do
-    subject { described_class.flagged?(text) }
+  describe ".decision" do
+    subject { described_class.decision(text).blocked? }
 
     let(:text) { "test message" }
 

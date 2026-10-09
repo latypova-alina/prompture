@@ -1,0 +1,19 @@
+.moderation-result
+  - if result.error.present?
+    span.badge.badge-pending moderation error
+    span.muted = " #{result.error}"
+  - elsif result.blocked
+    span.badge.badge-blocked = "blocked: #{result.blocked_by}"
+  - else
+    span.badge.badge-completed passed
+  - if result.openai_flagged
+    span.muted  OpenAI flagged
+  - if result.category_scores.any?
+    details.moderation-scores
+      summary Scores
+      table
+        tbody
+          - result.category_scores.sort_by { |_, score| -score.to_f }.each do |category, score|
+            tr
+              td = category
+              td = format("%.4f", score.to_f)

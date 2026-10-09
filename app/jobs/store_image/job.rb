@@ -29,7 +29,7 @@ module StoreImage
     end
 
     memoize def internal_bucket_uploader
-      StoreImage::Upload::Facade.new(bytes:, filename:)
+      StoreImage::Upload::Facade.new(bytes:, filename:, moderatable: source_record)
     end
 
     def update_stored_image

@@ -29,7 +29,7 @@ module Generator
         delegate :category, to: :command_request
 
         memoize def upload_facade
-          StoreImage::Upload::Facade.new(bytes: downloaded_bytes, filename:, folder:)
+          StoreImage::Upload::Facade.new(bytes: downloaded_bytes, filename:, folder:, moderatable: record)
         end
 
         def folder

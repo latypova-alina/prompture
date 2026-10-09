@@ -48,6 +48,17 @@ describe Generator::Media::Image::ErrorNotifierJob do
         .to("FAILED")
     end
 
+    context "when the failure was already recorded at submit time" do
+      before { button_request.update!(failure_reason: "response_error", failure_message: '{"detail":"bad"}') }
+
+      it "keeps the recorded details" do
+        perform_job
+
+        expect(button_request.reload)
+          .to have_attributes(failure_reason: "response_error", failure_message: '{"detail":"bad"}')
+      end
+    end
+
     it "does not report to Sentry" do
       perform_job
 
@@ -68,6 +79,14 @@ describe Generator::Media::Image::ErrorNotifierJob do
 
     context "when the content was flagged by moderation" do
       subject(:perform_job) { described_class.new.perform(button_request.id, "content_flagged", "explicit content") }
+
+      it "records fal's reason and message on the request" do
+        perform_job
+
+        expect(button_request.reload).to have_attributes(
+          status: "FAILED", failure_reason: "content_flagged", failure_message: "explicit content"
+        )
+      end
 
       it "reports the flagged message to Sentry at info level" do
         perform_job

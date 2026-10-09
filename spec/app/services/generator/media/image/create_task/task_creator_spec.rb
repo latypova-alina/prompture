@@ -11,7 +11,7 @@ describe Generator::Media::Image::CreateTask::TaskCreator do
   let(:strategy_instance) { instance_double("Strategy", api_url: api_url) }
 
   let(:payload_composer_instance) { instance_double(Generator::Media::Image::CreateTask::PayloadComposer) }
-  let(:final_payload) { { foo: "bar" } }
+  let(:final_payload) { { prompt: "a cat", webhook_url: "https://example.com/webhook?request_id_token=secret" } }
   let(:webhook_url) { "https://example.com/webhook" }
 
   let(:api_client_instance) { instance_double(Generator::Media::Image::CreateTask::FalApiClient) }
@@ -62,6 +62,12 @@ describe Generator::Media::Image::CreateTask::TaskCreator do
         expect { call_service }.not_to raise_error
       end
 
+      it "saves the payload sent to fal without the webhook url" do
+        call_service
+
+        expect(request.reload.fal_payload).to eq("prompt" => "a cat")
+      end
+
       it "saves fal request id and sends interim message" do
         call_service
 
@@ -79,6 +85,12 @@ describe Generator::Media::Image::CreateTask::TaskCreator do
       it "raises Generator::ResponseError" do
         expect { call_service }
           .to raise_error(Generator::ResponseError)
+      end
+
+      it "still saves the payload sent to fal" do
+        expect { call_service }.to raise_error(Generator::ResponseError)
+
+        expect(request.reload.fal_payload).to eq("prompt" => "a cat")
       end
 
       it "carries the response body on the error message" do

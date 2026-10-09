@@ -1,8 +1,8 @@
 require "rails_helper"
 
 describe Moderation::OpenaiImageModeration do
-  describe ".flagged?" do
-    subject { described_class.flagged?(bytes:, content_type:) }
+  describe ".decision" do
+    subject { described_class.decision(bytes:, content_type:).blocked? }
 
     let(:bytes) { "image-bytes" }
     let(:content_type) { "image/jpeg" }

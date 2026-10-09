@@ -40,6 +40,14 @@ describe Generator::Media::Audio::CreateTask::FailureHandler do
     context "when fal.ai returns 403 Forbidden" do
       let(:error) { Generator::AccessForbidden.new('{"detail":"User is locked. Reason: Exhausted balance."}') }
 
+      it "records the reason and fal's response on the request" do
+        call_handler
+
+        expect(request.reload).to have_attributes(
+          status: "FAILED", failure_reason: "access_forbidden", failure_message: error.message
+        )
+      end
+
       it "reports the error message to Sentry at fatal level" do
         call_handler
 
@@ -51,6 +59,12 @@ describe Generator::Media::Audio::CreateTask::FailureHandler do
 
     context "when the request fails with a 422 or other non-403 error" do
       let(:error) { Generator::ResponseError.new('{"detail":"content_policy_violation"}') }
+
+      it "records it as content_flagged" do
+        call_handler
+
+        expect(request.reload).to have_attributes(failure_reason: "content_flagged", failure_message: error.message)
+      end
 
       it "reports the error message to Sentry at error level" do
         call_handler
