@@ -15,6 +15,7 @@ module Admin
                                                   id: params[:id])
       @children = Admin::ButtonRequestChildren.call(@button_request)
       @media = Admin::ButtonRequestMedia.new(@button_request)
+      @output_moderations = ModerationResult.where(moderatable: @button_request).order(:created_at)
     end
 
     private
