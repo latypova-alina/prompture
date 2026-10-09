@@ -33,6 +33,13 @@ h2 Media
   - if @media.links.any?
     = render "admin/shared/url_links", links: @media.links
 
+- if @input_moderations.any?
+  h2 Input moderation
+  - @input_moderations.each do |record, results|
+    h3 = Admin::RecordLabel.call(record)
+    - results.each do |result|
+      = render "admin/shared/moderation_result", result:
+
 - if @output_moderations.any?
   h2 Generated image moderation
   p.muted A blocked result isn't hidden from the user: the image just isn't copied to our bucket.

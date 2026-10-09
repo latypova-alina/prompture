@@ -118,6 +118,28 @@ describe "Admin button request show page" do
     it { expect(response.body).to include("&quot;prompt&quot;: &quot;a cat&quot;") }
   end
 
+  describe "input moderation" do
+    subject(:body) do
+      get "/button_requests/image_processing/#{button_request.id}", headers: auth_headers
+      response.body
+    end
+
+    let(:button_request) { create(:button_image_processing_request) }
+
+    it { is_expected.not_to include("Input moderation") }
+
+    context "when the prompt was moderated" do
+      before do
+        create(:moderation_result, :blocked, command_request: button_request.command_request,
+                                             moderatable: button_request.parent_request)
+      end
+
+      it { is_expected.to include("Input moderation") }
+      it { is_expected.to include("PromptMessage##{button_request.parent_request_id}") }
+      it { is_expected.to include("blocked: violence_score") }
+    end
+  end
+
   describe "generated image moderation" do
     subject(:body) do
       get "/button_requests/image_processing/#{button_request.id}", headers: auth_headers
