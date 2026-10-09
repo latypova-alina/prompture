@@ -2,6 +2,8 @@ module Generator
   module Media
     module CreateTask
       class FailureHandlerBase
+        include Memery
+
         ERROR_REASONS = {
           Generator::DailyLimitExceeded => "daily_limit_exceeded"
         }.freeze
@@ -27,6 +29,7 @@ module Generator
         private
 
         delegate :user, :cost, to: :request
+        delegate :reason, :message, to: :failure_details, prefix: :failure
 
         attr_reader :request, :error
 
@@ -39,11 +42,13 @@ module Generator
         def record_failure
           return if error.blank?
 
-          details = Generator::Media::CreateTask::FailureDetails.new(error)
-
           ButtonRequests::FailureRecorder.call(
-            button_request: request, reason: details.reason, message: details.message
+            button_request: request, reason: failure_reason, message: failure_message
           )
+        end
+
+        memoize def failure_details
+          Generator::Media::CreateTask::FailureDetails.new(error)
         end
 
         def report_error

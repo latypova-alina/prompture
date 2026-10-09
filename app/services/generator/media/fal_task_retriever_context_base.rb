@@ -31,9 +31,7 @@ module Generator
         "content_flagged" if content_policy_violation?
       end
 
-      def flagged_message
-        fal_error_detail.message
-      end
+      delegate :message, to: :fal_error_detail, prefix: :flagged
 
       private
 

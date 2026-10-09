@@ -23,13 +23,11 @@ class Moderation::ResultRecorder
   attr_reader :input, :decision, :error
 
   delegate :input_kind, :input_text, :command_request, :moderatable, to: :input
+  delegate :blocked?, :blocked_by, :openai_flagged, :result, to: :decision
 
   def decision_attributes
     return {} if decision.nil?
 
-    {
-      blocked: decision.blocked?, blocked_by: decision.blocked_by,
-      openai_flagged: decision.openai_flagged, result: decision.result
-    }
+    { blocked: blocked?, blocked_by:, openai_flagged:, result: }
   end
 end

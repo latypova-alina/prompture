@@ -13,31 +13,31 @@ module Generator
           Generator::ResponseError => "response_error"
         }.freeze
 
+        # The fal response body (or the error message when there's no body).
+        delegate :message, to: :error
+
         def initialize(error)
           @error = error
         end
 
         def reason
-          return CONTENT_FLAGGED if fal_error_detail.content_policy_violation?
+          return CONTENT_FLAGGED if content_policy_violation?
 
           REASONS.fetch(error.class, UNKNOWN)
-        end
-
-        # The fal response body (or the error message when there's no body).
-        def message
-          error.message
         end
 
         private
 
         attr_reader :error
 
+        delegate :content_policy_violation?, to: :fal_error_detail
+
         memoize def fal_error_detail
           Generator::Media::FalErrorDetail.new(parsed_body)
         end
 
         def parsed_body
-          body = JSON.parse(error.message)
+          body = JSON.parse(message)
           body.is_a?(Hash) ? body : {}
         rescue JSON::ParserError
           {}

@@ -11,7 +11,7 @@ class Moderation::RecordedCheck
   end
 
   def call
-    Moderation::ResultRecorder.call(input:, decision: moderation.decision)
+    Moderation::ResultRecorder.call(input:, decision:)
   rescue ModerationRequestError => e
     Moderation::ResultRecorder.call(input:, error: e.message)
     raise
@@ -20,4 +20,6 @@ class Moderation::RecordedCheck
   private
 
   attr_reader :moderation, :input
+
+  delegate :decision, to: :moderation
 end

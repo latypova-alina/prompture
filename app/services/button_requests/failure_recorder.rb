@@ -20,13 +20,15 @@ module ButtonRequests
     def call
       button_request.update!(
         status: STATUS,
-        failure_reason: reason || button_request.failure_reason,
-        failure_message: message || button_request.failure_message
+        failure_reason: reason || failure_reason,
+        failure_message: message || failure_message
       )
     end
 
     private
 
     attr_reader :button_request, :reason, :message
+
+    delegate :failure_reason, :failure_message, to: :button_request
   end
 end
