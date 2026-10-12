@@ -4,6 +4,10 @@
 
 # 🖼️🤖 Caivemanator – Image and Video Generator Bot
 
+> ℹ️ This is a showcase repository. Caivemanator is a commercial bot, so its source code is private.
+> Here you'll find up-to-date links to the bot and a short overview with screenshots.
+> If you'd like to see the code (for example, if you found this repository through my resume), please contact me directly and I'll add you as a collaborator.
+
 **Caivemanator** is a Telegram bot that helps you create images and videos from prompt you provide
 
 ---
@@ -51,7 +55,7 @@ Check your balance anytime with `/balance`.
 
 There are two ways to get credits:
 
-- 🔑 **Activate a token** — if you are on this page, you most likely already have one. Use `/start YOUR_TOKEN` (or `/activate_token!` inside the bot) to redeem it. If you don't have a token, please contact the owner of this repository to obtain one.
+- 🔑 **Activate an invite token** — if you have one, use `/start YOUR_TOKEN` (or `/activate_token!` inside the bot) to redeem it.
 - ⭐ **Buy stones with Telegram Stars** — use `/buy_stones` inside the bot to purchase a credit pack directly with Telegram Stars, no token needed.
 
 ---
