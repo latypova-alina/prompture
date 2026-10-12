@@ -53,7 +53,8 @@ There are two ways to get credits:
 ---
 
 ## 📸 Screenshots
-<img width="1215" height="1280" alt="photo_2026-08-09_17-37-10" src="https://github.com/user-attachments/assets/99f37da1-3cad-40e7-8de5-b4eabdd48ff9" />
+<img width="1215" height="1280" alt="633425369-99f37da1-3cad-40e7-8de5-b4eabdd48ff9" src="https://github.com/user-attachments/assets/b7f70c5f-5103-4cb8-a550-17b40f0b005a" />
+
 
 
 ---
