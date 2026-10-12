@@ -1,3 +1,7 @@
+<img width="100" height="100" alt="caveman_logo" src="https://github.com/user-attachments/assets/5a577e47-dc08-45de-88bf-2b728f51d749" />
+
+
+
 # 🖼️🤖 Caivemanator – Image and Video Generator Bot
 
 **Caivemanator** is a Telegram bot that helps you create images and videos from prompt you provide
