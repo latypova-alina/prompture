@@ -1,6 +1,6 @@
-# 🖼️🤖 Prompture – Image and Video Generator Bot
+# 🖼️🤖 Caivemanator – Image and Video Generator Bot
 
-**Prompture** is a Telegram bot that helps you create images and videos from prompt you provide
+**Caivemanator** is a Telegram bot that helps you create images and videos from prompt you provide
 
 ---
 
@@ -27,10 +27,10 @@
 ## 📬 Bot Link
 
  If you have a token you can activate it right away
-  - 👉 https://t.me/prompture_bot/start=YOUR_TOKEN
+  - 👉 https://t.me/caivemanator_bot?start=YOUR_TOKEN
  
  Otherwise, just follow this link:
-  - 👉 https://t.me/prompture_bot  
+  - 👉 https://t.me/caivemanator_bot  
 
 ---
 
